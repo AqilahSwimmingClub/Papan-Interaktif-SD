@@ -37,6 +37,7 @@ import { ReferensiScreen } from '../features/referensi/ReferensiScreen';
 import { PemetaanReferensiScreen } from '../features/referensi/PemetaanReferensiScreen';
 import { KelolaAkunScreen } from '../features/auth/KelolaAkunScreen';
 import { TentangAplikasiScreen } from '../features/pelengkap/TentangAplikasiScreen';
+import { AiStudioScreen } from '../features/ai/AiStudioScreen';
 
 /**
  * Peta rute aplikasi sampai Tahap 11.
@@ -118,6 +119,11 @@ export function AppRoutes() {
         <Route path={RUTE.lainnya} element={<MenuLainnyaScreen />} />
         <Route path={RUTE.game} element={<KatalogGameScreen />} />
         <Route path="/pembelajaran/:jenis" element={<FiturPembelajaranScreen />} />
+        <Route path="/fitur/pembuat-lkpd" element={<AiStudioScreen />} />
+        <Route path="/fitur/pembuat-soal" element={<AiStudioScreen />} />
+        <Route path="/fitur/pembuat-materi" element={<AiStudioScreen />} />
+        <Route path="/fitur/game-generator" element={<AiStudioScreen />} />
+        <Route path="/fitur/studio-ai" element={<AiStudioScreen />} />
         <Route path="/fitur/:fitur" element={<FiturMenyusulScreen />} />
       </Route>
 

@@ -426,7 +426,7 @@ export interface Kehadiran {
 
 export interface ObjekPapan {
   id: string;
-  jenis: 'goresan' | 'teks' | 'bentuk';
+  jenis: 'goresan' | 'teks' | 'bentuk' | 'media' | 'alat_ukur';
   data: string;
   warna: string;
   ukuran: number;

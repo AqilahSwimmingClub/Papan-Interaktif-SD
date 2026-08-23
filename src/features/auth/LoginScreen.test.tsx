@@ -137,6 +137,8 @@ describe('layar login', () => {
     await pengguna.click(screen.getByRole('button', { name: 'MASUK' }));
     await screen.findByTestId('beranda-terlindungi');
 
+    const tombolAkun = await screen.findAllByRole('button', { name: 'Buka menu akun' });
+    await pengguna.click(tombolAkun[0]!);
     await pengguna.click(screen.getByRole('button', { name: 'Logout' }));
 
     await waitFor(() => {

@@ -7,6 +7,7 @@ import { log } from '../../lib/errors/logger';
 import { RUTE } from '../../routes/paths';
 import { akhiriSesiAktifGuru, daftarSesiAktifGuru } from '../../lib/storage/kelasRepo';
 import './kerangka-guru.css';
+import './kerangka-akun.css';
 
 interface ItemNavigasi {
   label: string;
@@ -71,6 +72,7 @@ export function KerangkaGuru() {
   const { akun, peran, keluar } = useAuth();
   const [sekolah, setSekolah] = useState<Sekolah | null>(null);
   const [sedangKeluar, setSedangKeluar] = useState(false);
+  const [menuAkun, setMenuAkun] = useState(false);
 
   useEffect(() => {
     void bacaSekolah()
@@ -159,10 +161,11 @@ export function KerangkaGuru() {
             <button
               type="button"
               className="guru-sidebar__keluar"
-              onClick={() => void tanganiKeluar()}
+              onClick={() => setMenuAkun((nilai) => !nilai)}
               disabled={sedangKeluar}
-              aria-label="Logout"
-              title="Logout"
+              aria-label="Buka menu akun"
+              aria-expanded={menuAkun}
+              title="Menu akun"
             >
               {sedangKeluar ? '…' : '↪'}
             </button>
@@ -190,12 +193,21 @@ export function KerangkaGuru() {
           <Link className="guru-topbar__papan" to={RUTE.papan}>
             Buka Papan
           </Link>
+          <button className="guru-topbar__akun" type="button" onClick={() => setMenuAkun((nilai) => !nilai)} aria-label="Buka menu akun" aria-expanded={menuAkun}>{inisial(namaAkun) || 'PI'}</button>
         </header>
 
         <div className="kerangka-guru__isi">
           <Outlet />
         </div>
       </div>
+
+      {menuAkun ? <aside className="guru-menu-akun" aria-label="Menu akun guru">
+        <header><span className="guru-sidebar__avatar">{inisial(namaAkun) || 'PI'}</span><div><strong>{namaAkun}</strong><small>{labelPeran}</small></div><button type="button" onClick={() => setMenuAkun(false)} aria-label="Tutup menu akun">×</button></header>
+        {peran === 'admin' ? <Link to={RUTE.kelolaAkun} onClick={() => setMenuAkun(false)}>Kelola Akun Guru</Link> : null}
+        <button type="button" onClick={() => void tanganiKeluar()} disabled={sedangKeluar}>Ganti Akun</button>
+        <button className="guru-menu-akun__logout" type="button" onClick={() => void tanganiKeluar()} disabled={sedangKeluar}>Logout</button>
+        <p>Logout hanya menutup sesi. Data kelas dan pembelajaran tetap tersimpan di perangkat.</p>
+      </aside> : null}
 
       <nav className="guru-nav-bawah" aria-label="Navigasi HP">
         {[

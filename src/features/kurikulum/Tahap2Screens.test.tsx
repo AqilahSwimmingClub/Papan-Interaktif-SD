@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../routes/AppRoutes';
 import { AuthProvider } from '../../state/AuthProvider';
-import { buatAdminPertama, masuk } from '../../lib/auth/authService';
+import { buatAdminPertama, masuk, perangkatSudahPunyaAdmin } from '../../lib/auth/authService';
 import { tandaiOpeningSelesai } from '../../lib/opening/pemutaranOpening';
 import { resetPenyimpanan } from '../../test/bantuan';
 import { RUTE } from '../../routes/paths';
@@ -97,5 +97,19 @@ describe('layar Tahap 2', () => {
       screen.getByText('Semua materi wajib tertaut TP dan dapat dibuka kembali tanpa internet.'),
     ).toBeVisible();
     expect(screen.getByText(/^TP-MAT-/)).toBeVisible();
+  });
+
+  it('menampilkan aksi akun yang jelas dan ganti akun hanya menutup sesi', async () => {
+    const pengguna = userEvent.setup();
+    await pasangTahap2(RUTE.dasbor);
+    const tombol = await screen.findAllByRole('button', { name: 'Buka menu akun' });
+    await pengguna.click(tombol[0]!);
+    expect(screen.getByRole('link', { name: 'Kelola Akun Guru' })).toBeVisible();
+    expect(screen.getByRole('button', { name: 'Ganti Akun' })).toBeVisible();
+    expect(screen.getByRole('button', { name: 'Logout' })).toBeVisible();
+    expect(screen.getByText(/Logout hanya menutup sesi/)).toBeVisible();
+    await pengguna.click(screen.getByRole('button', { name: 'Ganti Akun' }));
+    expect(await screen.findByTestId('layar-login')).toBeVisible();
+    expect(await perangkatSudahPunyaAdmin()).toBe(true);
   });
 });

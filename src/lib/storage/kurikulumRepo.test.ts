@@ -33,6 +33,7 @@ describe('database kurikulum Tahap 2', () => {
 
     expect(cp.filter((baris) => baris.dokumen_kode === '046/H/KR/2025')).toHaveLength(29);
     expect(cp.filter((baris) => baris.dokumen_kode === '020/2026')).toHaveLength(18);
+    expect(cp.every((baris) => baris.terverifikasi)).toBe(true);
     expect(
       new Set(
         cp.filter((baris) => baris.dokumen_kode === '020/2026').map((baris) => baris.mapel_kode),

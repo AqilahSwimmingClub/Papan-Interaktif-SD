@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { keAppError } from '../../lib/errors/AppError';
+import { alasanEngineGame } from '../../lib/gameContent';
 import { GAME_ENGINE_FINAL } from '../../lib/gameEngines';
 import { buatKatalogGameUntukTp } from '../../lib/storage/gameRepo';
 import { bacaRantaiTpAktif, type RantaiTpAktif } from '../../lib/storage/isiRepo';
@@ -95,6 +96,7 @@ export function KatalogGameScreen() {
           <option value="semua">Semua tingkat</option><option value="mudah">Mudah</option>
           <option value="sedang">Sedang</option><option value="sulit">Sulit</option>
         </select></label>
+        <Link to="/fitur/game-generator">Buat game dengan AI</Link>
         <Link to={ruteCpTp(konteks.tingkat_kelas, konteks.mapel_kode)}>Ganti TP</Link>
       </section>
 
@@ -109,6 +111,7 @@ export function KatalogGameScreen() {
                 <span className={`game-card__ikon game-card__ikon--${indeks % 6}`} aria-hidden="true">{item.engine_kode.replace('GE-', '')}</span>
                 <div className="game-card__isi">
                   <p>{engine?.yang_diukur ?? 'Aktivitas TP'}</p><h2>{item.judul}</h2>
+                  {engine && rantai ? <small>{alasanEngineGame(engine, rantai.tp.teks_tujuan)}</small> : null}
                   <div><span>{LABEL_MODE[item.mode_permainan]}</span><span>{item.durasi_menit} menit</span><span>{item.jumlah_butir} butir</span></div>
                 </div>
                 <Link to={ruteMainGame(item.id)}>Mainkan <span aria-hidden="true">→</span></Link>

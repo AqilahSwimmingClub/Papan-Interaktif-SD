@@ -1,0 +1,116 @@
+import { Capacitor } from '@capacitor/core';
+
+export type JenisKeluaranAi = 'game' | 'lkpd' | 'soal' | 'materi';
+
+export interface ButirHasilAi {
+  pertanyaan: string;
+  jawaban: string;
+  pilihan: string[];
+  pembahasan: string;
+  rubrik: string;
+}
+
+export interface HasilGenerasiAi {
+  judul: string;
+  ringkasan: string;
+  butir: ButirHasilAi[];
+}
+
+export interface PermintaanGenerasiAi {
+  jenis: JenisKeluaranAi;
+  prompt: string;
+  jumlah: number;
+  engineKode?: string;
+  kendali: Record<string, string | number | boolean>;
+  konteks: {
+    tingkatKelas: number;
+    faseKode: string;
+    mapelKode: string;
+    cpId: string;
+    tpId: string;
+    cp: string;
+    tp: string;
+    referensi: Array<{ judul: string; bab: string; lingkupIzin: string }>;
+    terverifikasi: true;
+  };
+}
+
+export type KodeGalatAi = 'AI_OFFLINE' | 'AI_NOT_CONFIGURED' | 'AI_TIMEOUT' | 'AI_RATE_LIMIT' | 'AI_INVALID_RESPONSE' | 'AI_SERVICE_ERROR';
+
+export class GalatAi extends Error {
+  readonly kode: KodeGalatAi;
+  constructor(kode: KodeGalatAi, pesan: string) {
+    super(pesan);
+    this.name = 'GalatAi';
+    this.kode = kode;
+  }
+}
+
+function endpointAi(): string {
+  const konfigurasi = import.meta.env.VITE_AI_ENDPOINT?.trim();
+  if (konfigurasi) return konfigurasi;
+  return Capacitor.isNativePlatform()
+    ? 'https://papan-interaktif-sd.vercel.app/api/ai/generate'
+    : '/api/ai/generate';
+}
+
+function validasiHasil(nilai: unknown): HasilGenerasiAi {
+  if (!nilai || typeof nilai !== 'object') throw new GalatAi('AI_INVALID_RESPONSE', 'Respons AI tidak berbentuk objek yang dapat dipakai.');
+  const calon = nilai as Partial<HasilGenerasiAi>;
+  if (!calon.judul?.trim() || !calon.ringkasan?.trim() || !Array.isArray(calon.butir) || !calon.butir.length) {
+    throw new GalatAi('AI_INVALID_RESPONSE', 'Respons AI tidak lengkap. Coba lagi atau perjelas prompt.');
+  }
+  const butir = calon.butir.map((item) => {
+    if (!item || typeof item !== 'object') throw new GalatAi('AI_INVALID_RESPONSE', 'Salah satu butir AI tidak valid.');
+    const baris = item as Partial<ButirHasilAi>;
+    if (!baris.pertanyaan?.trim() || !baris.jawaban?.trim()) throw new GalatAi('AI_INVALID_RESPONSE', 'Butir AI tidak memiliki pertanyaan atau jawaban.');
+    return {
+      pertanyaan: baris.pertanyaan.trim(), jawaban: baris.jawaban.trim(),
+      pilihan: Array.isArray(baris.pilihan) ? baris.pilihan.filter((x): x is string => typeof x === 'string' && Boolean(x.trim())).map((x) => x.trim()) : [],
+      pembahasan: baris.pembahasan?.trim() ?? '', rubrik: baris.rubrik?.trim() ?? '',
+    };
+  });
+  return { judul: calon.judul.trim(), ringkasan: calon.ringkasan.trim(), butir };
+}
+
+async function sekali(permintaan: PermintaanGenerasiAi, batasMs: number): Promise<HasilGenerasiAi> {
+  const pengendali = new AbortController();
+  const batas = window.setTimeout(() => pengendali.abort(), batasMs);
+  try {
+    const respons = await fetch(endpointAi(), {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(permintaan), signal: pengendali.signal,
+    });
+    const data = await respons.json().catch(() => null) as { ok?: boolean; hasil?: unknown; kode?: KodeGalatAi; pesan?: string } | null;
+    if (!respons.ok || !data?.ok) {
+      const kode = data?.kode ?? (respons.status === 429
+        ? 'AI_RATE_LIMIT'
+        : respons.status === 404 || (respons.ok && !data)
+          ? 'AI_NOT_CONFIGURED'
+          : 'AI_SERVICE_ERROR');
+      const pesanBawaan = kode === 'AI_NOT_CONFIGURED'
+        ? 'Layanan AI belum dikonfigurasi oleh administrator.'
+        : 'Layanan AI sedang tidak dapat digunakan.';
+      throw new GalatAi(kode, data?.pesan ?? pesanBawaan);
+    }
+    return validasiHasil(data.hasil);
+  } catch (galat) {
+    if (galat instanceof GalatAi) throw galat;
+    if (galat instanceof DOMException && galat.name === 'AbortError') throw new GalatAi('AI_TIMEOUT', 'Layanan AI melewati batas waktu. Coba lagi.');
+    throw new GalatAi('AI_SERVICE_ERROR', 'Tidak dapat terhubung ke layanan AI. Prompt tetap tersimpan di perangkat.');
+  } finally {
+    window.clearTimeout(batas);
+  }
+}
+
+/** Satu retry aman untuk timeout/galat sementara; validasi dan rate limit tidak diulang. */
+export async function mintaGenerasiAi(permintaan: PermintaanGenerasiAi): Promise<HasilGenerasiAi> {
+  if (typeof navigator !== 'undefined' && !navigator.onLine) throw new GalatAi('AI_OFFLINE', 'Perangkat sedang offline. Permintaan dimasukkan ke antrean lokal.');
+  try {
+    return await sekali(permintaan, 30_000);
+  } catch (galat) {
+    if (galat instanceof GalatAi && !['AI_TIMEOUT', 'AI_SERVICE_ERROR'].includes(galat.kode)) throw galat;
+    await new Promise((selesai) => window.setTimeout(selesai, 650));
+    return sekali(permintaan, 30_000);
+  }
+}
