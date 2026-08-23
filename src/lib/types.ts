@@ -295,28 +295,79 @@ export interface Asesmen {
 export interface GamePembelajaran {
   id: string;
   tp_id: string;
+  tingkat_kelas: number;
+  fase_kode: KodeFase;
+  mapel_kode: string;
+  cp_id: string;
+  materi_id: string | null;
   engine_kode: string;
   judul: string;
   tingkat_kesulitan: 'mudah' | 'sedang' | 'sulit';
-  mode_permainan: 'individu' | 'kelompok' | 'battle' | 'seluruh_kelas';
+  mode_permainan: ModePermainanGame;
   durasi_menit: number;
   jumlah_butir: number;
   detik_per_butir: number | null;
-  butir: unknown[];
+  butir: ButirGame[];
   prompt_ai_id: string | null;
   status_persetujuan: StatusPersetujuan;
   jumlah_dimainkan: number;
   referensi_bab_id: string | null;
 }
 
+export type ModePermainanGame = 'individu' | 'kelompok' | 'battle' | 'seluruh_kelas';
+export type DukunganFaseGame = 'cocok' | 'disederhanakan' | 'tidak';
+export type MekanikGame =
+  | 'pilihan'
+  | 'benar_salah'
+  | 'pasangan'
+  | 'urutan'
+  | 'klasifikasi'
+  | 'papan'
+  | 'simulasi';
+
+export interface ProfilFaseGame {
+  fase_kode: KodeFase;
+  jumlah_pilihan: number;
+  ukuran_kartu_min: number;
+  detik_per_butir: number | null;
+  jumlah_butir_maks: number;
+  bacakan_wajib: boolean;
+  peringkat: 'tidak_ada' | 'kelompok' | 'tiga_teratas_kelas';
+}
+
+export interface ButirGame {
+  id: string;
+  pertanyaan: string;
+  pilihan: string[];
+  jawaban: string;
+  penjelasan: string;
+  sumber: 'cp' | 'tp' | 'materi' | 'elemen';
+}
+
 export interface GameEngine {
   kode: string;
   nama: string;
   yang_diukur: string;
-  mode_didukung: string[];
+  mode_didukung: ModePermainanGame[];
   fase_didukung: KodeFase[];
+  dukungan_fase: Record<KodeFase, DukunganFaseGame>;
   mapel_cocok: string[];
   kata_kerja_tp: string[];
+  mekanik: MekanikGame;
+  petunjuk: string;
+}
+
+export interface JawabanButirGame {
+  butir_id: string;
+  jawaban: string;
+  benar: boolean;
+  skor: number;
+}
+
+export interface RingkasanPermainan {
+  skor: number;
+  skor_maksimal: number;
+  jawaban: JawabanButirGame[];
 }
 
 export interface TautanTp {

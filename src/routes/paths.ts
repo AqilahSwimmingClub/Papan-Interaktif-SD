@@ -9,6 +9,8 @@ export const RUTE = {
   kelas: '/kelas',
   papan: '/pembelajaran/papan',
   game: '/pembelajaran/game',
+  referensi: '/perpustakaan/referensi',
+  pemetaanReferensi: '/perpustakaan/referensi/pemetaan',
   materi: '/pembelajaran/materi',
   kelompok: '/kelas/kelompok',
   rekap: '/kelas/rekap',
@@ -31,6 +33,10 @@ export function ruteMapel(tingkat: number): string {
 
 export function ruteCpTp(tingkat: number, mapelKode: string): string {
   return `/kelas/${tingkat}/mapel/${encodeURIComponent(mapelKode)}`;
+}
+
+export function ruteMainGame(gameId: string): string {
+  return `/pembelajaran/game/${encodeURIComponent(gameId)}/main`;
 }
 
 export type JenisPembelajaran = 'materi' | 'game' | 'lkpd' | 'asesmen' | 'papan';

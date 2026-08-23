@@ -8,7 +8,7 @@ import { AppError } from '../errors/AppError';
  * kurikulum sebagai migrasi baru tanpa membongkar penyimpanan autentikasi.
  */
 export const NAMA_BASIS_DATA = 'papan-interaktif-sd';
-export const VERSI_BASIS_DATA = 3;
+export const VERSI_BASIS_DATA = 4;
 
 export const TOKO = {
   akun: 'akun',
@@ -223,6 +223,26 @@ const MIGRASI: Record<number, Migrasi> = {
     });
     referensiSekolah.createIndex('sekolah_id', 'sekolah_id', { unique: false });
   },
+  4: (_db, transaksi) => {
+    const cp = transaksi.objectStore(TOKO.cp);
+    if (!cp.indexNames.contains('terverifikasi')) {
+      cp.createIndex('terverifikasi', 'terverifikasi', { unique: false });
+    }
+
+    const game = transaksi.objectStore(TOKO.game);
+    if (!game.indexNames.contains('mapel_kode')) {
+      game.createIndex('mapel_kode', 'mapel_kode', { unique: false });
+    }
+    if (!game.indexNames.contains('cp_id')) {
+      game.createIndex('cp_id', 'cp_id', { unique: false });
+    }
+    if (!game.indexNames.contains('fase_kode')) {
+      game.createIndex('fase_kode', 'fase_kode', { unique: false });
+    }
+    if (!game.indexNames.contains('status_persetujuan')) {
+      game.createIndex('status_persetujuan', 'status_persetujuan', { unique: false });
+    }
+  },
 };
 
 let koneksi: Promise<IDBDatabase> | null = null;
@@ -337,9 +357,25 @@ export async function jalankanTransaksi<T>(
       );
   });
 
-  const hasil = await kerja((nama) => transaksi.objectStore(nama));
-  if (mode !== 'readonly') await selesaiTransaksi;
-  return hasil;
+  try {
+    const hasil = await kerja((nama) => transaksi.objectStore(nama));
+    if (mode !== 'readonly') await selesaiTransaksi;
+    return hasil;
+  } catch (galat) {
+    try {
+      transaksi.abort();
+    } catch {
+      /* transaksi mungkin sudah selesai atau sudah dibatalkan */
+    }
+    if (mode !== 'readonly') {
+      try {
+        await selesaiTransaksi;
+      } catch {
+        /* galat asli dari pekerjaan lebih berguna daripada galat abort */
+      }
+    }
+    throw galat;
+  }
 }
 
 export const kueri = {

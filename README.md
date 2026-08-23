@@ -13,7 +13,7 @@ daftar fitur memerlukan persetujuan pemilik proyek terlebih dahulu.
 
 ---
 
-## Status: Tahap 6 — Kurikulum, Layar Pelengkap, dan Papan Responsif
+## Status: Tahap 10 — Game, CP/TP, Multi-Referensi, dan Impor Data
 
 Yang sudah berdiri sampai tahap ini:
 
@@ -25,7 +25,7 @@ Yang sudah berdiri sampai tahap ini:
 | Layar 29 Login | Admin/Guru, sesi lokal, Logout, Lupa Password tanpa surel |
 | Dashboard Guru | Kerangka kerja Guru adaptif, keadaan jadwal kosong, ringkasan kurikulum nyata, pilihan kelas |
 | Navigasi kurikulum | Dashboard → Kelas → Mapel → Elemen/CP → TP → tujuan fitur pembelajaran |
-| Database kurikulum | IndexedDB v3: 38 tabel domain dalam enam zona + penanda perangkat; seed offline final 47 CP, 221 elemen, 212 TP Rekomendasi |
+| Database kurikulum | IndexedDB v4: 38 tabel domain dalam enam zona + penanda perangkat; seed offline final 47 CP, 221 elemen, 212 TP Rekomendasi |
 | CP Agama | 18 CP enam agama × tiga fase dari dataset final Nomor 020 Tahun 2026; tanpa TP rekaan |
 | Integritas data | Audit relasi kelas → fase → mapel → elemen → CP → TP → materi/referensi, deteksi relasi putus dan duplikat teknis |
 | Konten lokal | Editor materi tujuh blok, kaitan TP, metadata tujuh referensi final repository, dan indeks pencarian offline |
@@ -34,12 +34,15 @@ Yang sudah berdiri sampai tahap ini:
 | State lokal | Konteks kurikulum per akun, kelas/siswa/kelompok, materi/media, hasil, pencarian, dan cadangan tersimpan lokal |
 | Responsive | HP 6″ portrait/landscape, tablet 11″ portrait/landscape, desktop 14″, Full HD, dan penskalaan 4K |
 | Offline/PWA | Manifest, service worker produksi, cache shell/runtime, status penyimpanan, serta antrean AI lokal |
+| Pustaka game | 30 engine reusable, profil Fase A/B/C, empat penyaring, katalog minimal enam game per TP, runner layar penuh, dan penyimpanan hasil Mode Siswa |
+| Kontrak isi aktif | Materi, game, LKPD, soal, dan asesmen memakai satu pembaca rantai kelas → fase → mapel → elemen → CP → TP |
+| Multi-referensi | Referensi utama/pendamping, metadata bab/unit, relasi banyak-ke-banyak Bab → TP, dan pembatasan sumber metadata-saja |
+| Impor kurikulum | Parser JSON/CSV 01–09, preview per baris, verifikasi operator, sepuluh aturan penolakan, versioning, dan transaksi rollback atomik |
 
-Belum dikerjakan dan **memang tidak termasuk Tahap 3–6**:
-30 game engine, Studio AI/AI live, generator final LKPD/soal/asesmen, pelaporan
-lanjutan, serta parser impor operator untuk paket kurikulum baru. Layar Muat CP
-menyediakan alur staging dan validasi cakupan; seed resmi aplikasi tetap hanya
-menggunakan dataset final yang sudah tersedia di repository.
+Belum dikerjakan dan **memang tidak termasuk Tahap 7–10**: Studio AI/AI live,
+generator final LKPD/soal/asesmen, pelaporan lanjutan, serta finalisasi Tahap 11.
+Data yang belum diverifikasi operator dapat ditampilkan untuk pemeriksaan, tetapi
+tidak dapat dipakai sebagai konteks atau sitasi AI.
 
 ---
 
@@ -84,11 +87,14 @@ src/
   lib/
     types.ts                   kontrak 38 tabel domain dan tipe aplikasi
     storage/
-      db.ts                    IndexedDB + migrasi bernomor v1–v3
+      db.ts                    IndexedDB + migrasi bernomor v1–v4
       kurikulumRepo.ts         seed dataset final
       kurikulumAdminRepo.ts    audit relasi, TP sekolah, materi/referensi
       kelasRepo.ts             kelas, siswa, kelompok, hasil, sesi papan
       pelengkapRepo.ts         profil, media, cari, backup/restore, offline
+      gameRepo.ts              katalog game dinamis, relasi, hasil siswa
+      isiRepo.ts               pembaca CP/TP aktif dan gerbang sitasi AI
+      referensiRepo.ts         referensi utama/pendamping dan Bab → TP
       akunRepo.ts sesiRepo.ts sekolahRepo.ts perangkatRepo.ts
     auth/
       sandi.ts                 PBKDF2-SHA256 210.000 iterasi + imbuhan acak
@@ -96,6 +102,8 @@ src/
       authService.ts           setup, masuk, keluar, jeda coba-coba
       keadaanSesi.ts           lima keadaan sesi
     opening/pemutaranOpening.ts  penanda sekali per pembukaan aplikasi
+    gameEngines.ts             registry dan profil 30 engine reusable
+    kurikulumImport.ts         parser, preview, validasi, impor atomik
     errors/                    AppError, logger lokal, ErrorBoundary
   components/                  IdentitasPembuat, LayarMemuat, LayarGalat
   features/
@@ -107,6 +115,8 @@ src/
     pembelajaran/              editor Materi tujuh blok
     pelengkap/                 sembilan layar pelengkap Tahap 5
     papan/                     papan interaktif 24 alat Tahap 6
+    game/                      katalog dan runner game layar penuh
+    referensi/                 referensi pembelajaran dan pemetaan Bab → TP
 ```
 
 ---
@@ -172,10 +182,10 @@ tangan terangkat beserta api birunya tetap terlihat penuh.
 
 ## Tahap berikutnya
 
-Tahap 7 dapat membangun engine pembelajaran di atas kontrak konteks, materi,
-kelas, siswa, kelompok, dan hasil yang sudah stabil. Jangan membongkar migrasi
-versi 1–3 dan jangan mengganti seed kurikulum dengan data di luar dataset final
-repository.
+Tahap 11 dapat menyelesaikan Studio AI, generator final, pelaporan, dan audit
+final di atas kontrak game, CP/TP, referensi, dan impor yang sudah stabil. Jangan
+membongkar migrasi versi 1–4 dan jangan mengganti seed kurikulum dengan data di
+luar dataset final repository.
 
 ---
 

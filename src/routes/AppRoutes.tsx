@@ -31,9 +31,13 @@ import { BasisDataScreen } from '../features/kurikulum/BasisDataScreen';
 import { KelolaTpSekolahScreen } from '../features/kurikulum/KelolaTpSekolahScreen';
 import { MuatCpScreen } from '../features/kurikulum/MuatCpScreen';
 import { MenuLainnyaScreen } from '../features/guru/MenuLainnyaScreen';
+import { KatalogGameScreen } from '../features/game/KatalogGameScreen';
+import { GameRunnerScreen } from '../features/game/GameRunnerScreen';
+import { ReferensiScreen } from '../features/referensi/ReferensiScreen';
+import { PemetaanReferensiScreen } from '../features/referensi/PemetaanReferensiScreen';
 
 /**
- * Peta rute aplikasi sampai Tahap 2.
+ * Peta rute aplikasi sampai Tahap 10.
  *
  * Hanya empat rute yang terbuka tanpa sesi: Opening, Setup Admin, Login, dan
  * Lupa Password. Rute kerja guru ditambahkan di dalam <RuteTerlindungi>
@@ -98,10 +102,22 @@ export function AppRoutes() {
         <Route path={RUTE.basisData} element={<BasisDataScreen />} />
         <Route path={RUTE.kelolaTp} element={<KelolaTpSekolahScreen />} />
         <Route path={RUTE.muatCp} element={<MuatCpScreen />} />
+        <Route path={RUTE.referensi} element={<ReferensiScreen />} />
+        <Route path={RUTE.pemetaanReferensi} element={<PemetaanReferensiScreen />} />
         <Route path={RUTE.lainnya} element={<MenuLainnyaScreen />} />
+        <Route path={RUTE.game} element={<KatalogGameScreen />} />
         <Route path="/pembelajaran/:jenis" element={<FiturPembelajaranScreen />} />
         <Route path="/fitur/:fitur" element={<FiturMenyusulScreen />} />
       </Route>
+
+      <Route
+        path={`${RUTE.game}/:gameId/main`}
+        element={
+          <RuteTerlindungi>
+            <KurikulumProvider><GameRunnerScreen /></KurikulumProvider>
+          </RuteTerlindungi>
+        }
+      />
 
       <Route
         path={RUTE.modeSiswa}

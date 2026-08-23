@@ -45,6 +45,7 @@ const KELOMPOK_NAVIGASI: Array<{ judul: string; item: ItemNavigasi[] }> = [
     item: [
       { label: 'Perpustakaan', ikon: '▤', tujuan: '/fitur/perpustakaan' },
       { label: 'Media', ikon: '▧', tujuan: RUTE.media },
+      { label: 'Referensi Pembelajaran', ikon: '↗', tujuan: RUTE.referensi },
       { label: 'Pencarian', ikon: '⌕', tujuan: RUTE.pencarian },
       { label: 'Basis Data CP & TP', ikon: '⌘', tujuan: RUTE.basisData },
       { label: 'Profil Sekolah/Guru', ikon: '⚙', tujuan: RUTE.profil },

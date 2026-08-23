@@ -109,9 +109,20 @@ export function KurikulumProvider({ children }: { children: ReactNode }) {
     [perbarui],
   );
 
+  const pilihReferensi = useCallback(
+    (referensiId: string | null, referensiBabId: string | null = null) => {
+      perbarui((lama) =>
+        lama.referensi_id === referensiId && lama.referensi_bab_id === referensiBabId
+          ? lama
+          : { ...lama, referensi_id: referensiId, referensi_bab_id: referensiBabId },
+      );
+    },
+    [perbarui],
+  );
+
   const nilai: NilaiKurikulum = useMemo(
-    () => ({ memuat, galat, konteks, pilihKelas, pilihMapel, pilihElemen, pilihTp, segarkan }),
-    [memuat, galat, konteks, pilihKelas, pilihMapel, pilihElemen, pilihTp, segarkan],
+    () => ({ memuat, galat, konteks, pilihKelas, pilihMapel, pilihElemen, pilihTp, pilihReferensi, segarkan }),
+    [memuat, galat, konteks, pilihKelas, pilihMapel, pilihElemen, pilihTp, pilihReferensi, segarkan],
   );
 
   return <KurikulumContext.Provider value={nilai}>{children}</KurikulumContext.Provider>;

@@ -17,6 +17,7 @@ export interface NilaiKurikulum {
   pilihMapel: (pilihan: PilihanMapel) => void;
   pilihElemen: (elemenId: string) => void;
   pilihTp: (tpId: string) => void;
+  pilihReferensi: (referensiId: string | null, referensiBabId?: string | null) => void;
   segarkan: () => Promise<void>;
 }
 
