@@ -1,0 +1,110 @@
+/*
+ * Design token — MASTER SPECIFICATION FINAL §12 + Tahap 11 §05.
+ * Nilai di sini terkunci bersama UI/UX. Jangan mengganti hex tanpa
+ * persetujuan pemilik proyek.
+ */
+:root {
+  /* --- Navy & biru (Tahap 11 §05, selaras latar Login) --- */
+  --navy-malam: #071a2e; /* latar Mode Kelas, letterbox video, dasar sidebar */
+  --navy-panel: #0a2338; /* panel form Login, kop Dashboard */
+  --biru-tua: #103a56; /* token lama, blok padat */
+  --biru: #1b5e8c; /* aksi utama, tautan, keadaan aktif, CP resmi */
+  --biru-aksen: #2f8fc7; /* gradien tombol, tepi fokus, menu aktif */
+  --cahaya-sian: #6cc0f0; /* cahaya halus, label kecil, cincin fokus */
+  --biru-muda: #eef5fa; /* latar terpilih, badge informasi */
+
+  /* --- Semantik (§12) --- */
+  --hijau-tua: #123f31;
+  --hijau: #0f6b4f;
+  --amber: #f2b230; /* identitas pembuat, badge, garis aksen kecil */
+  --merah-bata: #b14a2c;
+  --ungu: #7a3e9d; /* hasil AI belum disetujui — hanya untuk ini */
+  --kertas: #fdfaf5;
+
+  /* --- Penanda fase --- */
+  --fase-a: #fdf0d6;
+  --fase-b: #dff0e7;
+  --fase-c: #ece0f4;
+
+  /* --- Teks di atas permukaan navy --- */
+  --teks-terang: #ffffff;
+  --teks-sekunder: #9dc0d4;
+  --teks-label: #b9d2e0;
+  --teks-isian: #cfe6f5;
+  --teks-redup: #7fa8c4;
+  --teks-tenang: #8fb4cc;
+
+  /* --- Huruf (§12) --- */
+  --font-kerja: 'Public Sans', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-kelas: 'Nunito', var(--font-kerja);
+  --font-data: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-identitas: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+
+  /* --- Radius (§12) --- */
+  --radius-tombol: 8px;
+  --radius-kartu: 9px;
+  --radius-panel: 12px;
+  --radius-kelas-tombol: 13px;
+  --radius-kelas-kartu: 15px;
+  --radius-kelas-panel: 18px;
+
+  /* --- Spasi (§12) --- */
+  --spasi-1: 4px;
+  --spasi-2: 8px;
+  --spasi-3: 12px;
+  --spasi-4: 16px;
+  --spasi-5: 20px;
+  --spasi-6: 26px;
+  --spasi-7: 34px;
+
+  /* --- Tepi (§12) --- */
+  --tepi: 1px solid #e2e9ef;
+  --tepi-terpilih: 2px;
+
+  /* --- Latar Login: rasio asli gambar 1149 / 1369 = 0,839 (Tahap 11 §00) --- */
+  --rasio-latar-login: 0.839;
+
+  /*
+   * Tinggi layar acuan untuk rumus panel Login.
+   * Spesifikasi menulis 100vh; dvh dipakai agar bilah peramban seluler tidak
+   * membuat panel meluap, dengan 100vh sebagai cadangan.
+   */
+  --tinggi-layar: 100dvh;
+
+  /* Penskalaan piksel logis: 1 pada semua perangkat, 1,5 pada 4K (§11). */
+  --skala: 1;
+
+  /* Target sentuh minimum per perangkat (§11). */
+  --target-sentuh: 40px;
+}
+
+@supports not (height: 100dvh) {
+  :root {
+    --tinggi-layar: 100vh;
+  }
+}
+
+@media (max-width: 599px) {
+  :root {
+    --target-sentuh: 48px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
+  :root {
+    --target-sentuh: 56px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --target-sentuh: 72px;
+  }
+}
+
+/* Papan interaktif 4K: skala 1,5x tanpa menambah isi (§11). */
+@media (min-width: 3840px) {
+  :root {
+    --skala: 1.5;
+  }
+}
