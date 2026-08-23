@@ -1,0 +1,497 @@
+/*
+ * Layar 29 — Login. Tata letak final dan TERKUNCI (Tahap 11 §29/29b/29c, M24).
+ *
+ * Aturan yang tidak boleh diubah:
+ * • Bidang MENDATAR memakai panel bersisi selebar
+ *   max(tinggi * 0,839, 55vw) — 0,839 adalah rasio asli gambar 1149/1369.
+ *   Pengecualian tunggal: tinggi layar < 500px (HP landscape) memakai lebar
+ *   rasio calc(tinggi * 0,839), karena 55vw di sana memotong 29% tinggi gambar
+ *   tepat pada api biru di tangan yang terbuka.
+ * • Bidang TEGAK memakai pita gambar, bukan latar setinggi layar:
+ *   HP portrait  min(100vw / 0,839, 44vh)
+ *   Tablet portrait min(100vw / 0,839, 68vh) dengan kartu mengapung 536px
+ *   ditambatkan ke tepi bawah.
+ * • object-position wajib 50% 30% (50% 26% pada tablet portrait) agar yang
+ *   hilang adalah langit dan lantai paving, bukan wajah.
+ * • Jangan menyalin angka px dari maket; yang disalin adalah rumusnya.
+ */
+
+.masuk {
+  --lebar-visual: max(calc(var(--tinggi-layar) * var(--rasio-latar-login)), 55vw);
+  --tinggi-pita: min(calc(100vw / var(--rasio-latar-login)), calc(var(--tinggi-layar) * 0.44));
+  --fokus-gambar: 50% 30%;
+
+  --tinggi-field: 50px;
+  --tinggi-peran: 50px;
+  --tinggi-tombol: 52px;
+  --ukuran-logo: 92px;
+  --ukuran-judul: 27px;
+  --ukuran-subjudul: 15px;
+  --lebar-garis: 54px;
+  --tinggi-garis: 3px;
+  --lebar-isi: 430px;
+  --padding-panel: calc(40px * var(--skala)) calc(52px * var(--skala));
+
+  min-height: var(--tinggi-layar);
+  background: var(--navy-malam);
+  color: var(--teks-terang);
+  display: grid;
+}
+
+.masuk__visual {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy-malam);
+}
+
+.masuk__gambar {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: var(--fokus-gambar);
+}
+
+.masuk__gradien {
+  position: absolute;
+  inset: 0;
+  /* Menyatukan panel gambar dengan navy aplikasi tanpa menutupi karakter. */
+  background: linear-gradient(to right, rgba(7, 26, 46, 0) 74%, rgba(7, 26, 46, 0.9) 100%);
+}
+
+.masuk__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--padding-panel);
+  background: linear-gradient(150deg, var(--navy-panel) 0%, var(--navy-malam) 100%);
+}
+
+.masuk__isi {
+  position: relative;
+  width: 100%;
+  max-width: var(--lebar-isi);
+  margin: 0 auto;
+  /* Kolom kanan rata tengah: logo, judul, subjudul, tombol, dan identitas. */
+  text-align: center;
+}
+
+.masuk__cahaya {
+  position: absolute;
+  top: calc(-140px * var(--skala));
+  right: calc(-140px * var(--skala));
+  width: calc(320px * var(--skala));
+  height: calc(320px * var(--skala));
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(47, 143, 199, 0.28) 0%, rgba(47, 143, 199, 0) 70%);
+  pointer-events: none;
+}
+
+.masuk__logo {
+  position: relative;
+  width: calc(var(--ukuran-logo) * var(--skala));
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.masuk__judul {
+  position: relative;
+  margin: calc(16px * var(--skala)) 0 0;
+  font-size: calc(var(--ukuran-judul) * var(--skala));
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--teks-terang);
+}
+
+.masuk__garis-emas {
+  /* Garis emas pendek TERPUSAT di bawah judul (Tahap 11 §04). */
+  display: block;
+  width: calc(var(--lebar-garis) * var(--skala));
+  height: calc(var(--tinggi-garis) * var(--skala));
+  margin: calc(12px * var(--skala)) auto;
+  border-radius: 2px;
+  background: var(--amber);
+}
+
+.masuk__subjudul {
+  position: relative;
+  margin: 0;
+  font-size: calc(var(--ukuran-subjudul) * var(--skala));
+  line-height: 1.55;
+  color: var(--teks-sekunder);
+}
+
+.masuk__kop {
+  position: relative;
+  margin: calc(22px * var(--skala)) 0 0;
+  font-family: var(--font-data);
+  font-size: calc(12px * var(--skala));
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--cahaya-sian);
+}
+
+.masuk__form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: calc(14px * var(--skala));
+  margin-top: calc(16px * var(--skala));
+}
+
+.masuk__baris-kredensial {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: calc(14px * var(--skala));
+}
+
+.masuk__lupa {
+  text-align: center;
+}
+
+/* ---------------------------------------------------------------------------
+   Bidang MENDATAR — panel bersisi 55% visual : 45% form
+   --------------------------------------------------------------------------- */
+@media (orientation: landscape) {
+  .masuk {
+    height: var(--tinggi-layar);
+    grid-template-columns: var(--lebar-visual) minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  /* Bila papan tik muncul, panel kanan menjadi area gulir tersendiri;
+     panel gambar tidak bergeser. */
+  .masuk__panel {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+/* HP landscape — satu-satunya pengecualian aturan 55%: lebar rasio,
+   sehingga gambar tampil tanpa potongan sama sekali. */
+@media (orientation: landscape) and (max-height: 499px) {
+  .masuk {
+    --lebar-visual: calc(var(--tinggi-layar) * var(--rasio-latar-login));
+    --tinggi-field: 38px;
+    --tinggi-peran: 36px;
+    --tinggi-tombol: 40px;
+    --ukuran-logo: 38px;
+    --ukuran-judul: 14.5px;
+    --ukuran-subjudul: 9.5px;
+    --lebar-garis: 36px;
+    --tinggi-garis: 2px;
+    --lebar-isi: 460px;
+    --padding-panel: 12px 22px;
+    --target-sentuh: 36px;
+  }
+
+  .masuk__gradien {
+    background: linear-gradient(to right, rgba(7, 26, 46, 0) 66%, rgba(7, 26, 46, 0.9) 100%);
+  }
+
+  /* Form dua kolom agar tidak memanjang pada bidang serendah ini. */
+  .masuk__baris-kredensial {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .masuk__judul {
+    margin-top: calc(6px * var(--skala));
+  }
+
+  .masuk__kop {
+    margin-top: calc(8px * var(--skala));
+  }
+
+  .masuk__form {
+    gap: calc(8px * var(--skala));
+    margin-top: calc(7px * var(--skala));
+  }
+
+  .masuk__cahaya {
+    display: none;
+  }
+}
+
+/* Tablet landscape 11" ke atas — touch-first, target sentuh 56px+. */
+@media (orientation: landscape) and (pointer: coarse) and (min-width: 600px) and (max-width: 1919px) and (min-height: 500px) {
+  .masuk {
+    --tinggi-field: 66px;
+    --tinggi-peran: 60px;
+    --tinggi-tombol: 69px;
+    --ukuran-logo: 64px;
+    --ukuran-judul: 30px;
+    --ukuran-subjudul: 14px;
+    --lebar-isi: 460px;
+  }
+
+  .masuk__gradien {
+    background: linear-gradient(to right, rgba(7, 26, 46, 0) 68%, rgba(7, 26, 46, 0.88) 100%);
+  }
+}
+
+/* Papan interaktif 75" Full HD dan 4K — skala naik, jumlah isi tetap. */
+@media (min-width: 1920px) {
+  .masuk {
+    --tinggi-field: 66px;
+    --tinggi-peran: 66px;
+    --tinggi-tombol: 72px;
+    --ukuran-logo: 104px;
+    --ukuran-judul: 33px;
+    --ukuran-subjudul: 18px;
+    --lebar-garis: 66px;
+    --tinggi-garis: 4px;
+    --lebar-isi: 540px;
+    --padding-panel: calc(44px * var(--skala)) calc(52px * var(--skala));
+  }
+
+  /* Username dan Password disandingkan agar mata tidak menyapu jauh ke bawah. */
+  .masuk__baris-kredensial {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .masuk__gradien {
+    background: linear-gradient(to right, rgba(7, 26, 46, 0) 62%, rgba(7, 26, 46, 0.85) 100%);
+  }
+
+  .kontrol__label {
+    font-size: calc(15px * var(--skala));
+  }
+
+  .kontrol__isian {
+    font-size: calc(19px * var(--skala));
+    border-width: 2px;
+  }
+
+  .tombol-utama {
+    font-size: calc(20px * var(--skala));
+  }
+
+  .pilih-peran__opsi {
+    font-size: calc(18px * var(--skala));
+    border-width: 2px;
+  }
+
+  .tautan-lembut {
+    font-size: calc(16px * var(--skala));
+  }
+}
+
+
+/*
+ * Label di dalam kotak pada bidang sentuh dan sempit — sesuai maket 29c:
+ * HP portrait, HP landscape, tablet portrait, dan tablet landscape memakai
+ * teks penuntun di dalam kotak, bukan label di atasnya. Labelnya tetap ada
+ * untuk pembaca layar, hanya disembunyikan secara visual.
+ */
+@media (orientation: portrait),
+  (orientation: landscape) and (max-height: 499px),
+  (orientation: landscape) and (pointer: coarse) and (max-width: 1919px) {
+  .masuk .kontrol__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* Garis emas hanya pada bidang yang punya ruang judul penuh. */
+  .masuk .masuk__garis-emas {
+    display: none;
+  }
+
+  .masuk .masuk__subjudul {
+    margin-top: calc(5px * var(--skala));
+  }
+}
+
+/*
+ * Bila label sudah terlihat di atas kotak (desktop dan papan), teks penuntun
+ * di dalam kotak tidak diulang — maket 29 dan 29b menampilkan contoh isian,
+ * bukan label ganda. Teks penuntunnya tetap ada untuk bidang sentuh.
+ */
+@media (orientation: landscape) and (min-height: 500px) and (min-width: 1920px) {
+  .masuk .kontrol__isian::placeholder {
+    color: transparent;
+  }
+}
+
+@media (orientation: landscape) and (min-height: 500px) and (pointer: fine) {
+  .masuk .kontrol__isian::placeholder {
+    color: transparent;
+  }
+}
+
+/* Tablet landscape tetap memakai garis emas pendek terpusat (maket 29c). */
+@media (orientation: landscape) and (pointer: coarse) and (min-width: 600px) and (max-width: 1919px) and (min-height: 500px) {
+  .masuk .masuk__garis-emas {
+    display: block;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Bidang TEGAK — pita gambar, bukan latar setinggi layar
+   --------------------------------------------------------------------------- */
+@media (orientation: portrait) {
+  .masuk {
+    --padding-panel: calc(16px * var(--skala)) calc(20px * var(--skala))
+      calc(20px * var(--skala));
+
+    position: relative;
+    height: var(--tinggi-layar);
+    grid-template-rows: minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  /*
+   * Pita gambar di puncak layar; panel login ditambatkan ke tepi bawah dan
+   * menumpang tepi bawah pita lewat gradien. Panel TIDAK PERNAH naik ke zona
+   * wajah: bila isinya tidak muat, panel menjadi area gulir tersendiri.
+   */
+  .masuk__visual {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--tinggi-pita);
+  }
+
+  .masuk__panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: calc(var(--tinggi-layar) * 0.78);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    justify-content: flex-end;
+    background: linear-gradient(
+      180deg,
+      rgba(7, 26, 46, 0) 0%,
+      rgba(7, 26, 46, 0.86) 8%,
+      var(--navy-panel) 26%,
+      var(--navy-malam) 100%
+    );
+  }
+
+  /* Pita menyatu ke panel di bawahnya; sisi kiri-kanan tidak pernah terpotong. */
+  .masuk__gradien {
+    background: linear-gradient(
+      to bottom,
+      rgba(7, 26, 46, 0.3) 0%,
+      rgba(7, 26, 46, 0) 24%,
+      rgba(7, 26, 46, 0.12) 66%,
+      rgba(7, 26, 46, 0.92) 94%,
+      var(--navy-malam) 100%
+    );
+  }
+
+  .masuk__cahaya {
+    display: none;
+  }
+}
+
+/* HP portrait 6" ke atas. */
+@media (orientation: portrait) and (max-width: 599px) {
+  .masuk {
+    --tinggi-field: 48px;
+    --tinggi-peran: 46px;
+    --tinggi-tombol: 50px;
+    --ukuran-logo: 56px;
+    --ukuran-judul: 19px;
+    --ukuran-subjudul: 11.5px;
+    --lebar-garis: 40px;
+    --tinggi-garis: 2px;
+    --lebar-isi: 100%;
+  }
+
+  .masuk__judul {
+    margin-top: calc(9px * var(--skala));
+  }
+
+  .masuk__kop {
+    margin-top: calc(14px * var(--skala));
+    font-size: calc(10.5px * var(--skala));
+  }
+
+  .masuk__form {
+    gap: calc(10px * var(--skala));
+    margin-top: calc(11px * var(--skala));
+  }
+}
+
+/*
+ * Tablet portrait 11" ke atas — kartu mengapung ditambatkan ke tepi bawah.
+ * Karakter mendapat ruang lebih dulu, kartu menyusul: pita 68vh dengan titik
+ * fokus 50% 26% menjaga papan nama sekolah, logo Kabupaten Bekasi, bendera,
+ * kedua wajah, bahu, dan kedua tangan terangkat tetap terlihat penuh.
+ * Kartu dibatasi 63% tinggi layar sehingga tepi atasnya tidak pernah naik
+ * ke atas ~37% tinggi layar; bila isinya tidak muat, kartu menjadi area gulir
+ * tersendiri — BUKAN naik menimpa karakter.
+ */
+@media (orientation: portrait) and (min-width: 600px) {
+  .masuk {
+    --tinggi-pita: min(calc(100vw / var(--rasio-latar-login)), calc(var(--tinggi-layar) * 0.68));
+    --fokus-gambar: 50% 26%;
+    --tinggi-field: 54px;
+    --tinggi-peran: 54px;
+    --tinggi-tombol: 60px;
+    --ukuran-logo: 68px;
+    --ukuran-judul: 28px;
+    --ukuran-subjudul: 13px;
+    --lebar-garis: 44px;
+    --lebar-isi: 100%;
+    --padding-panel: calc(18px * var(--skala)) calc(34px * var(--skala))
+      calc(18px * var(--skala));
+  }
+
+  .masuk__panel {
+    left: 50%;
+    right: auto;
+    bottom: calc(10px * var(--skala));
+    transform: translateX(-50%);
+    width: min(calc(536px * var(--skala)), calc(100vw - 32px));
+    box-sizing: border-box;
+    /*
+     * Batas 63% tinggi layar menjaga tepi atas kartu tidak pernah naik ke atas
+     * ~37% tinggi layar — papan nama sekolah, logo Kabupaten Bekasi, bendera,
+     * kedua wajah, bahu, dan kedua tangan terangkat tetap terlihat penuh.
+     */
+    max-height: calc(var(--tinggi-layar) * 0.63);
+    justify-content: flex-start;
+    border-radius: calc(14px * var(--skala));
+    border: 1px solid rgba(108, 192, 240, 0.3);
+    background: rgba(10, 35, 56, 0.92);
+    box-shadow: 0 10px 34px rgba(4, 16, 29, 0.5);
+  }
+
+  .masuk__judul {
+    margin-top: calc(8px * var(--skala));
+  }
+
+  .masuk__kop {
+    margin-top: calc(10px * var(--skala));
+  }
+
+  .masuk__form {
+    gap: calc(10px * var(--skala));
+    margin-top: calc(10px * var(--skala));
+  }
+
+  .masuk__baris-kredensial {
+    gap: calc(10px * var(--skala));
+  }
+
+  .masuk .kontrol {
+    gap: calc(5px * var(--skala));
+  }
+
+  .masuk .identitas-pembuat--bergaris {
+    margin-top: calc(12px * var(--skala));
+    padding-top: calc(10px * var(--skala));
+  }
+}

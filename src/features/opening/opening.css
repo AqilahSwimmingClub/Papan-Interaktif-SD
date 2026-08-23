@@ -1,0 +1,45 @@
+/*
+ * Layar Opening — layar penuh, letterbox navy #071A2E, rasio video
+ * dipertahankan mutlak. Bidang sisa TIDAK PERNAH diisi gambar melar.
+ */
+.opening {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--navy-malam);
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 400ms ease;
+  /* Sentuhan dan klik tidak melewatkan video; tidak ada kontrol di sini. */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.opening--memudar {
+  opacity: 0;
+}
+
+.opening__video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: var(--navy-malam);
+  /* object-fit diatur di runtime: contain atau cover sesuai selisih rasio. */
+}
+
+.opening__lencana-suara {
+  position: absolute;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  min-height: max(40px, calc(38px * var(--skala)));
+  padding: 0 calc(16px * var(--skala));
+  border: 1px solid rgba(108, 192, 240, 0.45);
+  border-radius: 999px;
+  background: rgba(7, 26, 46, 0.72);
+  color: var(--cahaya-sian);
+  font-size: calc(13px * var(--skala));
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(6px);
+}

@@ -1,0 +1,220 @@
+/*
+ * Kontrol formulir lapisan masuk. Dipakai bersama oleh Login, Setup Admin,
+ * dan Lupa Password agar ketiganya tidak pernah berbeda bentuk.
+ */
+.kontrol {
+  display: flex;
+  flex-direction: column;
+  gap: calc(7px * var(--skala));
+  text-align: left;
+}
+
+.kontrol__label {
+  /* Label field tetap rata kiri di atas kotaknya (Tahap 11 §04). */
+  font-size: calc(13px * var(--skala));
+  font-weight: 600;
+  color: var(--teks-label);
+  text-align: left;
+}
+
+.kontrol__kotak {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.kontrol__isian {
+  width: 100%;
+  height: var(--tinggi-field, 50px);
+  min-height: var(--target-sentuh);
+  padding: 0 calc(16px * var(--skala));
+  border-radius: calc(10px * var(--skala));
+  border: 1.5px solid rgba(108, 192, 240, 0.32);
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--teks-isian);
+  font-size: calc(15px * var(--skala));
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.kontrol__isian::placeholder {
+  color: var(--teks-tenang);
+}
+
+.kontrol__isian:focus {
+  outline: none;
+  border-color: var(--cahaya-sian);
+  box-shadow: 0 0 0 3px rgba(108, 192, 240, 0.18);
+}
+
+.kontrol__isian[aria-invalid='true'] {
+  border-color: var(--merah-bata);
+}
+
+.kontrol__isian--dengan-aksi {
+  padding-right: calc(74px * var(--skala));
+}
+
+.kontrol__aksi {
+  position: absolute;
+  right: calc(10px * var(--skala));
+  min-height: calc(34px * var(--skala));
+  padding: 0 calc(8px * var(--skala));
+  border: 0;
+  border-radius: calc(7px * var(--skala));
+  background: transparent;
+  color: var(--cahaya-sian);
+  font-size: calc(12.5px * var(--skala));
+  font-weight: 600;
+}
+
+.kontrol__bantuan {
+  font-size: calc(11.5px * var(--skala));
+  color: var(--teks-redup);
+  line-height: 1.5;
+}
+
+.kontrol__galat {
+  font-size: calc(12px * var(--skala));
+  color: #f0a58c;
+  line-height: 1.5;
+}
+
+/* --- Pilih Peran --- */
+.pilih-peran {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(10px * var(--skala));
+}
+
+.pilih-peran__opsi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(9px * var(--skala));
+  height: var(--tinggi-peran, 50px);
+  min-height: var(--target-sentuh);
+  border-radius: calc(10px * var(--skala));
+  border: 1.5px solid rgba(108, 192, 240, 0.24);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--teks-label);
+  font-size: calc(14.5px * var(--skala));
+  font-weight: 500;
+}
+
+.pilih-peran__opsi--terpilih {
+  border-color: var(--cahaya-sian);
+  background: rgba(108, 192, 240, 0.16);
+  color: var(--teks-terang);
+  font-weight: 600;
+}
+
+.pilih-peran__titik {
+  width: calc(16px * var(--skala));
+  height: calc(16px * var(--skala));
+  border-radius: 50%;
+  border: 2px solid rgba(157, 192, 212, 0.6);
+  display: grid;
+  place-items: center;
+}
+
+.pilih-peran__opsi--terpilih .pilih-peran__titik {
+  border-color: var(--cahaya-sian);
+}
+
+.pilih-peran__titik::after {
+  content: '';
+  width: calc(8px * var(--skala));
+  height: calc(8px * var(--skala));
+  border-radius: 50%;
+  background: transparent;
+}
+
+.pilih-peran__opsi--terpilih .pilih-peran__titik::after {
+  background: var(--cahaya-sian);
+}
+
+/* --- Tombol utama --- */
+.tombol-utama {
+  width: 100%;
+  height: var(--tinggi-tombol, 52px);
+  min-height: var(--target-sentuh);
+  border: 0;
+  border-radius: calc(10px * var(--skala));
+  background: linear-gradient(135deg, var(--biru-aksen) 0%, var(--biru) 100%);
+  box-shadow: 0 6px 20px rgba(47, 143, 199, 0.36);
+  color: var(--teks-terang);
+  font-size: calc(15.5px * var(--skala));
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.tombol-utama:disabled {
+  opacity: 0.55;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.tombol-sekunder {
+  min-height: var(--target-sentuh);
+  padding: 0 calc(22px * var(--skala));
+  border: 1.5px solid rgba(108, 192, 240, 0.3);
+  border-radius: calc(10px * var(--skala));
+  background: transparent;
+  color: var(--teks-label);
+  font-size: calc(14px * var(--skala));
+  font-weight: 500;
+}
+
+.tautan-lembut {
+  display: inline-block;
+  min-height: var(--target-sentuh);
+  line-height: var(--target-sentuh);
+  color: var(--cahaya-sian);
+  font-size: calc(13.5px * var(--skala));
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tautan-lembut:hover,
+.tautan-lembut:focus-visible {
+  text-decoration: underline;
+}
+
+/* --- Kotak pesan --- */
+.kotak-pesan {
+  border-radius: calc(11px * var(--skala));
+  padding: calc(12px * var(--skala)) calc(15px * var(--skala));
+  font-size: calc(12.5px * var(--skala));
+  line-height: 1.6;
+  text-align: left;
+}
+
+.kotak-pesan--galat {
+  background: rgba(177, 74, 44, 0.16);
+  border: 1px solid rgba(224, 138, 110, 0.5);
+  color: #f3c3b3;
+}
+
+.kotak-pesan--info {
+  background: rgba(108, 192, 240, 0.09);
+  border: 1px solid rgba(108, 192, 240, 0.26);
+  color: var(--teks-isian);
+}
+
+.kotak-pesan--berhasil {
+  background: rgba(15, 107, 79, 0.18);
+  border: 1px solid rgba(143, 212, 180, 0.45);
+  color: #b9e6d3;
+}
+
+.kotak-pesan__judul {
+  margin: 0 0 calc(5px * var(--skala));
+  font-size: calc(13px * var(--skala));
+  font-weight: 700;
+}
+
+.kotak-pesan p {
+  margin: 0;
+}

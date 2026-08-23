@@ -1,0 +1,27 @@
+.halaman-materi { padding: 26px 30px 44px; }
+.kop-materi { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+.tata-materi { display: grid; grid-template-columns: minmax(0, .9fr) minmax(420px, 1.1fr); gap: 20px; margin-top: 22px; }
+.panel-materi, .editor-materi { min-width: 0; padding: 22px; border: var(--tepi); border-radius: var(--radius-panel); background: #fff; }
+.panel-materi h2, .editor-materi h2 { margin: 0 0 15px; color: var(--biru-tua); font-size: 19px; }
+.daftar-materi { display: grid; gap: 10px; }
+.daftar-materi article, .referensi-materi article { padding: 14px; border: var(--tepi); border-radius: var(--radius-kartu); background: #f9fbfc; }
+.daftar-materi span { color: var(--hijau); font-family: var(--font-data); font-size: 10px; text-transform: uppercase; }
+.daftar-materi h3 { margin: 5px 0; font-size: 15px; }
+.daftar-materi p, .referensi-materi p { margin: 0; color: #657888; font-size: 13px; }
+.referensi-materi { display: grid; gap: 9px; margin-top: 24px; }
+.referensi-materi article { display: grid; gap: 4px; }
+.referensi-materi small { color: #657888; }
+.editor-materi { display: grid; gap: 15px; }
+.editor-materi label { display: grid; gap: 7px; color: var(--biru-tua); font-size: 13px; font-weight: 700; }
+.editor-materi input, .editor-materi textarea { width: 100%; min-height: var(--target-sentuh); padding: 10px 12px; border: var(--tepi); border-radius: 8px; background: #fff; font-weight: 400; }
+.pilih-blok { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+.pilih-blok button { min-height: var(--target-sentuh); border: 1px solid #b9d2e0; border-radius: 8px; background: var(--biru-muda); color: var(--biru); font-size: 12px; font-weight: 700; }
+.daftar-editor-blok { display: grid; gap: 10px; }
+.daftar-editor-blok article { padding: 12px; border: var(--tepi); border-radius: 9px; }
+.daftar-editor-blok header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.daftar-editor-blok header button { min-height: 36px; border: 0; background: transparent; color: var(--merah-bata); }
+.daftar-editor-blok textarea { min-height: 96px; resize: vertical; }
+.pesan-materi { margin: 0; padding: 11px; border-radius: 8px; background: var(--biru-muda); color: var(--biru-tua); }
+@media (max-width: 1199px) { .halaman-materi { padding: 22px 20px 36px; } .tata-materi { grid-template-columns: 1fr; } .pilih-blok { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 599px) { .halaman-materi { padding: 18px 16px 30px; } .kop-materi { display: grid; } .pilih-blok { grid-template-columns: repeat(2, 1fr); } .panel-materi, .editor-materi { padding: 16px; } }
+@media (min-width: 1920px) { .halaman-materi { padding: calc(34px * var(--skala)); } .tata-materi { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: calc(28px * var(--skala)); } .panel-materi, .editor-materi { padding: calc(28px * var(--skala)); } .panel-materi h2, .editor-materi h2 { font-size: calc(28px * var(--skala)); } .daftar-materi h3, .editor-materi label { font-size: calc(22px * var(--skala)); } .daftar-materi p, .referensi-materi small, .referensi-materi p { font-size: calc(18px * var(--skala)); } }

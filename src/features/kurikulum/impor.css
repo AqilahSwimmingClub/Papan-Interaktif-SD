@@ -1,0 +1,9 @@
+.aksi-impor,.preview-impor > header,.preview-impor > footer { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.aksi-impor,.preview-impor { margin-top:18px; padding:20px; border:1px solid #dce7e5; border-radius:20px; background:#fff; }
+.aksi-impor h2,.preview-impor h2 { margin:0 0 5px; }.aksi-impor p,.preview-impor p { margin:0; color:#627774; }
+.drop-cp ul { max-height:110px; overflow:auto; margin:12px 0 0; padding-left:22px; text-align:left; }
+.impor-pesan { margin-top:14px; padding:14px 16px; border-radius:12px; }.impor-pesan--galat { background:#fff0ed; color:#8d3e2e; }.impor-pesan--berhasil { background:#e8f6ef; color:#22664d; }
+.tabel-preview { max-height:520px; overflow:auto; margin:18px 0; border:1px solid #e0e9e7; border-radius:14px; }
+.tabel-preview table { width:100%; border-collapse:collapse; min-width:850px; }.tabel-preview th { position:sticky; top:0; z-index:1; padding:12px; background:#eef5f3; text-align:left; font-size:.73rem; text-transform:uppercase; }.tabel-preview td { padding:11px 12px; border-top:1px solid #e4ecea; vertical-align:top; font-size:.8rem; }.tabel-preview td small { display:block; color:#71827f; }.tabel-preview td span { padding:5px 8px; border-radius:8px; background:#e6f4ef; color:#236a5b; font-weight:800; }.tabel-preview tr.ditolak { background:#fff8f6; }.tabel-preview tr.ditolak td span { background:#fee6e0; color:#94412e; }.tabel-preview input { width:20px; height:20px; }
+.preview-impor > footer button { min-height:44px; border:1px solid #cad9d6; border-radius:11px; padding:0 14px; background:white; }
+@media (max-width:700px) { .aksi-impor,.preview-impor > header,.preview-impor > footer { align-items:stretch; flex-direction:column; }.aksi-impor button,.preview-impor > header button { width:100%; }.tabel-preview { max-height:60vh; } }

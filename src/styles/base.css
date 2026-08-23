@@ -1,0 +1,72 @@
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-kerja);
+  background: var(--navy-malam);
+  color: #1a2733;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:where(a) {
+  color: var(--biru);
+}
+
+/* Cincin fokus terlihat di seluruh permukaan — papan dan tablet tanpa kursor. */
+:where(a, button, input, [tabindex]):focus-visible {
+  outline: 3px solid var(--cahaya-sian);
+  outline-offset: 2px;
+}
+
+/* Tidak ada informasi yang hanya muncul saat hover (§11, jebakan 3). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
