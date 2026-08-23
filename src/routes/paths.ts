@@ -6,7 +6,24 @@ export const RUTE = {
   masuk: '/masuk',
   lupaPassword: '/lupa-password',
   dasbor: '/dasbor',
+  kelas: '/kelas',
+  papan: '/pembelajaran/papan',
+  game: '/pembelajaran/game',
 } as const;
+
+export function ruteMapel(tingkat: number): string {
+  return `/kelas/${tingkat}/mapel`;
+}
+
+export function ruteCpTp(tingkat: number, mapelKode: string): string {
+  return `/kelas/${tingkat}/mapel/${encodeURIComponent(mapelKode)}`;
+}
+
+export type JenisPembelajaran = 'materi' | 'game' | 'lkpd' | 'asesmen' | 'papan';
+
+export function rutePembelajaran(jenis: JenisPembelajaran): string {
+  return `/pembelajaran/${jenis}`;
+}
 
 /**
  * Rute yang boleh dibuka tanpa sesi sah — Opening, Setup Admin, Login, dan

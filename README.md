@@ -13,9 +13,9 @@ daftar fitur memerlukan persetujuan pemilik proyek terlebih dahulu.
 
 ---
 
-## Status: Tahap 1 — Fondasi
+## Status: Tahap 2 — Dashboard dan Navigasi Kurikulum
 
-Yang sudah berdiri pada tahap ini:
+Yang sudah berdiri sampai tahap ini:
 
 | Bagian | Isi |
 | --- | --- |
@@ -23,11 +23,17 @@ Yang sudah berdiri pada tahap ini:
 | Layar 28 Opening | Video layar penuh, autoplay tanpa suara, tanpa Skip, tidak melooping, rasio terjaga, dua pengaman wajib |
 | Layar 30 Setup Admin | Sekali per perangkat, akun Admin lokal, sandi ber-hash, identitas sekolah opsional |
 | Layar 29 Login | Admin/Guru, sesi lokal, Logout, Lupa Password tanpa surel |
-| Responsive | Enam titik henti perangkat sesuai handoff |
+| Dashboard Guru | Kerangka kerja Guru adaptif, keadaan jadwal kosong, ringkasan kurikulum nyata, pilihan kelas |
+| Navigasi kurikulum | Dashboard → Kelas → Mapel → Elemen/CP → TP → tujuan fitur pembelajaran |
+| Database kurikulum | Migrasi IndexedDB v2 dan seed offline final: 47 CP, 221 elemen, 212 TP Rekomendasi |
+| CP Agama | 18 CP enam agama × tiga fase dari dataset final Nomor 020 Tahun 2026; tanpa TP rekaan |
+| State lokal | Satu objek konteks kurikulum per akun, tersimpan lokal dan dibawa ke rute pembelajaran |
+| Responsive | HP, tablet, desktop, papan Full HD, dan penskalaan 4K sesuai handoff |
 
-Belum dikerjakan dan **memang belum boleh** dikerjakan pada tahap ini:
-Dashboard, jalur CP/TP, database kurikulum, impor data, AI, game engine,
-materi, LKPD, soal, referensi buku, papan interaktif.
+Belum dikerjakan dan **memang tidak termasuk Tahap 2**:
+isi Materi/LKPD/Asesmen, papan interaktif lengkap, game engine, Studio AI,
+data siswa dan penilaian, editor, referensi buku, impor operator, dan backup.
+Rutenya sudah stabil sebagai titik sambung, tetapi modulnya belum dibangun.
 
 ---
 
@@ -67,12 +73,13 @@ src/
   state/
     AuthContext.ts             bentuk nilai auth
     AuthProvider.tsx           keadaan sesi, setup, masuk, keluar
-    useAuth.ts
+    KurikulumProvider.tsx      seed + konteks kurikulum persisten per akun
+    useAuth.ts useKurikulum.ts
   lib/
     types.ts                   tabel akun, sesi_login, sekolah
     storage/
-      db.ts                    IndexedDB + migrasi bernomor
-      akunRepo.ts sesiRepo.ts sekolahRepo.ts perangkatRepo.ts
+      db.ts                    IndexedDB + migrasi bernomor (v1 autentikasi, v2 kurikulum)
+      akunRepo.ts sesiRepo.ts sekolahRepo.ts perangkatRepo.ts kurikulumRepo.ts
     auth/
       sandi.ts                 PBKDF2-SHA256 210.000 iterasi + imbuhan acak
       validasi.ts              aturan formulir + kekuatan sandi
@@ -84,7 +91,10 @@ src/
   features/
     opening/                   layar 28
     auth/                      layar 29, 30, Lupa Password
-    dashboard/                 titik sambung Tahap 2 — BUKAN Dashboard
+    dashboard/                 Dashboard Guru
+    guru/                      kerangka sidebar/topbar/bilah bawah
+    kurikulum/                 Pilih Kelas, Pilih Mapel, CP & TP
+    pembelajaran/              titik sambung fitur tahap berikutnya
 ```
 
 ---
@@ -150,11 +160,9 @@ tangan terangkat beserta api birunya tetap terlihat penuh.
 
 ## Tahap berikutnya
 
-Ganti `src/features/dashboard/BerandaTerlindungi.tsx` dengan Dashboard Guru
-(Tahap 2A layar 1), lalu lanjutkan urutan pengerjaan pada
-`IMPLEMENTATION HANDOFF FOR CODEX` bagian 3. Tambahkan tabel kurikulum
-sebagai migrasi baru di `src/lib/storage/db.ts` — jangan membongkar migrasi
-versi 1.
+Tahap 3 dimulai dari titik sambung fitur pembelajaran yang sudah menerima
+konteks Kelas/Fase/Mapel/CP/Elemen/TP. Jangan membongkar migrasi versi 1 atau 2,
+dan jangan mengganti seed kurikulum dengan data di luar dataset final repository.
 
 ---
 

@@ -3,19 +3,28 @@ import { AppError } from '../errors/AppError';
 /**
  * Lapisan penyimpanan lokal offline-first.
  *
- * Tahap 1 hanya membuka Zona 6 (akun, sesi_login), satu baris `sekolah`
- * dari Zona 2, dan penanda tingkat perangkat. Zona kurikulum, isi
- * pembelajaran, kelas, dan referensi menyusul pada tahap berikutnya —
- * ditambahkan sebagai migrasi baru, bukan dengan membongkar yang ini.
+ * Migrasi Tahap 1 membuka Zona 6 (akun, sesi_login), satu baris `sekolah`
+ * dari Zona 2, dan penanda tingkat perangkat. Tahap 2 menambahkan referensi
+ * kurikulum sebagai migrasi baru tanpa membongkar penyimpanan autentikasi.
  */
 export const NAMA_BASIS_DATA = 'papan-interaktif-sd';
-export const VERSI_BASIS_DATA = 1;
+export const VERSI_BASIS_DATA = 2;
 
 export const TOKO = {
   akun: 'akun',
   sesiLogin: 'sesi_login',
   sekolah: 'sekolah',
   perangkat: 'perangkat',
+  fase: 'fase',
+  jenjangKelas: 'jenjang_kelas',
+  mataPelajaran: 'mata_pelajaran',
+  agama: 'agama',
+  cabangSeni: 'cabang_seni',
+  dokumenKurikulum: 'dokumen_kurikulum',
+  cp: 'cp',
+  elemen: 'elemen',
+  tp: 'tp',
+  konfigurasiKurikulumSekolah: 'konfigurasi_kurikulum_sekolah',
 } as const;
 
 export type NamaToko = (typeof TOKO)[keyof typeof TOKO];
@@ -34,6 +43,40 @@ const MIGRASI: Record<number, Migrasi> = {
 
     db.createObjectStore(TOKO.sekolah, { keyPath: 'id' });
     db.createObjectStore(TOKO.perangkat, { keyPath: 'kunci' });
+  },
+  2: (db) => {
+    db.createObjectStore(TOKO.fase, { keyPath: 'kode' });
+
+    const jenjang = db.createObjectStore(TOKO.jenjangKelas, { keyPath: 'tingkat' });
+    jenjang.createIndex('fase_kode', 'fase_kode', { unique: false });
+
+    const mapel = db.createObjectStore(TOKO.mataPelajaran, { keyPath: 'kode' });
+    mapel.createIndex('status', 'status', { unique: false });
+    mapel.createIndex('agama_kode', 'agama_kode', { unique: false });
+
+    db.createObjectStore(TOKO.agama, { keyPath: 'kode' });
+    db.createObjectStore(TOKO.cabangSeni, { keyPath: 'kode' });
+    db.createObjectStore(TOKO.dokumenKurikulum, { keyPath: 'kode' });
+
+    const cp = db.createObjectStore(TOKO.cp, { keyPath: 'id' });
+    cp.createIndex('mapel_kode', 'mapel_kode', { unique: false });
+    cp.createIndex('fase_kode', 'fase_kode', { unique: false });
+    cp.createIndex('mapel_fase', ['mapel_kode', 'fase_kode'], { unique: false });
+
+    const elemen = db.createObjectStore(TOKO.elemen, { keyPath: 'id' });
+    elemen.createIndex('cp_id', 'cp_id', { unique: false });
+
+    const tp = db.createObjectStore(TOKO.tp, { keyPath: 'id' });
+    tp.createIndex('elemen_id', 'elemen_id', { unique: false });
+    tp.createIndex('tingkat_kelas', 'tingkat_kelas', { unique: false });
+    tp.createIndex('sumber', 'sumber', { unique: false });
+    tp.createIndex('elemen_kelas', ['elemen_id', 'tingkat_kelas'], { unique: false });
+
+    const konfigurasi = db.createObjectStore(TOKO.konfigurasiKurikulumSekolah, {
+      keyPath: 'id',
+    });
+    konfigurasi.createIndex('sekolah_id', 'sekolah_id', { unique: false });
+    konfigurasi.createIndex('tingkat_kelas', 'tingkat_kelas', { unique: false });
   },
 };
 
@@ -159,6 +202,8 @@ export const kueri = {
   ambilLewatIndeks: <T>(toko: IDBObjectStore, indeks: string, kunci: IDBValidKey) =>
     bungkus<T | undefined>(toko.index(indeks).get(kunci)),
   semua: <T>(toko: IDBObjectStore) => bungkus<T[]>(toko.getAll()),
+  semuaLewatIndeks: <T>(toko: IDBObjectStore, indeks: string, kunci?: IDBValidKey) =>
+    bungkus<T[]>(toko.index(indeks).getAll(kunci)),
   jumlah: (toko: IDBObjectStore) => bungkus<number>(toko.count()),
   simpan: <T>(toko: IDBObjectStore, nilai: T) => bungkus(toko.put(nilai as unknown as never)),
   hapus: (toko: IDBObjectStore, kunci: IDBValidKey) => bungkus(toko.delete(kunci)),

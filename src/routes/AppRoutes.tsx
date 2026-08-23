@@ -9,12 +9,19 @@ import { SetupAdminScreen } from '../features/auth/SetupAdminScreen';
 import { LupaPasswordScreen } from '../features/auth/LupaPasswordScreen';
 import { BerandaTerlindungi } from '../features/dashboard/BerandaTerlindungi';
 import { LayarTidakDitemukan } from './LayarTidakDitemukan';
+import { KurikulumProvider } from '../state/KurikulumProvider';
+import { KerangkaGuru } from '../features/guru/KerangkaGuru';
+import { PilihKelasScreen } from '../features/kurikulum/PilihKelasScreen';
+import { PilihMapelScreen } from '../features/kurikulum/PilihMapelScreen';
+import { CpTpScreen } from '../features/kurikulum/CpTpScreen';
+import { FiturPembelajaranScreen } from '../features/pembelajaran/FiturPembelajaranScreen';
+import { FiturMenyusulScreen } from '../features/guru/FiturMenyusulScreen';
 
 /**
- * Peta rute Tahap 1.
+ * Peta rute aplikasi sampai Tahap 2.
  *
  * Hanya empat rute yang terbuka tanpa sesi: Opening, Setup Admin, Login, dan
- * Lupa Password. Rute tahap berikutnya ditambahkan di dalam <RuteTerlindungi>
+ * Lupa Password. Rute kerja guru ditambahkan di dalam <RuteTerlindungi>
  * sehingga penjagaan sesi tidak perlu dipasang ulang per layar.
  */
 export function AppRoutes() {
@@ -52,13 +59,21 @@ export function AppRoutes() {
       />
 
       <Route
-        path={RUTE.dasbor}
         element={
           <RuteTerlindungi>
-            <BerandaTerlindungi />
+            <KurikulumProvider>
+              <KerangkaGuru />
+            </KurikulumProvider>
           </RuteTerlindungi>
         }
-      />
+      >
+        <Route path={RUTE.dasbor} element={<BerandaTerlindungi />} />
+        <Route path={RUTE.kelas} element={<PilihKelasScreen />} />
+        <Route path={`${RUTE.kelas}/:tingkat/mapel`} element={<PilihMapelScreen />} />
+        <Route path={`${RUTE.kelas}/:tingkat/mapel/:mapelKode`} element={<CpTpScreen />} />
+        <Route path="/pembelajaran/:jenis" element={<FiturPembelajaranScreen />} />
+        <Route path="/fitur/:fitur" element={<FiturMenyusulScreen />} />
+      </Route>
 
       <Route path="*" element={<LayarTidakDitemukan />} />
     </Routes>

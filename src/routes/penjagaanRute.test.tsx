@@ -37,6 +37,7 @@ describe('penjagaan rute', () => {
     expect(ruteTerbuka(RUTE.masuk)).toBe(true);
     expect(ruteTerbuka(RUTE.lupaPassword)).toBe(true);
     expect(ruteTerbuka(RUTE.dasbor)).toBe(false);
+    expect(ruteTerbuka(RUTE.kelas)).toBe(false);
     expect(ruteTerbuka(RUTE.akar)).toBe(false);
   });
 
@@ -71,6 +72,13 @@ describe('penjagaan rute', () => {
 
     pasang(RUTE.dasbor);
     expect(await screen.findByTestId('beranda-terlindungi')).toBeInTheDocument();
+  });
+
+  it('menolak rute pemilihan kelas tanpa sesi sah', async () => {
+    await buatAdminPertama(ADMIN);
+    pasang(RUTE.kelas);
+
+    expect(await screen.findByTestId('layar-login')).toBeInTheDocument();
   });
 
   it('sesi sah tidak dapat kembali ke Login', async () => {

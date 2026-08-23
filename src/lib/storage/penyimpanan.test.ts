@@ -31,12 +31,10 @@ describe('penyimpanan lokal offline-first', () => {
     await resetPenyimpanan();
   });
 
-  it('membuka basis data dengan toko Zona 6 dan konfigurasi sekolah', async () => {
+  it('membuka basis data dengan seluruh toko sampai migrasi Tahap 2', async () => {
     const db = await bukaBasisData();
     expect(db.version).toBe(VERSI_BASIS_DATA);
-    expect([...db.objectStoreNames].sort()).toEqual(
-      [TOKO.akun, TOKO.perangkat, TOKO.sekolah, TOKO.sesiLogin].sort(),
-    );
+    expect([...db.objectStoreNames].sort()).toEqual(Object.values(TOKO).sort());
   });
 
   it('menyimpan dan membaca akun lewat indeks username', async () => {

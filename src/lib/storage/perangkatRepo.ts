@@ -12,6 +12,7 @@ interface BarisPerangkat<T> {
 export const KUNCI_PERANGKAT = {
   idPerangkat: 'id_perangkat',
   setupSelesai: 'setup_selesai',
+  versiSeedKurikulum: 'versi_seed_kurikulum',
 } as const;
 
 export async function bacaPenanda<T>(kunci: string): Promise<T | undefined> {

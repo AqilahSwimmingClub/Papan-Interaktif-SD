@@ -24,6 +24,9 @@ export default defineConfig({
     setupFiles: ['./src/test/setup.ts'],
     css: false,
     include: ['src/**/*.test.{ts,tsx}'],
+    // Semua test berbagi nama basis data IndexedDB yang sama. Jalankan file
+    // secara serial agar reset database antarsuite tidak saling berlomba.
+    fileParallelism: false,
     restoreMocks: true,
   },
 });

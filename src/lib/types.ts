@@ -60,3 +60,122 @@ export interface SesiAktif {
   akun: Akun;
   sesi: SesiLogin;
 }
+
+/** Zona 1 dan titik temu TP yang mulai dipakai pada Tahap 2. */
+export type KodeFase = 'A' | 'B' | 'C';
+
+export interface Fase {
+  kode: KodeFase;
+  nama: string;
+  kelas_awal: number;
+  kelas_akhir: number;
+  warna_penanda: string;
+  profil_game: string;
+}
+
+export interface JenjangKelas {
+  tingkat: number;
+  fase_kode: KodeFase;
+  nama: string;
+}
+
+export type StatusMataPelajaran =
+  | 'wajib'
+  | 'wajib_sesuai_agama'
+  | 'sesuai_konfigurasi_sekolah'
+  | 'pilihan_cabang_seni'
+  | 'pilihan_cabang_seni_default'
+  | 'pilihan';
+
+export interface MataPelajaran {
+  kode: string;
+  nama: string;
+  fase_tersedia: KodeFase[];
+  kelas_tersedia: number[];
+  status: StatusMataPelajaran;
+  punya_cabang: boolean;
+  agama_kode: string | null;
+  dasar_hukum: string;
+}
+
+export interface Agama {
+  kode: string;
+  nama: string;
+  mapel_kode: string;
+  aktif_di_sekolah: boolean;
+}
+
+export interface CabangSeni {
+  kode: string;
+  nama: string;
+  bawaan: boolean;
+}
+
+export interface DokumenKurikulum {
+  kode: string;
+  judul: string;
+  tanggal: string | null;
+  versi: string;
+  url_sumber: string;
+  jumlah_halaman: number | null;
+  status_verifikasi: string;
+}
+
+export interface CapaianPembelajaran {
+  id: string;
+  mapel_kode: string;
+  fase_kode: KodeFase;
+  cabang_kode: string | null;
+  agama_kode: string | null;
+  teks_capaian: string;
+  dokumen_kode: string;
+  halaman_lampiran: number | null;
+  versi: string;
+  terverifikasi: boolean;
+}
+
+export type StatusElemen = 'aktif' | 'tidak_berlaku';
+
+export interface ElemenKurikulum {
+  id: string;
+  cp_id: string;
+  nama: string;
+  teks_elemen: string;
+  urutan: number;
+  kelompok: string | null;
+  status: StatusElemen;
+}
+
+export type SumberTujuanPembelajaran = 'rekomendasi' | 'sekolah';
+
+export interface TujuanPembelajaran {
+  id: string;
+  elemen_id: string;
+  tingkat_kelas: number;
+  kode_tampil: string;
+  teks_tujuan: string;
+  sumber: SumberTujuanPembelajaran;
+  dibuat_oleh: string | null;
+  semester: 1 | 2 | 'keduanya';
+  status: 'aktif' | 'diarsipkan';
+  halaman_lampiran: number | null;
+}
+
+/**
+ * Kontrak konteks tunggal dari IMPLEMENTATION HANDOFF §4. Tahap 2 baru
+ * mengisi rantai sampai TP; kolom lanjutan dipertahankan agar modul berikutnya
+ * tidak perlu mengubah bentuk objek ini.
+ */
+export interface KonteksKurikulum {
+  tingkat_kelas: number | null;
+  fase_kode: KodeFase | null;
+  mapel_kode: string | null;
+  cabang_kode: string | null;
+  agama_kode: string | null;
+  cp_id: string | null;
+  elemen_id: string | null;
+  tp_id: string | null;
+  materi_id: string | null;
+  referensi_id: string | null;
+  referensi_bab_id: string | null;
+}
