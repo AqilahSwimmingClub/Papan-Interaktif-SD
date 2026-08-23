@@ -40,5 +40,6 @@ describe('kontrak distribusi Android', () => {
     expect(gradle).toContain("rootProject.file('keystore.properties')");
     expect(gitignore).toContain('android/keystore.properties');
     expect(gitignore).toContain('*.jks');
+    expect(gitignore).toContain('.env*');
   });
 });

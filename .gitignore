@@ -12,3 +12,4 @@ android/local.properties
 *.jks
 *.keystore
 release/
+.env*
