@@ -1,0 +1,133 @@
+{
+  "update_type": "PADB_PAI_ONLY",
+  "do_not_modify_other_subjects": true,
+  "subject": {
+    "code": "PAIBP",
+    "name": "Pendidikan Agama Islam dan Budi Pekerti",
+    "level": "SD",
+    "status": "verified_from_official_guru_kemendikdasmen_portal"
+  },
+  "source": {
+    "portal": "https://guru.kemendikdasmen.go.id/kurikulum/referensi-penerapan/capaian-pembelajaran/sd-sma/pendidikan-agama-islam-dan-budi-pekerti/",
+    "note": "Gunakan halaman resmi CP & ATP per fase sebagai sumber utama PADB/PAI. Mapel lain tidak diubah."
+  },
+  "phases": [
+    {
+      "phase": "A",
+      "classes": [
+        1,
+        2
+      ],
+      "cp_source": "https://guru.kemendikdasmen.go.id/kurikulum/referensi-penerapan/capaian-pembelajaran/sd-sma/pendidikan-agama-islam-dan-budi-pekerti/fase-a/",
+      "elements": [
+        {
+          "name": "Al-Qur’an dan Hadis",
+          "summary": "Mengenal huruf hijaiah dan harakat, huruf bersambung, serta membaca surah pendek dengan baik."
+        },
+        {
+          "name": "Akidah",
+          "summary": "Mengenal rukun iman, Allah melalui asmaulhusna, serta malaikat dan tugasnya."
+        },
+        {
+          "name": "Akhlak",
+          "summary": "Membiasakan perilaku baik, ungkapan positif, menghargai orang tua/guru, perbedaan pendapat, dan kerja kelompok."
+        },
+        {
+          "name": "Fikih",
+          "summary": "Mengenal rukun Islam, syahadat, bersuci, salat fardu, azan, ikamah, zikir, dan doa sesudah salat."
+        },
+        {
+          "name": "Sejarah Peradaban Islam",
+          "summary": "Menceritakan secara sederhana kisah beberapa nabi yang wajib diimani."
+        }
+      ],
+      "atp": {
+        "type": "Inspirasi ATP",
+        "available_count": 2,
+        "label_on_portal": "ATP 2022 - Puskurjar",
+        "status": "official_reference_available"
+      }
+    },
+    {
+      "phase": "B",
+      "classes": [
+        3,
+        4
+      ],
+      "cp_source": "https://guru.kemendikdasmen.go.id/kurikulum/referensi-penerapan/capaian-pembelajaran/sd-sma/pendidikan-agama-islam-dan-budi-pekerti/fase-b/",
+      "elements": [
+        {
+          "name": "Al-Qur’an dan Hadis",
+          "summary": "Membaca surah/ayat pendek, menjelaskan pesan pokok, serta mengenal hadis tentang salat dan hubungan baik dengan sesama."
+        },
+        {
+          "name": "Akidah",
+          "summary": "Memahami sifat Allah, beberapa asmaulhusna, kitab-kitab Allah, serta nabi dan rasul yang wajib diimani."
+        },
+        {
+          "name": "Akhlak",
+          "summary": "Berbakti kepada orang tua/guru, memahami keragaman, norma, musyawarah, persatuan, dan percaya diri berpendapat."
+        },
+        {
+          "name": "Fikih",
+          "summary": "Melaksanakan puasa, salat Jumat dan salat sunah, serta memahami balig dan tanggung jawabnya."
+        },
+        {
+          "name": "Sejarah Peradaban Islam",
+          "summary": "Mengenal kondisi Arab pra-Islam dan perjalanan Nabi Muhammad dari masa muda hingga membangun Madinah."
+        }
+      ],
+      "atp": {
+        "type": "Inspirasi ATP",
+        "available_count": 3,
+        "label_on_portal": "ATP 2022 - Puskurjar",
+        "status": "official_reference_available"
+      }
+    },
+    {
+      "phase": "C",
+      "classes": [
+        5,
+        6
+      ],
+      "cp_source": "https://guru.kemendikdasmen.go.id/kurikulum/referensi-penerapan/capaian-pembelajaran/sd-sma/pendidikan-agama-islam-dan-budi-pekerti/fase-c/",
+      "elements": [
+        {
+          "name": "Al-Qur’an dan Hadis",
+          "summary": "Membaca, menghafal, menulis, dan memahami pesan pokok surah pendek serta ayat tentang keragaman."
+        },
+        {
+          "name": "Akidah",
+          "summary": "Mengenal Allah melalui asmaulhusna serta memahami hari akhir, qada, dan qadar."
+        },
+        {
+          "name": "Akhlak",
+          "summary": "Memahami dialog antaragama, keberagaman, introspeksi, pendapat logis, persatuan, dan peran manusia menjaga bumi."
+        },
+        {
+          "name": "Fikih",
+          "summary": "Memahami zakat, infak, sedekah, hadiah, haji, halal-haram, serta mempraktikkan puasa sunah."
+        },
+        {
+          "name": "Sejarah Peradaban Islam",
+          "summary": "Mengambil ibrah dari masa akhir kerasulan Nabi Muhammad dan kisah khulafaur rasyidin."
+        }
+      ],
+      "atp": {
+        "type": "Inspirasi ATP",
+        "available_count": 2,
+        "label_on_portal": "ATP 2022 - Puskurjar",
+        "status": "official_reference_available"
+      }
+    }
+  ],
+  "import_rules": {
+    "replace_only_subject": "Pendidikan Agama Islam dan Budi Pekerti",
+    "preserve_all_other_subjects": true,
+    "cp_read_only": true,
+    "atp_reference_not_mandatory": true,
+    "teacher_can_create_tp_atp": true,
+    "ai_must_use_selected_phase_cp": true,
+    "ai_must_not_invent_cp": true
+  }
+}

@@ -1,0 +1,3557 @@
+{
+  "versi_impor": "1.0",
+  "dokumen": [
+    {
+      "kode": "046/H/KR/2025",
+      "judul": "Keputusan Kepala BSKAP Nomor 046/H/KR/2025 tentang Capaian Pembelajaran",
+      "tanggal": "2025-07-16",
+      "versi": "2025.1",
+      "url_sumber": "https://kurikulum.kemendikdasmen.go.id/file/1753929861_manage_file.pdf",
+      "jumlah_halaman": 1691,
+      "status_verifikasi": "resmi-terverifikasi"
+    },
+    {
+      "kode": "020/2026",
+      "judul": "Keputusan Kepala BKPDM Nomor 020 Tahun 2026 (perubahan CP Agama dan Budi Pekerti)",
+      "tanggal": "2026-06-11",
+      "versi": "2026.1",
+      "url_sumber": "https://www.kemendikdasmen.go.id/en/press-release/15636-capaian-pembelajaran-baru-telah-terbit-yang-berubah-hanya-mata-pelajaran-agama-dan-budi-pekerti",
+      "jumlah_halaman": null,
+      "status_verifikasi": "keberadaan-dan-ruang-lingkup-terverifikasi; teks-keputusan-langsung-belum-tersedia-di-url-resmi-yang-ditemukan"
+    },
+    {
+      "kode": "PANDUAN-MAPEL-2025",
+      "judul": "Panduan Mata Pelajaran Kemendikdasmen",
+      "tanggal": "2025-01-01",
+      "versi": "2025",
+      "url_sumber": "https://kurikulum.kemendikdasmen.go.id/panduan-mapel",
+      "jumlah_halaman": null,
+      "status_verifikasi": "resmi"
+    },
+    {
+      "kode": "SIBI",
+      "judul": "Sistem Informasi Perbukuan Indonesia (SIBI) - Katalog Buku",
+      "tanggal": null,
+      "versi": "live",
+      "url_sumber": "https://buku.kemendikdasmen.go.id/katalog/",
+      "jumlah_halaman": null,
+      "status_verifikasi": "resmi"
+    }
+  ],
+  "mata_pelajaran": [
+    {
+      "kode": "PAI",
+      "nama": "Pendidikan Agama Islam dan Budi Pekerti",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib_sesuai_agama",
+      "bercabang": true,
+      "agama_kode": "ISLAM"
+    },
+    {
+      "kode": "PAK",
+      "nama": "Pendidikan Agama Kristen dan Budi Pekerti",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib_sesuai_agama",
+      "bercabang": true,
+      "agama_kode": "KRISTEN"
+    },
+    {
+      "kode": "PAKat",
+      "nama": "Pendidikan Agama Katolik dan Budi Pekerti",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib_sesuai_agama",
+      "bercabang": true,
+      "agama_kode": "KATOLIK"
+    },
+    {
+      "kode": "PAH",
+      "nama": "Pendidikan Agama Hindu dan Budi Pekerti",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib_sesuai_agama",
+      "bercabang": true,
+      "agama_kode": "HINDU"
+    },
+    {
+      "kode": "PAB",
+      "nama": "Pendidikan Agama Buddha dan Budi Pekerti",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib_sesuai_agama",
+      "bercabang": true,
+      "agama_kode": "BUDDHA"
+    },
+    {
+      "kode": "PAKh",
+      "nama": "Pendidikan Agama Khonghucu dan Budi Pekerti",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib_sesuai_agama",
+      "bercabang": true,
+      "agama_kode": "KHONGHUCU"
+    },
+    {
+      "kode": "PP",
+      "nama": "Pendidikan Pancasila",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib",
+      "bercabang": false
+    },
+    {
+      "kode": "BI",
+      "nama": "Bahasa Indonesia",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib",
+      "bercabang": false
+    },
+    {
+      "kode": "MAT",
+      "nama": "Matematika",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib",
+      "bercabang": false
+    },
+    {
+      "kode": "IPAS",
+      "nama": "Ilmu Pengetahuan Alam dan Sosial (IPAS)",
+      "fase": [
+        "B",
+        "C"
+      ],
+      "kelas": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib",
+      "bercabang": false
+    },
+    {
+      "kode": "PJOK",
+      "nama": "Pendidikan Jasmani, Olahraga, dan Kesehatan",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib",
+      "bercabang": false
+    },
+    {
+      "kode": "BING",
+      "nama": "Bahasa Inggris",
+      "fase": [
+        "B",
+        "C"
+      ],
+      "kelas": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "sesuai_konfigurasi_sekolah",
+      "bercabang": false
+    },
+    {
+      "kode": "SMUS",
+      "nama": "Seni Musik",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "pilihan_cabang_seni",
+      "bercabang": true,
+      "cabang_kode": "SMUS"
+    },
+    {
+      "kode": "RUPA",
+      "nama": "Seni Rupa",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "pilihan_cabang_seni_default",
+      "bercabang": true,
+      "cabang_kode": "RUPA"
+    },
+    {
+      "kode": "TARI",
+      "nama": "Seni Tari",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "pilihan_cabang_seni",
+      "bercabang": true,
+      "cabang_kode": "TARI"
+    },
+    {
+      "kode": "TEATER",
+      "nama": "Seni Teater",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "pilihan_cabang_seni",
+      "bercabang": true,
+      "cabang_kode": "TEATER"
+    },
+    {
+      "kode": "KKA",
+      "nama": "Koding dan Kecerdasan Artifisial",
+      "fase": [
+        "C"
+      ],
+      "kelas": [
+        5,
+        6
+      ],
+      "status": "pilihan",
+      "bercabang": false
+    }
+  ],
+  "cp": [
+    {
+      "id": "CP-PP-A",
+      "mapel_kode": "PP",
+      "fase_kode": "A",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase A, murid memiliki kemampuan sebagai Pancasila: Mengenal bendera negara, lagu kebangsaan, simbol dan sila-sila Pancasila dalam lambang negara Garuda Pancasila dan simbol Pancasila beserta sila-sila Pancasila; menerapkan nilai-nilai Pancasila di lingkungan keluarga. Undang-Undang Dasar Negara Republik Indonesia Tahun 1945: Mengenal aturan di lingkungan keluarga; menunjukkan dan menceritakan sikap mematuhi aturan di lingkungan keluarga. Bhinneka Tunggal Ika: Mengenal semboyan Bhinneka Tunggal Ika; mengidentifikasi dan menghargai identitas dirinya sesuai dengan jenis kelamin, hobi, bahasa, serta agama dan kepercayaan di lingkungan sekitar. Negara Kesatuan Republik Indonesia: Mengenal karakteristik lingkungan tempat tinggal dan sekolah, sebagai bagian dari wilayah Negara Kesatuan Republik Indonesia; menceritakan dan mempraktikkan bekerja sama menjaga lingkungan sekitar dalam keberagaman.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 82
+    },
+    {
+      "id": "CP-PP-B",
+      "mapel_kode": "PP",
+      "fase_kode": "B",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase B, murid memiliki kemampuan sebagai Pancasila: Mengidentifikasi makna sila-sila Pancasila, dan penerapannya dalam kehidupan sehari-hari; mengenal karakter para perumus Pancasila; menunjukkan sikap bangga menjadi anak Indonesia yang memiliki bahasa Indonesia sebagai bahasa persatuan di lingkungan sekitar. Undang-Undang Dasar Negara Republik Indonesia Tahun 1945: Mengidentifikasi dan melaksanakan aturan di sekolah dan lingkungan tempat tinggal; mengidentifikasi dan menerapkan hak yang didapat dan kewajiban sebagai anggota keluarga dan sebagai warga sekolah. Bhinneka Tunggal Ika: Membedakan dan menghargai identitas, keluarga, dan teman-temannya sesuai budaya, suku bangsa, bahasa, agama dan kepercayaannya di lingkungan sekitar. Negara Kesatuan Republik Indonesia: Mengidentifikasi lingkungan tempat tinggal (RT, RW, desa atau kelurahan, dan kecamatan) sebagai bagian dari wilayah Negara Kesatuan Republik Indonesia; menunjukkan perilaku bekerja sama dalam berbagai bentuk keberagaman suku bangsa, sosial, dan budaya di Indonesia yang terikat persatuan dan kesatuan di lingkungan sekitar.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 83
+    },
+    {
+      "id": "CP-PP-C",
+      "mapel_kode": "PP",
+      "fase_kode": "C",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase C, murid memiliki kemampuan sebagai Pancasila: Memahami kronologi sejarah kelahiran Pancasila; meneladani sikap para perumus Pancasila dan menerapkan di lingkungan masyarakat; menghubungkan sila-sila dalam Pancasila sebagai suatu kesatuan yang utuh; menguraikan makna nilai-nilai Pancasila sebagai dasar negara, dan pandangan hidup bangsa. Undang-Undang Dasar Negara Republik Indonesia Tahun 1945: Mengimplementasikan bentuk-bentuk norma, hak, dan kewajiban dalam kedudukannya sebagai warga negara; mengenal Pembukaan Undang-Undang Dasar Negara Republik Indonesia tahun 1945; mempraktikkan musyawarah untuk membuat kesepakatan dan aturan bersama, serta menerapkannya dalam lingkungan keluarga dan sekolah. Bhinneka Tunggal Ika: Menyajikan hasil identifikasi sikap menghormati, menjaga, dan melestarikan keberagaman budaya sesuai semboyan dalam bingkai Bhinneka Tunggal Ika di lingkungan sekitar. Negara Kesatuan Republik Indonesia: Mengenal wilayahnya dalam konteks kabupaten/kota, dan provinsi sebagai bagian dari wilayah Negara Kesatuan Republik Indonesia; menunjukkan perilaku gotong royong untuk menjaga persatuan di lingkungan sekolah dan sekitar sebagai wujud bela negara.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 84
+    },
+    {
+      "id": "CP-BI-A",
+      "mapel_kode": "BI",
+      "fase_kode": "A",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase A, murid memiliki kemampuan sebagai Menyimak: Memahami informasi dari teks nonsastra berbentuk teks aural (teks yang dibacakan dan/atau didengarkan) berupa percakapan yang berkaitan dengan diri, keluarga, dan/atau lingkungan sekitar; dan memahami pesan teks sastra berbentuk teks aural. Membaca dan Memirsa: Membaca kata-kata sederhana dengan fasih dari bacaan dan/atau tayangan yang dipirsa tentang diri, keluarga, kesehatan, dan/atau lingkungan sekitar; dan memahami isi bacaan dan/atau tayangan yang dipirsa tentang diri, keluarga, kesehatan, dan/atau lingkungan sekitar. Berbicara dan Mempresentasikan: Merespons dengan bertanya tentang sesuatu, menjawab, dan menanggapi komentar orang lain (teman, pendidik, dan/atau orang dewasa) dengan baik dan santun dalam suatu percakapan tentang diri, keluarga, kesehatan, dan/atau lingkungan sekitar; mengungkapkan perasaan dan gagasan secara lisan dengan atau tanpa bantuan gambar; dan menceritakan kembali isi berbagai tipe teks yang dibaca, dipirsa, atau didengar tentang diri, keluarga, kesehatan, dan/atau lingkungan sekitar. Menulis: Menulis permulaan dengan benar di atas kertas dan/atau melalui media digital; mengembangkan tulisan tangan yang semakin baik; dan menulis berbagai tipe teks sederhana tentang diri, keluarga, dan/atau lingkungan sekitar dengan beberapa kalimat sederhana.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 94
+    },
+    {
+      "id": "CP-BI-B",
+      "mapel_kode": "BI",
+      "fase_kode": "B",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase B, murid memiliki kemampuan sebagai Menyimak: Memahami ide pokok suatu informasi dari teks nonsastra berbentuk teks aural (teks yang dibacakan dan/atau didengarkan); dan memahami isi teks sastra berbentuk teks aural. Membaca dan Memirsa: Membaca kata-kata baru dengan fasih dari bacaan dan/atau tayangan yang dipirsa; dan memahami ide pokok, ide pendukung, pesan, dan informasi dalam teks sastra dan nonsastra berbentuk cetak dan/atau elektronik. Berbicara dan Mempresentasikan: Menyajikan pendapat dengan pilihan kata dan sikap tubuh/gestur yang sesuai, menggunakan volume dan intonasi yang tepat sesuai konteks; menanggapi diskusi sesuai tata cara; dan menceritakan kembali isi dan/atau informasi dari berbagai tipe teks yang dibaca, dipirsa, atau didengar. Menulis: Menulis berbagai tipe teks sederhana dengan rangkaian kalimat yang beragam; dan menggunakan kaidah kebahasaan dan kosakata baru yang memiliki makna denotatif untuk menulis teks sesuai dengan konteks.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 95
+    },
+    {
+      "id": "CP-BI-C",
+      "mapel_kode": "BI",
+      "fase_kode": "C",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase C, murid memiliki kemampuan sebagai Menyimak: Menganalisis informasi dari teks nonsastra berbentuk teks aural (teks yang dibacakan dan/atau didengarkan; dan menganalisis isi teks sastra berbentuk teks aural. Membaca dan Memirsa: Membaca kata-kata dengan berbagai pola kombinasi huruf dengan fasih dari bacaan dan/atau tayangan yang dipirsa; dan menganalisis informasi serta nilai-nilai dalam teks sastra dan nonsastra berwujud teks visual dan/atau audiovisual. Berbicara dan Mempresentasikan: Mempresentasikan gagasan dari berbagai tipe teks dengan efektif dan santun; dan menyampaikan perasaan berdasarkan fakta, imajinasi (dari diri sendiri dan orang lain) secara indah dan menarik dalam bentuk teks sastra dengan penggunaan kosakata secara kreatif. Menulis: Menulis berbagai tipe teks sederhana berdasarkan gagasan, hasil pengamatan, pengalaman, dan/atau imajinasi dengan rangkaian kalimat kompleks secara kreatif, menarik, dan/atau indah; dan menggunakan kaidah kebahasaan dan kosakata baru yang memiliki makna denotatif dan konotatif.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 95
+    },
+    {
+      "id": "CP-MAT-A",
+      "mapel_kode": "MAT",
+      "fase_kode": "A",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase A, murid memiliki kemampuan sebagai Bilangan: Menunjukkan pemahaman dan memiliki intuisi bilangan (number sense) pada bilangan cacah sampai 100; membaca, menulis, menentukan nilai tempat, membandingkan, mengurutkan, serta melakukan komposisi (menyusun) dan dekomposisi (mengurai) bilangan; melakukan operasi penjumlahan dan pengurangan menggunakan benda-benda konkret yang banyaknya sampai 20; dan menunjukkan pemahaman pecahan sebagai bagian dari keseluruhan melalui konteks membagi sebuah benda atau kumpulan benda sama banyak (pecahan yang diperkenalkan adalah setengah dan seperempat). Aljabar: Menunjukan pemahaman makna simbol matematika \"=\" dalam suatu kalimat matematika yang terkait dengan penjumlahan dan pengurangan bilangan cacah sampai 20 menggunakan gambar. Contoh: Murid dapat mengenali, meniru, dan melanjutkan pola bukan bilangan (misalnya, gambar, warna, bunyi/suara). Pengukuran: Membandingkan panjang dan berat benda secara langsung, dan membandingkan durasi waktu; mengukur dan mengestimasi panjang dan berat benda menggunakan satuan tidak baku. Geometri: Mengenal berbagai bangun datar (segitiga, segiempat, segi banyak, lingkaran) dan bangun ruang (balok, kubus, kerucut, dan bola); melakukan komposisi (penyusunan) dan dekomposisi (penguraian) suatu bangun datar (segitiga, segiempat, dan segi banyak); dan menentukan posisi benda terhadap benda lain (kanan, kiri, depan belakang, bawah, atas). Analisis Data dan Peluang: Mengurutkan, menyortir, mengelompokkan, membandingkan, dan menyajikan data dari banyak benda dengan menggunakan turus dan piktogram paling banyak 4 kategori.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 111
+    },
+    {
+      "id": "CP-MAT-B",
+      "mapel_kode": "MAT",
+      "fase_kode": "B",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase B, murid memiliki kemampuan sebagai Bilangan: Memiliki pemahaman dan intuisi bilangan (number sense) pada bilangan cacah sampai 10.000; membaca, menulis, membandingkan, dan mengurutkan bilangan; menentukan dan menggunakan nilai tempat; melakukan komposisi dan dekomposisi bilangan cacah sampai 10.000. Murid dapat melakukan dan menyelesaikan masalah operasi bilangan penjumlahan dan pengurangan bilangan cacah sampai 1.000; melakukan dan menyelesaikan masalah operasi perkalian dan pembagian bilangan cacah sampai 100 dengan bantuan benda konkret, gambar dan simbol; mengenal kelipatan dan faktor. Murid dapat melakukan perbandingan dan pengurutan pecahan dengan pembilang satu dan antar pecahan dengan penyebut yang sama; mengenal dan dapat menerapkan pecahan senilai, memiliki intuisi pecahan dan desimal, serta dapat menentukan pecahan sebagai desimal dan persen. Aljabar: Menemukan nilai yang tidak diketahui dalam kalimat matematika yang melibatkan penjumlahan dan pengurangan pada bilangan cacah sampai 100, dengan menggunakan sifat-sifat bilangan dan operasinya. Murid dapat mengidentifikasi, meniru, dan mengembangkan pola gambar atau objek sederhana dan pola bilangan membesar dan mengecil yang dapat melibatkan penjumlahan dan pengurangan pada bilangan cacah sampai 100. Pengukuran: Mengukur panjang dan berat benda menggunakan satuan baku; menentukan hubungan antar-satuan baku panjang (cm, m) dan antar-satuan berat (g, kg); serta mengukur dan mengestimasi luas dan volume menggunakan satuan tidak baku dan satuan baku berupa bilangan cacah. Geometri: Mendeskripsikan ciri berbagai bentuk bangun datar (segiempat, segitiga, segi banyak); menyusun (komposisi) dan mengurai (dekomposisi) berbagai bangun datar dengan lebih dari satu cara jika memungkinkan. Analisis Data dan Peluang: Mengurutkan, membandingkan, menyajikan, menganalisis dan menginterpretasi data dalam bentuk tabel, diagram gambar, piktogram, dan diagram batang (skala satu satuan).",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 112
+    },
+    {
+      "id": "CP-MAT-C",
+      "mapel_kode": "MAT",
+      "fase_kode": "C",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase C, murid memiliki kemampuan sebagai Bilangan: Menunjukkan pemahaman dan intuisi bilangan (number sense) pada bilangan cacah sampai 1.000.000; membaca, menulis, menentukan nilai tempat, membandingkan, mengurutkan, melakukan komposisi dan dekomposisi bilangan; menyelesaikan masalah yang berkaitan dengan uang; melakukan operasi penjumlahan, pengurangan, perkalian, dan pembagian bilangan cacah sampai 100.000; serta menyelesaikan masalah yang berkaitan dengan KPK dan FPB. Murid dapat membandingkan dan mengurutkan berbagai pecahan termasuk pecahan campuran, melakukan operasi penjumlahan dan pengurangan pecahan, serta melakukan operasi perkalian dan pembagian pecahan dengan bilangan asli; mengubah pecahan menjadi berbagai bentuk pecahan lain, serta membandingkan dan mengurutkan bilangan desimal (satu angka di belakang koma). Aljabar: Menemukan nilai yang belum diketahui dalam kalimat matematika yang melibatkan penjumlahan, pengurangan, perkalian, dan pembagian pada bilangan cacah sampai 1000 dengan menggunakan sifat-sifat bilangan dan operasinya. Murid dapat mengidentifikasi, meniru, dan mengembangkan pola bilangan membesar dan mengecil yang melibatkan perkalian dan pembagian; bernalar secara proporsional untuk menyelesaikan masalah sehari-hari dengan rasio satuan; menggunakan operasi perkalian dan pembagian dalam menyelesaikan masalah sehari- hari yang terkait dengan proporsi. Pengukuran: Menentukan keliling dan luas berbagai bentuk bangun datar (segitiga, segiempat, dan segi banyak) serta gabungannya; menghitung durasi waktu dan mengukur besar sudut pada bangun datar atau yang dibentuk dari dua garis berpotongan. Geometri: Mengkonstruksi dan mengurai bangun ruang (kubus, balok, dan gabungannya) dan mengenali visualisasi spasial (bagian depan, atas, dan samping); membandingkan karakteristik antar bangun datar dan antar bangun ruang; serta menentukan lokasi pada peta yang menggunakan sistem berpetak. Analisis Data dan Peluang: Mengurutkan, membandingkan, menyajikan, dan menganalisis data banyak benda dan data hasil pengukuran dalam bentuk gambar, piktogram, diagram batang, dan tabel frekuensi untuk mendapatkan informasi; menentukan kejadian dengan kemungkinan yang lebih besar atau lebih kecil dalam suatu percobaan acak.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 114
+    },
+    {
+      "id": "CP-BING-B",
+      "mapel_kode": "BING",
+      "fase_kode": "B",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir fase B, murid memiliki kemampuan sebagai Menyimak - Berbicara (Listening - Speaking): Memahami dan merespon teks lisan atau teks multimodal sederhana tentang kehidupan sehari-hari baik secara verbal atau non-verbal sesuai konteks. (understand and respond to simple oral or multimodal texts about everyday life verbally or non-verbally in line with its context) Membaca - Memirsa (Reading - Viewing): Memahami teks tulis pendek sederhana atau teks multimodal tentang kehidupan sehari-hari dan meresponsnya secara verbal atau non-verbal sesuai konteks. (Understand simple short texts or multimodal texts about everyday life and respond to them verbally or non-verbally in line with its context) Menulis - Mempresentasikan (Writing - Presenting): Mengomunikasikan gagasan tentang topik sehari-hari dalam teks tulis pendek atau teks multimodal sesuai konteks. (Communicate their ideas on everyday life topics in simple written or multimodal texts in line with its context)",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 133
+    },
+    {
+      "id": "CP-BING-C",
+      "mapel_kode": "BING",
+      "fase_kode": "C",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir fase C, murid memiliki kemampuan sebagai Menyimak - Berbicara (Listening - Speaking): Memahami alur informasi teks secara keseluruhan dan merespon teks lisan atau teks multimodal sederhana tentang topik sehari-hari secara lisan dengan kalimat pendek dan sederhana sesuai konteks. (Understand the entire flow of information and respond to simple oral or multimodal texts about everyday topics using short and simple sentences verbally in line with its context) Membaca - Memirsa (Reading - Viewing): Memahami alur informasi secara keseluruhan, gagasan utama dan informasi rinci dari beragam teks pendek atau teks multimodal tentang topik sehari-hari dan meresponnya sesuai konteks. (Understand the entire flow of information, main ideas and details from a variety of short texts or multimodal texts about everyday topics and respond in line with its context) Menulis - Mempresentasikan (Writing - Presenting): Mengomunikasikan ide dan pengalamannya melalui berbagai jenis teks tulis sederhana atau teks multimodal tentang topik sehari-hari sesuai konteks. (Communicate their ideas and experiences through various types of simple written texts or multimodal texts about everyday topics in line with its context)",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 134
+    },
+    {
+      "id": "CP-IPAS-B",
+      "mapel_kode": "IPAS",
+      "fase_kode": "B",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase B, murid memiliki kemampuan sebagai Pemahaman IPAS: Menjelaskan bentuk dan fungsi pancaindra; menganalisis siklus hidup makhluk hidup dan upaya pelestariannya; menghasilkan solusi untuk masalah yang berkaitan dengan pelestarian sumber daya alam sebagai upaya mitigasi perubahan iklim; menyimpulkan proses perubahan wujud zat; menjelaskan sumber dan bentuk energi, serta proses perubahan bentuk energi dalam kehidupan sehari-hari; membedakan jenis gaya dan pengaruhnya terhadap arah, gerak, dan bentuk benda; menjelaskan peran, tugas, dan tanggung jawab serta interaksi sosial yang terjadi di sekitar tempat tinggal dan sekolah; mengenali letak kabupaten/kota dan provinsi tempat tinggalnya dengan menggunakan peta konvensional/digital; mengklasifikasikan ragam bentang alam dan keterkaitannya dengan profesi masyarakat, ragam budaya serta upaya untuk melestarikannya; menganalisis sejarah masyarakat di lingkungan tempat tinggal; menjelaskan nilai mata uang dan fungsinya, serta cara mengelola keuangan secara bijak. Keterampilan Proses: Mampu menerapkan keterampilan proses yang meliputi: ● Mengamati Murid mengamati fenomena dan peristiwa secara sederhana dan dapat mencatat hasil pengamatannya. ● Mempertanyakan dan Memprediksi Secara mandiri, murid mengajukan pertanyaan tentang hal-hal yang ingin diketahui saat melakukan pengamatan dan membuat prediksi berdasarkan pengetahuan yang dimiliki sebelumnya. ● Merencanakan dan Melakukan Penyelidikan Dengan panduan pendidik, murid membuat rencana dan melakukan langkah-langkah operasional untuk menjawab pertanyaan yang diajukan. Murid melakukan observasi menggunakan alat bantu pengukuran sederhana. ● Memproses, Menganalisis Data dan Informasi Dengan panduan pendidik, murid mengorganisasikan data dalam bentuk turus dan diagram gambar untuk menyajikan dan mengidentifikasi pola. Murid membandingkan antara hasil pengamatan dengan prediksi dan memberikan penjelasan. ● Mengevaluasi dan Refleksi Murid melakukan refleksi terhadap penyelidikan yang sudah dilakukan. ● Mengomunikasikan Hasil Murid mengomunikasikan hasil penyelidikan secara lisan dan tertulis dalam berbagai media.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 149
+    },
+    {
+      "id": "CP-IPAS-C",
+      "mapel_kode": "IPAS",
+      "fase_kode": "C",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase C, murid memiliki kemampuan sebagai Pemahaman IPAS: Merefleksikan sistem organ tubuh manusia yang dikaitkan dengan cara menjaga kesehatan tubuhnya; menganalisis hubungan antar komponen biotik dan abiotik, serta pengaruhnya terhadap ekosistem; menjelaskan fenomena gelombang bunyi dan cahaya dalam kehidupan sehari-hari; menghasilkan upaya penghematan energi, serta pemanfaatan sumber energi alternatif dari sumber daya yang ada di sekitarnya sebagai upaya mitigasi perubahan iklim; menjelaskan sistem tata surya, serta kaitannya dengan rotasi dan revolusi bumi; menjelaskan letak dan kondisi geografis negara Indonesia dengan menggunakan peta konvensional/digital; meninjau sejarah perjuangan para pahlawan di lingkungan sekitar tempat tinggalnya; menemukan keragaman budaya nasional dalam konteks kebhinekaan berdasarkan pemahaman terhadap nilai-nilai kearifan lokal yang berlaku di wilayah tempat tinggal; serta menerapkan kegiatan ekonomi masyarakat di lingkungan sekitar. Keterampilan Proses: Mampu menerapkan keterampilan proses yang meliputi: ● Mengamati Murid mengamati fenomena dan peristiwa secara sederhana, mencatat hasil pengamatannya, serta mencari persamaan dan perbedaannya. ● Mempertanyakan dan Memprediksi Dengan panduan pendidik, murid mengidentifikasi pertanyaan yang dapat diselidiki secara ilmiah dan membuat prediksinya. ● Merencanakan dan Melakukan Penyelidikan Secara mandiri, murid merencanakan dan melakukan langkah-langkah operasional untuk menjawab pertanyaan yang diajukan. Murid melakukan observasi menggunakan alat bantu pengukuran sederhana. ● Memproses serta Menganalisis Data dan Informasi Murid mengolah data dalam bentuk tabel dan grafik, serta menjelaskan hasil pengamatan dan pola atau hubungan pada data. Murid membandingkan data dengan prediksi dan memberikan alasan berdasarkan bukti. ● Mengevaluasi dan Refleksi Melakukan refleksi dan memberikan saran perbaikan terhadap penyelidikan yang sudah dilakukan. ● Mengomunikasikan Hasil Murid mengomunikasikan hasil penyelidikan secara utuh yang ditunjang dengan argumen dalam berbagai media. VII.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 151
+    },
+    {
+      "id": "CP-SMUS-A",
+      "mapel_kode": "SMUS",
+      "fase_kode": "A",
+      "cabang_kode": "SMUS",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase A, murid memiliki kemampuan sebagai Mengalami (Experiencing): Mengenali unsur-unsur musik (nada dan irama) menggunakan anggota tubuh maupun alat musik. Merefleksikan (Reflecting): Melakukan umpan balik mengenai praktik bermain musik diri sendiri atau orang lain menggunakan bahasa sehari-hari. Berpikir dan Bekerja Artistik (Thinking and Working Artistically): Menirukan pola irama dan nada menggunakan alat musik ritmis atau melodis; mengenali ragam alat musik dan bunyi yang dihasilkan; mengenali cara memainkan dan membersihkan instrumen/alat musik. Menciptakan (Creating): Membuat pola irama menggunakan anggota tubuh atau alat musik ritmis yang tersedia di lingkungan sekitar. Berdampak (Impacting): Menunjukkan ekspresi senang dalam kegiatan bermusik.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 238
+    },
+    {
+      "id": "CP-SMUS-B",
+      "mapel_kode": "SMUS",
+      "fase_kode": "B",
+      "cabang_kode": "SMUS",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase B, murid memiliki kemampuan sebagai Mengalami (Experiencing): Mengenali nada dan pola irama menggunakan anggota tubuh maupun alat musik. Merefleksikan (Reflecting): Melakukan umpan balik mengenai praktik bermusik diri sendiri atau orang lain menggunakan istilah musik. Berpikir dan Bekerja Artistik (Thinking and Working Artistically): Menirukan pola irama dan melodi menggunakan alat musik ritmis atau melodis; menyebutkan karakteristik ragam alat musik dan bunyi yang dihasilkan; mengetahui cara memainkan dan merawat alat musik. Menciptakan (Creating): Membuat bunyi menggunakan anggota tubuh atau alat musik ritmis dan melodis yang tersedia di lingkungan sekitar. Berdampak (Impacting): Menunjukkan minat dalam kegiatan bermusik.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 239
+    },
+    {
+      "id": "CP-SMUS-C",
+      "mapel_kode": "SMUS",
+      "fase_kode": "C",
+      "cabang_kode": "SMUS",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase C, murid memiliki kemampuan sebagai Mengalami (Experiencing): Mengenali dan menerapkan unsur-unsur musik (nada, irama dan melodi) menggunakan alat musik ritmis dan melodis serta menunjukkan tingkat kepekaan akan unsur-unsur musik dengan menggunakan alat musik ritmis dan melodis. Merefleksikan (Reflecting): Melakukan umpan balik mengenai karya dan kemampuan bermusik diri sendiri atau orang lain menggunakan istilah musik yang tepat. Berpikir dan Bekerja Artistik (Thinking and Working Artistically): Mengeksplorasi variasi pola irama, tempo dan melodi dengan alat musik ritmis dan melodis menggunakan notasi musik dan teknik dasar yang telah dipelajari; menemukan alternatif untuk menghasilkan bunyi musik sederhana melalui eksplorasi material yang tersedia di lingkungan sekitar dan menerapkan cara memainkan dan merawat alat musik dengan teknik yang tepat sesuai dengan spesifikasi bahan alat musik. Menciptakan (Creating): Membuat dan mengembangkan pola irama menggunakan anggota tubuh atau alat musik ritmis yang tersedia berdasarkan nilai kearifan lokal daerahnya. Berdampak (Impacting): Menunjukkan minat dan rasa ingin tahu dalam kegiatan bermusik.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 240
+    },
+    {
+      "id": "CP-RUPA-A",
+      "mapel_kode": "RUPA",
+      "fase_kode": "A",
+      "cabang_kode": "RUPA",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase A, murid memiliki kemampuan sebagai Mengalami (Experiencing): Mengenali dan menyebutkan unsur-unsur rupa dalam benda-benda di sekitar/karya seni rupa. Merefleksikan (Reflecting): Merefleksikan dan mengapresiasi karya diri sendiri. Berpikir dan Bekerja Artistik (Thinking and Working Artistically): Mengenali dan menguji coba alat dan/atau bahan yang dimiliki. Menciptakan (Creating): Membuat karya seni rupa berdasarkan pengalaman dan hasil pengamatan terhadap lingkungan sekitar. Berdampak (Impacting): Menghasilkan karya seni rupa yang berdampak pada perasaan dirinya.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 246
+    },
+    {
+      "id": "CP-RUPA-B",
+      "mapel_kode": "RUPA",
+      "fase_kode": "B",
+      "cabang_kode": "RUPA",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase B, murid memiliki kemampuan sebagai Mengalami (Experiencing): Mengidentifikasi unsur rupa dan prinsip desain dalam benda-benda di sekitar/karya seni rupa. Merefleksikan (Reflecting): Merefleksikan dan mengapresiasi karya diri sendiri dan teman sekelas menggunakan kosa kata seni rupa yang sesuai. Berpikir dan Bekerja Artistik (Thinking and Working Artistically): Mengenali dan menguji coba alat dan/atau bahan yang dimiliki serta prosedur penggunaannya. Menciptakan (Creating): Membuat karya seni rupa berdasarkan pengalaman dan hasil pengamatan terhadap lingkungan sekitar. Berdampak (Impacting): Menghasilkan karya seni rupa yang berdampak pada perasaan atau mewakili harapannya.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 247
+    },
+    {
+      "id": "CP-RUPA-C",
+      "mapel_kode": "RUPA",
+      "fase_kode": "C",
+      "cabang_kode": "RUPA",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase C, murid memiliki kemampuan sebagai Mengalami (Experiencing): Menjelaskan unsur rupa dan prinsip desain dalam benda-benda di sekitar/karya seni rupa. Merefleksikan (Reflecting): Merefleksikan dan mengapresiasi karya diri sendiri dan teman sekelas menggunakan kosa kata seni rupa yang sesuai. Berpikir dan Bekerja Artistik (Thinking and Working Artistically): Mengenali dan menguji coba variasi teknik penggunaan alat dan/atau bahan. Menciptakan (Creating): Membuat karya seni rupa berdasarkan pengalaman dan/atau hasil pengamatan terhadap lingkungan sekitar melalui pengembangan imajinasi. Berdampak (Impacting): Menghasilkan karya seni rupa yang mewakili minatnya.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 247
+    },
+    {
+      "id": "CP-TARI-A",
+      "mapel_kode": "TARI",
+      "fase_kode": "A",
+      "cabang_kode": "TARI",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase A, murid memiliki kemampuan sebagai Mengalami (Experiencing): Mengenal bentuk tari sebagai media komunikasi serta mengembangkan kesadaran diri dalam bereksplorasi unsur utama tari meliputi gerak, ruang, tenaga, waktu, gerak di tempat dan gerak berpindah. Merefleksikan (Reflecting): Mengidentifikasi unsur utama tari meliputi gerak, ruang, tenaga, waktu, gerak di tempat dan gerak berpindah, serta mengemukakan pencapaian diri secara lisan, tulisan, dan kinestetik. Berpikir dan Bekerja Artistik (Thinking and Working Artistically): Meragakan hasil gerak berdasarkan etika sebagai penampil dan penonton dengan keyakinan dan percaya diri saat mengekspresikan ide, perasaan kepada penonton atau lingkungan sekitar. Menciptakan (Creating): Mengembangkan unsur utama tari (gerak, ruang, waktu, dan tenaga), gerak di tempat, dan gerak berpindah untuk membuat gerak sederhana yang memiliki kesatuan gerak yang indah. Berdampak (Impacting): Menerima proses pembelajaran sehingga tumbuh rasa ingin tahu dan dapat menunjukkan antusiasme yang berdampak pada kemampuan diri dalam menyelesaikan aktivitas pembelajaran tari.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 256
+    },
+    {
+      "id": "CP-TARI-B",
+      "mapel_kode": "TARI",
+      "fase_kode": "B",
+      "cabang_kode": "TARI",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase B, murid memiliki kemampuan sebagai Mengalami (Experiencing): Mengamati bentuk penyajian tari berdasarkan latar belakang serta mengeksplorasi unsur utama tari sesuai level gerak, dan perubahan arah hadap. Merefleksikan (Reflecting): Mengidentifikasi unsur utama tari sesuai level gerak, dan perubahan arah hadap, serta menilai pencapaian diri saat melakukan aktivitas pembelajaran tari. Berpikir dan Bekerja Artistik (Thinking and Working Artistically): Meragakan hasil tari dengan bekerja secara kooperatif untuk mengembangkan kemampuan bekerja sama dan saling menghargai demi tercapainya tujuan bersama. Menciptakan (Creating): Mengembangkan gerak dengan unsur utama tari, level, dan perubahan arah hadap. Berdampak (Impacting): Menerima proses pembelajaran sehingga tumbuh rasa ingin tahu dan dapat menunjukkan usaha yang berdampak pada kemampuan diri dalam menyelesaikan aktivitas pembelajaran tari.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 257
+    },
+    {
+      "id": "CP-TARI-C",
+      "mapel_kode": "TARI",
+      "fase_kode": "C",
+      "cabang_kode": "TARI",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase C, murid memiliki kemampuan sebagai Mengalami (Experiencing): Mengamati berbagai bentuk tari tradisi yang dapat digunakan untuk mengekspresikan diri melalui unsur pendukung tari. Merefleksikan (Reflecting): Mengidentifikasi unsur pendukung tari dalam tari tradisi serta menghargai hasil pencapaian diri dengan mempertimbangkan pendapat orang lain. Berpikir dan Bekerja Artistik (Thinking and Working Artistically): Meragakan hasil rangkaian gerak tari menggunakan unsur pendukung tari dengan menunjukan kerja sama dan berperan aktif dalam kelompok. Menciptakan (Creating): Merangkai gerak tari yang berpijak pada tradisi/ kreasi dengan menerapkan desain kelompok. Berdampak (Impacting): Menanggapi kejadian-kejadian di lingkungan sekitar melalui tari yang disajikan kepada penonton atau masyarakat sekitar.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 257
+    },
+    {
+      "id": "CP-TEATER-A",
+      "mapel_kode": "TEATER",
+      "fase_kode": "A",
+      "cabang_kode": "TEATER",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir fase A, murid memiliki kemampuan sebagai Mengalami (Experiencing): Mengamati, merespons, meniru gerak tubuh dan suara sebagai media untuk mengomunikasikan emosi. Merefleksikan (Reflecting): Mengenali pengalaman dan emosi selama proses berseni teater serta menceritakan sebuah karya dengan kosakata sehari-hari. Berpikir dan Bekerja Artistik (Thinking and Working Artistically): Mengenal jenis-jenis properti/alat bantu yang dapat mendukung cerita/permainan peran. Menciptakan (Creating): Mengeksplorasi beragam peran mengenai tokoh di sekitar atau rekaan, dan memainkan sebuah lakon pertunjukan. Berdampak (Impacting): Memainkan gerak dan lagu sesuai arahan dari pendidik.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 264
+    },
+    {
+      "id": "CP-TEATER-B",
+      "mapel_kode": "TEATER",
+      "fase_kode": "B",
+      "cabang_kode": "TEATER",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir fase B, murid memiliki kemampuan sebagai Mengalami (Experiencing): Mengenal teknik dasar akting (pemeranan) melalui proses meniru (mimesis), mengenal gerak tubuh, suara/vokal sesuai tokoh/peran atau perilaku objek sekitar. Merefleksikan (Reflecting): Mengenali lingkungan sekitarnya dan pengalaman dalam bermain teater. Berpikir dan Bekerja Artistik (Thinking and Working Artistically): Menggunakan properti yang sesuai dengan tokoh yang diperankan. Menciptakan (Creating): Mengamati berbagai peran, mengenal tokoh di sekitar, dan memainkan sebuah lakon dalam cerita. Berdampak (Impacting): Mengenal bentuk lakon dalam bermain teater.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 264
+    },
+    {
+      "id": "CP-TEATER-C",
+      "mapel_kode": "TEATER",
+      "fase_kode": "C",
+      "cabang_kode": "TEATER",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir fase C, murid memiliki kemampuan sebagai Mengalami (Experiencing): Melakukan permainan peran berkelompok, seperti improvisasi untuk melatih aksi dan reaksi dalam mengelaborasi cerita atau tokoh dan melakukan pengenalan karakter melalui pengamatan kebiasaan tokoh yang diperankan. Merefleksikan (Reflecting): Menceritakan pendapatnya tentang sebuah cerita sederhana (penokohan, perwatakan). Berpikir dan Bekerja Artistik (Thinking and Working Artistically): Mengidentifikasi properti sederhana berdasarkan cerita yang akan dimainkan. Menciptakan (Creating): Mengenal dan memainkan ragam peran dari cerita sederhana berdasarkan hasil pengamatan. Berdampak (Impacting): Memerankan lakon secara individu maupun berkelompok berdasarkan minat, pengamatan, dan pengalaman.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 265
+    },
+    {
+      "id": "CP-PJOK-A",
+      "mapel_kode": "PJOK",
+      "fase_kode": "A",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase A, murid memiliki kemampuan sebagai Terampil Bergerak: Mempraktikkan keterampilan gerak fundamental dan menerapkannya dalam berbagai situasi gerak yang berbeda; mengeksplorasi berbagai strategi gerak; dan mengeksplorasi berbagai konsep gerak serta menyimpulkan efektivitasnya. Belajar Melalui Gerak: Menaati peraturan untuk menumbuhkan fair play di dalam berbagai aktivitas jasmani; menerapkan strategi kolaborasi ketika berpartisipasi dalam aktivitas jasmani. Bergaya Hidup Aktif: Berpartisipasi di dalam berbagai aktivitas jasmani dan mengidentifikasi manfaatnya. Memilih Hidup yang Menyehatkan: Mengenali gaya hidup aktif dan sehat; mengenali manfaat komponen makanan bergizi seimbang; serta mengenali situasi dan potensi yang berisiko terhadap kesehatan dan keselamatan serta strategi mencari bantuan kepada orang dewasa terpercaya.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 310
+    },
+    {
+      "id": "CP-PJOK-B",
+      "mapel_kode": "PJOK",
+      "fase_kode": "B",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase B, murid memiliki kemampuan sebagai Terampil Bergerak: Menghaluskan keterampilan gerak fundamental dan menerapkannya dalam situasi gerak yang baru; menyesuaikan strategi gerak untuk mendapatkan capaian keterampilan gerak; dan memperagakan berbagai konsep gerak yang dapat diterapkan dalam rangkaian gerak. Belajar Melalui Gerak: Menerapkan strategi gerak sederhana dan memecahkan masalah gerak; menerapkan peraturan untuk menumbuhkan fair play di dalam berbagai aktivitas jasmani; dan berpartisipasi secara positif dalam kelompok atau tim di dalam berbagai aktivitas jasmani. Bergaya Hidup Aktif: Berpartisipasi dalam berbagai aktivitas jasmani dan mengenali faktor-faktor yang menyebabkan aktivitas jasmani menyenangkan. Memilih Hidup yang Menyehatkan: Mengenali risiko kesehatan akibat gaya hidup dan berbagai aktivitas jasmani untuk pencegahannya; mengidentifikasi pola makan sehat dan bergizi seimbang sesuai rekomendasi kesehatan untuk menunjang aktivitas sehari-hari; dan mempraktikkan penanganan cedera ringan sesuai pemahaman tentang prinsip pertolongan pertama.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 311
+    },
+    {
+      "id": "CP-PJOK-C",
+      "mapel_kode": "PJOK",
+      "fase_kode": "C",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase C, murid memiliki kemampuan sebagai Terampil Bergerak: Menyesuaikan keterampilan gerak melintasi berbagai situasi gerak; mentransfer strategi gerak yang sudah dikuasai ke dalam berbagai situasi gerak yang berbeda; dan menginvestigasi berbagai konsep gerak yang dapat diterapkan untuk meningkatkan capaian keterampilan gerak Belajar Melalui Gerak: Menguji efektivitas penerapan strategi gerak dalam berbagai situasi gerak; merancang peraturan alternatif dan modifikasi permainan untuk mendukung fair play dan partisipasi inklusif; dan menjalankan berbagai peran untuk mencapai keberhasilan kelompok atau tim di dalam berbagai aktivitas jasmani. Bergaya Hidup Aktif: Berpartisipasi dalam aktivitas jasmani dan menjelaskan pengaruh aktivitas jasmani yang teratur terhadap kesehatan; mengidentifikasi rekomendasi aktivitas jasmani serta pencegahan perilaku sedenter. Memilih Hidup yang Menyehatkan: Mengidentifikasi dan menghubungkan antara gaya hidup, risiko kesehatan, dan aktivitas pencegahannya sesuai rekomendasi otoritas kesehatan; menjelaskan pola makan sehat untuk menunjang aktivitas jasmani berdasarkan informasi kandungan gizi pada makanan; dan mempraktikkan penanganan cedera sedang sesuai pemahaman tentang prinsip pertolongan pertama.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 312
+    },
+    {
+      "id": "CP-KKA-C",
+      "mapel_kode": "KKA",
+      "fase_kode": "C",
+      "cabang_kode": "",
+      "agama_kode": "",
+      "teks_capaian": "Pada akhir Fase C, murid memiliki kemampuan sebagai Berpikir Komputasional: Memahami permasalahan sederhana dalam kehidupan sehari-hari, menerapkan pemecahan masalah secara sistematis, serta menuliskan instruksi logis dan terstruktur menggunakan sekumpulan kosakata atau simbol. Literasi Digital: Memahami konsep dasar, manfaat, dan dampak teknologi digital, memahami sistem komputer tingkat pradasar, menerapkan pengamanan informasi pribadi dalam komunikasi daring, memanfaatkan internet, dan memproduksi serta mendiseminasi konten digital dalam bentuk teks dan gambar. Literasi dan Etika Kecerdasan Artifisial: Memahami konsep KA sederhana, manfaat dan dampak KA pada kehidupan sehari-hari, prinsip bahwa KA dikembangkan untuk meningkatkan kesejahteraan manusia dan tidak boleh merugikan manusia, mengetahui perbedaan manusia dan komputer dalam melakukan penginderaan, dan mengetahui perbedaan antara mesin cerdas dan mesin non-cerdas. Memahami etika dasar penggunaan KA seperti empati dan tidak menyakiti orang lain. Pemanfaatan dan Pengembangan Kecerdasan Artifisial: Menyimulasikan secara sederhana kerja KA saat mengenali pola, mengklasifikasi benda konkret berdasarkan sifatnya, dan mengetahui bagaimana prediksi sistem KA dipengaruhi input benda konkret.",
+      "dokumen_kode": "046/H/KR/2025",
+      "halaman_lampiran": 342
+    }
+  ],
+  "elemen": [
+    {
+      "id": "ELM-PP-A-01",
+      "cp_id": "CP-PP-A",
+      "nama": "Pancasila",
+      "teks_elemen": "Mengenal bendera negara, lagu kebangsaan, simbol dan sila-sila Pancasila dalam lambang negara Garuda Pancasila dan simbol Pancasila beserta sila-sila Pancasila; menerapkan nilai-nilai Pancasila di lingkungan keluarga.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-PP-A-02",
+      "cp_id": "CP-PP-A",
+      "nama": "Undang-Undang Dasar Negara Republik Indonesia Tahun 1945",
+      "teks_elemen": "Mengenal aturan di lingkungan keluarga; menunjukkan dan menceritakan sikap mematuhi aturan di lingkungan keluarga.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-PP-A-03",
+      "cp_id": "CP-PP-A",
+      "nama": "Bhinneka Tunggal Ika",
+      "teks_elemen": "Mengenal semboyan Bhinneka Tunggal Ika; mengidentifikasi dan menghargai identitas dirinya sesuai dengan jenis kelamin, hobi, bahasa, serta agama dan kepercayaan di lingkungan sekitar.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-PP-A-04",
+      "cp_id": "CP-PP-A",
+      "nama": "Negara Kesatuan Republik Indonesia",
+      "teks_elemen": "Mengenal karakteristik lingkungan tempat tinggal dan sekolah, sebagai bagian dari wilayah Negara Kesatuan Republik Indonesia; menceritakan dan mempraktikkan bekerja sama menjaga lingkungan sekitar dalam keberagaman.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-PP-B-01",
+      "cp_id": "CP-PP-B",
+      "nama": "Pancasila",
+      "teks_elemen": "Mengidentifikasi makna sila-sila Pancasila, dan penerapannya dalam kehidupan sehari-hari; mengenal karakter para perumus Pancasila; menunjukkan sikap bangga menjadi anak Indonesia yang memiliki bahasa Indonesia sebagai bahasa persatuan di lingkungan sekitar.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-PP-B-02",
+      "cp_id": "CP-PP-B",
+      "nama": "Undang-Undang Dasar Negara Republik Indonesia Tahun 1945",
+      "teks_elemen": "Mengidentifikasi dan melaksanakan aturan di sekolah dan lingkungan tempat tinggal; mengidentifikasi dan menerapkan hak yang didapat dan kewajiban sebagai anggota keluarga dan sebagai warga sekolah.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-PP-B-03",
+      "cp_id": "CP-PP-B",
+      "nama": "Bhinneka Tunggal Ika",
+      "teks_elemen": "Membedakan dan menghargai identitas, keluarga, dan teman-temannya sesuai budaya, suku bangsa, bahasa, agama dan kepercayaannya di lingkungan sekitar.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-PP-B-04",
+      "cp_id": "CP-PP-B",
+      "nama": "Negara Kesatuan Republik Indonesia",
+      "teks_elemen": "Mengidentifikasi lingkungan tempat tinggal (RT, RW, desa atau kelurahan, dan kecamatan) sebagai bagian dari wilayah Negara Kesatuan Republik Indonesia; menunjukkan perilaku bekerja sama dalam berbagai bentuk keberagaman suku bangsa, sosial, dan budaya di Indonesia yang terikat persatuan dan kesatuan di lingkungan sekitar.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-PP-C-01",
+      "cp_id": "CP-PP-C",
+      "nama": "Pancasila",
+      "teks_elemen": "Memahami kronologi sejarah kelahiran Pancasila; meneladani sikap para perumus Pancasila dan menerapkan di lingkungan masyarakat; menghubungkan sila-sila dalam Pancasila sebagai suatu kesatuan yang utuh; menguraikan makna nilai-nilai Pancasila sebagai dasar negara, dan pandangan hidup bangsa.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-PP-C-02",
+      "cp_id": "CP-PP-C",
+      "nama": "Undang-Undang Dasar Negara Republik Indonesia Tahun 1945",
+      "teks_elemen": "Mengimplementasikan bentuk-bentuk norma, hak, dan kewajiban dalam kedudukannya sebagai warga negara; mengenal Pembukaan Undang-Undang Dasar Negara Republik Indonesia tahun 1945; mempraktikkan musyawarah untuk membuat kesepakatan dan aturan bersama, serta menerapkannya dalam lingkungan keluarga dan sekolah.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-PP-C-03",
+      "cp_id": "CP-PP-C",
+      "nama": "Bhinneka Tunggal Ika",
+      "teks_elemen": "Menyajikan hasil identifikasi sikap menghormati, menjaga, dan melestarikan keberagaman budaya sesuai semboyan dalam bingkai Bhinneka Tunggal Ika di lingkungan sekitar.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-PP-C-04",
+      "cp_id": "CP-PP-C",
+      "nama": "Negara Kesatuan Republik Indonesia",
+      "teks_elemen": "Mengenal wilayahnya dalam konteks kabupaten/kota, dan provinsi sebagai bagian dari wilayah Negara Kesatuan Republik Indonesia; menunjukkan perilaku gotong royong untuk menjaga persatuan di lingkungan sekolah dan sekitar sebagai wujud bela negara.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-BI-A-01",
+      "cp_id": "CP-BI-A",
+      "nama": "Menyimak",
+      "teks_elemen": "Memahami informasi dari teks nonsastra berbentuk teks aural (teks yang dibacakan dan/atau didengarkan) berupa percakapan yang berkaitan dengan diri, keluarga, dan/atau lingkungan sekitar; dan memahami pesan teks sastra berbentuk teks aural.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-BI-A-02",
+      "cp_id": "CP-BI-A",
+      "nama": "Membaca dan Memirsa",
+      "teks_elemen": "Membaca kata-kata sederhana dengan fasih dari bacaan dan/atau tayangan yang dipirsa tentang diri, keluarga, kesehatan, dan/atau lingkungan sekitar; dan memahami isi bacaan dan/atau tayangan yang dipirsa tentang diri, keluarga, kesehatan, dan/atau lingkungan sekitar.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-BI-A-03",
+      "cp_id": "CP-BI-A",
+      "nama": "Berbicara dan Mempresentasikan",
+      "teks_elemen": "Merespons dengan bertanya tentang sesuatu, menjawab, dan menanggapi komentar orang lain (teman, pendidik, dan/atau orang dewasa) dengan baik dan santun dalam suatu percakapan tentang diri, keluarga, kesehatan, dan/atau lingkungan sekitar; mengungkapkan perasaan dan gagasan secara lisan dengan atau tanpa bantuan gambar; dan menceritakan kembali isi berbagai tipe teks yang dibaca, dipirsa, atau didengar tentang diri, keluarga, kesehatan, dan/atau lingkungan sekitar.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-BI-A-04",
+      "cp_id": "CP-BI-A",
+      "nama": "Menulis",
+      "teks_elemen": "Menulis permulaan dengan benar di atas kertas dan/atau melalui media digital; mengembangkan tulisan tangan yang semakin baik; dan menulis berbagai tipe teks sederhana tentang diri, keluarga, dan/atau lingkungan sekitar dengan beberapa kalimat sederhana.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-BI-B-01",
+      "cp_id": "CP-BI-B",
+      "nama": "Menyimak",
+      "teks_elemen": "Memahami ide pokok suatu informasi dari teks nonsastra berbentuk teks aural (teks yang dibacakan dan/atau didengarkan); dan memahami isi teks sastra berbentuk teks aural.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-BI-B-02",
+      "cp_id": "CP-BI-B",
+      "nama": "Membaca dan Memirsa",
+      "teks_elemen": "Membaca kata-kata baru dengan fasih dari bacaan dan/atau tayangan yang dipirsa; dan memahami ide pokok, ide pendukung, pesan, dan informasi dalam teks sastra dan nonsastra berbentuk cetak dan/atau elektronik.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-BI-B-03",
+      "cp_id": "CP-BI-B",
+      "nama": "Berbicara dan Mempresentasikan",
+      "teks_elemen": "Menyajikan pendapat dengan pilihan kata dan sikap tubuh/gestur yang sesuai, menggunakan volume dan intonasi yang tepat sesuai konteks; menanggapi diskusi sesuai tata cara; dan menceritakan kembali isi dan/atau informasi dari berbagai tipe teks yang dibaca, dipirsa, atau didengar.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-BI-B-04",
+      "cp_id": "CP-BI-B",
+      "nama": "Menulis",
+      "teks_elemen": "Menulis berbagai tipe teks sederhana dengan rangkaian kalimat yang beragam; dan menggunakan kaidah kebahasaan dan kosakata baru yang memiliki makna denotatif untuk menulis teks sesuai dengan konteks.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-BI-C-01",
+      "cp_id": "CP-BI-C",
+      "nama": "Menyimak",
+      "teks_elemen": "Menganalisis informasi dari teks nonsastra berbentuk teks aural (teks yang dibacakan dan/atau didengarkan; dan menganalisis isi teks sastra berbentuk teks aural.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-BI-C-02",
+      "cp_id": "CP-BI-C",
+      "nama": "Membaca dan Memirsa",
+      "teks_elemen": "Membaca kata-kata dengan berbagai pola kombinasi huruf dengan fasih dari bacaan dan/atau tayangan yang dipirsa; dan menganalisis informasi serta nilai-nilai dalam teks sastra dan nonsastra berwujud teks visual dan/atau audiovisual.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-BI-C-03",
+      "cp_id": "CP-BI-C",
+      "nama": "Berbicara dan Mempresentasikan",
+      "teks_elemen": "Mempresentasikan gagasan dari berbagai tipe teks dengan efektif dan santun; dan menyampaikan perasaan berdasarkan fakta, imajinasi (dari diri sendiri dan orang lain) secara indah dan menarik dalam bentuk teks sastra dengan penggunaan kosakata secara kreatif.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-BI-C-04",
+      "cp_id": "CP-BI-C",
+      "nama": "Menulis",
+      "teks_elemen": "Menulis berbagai tipe teks sederhana berdasarkan gagasan, hasil pengamatan, pengalaman, dan/atau imajinasi dengan rangkaian kalimat kompleks secara kreatif, menarik, dan/atau indah; dan menggunakan kaidah kebahasaan dan kosakata baru yang memiliki makna denotatif dan konotatif.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-MAT-A-01",
+      "cp_id": "CP-MAT-A",
+      "nama": "Bilangan",
+      "teks_elemen": "Menunjukkan pemahaman dan memiliki intuisi bilangan (number sense) pada bilangan cacah sampai 100; membaca, menulis, menentukan nilai tempat, membandingkan, mengurutkan, serta melakukan komposisi (menyusun) dan dekomposisi (mengurai) bilangan; melakukan operasi penjumlahan dan pengurangan menggunakan benda-benda konkret yang banyaknya sampai 20; dan menunjukkan pemahaman pecahan sebagai bagian dari keseluruhan melalui konteks membagi sebuah benda atau kumpulan benda sama banyak (pecahan yang diperkenalkan adalah setengah dan seperempat).",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-MAT-A-02",
+      "cp_id": "CP-MAT-A",
+      "nama": "Aljabar",
+      "teks_elemen": "Menunjukan pemahaman makna simbol matematika \"=\" dalam suatu kalimat matematika yang terkait dengan penjumlahan dan pengurangan bilangan cacah sampai 20 menggunakan gambar. Contoh: Murid dapat mengenali, meniru, dan melanjutkan pola bukan bilangan (misalnya, gambar, warna, bunyi/suara).",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-MAT-A-03",
+      "cp_id": "CP-MAT-A",
+      "nama": "Pengukuran",
+      "teks_elemen": "Membandingkan panjang dan berat benda secara langsung, dan membandingkan durasi waktu; mengukur dan mengestimasi panjang dan berat benda menggunakan satuan tidak baku.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-MAT-A-04",
+      "cp_id": "CP-MAT-A",
+      "nama": "Geometri",
+      "teks_elemen": "Mengenal berbagai bangun datar (segitiga, segiempat, segi banyak, lingkaran) dan bangun ruang (balok, kubus, kerucut, dan bola); melakukan komposisi (penyusunan) dan dekomposisi (penguraian) suatu bangun datar (segitiga, segiempat, dan segi banyak); dan menentukan posisi benda terhadap benda lain (kanan, kiri, depan belakang, bawah, atas).",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-MAT-A-05",
+      "cp_id": "CP-MAT-A",
+      "nama": "Analisis Data dan Peluang",
+      "teks_elemen": "Mengurutkan, menyortir, mengelompokkan, membandingkan, dan menyajikan data dari banyak benda dengan menggunakan turus dan piktogram paling banyak 4 kategori.",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-MAT-B-01",
+      "cp_id": "CP-MAT-B",
+      "nama": "Bilangan",
+      "teks_elemen": "Memiliki pemahaman dan intuisi bilangan (number sense) pada bilangan cacah sampai 10.000; membaca, menulis, membandingkan, dan mengurutkan bilangan; menentukan dan menggunakan nilai tempat; melakukan komposisi dan dekomposisi bilangan cacah sampai 10.000. Murid dapat melakukan dan menyelesaikan masalah operasi bilangan penjumlahan dan pengurangan bilangan cacah sampai 1.000; melakukan dan menyelesaikan masalah operasi perkalian dan pembagian bilangan cacah sampai 100 dengan bantuan benda konkret, gambar dan simbol; mengenal kelipatan dan faktor. Murid dapat melakukan perbandingan dan pengurutan pecahan dengan pembilang satu dan antar pecahan dengan penyebut yang sama; mengenal dan dapat menerapkan pecahan senilai, memiliki intuisi pecahan dan desimal, serta dapat menentukan pecahan sebagai desimal dan persen.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-MAT-B-02",
+      "cp_id": "CP-MAT-B",
+      "nama": "Aljabar",
+      "teks_elemen": "Menemukan nilai yang tidak diketahui dalam kalimat matematika yang melibatkan penjumlahan dan pengurangan pada bilangan cacah sampai 100, dengan menggunakan sifat-sifat bilangan dan operasinya. Murid dapat mengidentifikasi, meniru, dan mengembangkan pola gambar atau objek sederhana dan pola bilangan membesar dan mengecil yang dapat melibatkan penjumlahan dan pengurangan pada bilangan cacah sampai 100.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-MAT-B-03",
+      "cp_id": "CP-MAT-B",
+      "nama": "Pengukuran",
+      "teks_elemen": "Mengukur panjang dan berat benda menggunakan satuan baku; menentukan hubungan antar-satuan baku panjang (cm, m) dan antar-satuan berat (g, kg); serta mengukur dan mengestimasi luas dan volume menggunakan satuan tidak baku dan satuan baku berupa bilangan cacah.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-MAT-B-04",
+      "cp_id": "CP-MAT-B",
+      "nama": "Geometri",
+      "teks_elemen": "Mendeskripsikan ciri berbagai bentuk bangun datar (segiempat, segitiga, segi banyak); menyusun (komposisi) dan mengurai (dekomposisi) berbagai bangun datar dengan lebih dari satu cara jika memungkinkan.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-MAT-B-05",
+      "cp_id": "CP-MAT-B",
+      "nama": "Analisis Data dan Peluang",
+      "teks_elemen": "Mengurutkan, membandingkan, menyajikan, menganalisis dan menginterpretasi data dalam bentuk tabel, diagram gambar, piktogram, dan diagram batang (skala satu satuan).",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-MAT-C-01",
+      "cp_id": "CP-MAT-C",
+      "nama": "Bilangan",
+      "teks_elemen": "Menunjukkan pemahaman dan intuisi bilangan (number sense) pada bilangan cacah sampai 1.000.000; membaca, menulis, menentukan nilai tempat, membandingkan, mengurutkan, melakukan komposisi dan dekomposisi bilangan; menyelesaikan masalah yang berkaitan dengan uang; melakukan operasi penjumlahan, pengurangan, perkalian, dan pembagian bilangan cacah sampai 100.000; serta menyelesaikan masalah yang berkaitan dengan KPK dan FPB. Murid dapat membandingkan dan mengurutkan berbagai pecahan termasuk pecahan campuran, melakukan operasi penjumlahan dan pengurangan pecahan, serta melakukan operasi perkalian dan pembagian pecahan dengan bilangan asli; mengubah pecahan menjadi berbagai bentuk pecahan lain, serta membandingkan dan mengurutkan bilangan desimal (satu angka di belakang koma).",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-MAT-C-02",
+      "cp_id": "CP-MAT-C",
+      "nama": "Aljabar",
+      "teks_elemen": "Menemukan nilai yang belum diketahui dalam kalimat matematika yang melibatkan penjumlahan, pengurangan, perkalian, dan pembagian pada bilangan cacah sampai 1000 dengan menggunakan sifat-sifat bilangan dan operasinya. Murid dapat mengidentifikasi, meniru, dan mengembangkan pola bilangan membesar dan mengecil yang melibatkan perkalian dan pembagian; bernalar secara proporsional untuk menyelesaikan masalah sehari-hari dengan rasio satuan; menggunakan operasi perkalian dan pembagian dalam menyelesaikan masalah sehari- hari yang terkait dengan proporsi.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-MAT-C-03",
+      "cp_id": "CP-MAT-C",
+      "nama": "Pengukuran",
+      "teks_elemen": "Menentukan keliling dan luas berbagai bentuk bangun datar (segitiga, segiempat, dan segi banyak) serta gabungannya; menghitung durasi waktu dan mengukur besar sudut pada bangun datar atau yang dibentuk dari dua garis berpotongan.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-MAT-C-04",
+      "cp_id": "CP-MAT-C",
+      "nama": "Geometri",
+      "teks_elemen": "Mengkonstruksi dan mengurai bangun ruang (kubus, balok, dan gabungannya) dan mengenali visualisasi spasial (bagian depan, atas, dan samping); membandingkan karakteristik antar bangun datar dan antar bangun ruang; serta menentukan lokasi pada peta yang menggunakan sistem berpetak.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-MAT-C-05",
+      "cp_id": "CP-MAT-C",
+      "nama": "Analisis Data dan Peluang",
+      "teks_elemen": "Mengurutkan, membandingkan, menyajikan, dan menganalisis data banyak benda dan data hasil pengukuran dalam bentuk gambar, piktogram, diagram batang, dan tabel frekuensi untuk mendapatkan informasi; menentukan kejadian dengan kemungkinan yang lebih besar atau lebih kecil dalam suatu percobaan acak.",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-BING-B-01",
+      "cp_id": "CP-BING-B",
+      "nama": "Menyimak - Berbicara (Listening - Speaking)",
+      "teks_elemen": "Memahami dan merespon teks lisan atau teks multimodal sederhana tentang kehidupan sehari-hari baik secara verbal atau non-verbal sesuai konteks. (understand and respond to simple oral or multimodal texts about everyday life verbally or non-verbally in line with its context)",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-BING-B-02",
+      "cp_id": "CP-BING-B",
+      "nama": "Membaca - Memirsa (Reading - Viewing)",
+      "teks_elemen": "Memahami teks tulis pendek sederhana atau teks multimodal tentang kehidupan sehari-hari dan meresponsnya secara verbal atau non-verbal sesuai konteks. (Understand simple short texts or multimodal texts about everyday life and respond to them verbally or non-verbally in line with its context)",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-BING-B-03",
+      "cp_id": "CP-BING-B",
+      "nama": "Menulis - Mempresentasikan (Writing - Presenting)",
+      "teks_elemen": "Mengomunikasikan gagasan tentang topik sehari-hari dalam teks tulis pendek atau teks multimodal sesuai konteks. (Communicate their ideas on everyday life topics in simple written or multimodal texts in line with its context)",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-BING-C-01",
+      "cp_id": "CP-BING-C",
+      "nama": "Menyimak - Berbicara (Listening - Speaking)",
+      "teks_elemen": "Memahami alur informasi teks secara keseluruhan dan merespon teks lisan atau teks multimodal sederhana tentang topik sehari-hari secara lisan dengan kalimat pendek dan sederhana sesuai konteks. (Understand the entire flow of information and respond to simple oral or multimodal texts about everyday topics using short and simple sentences verbally in line with its context)",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-BING-C-02",
+      "cp_id": "CP-BING-C",
+      "nama": "Membaca - Memirsa (Reading - Viewing)",
+      "teks_elemen": "Memahami alur informasi secara keseluruhan, gagasan utama dan informasi rinci dari beragam teks pendek atau teks multimodal tentang topik sehari-hari dan meresponnya sesuai konteks. (Understand the entire flow of information, main ideas and details from a variety of short texts or multimodal texts about everyday topics and respond in line with its context)",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-BING-C-03",
+      "cp_id": "CP-BING-C",
+      "nama": "Menulis - Mempresentasikan (Writing - Presenting)",
+      "teks_elemen": "Mengomunikasikan ide dan pengalamannya melalui berbagai jenis teks tulis sederhana atau teks multimodal tentang topik sehari-hari sesuai konteks. (Communicate their ideas and experiences through various types of simple written texts or multimodal texts about everyday topics in line with its context)",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-IPAS-B-01",
+      "cp_id": "CP-IPAS-B",
+      "nama": "Pemahaman IPAS",
+      "teks_elemen": "Menjelaskan bentuk dan fungsi pancaindra; menganalisis siklus hidup makhluk hidup dan upaya pelestariannya; menghasilkan solusi untuk masalah yang berkaitan dengan pelestarian sumber daya alam sebagai upaya mitigasi perubahan iklim; menyimpulkan proses perubahan wujud zat; menjelaskan sumber dan bentuk energi, serta proses perubahan bentuk energi dalam kehidupan sehari-hari; membedakan jenis gaya dan pengaruhnya terhadap arah, gerak, dan bentuk benda; menjelaskan peran, tugas, dan tanggung jawab serta interaksi sosial yang terjadi di sekitar tempat tinggal dan sekolah; mengenali letak kabupaten/kota dan provinsi tempat tinggalnya dengan menggunakan peta konvensional/digital; mengklasifikasikan ragam bentang alam dan keterkaitannya dengan profesi masyarakat, ragam budaya serta upaya untuk melestarikannya; menganalisis sejarah masyarakat di lingkungan tempat tinggal; menjelaskan nilai mata uang dan fungsinya, serta cara mengelola keuangan secara bijak.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-IPAS-B-02",
+      "cp_id": "CP-IPAS-B",
+      "nama": "Keterampilan Proses",
+      "teks_elemen": "Mampu menerapkan keterampilan proses yang meliputi: ● Mengamati Murid mengamati fenomena dan peristiwa secara sederhana dan dapat mencatat hasil pengamatannya. ● Mempertanyakan dan Memprediksi Secara mandiri, murid mengajukan pertanyaan tentang hal-hal yang ingin diketahui saat melakukan pengamatan dan membuat prediksi berdasarkan pengetahuan yang dimiliki sebelumnya. ● Merencanakan dan Melakukan Penyelidikan Dengan panduan pendidik, murid membuat rencana dan melakukan langkah-langkah operasional untuk menjawab pertanyaan yang diajukan. Murid melakukan observasi menggunakan alat bantu pengukuran sederhana. ● Memproses, Menganalisis Data dan Informasi Dengan panduan pendidik, murid mengorganisasikan data dalam bentuk turus dan diagram gambar untuk menyajikan dan mengidentifikasi pola. Murid membandingkan antara hasil pengamatan dengan prediksi dan memberikan penjelasan. ● Mengevaluasi dan Refleksi Murid melakukan refleksi terhadap penyelidikan yang sudah dilakukan. ● Mengomunikasikan Hasil Murid mengomunikasikan hasil penyelidikan secara lisan dan tertulis dalam berbagai media.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-IPAS-C-01",
+      "cp_id": "CP-IPAS-C",
+      "nama": "Pemahaman IPAS",
+      "teks_elemen": "Merefleksikan sistem organ tubuh manusia yang dikaitkan dengan cara menjaga kesehatan tubuhnya; menganalisis hubungan antar komponen biotik dan abiotik, serta pengaruhnya terhadap ekosistem; menjelaskan fenomena gelombang bunyi dan cahaya dalam kehidupan sehari-hari; menghasilkan upaya penghematan energi, serta pemanfaatan sumber energi alternatif dari sumber daya yang ada di sekitarnya sebagai upaya mitigasi perubahan iklim; menjelaskan sistem tata surya, serta kaitannya dengan rotasi dan revolusi bumi; menjelaskan letak dan kondisi geografis negara Indonesia dengan menggunakan peta konvensional/digital; meninjau sejarah perjuangan para pahlawan di lingkungan sekitar tempat tinggalnya; menemukan keragaman budaya nasional dalam konteks kebhinekaan berdasarkan pemahaman terhadap nilai-nilai kearifan lokal yang berlaku di wilayah tempat tinggal; serta menerapkan kegiatan ekonomi masyarakat di lingkungan sekitar.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-IPAS-C-02",
+      "cp_id": "CP-IPAS-C",
+      "nama": "Keterampilan Proses",
+      "teks_elemen": "Mampu menerapkan keterampilan proses yang meliputi: ● Mengamati Murid mengamati fenomena dan peristiwa secara sederhana, mencatat hasil pengamatannya, serta mencari persamaan dan perbedaannya. ● Mempertanyakan dan Memprediksi Dengan panduan pendidik, murid mengidentifikasi pertanyaan yang dapat diselidiki secara ilmiah dan membuat prediksinya. ● Merencanakan dan Melakukan Penyelidikan Secara mandiri, murid merencanakan dan melakukan langkah-langkah operasional untuk menjawab pertanyaan yang diajukan. Murid melakukan observasi menggunakan alat bantu pengukuran sederhana. ● Memproses serta Menganalisis Data dan Informasi Murid mengolah data dalam bentuk tabel dan grafik, serta menjelaskan hasil pengamatan dan pola atau hubungan pada data. Murid membandingkan data dengan prediksi dan memberikan alasan berdasarkan bukti. ● Mengevaluasi dan Refleksi Melakukan refleksi dan memberikan saran perbaikan terhadap penyelidikan yang sudah dilakukan. ● Mengomunikasikan Hasil Murid mengomunikasikan hasil penyelidikan secara utuh yang ditunjang dengan argumen dalam berbagai media. VII.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-SMUS-A-01",
+      "cp_id": "CP-SMUS-A",
+      "nama": "Mengalami (Experiencing)",
+      "teks_elemen": "Mengenali unsur-unsur musik (nada dan irama) menggunakan anggota tubuh maupun alat musik.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-SMUS-A-02",
+      "cp_id": "CP-SMUS-A",
+      "nama": "Merefleksikan (Reflecting)",
+      "teks_elemen": "Melakukan umpan balik mengenai praktik bermain musik diri sendiri atau orang lain menggunakan bahasa sehari-hari.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-SMUS-A-03",
+      "cp_id": "CP-SMUS-A",
+      "nama": "Berpikir dan Bekerja Artistik (Thinking and Working Artistically)",
+      "teks_elemen": "Menirukan pola irama dan nada menggunakan alat musik ritmis atau melodis; mengenali ragam alat musik dan bunyi yang dihasilkan; mengenali cara memainkan dan membersihkan instrumen/alat musik.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-SMUS-A-04",
+      "cp_id": "CP-SMUS-A",
+      "nama": "Menciptakan (Creating)",
+      "teks_elemen": "Membuat pola irama menggunakan anggota tubuh atau alat musik ritmis yang tersedia di lingkungan sekitar.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-SMUS-A-05",
+      "cp_id": "CP-SMUS-A",
+      "nama": "Berdampak (Impacting)",
+      "teks_elemen": "Menunjukkan ekspresi senang dalam kegiatan bermusik.",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-SMUS-B-01",
+      "cp_id": "CP-SMUS-B",
+      "nama": "Mengalami (Experiencing)",
+      "teks_elemen": "Mengenali nada dan pola irama menggunakan anggota tubuh maupun alat musik.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-SMUS-B-02",
+      "cp_id": "CP-SMUS-B",
+      "nama": "Merefleksikan (Reflecting)",
+      "teks_elemen": "Melakukan umpan balik mengenai praktik bermusik diri sendiri atau orang lain menggunakan istilah musik.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-SMUS-B-03",
+      "cp_id": "CP-SMUS-B",
+      "nama": "Berpikir dan Bekerja Artistik (Thinking and Working Artistically)",
+      "teks_elemen": "Menirukan pola irama dan melodi menggunakan alat musik ritmis atau melodis; menyebutkan karakteristik ragam alat musik dan bunyi yang dihasilkan; mengetahui cara memainkan dan merawat alat musik.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-SMUS-B-04",
+      "cp_id": "CP-SMUS-B",
+      "nama": "Menciptakan (Creating)",
+      "teks_elemen": "Membuat bunyi menggunakan anggota tubuh atau alat musik ritmis dan melodis yang tersedia di lingkungan sekitar.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-SMUS-B-05",
+      "cp_id": "CP-SMUS-B",
+      "nama": "Berdampak (Impacting)",
+      "teks_elemen": "Menunjukkan minat dalam kegiatan bermusik.",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-SMUS-C-01",
+      "cp_id": "CP-SMUS-C",
+      "nama": "Mengalami (Experiencing)",
+      "teks_elemen": "Mengenali dan menerapkan unsur-unsur musik (nada, irama dan melodi) menggunakan alat musik ritmis dan melodis serta menunjukkan tingkat kepekaan akan unsur-unsur musik dengan menggunakan alat musik ritmis dan melodis.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-SMUS-C-02",
+      "cp_id": "CP-SMUS-C",
+      "nama": "Merefleksikan (Reflecting)",
+      "teks_elemen": "Melakukan umpan balik mengenai karya dan kemampuan bermusik diri sendiri atau orang lain menggunakan istilah musik yang tepat.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-SMUS-C-03",
+      "cp_id": "CP-SMUS-C",
+      "nama": "Berpikir dan Bekerja Artistik (Thinking and Working Artistically)",
+      "teks_elemen": "Mengeksplorasi variasi pola irama, tempo dan melodi dengan alat musik ritmis dan melodis menggunakan notasi musik dan teknik dasar yang telah dipelajari; menemukan alternatif untuk menghasilkan bunyi musik sederhana melalui eksplorasi material yang tersedia di lingkungan sekitar dan menerapkan cara memainkan dan merawat alat musik dengan teknik yang tepat sesuai dengan spesifikasi bahan alat musik.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-SMUS-C-04",
+      "cp_id": "CP-SMUS-C",
+      "nama": "Menciptakan (Creating)",
+      "teks_elemen": "Membuat dan mengembangkan pola irama menggunakan anggota tubuh atau alat musik ritmis yang tersedia berdasarkan nilai kearifan lokal daerahnya.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-SMUS-C-05",
+      "cp_id": "CP-SMUS-C",
+      "nama": "Berdampak (Impacting)",
+      "teks_elemen": "Menunjukkan minat dan rasa ingin tahu dalam kegiatan bermusik.",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-RUPA-A-01",
+      "cp_id": "CP-RUPA-A",
+      "nama": "Mengalami (Experiencing)",
+      "teks_elemen": "Mengenali dan menyebutkan unsur-unsur rupa dalam benda-benda di sekitar/karya seni rupa.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-RUPA-A-02",
+      "cp_id": "CP-RUPA-A",
+      "nama": "Merefleksikan (Reflecting)",
+      "teks_elemen": "Merefleksikan dan mengapresiasi karya diri sendiri.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-RUPA-A-03",
+      "cp_id": "CP-RUPA-A",
+      "nama": "Berpikir dan Bekerja Artistik (Thinking and Working Artistically)",
+      "teks_elemen": "Mengenali dan menguji coba alat dan/atau bahan yang dimiliki.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-RUPA-A-04",
+      "cp_id": "CP-RUPA-A",
+      "nama": "Menciptakan (Creating)",
+      "teks_elemen": "Membuat karya seni rupa berdasarkan pengalaman dan hasil pengamatan terhadap lingkungan sekitar.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-RUPA-A-05",
+      "cp_id": "CP-RUPA-A",
+      "nama": "Berdampak (Impacting)",
+      "teks_elemen": "Menghasilkan karya seni rupa yang berdampak pada perasaan dirinya.",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-RUPA-B-01",
+      "cp_id": "CP-RUPA-B",
+      "nama": "Mengalami (Experiencing)",
+      "teks_elemen": "Mengidentifikasi unsur rupa dan prinsip desain dalam benda-benda di sekitar/karya seni rupa.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-RUPA-B-02",
+      "cp_id": "CP-RUPA-B",
+      "nama": "Merefleksikan (Reflecting)",
+      "teks_elemen": "Merefleksikan dan mengapresiasi karya diri sendiri dan teman sekelas menggunakan kosa kata seni rupa yang sesuai.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-RUPA-B-03",
+      "cp_id": "CP-RUPA-B",
+      "nama": "Berpikir dan Bekerja Artistik (Thinking and Working Artistically)",
+      "teks_elemen": "Mengenali dan menguji coba alat dan/atau bahan yang dimiliki serta prosedur penggunaannya.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-RUPA-B-04",
+      "cp_id": "CP-RUPA-B",
+      "nama": "Menciptakan (Creating)",
+      "teks_elemen": "Membuat karya seni rupa berdasarkan pengalaman dan hasil pengamatan terhadap lingkungan sekitar.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-RUPA-B-05",
+      "cp_id": "CP-RUPA-B",
+      "nama": "Berdampak (Impacting)",
+      "teks_elemen": "Menghasilkan karya seni rupa yang berdampak pada perasaan atau mewakili harapannya.",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-RUPA-C-01",
+      "cp_id": "CP-RUPA-C",
+      "nama": "Mengalami (Experiencing)",
+      "teks_elemen": "Menjelaskan unsur rupa dan prinsip desain dalam benda-benda di sekitar/karya seni rupa.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-RUPA-C-02",
+      "cp_id": "CP-RUPA-C",
+      "nama": "Merefleksikan (Reflecting)",
+      "teks_elemen": "Merefleksikan dan mengapresiasi karya diri sendiri dan teman sekelas menggunakan kosa kata seni rupa yang sesuai.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-RUPA-C-03",
+      "cp_id": "CP-RUPA-C",
+      "nama": "Berpikir dan Bekerja Artistik (Thinking and Working Artistically)",
+      "teks_elemen": "Mengenali dan menguji coba variasi teknik penggunaan alat dan/atau bahan.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-RUPA-C-04",
+      "cp_id": "CP-RUPA-C",
+      "nama": "Menciptakan (Creating)",
+      "teks_elemen": "Membuat karya seni rupa berdasarkan pengalaman dan/atau hasil pengamatan terhadap lingkungan sekitar melalui pengembangan imajinasi.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-RUPA-C-05",
+      "cp_id": "CP-RUPA-C",
+      "nama": "Berdampak (Impacting)",
+      "teks_elemen": "Menghasilkan karya seni rupa yang mewakili minatnya.",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-TARI-A-01",
+      "cp_id": "CP-TARI-A",
+      "nama": "Mengalami (Experiencing)",
+      "teks_elemen": "Mengenal bentuk tari sebagai media komunikasi serta mengembangkan kesadaran diri dalam bereksplorasi unsur utama tari meliputi gerak, ruang, tenaga, waktu, gerak di tempat dan gerak berpindah.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-TARI-A-02",
+      "cp_id": "CP-TARI-A",
+      "nama": "Merefleksikan (Reflecting)",
+      "teks_elemen": "Mengidentifikasi unsur utama tari meliputi gerak, ruang, tenaga, waktu, gerak di tempat dan gerak berpindah, serta mengemukakan pencapaian diri secara lisan, tulisan, dan kinestetik.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-TARI-A-03",
+      "cp_id": "CP-TARI-A",
+      "nama": "Berpikir dan Bekerja Artistik (Thinking and Working Artistically)",
+      "teks_elemen": "Meragakan hasil gerak berdasarkan etika sebagai penampil dan penonton dengan keyakinan dan percaya diri saat mengekspresikan ide, perasaan kepada penonton atau lingkungan sekitar.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-TARI-A-04",
+      "cp_id": "CP-TARI-A",
+      "nama": "Menciptakan (Creating)",
+      "teks_elemen": "Mengembangkan unsur utama tari (gerak, ruang, waktu, dan tenaga), gerak di tempat, dan gerak berpindah untuk membuat gerak sederhana yang memiliki kesatuan gerak yang indah.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-TARI-A-05",
+      "cp_id": "CP-TARI-A",
+      "nama": "Berdampak (Impacting)",
+      "teks_elemen": "Menerima proses pembelajaran sehingga tumbuh rasa ingin tahu dan dapat menunjukkan antusiasme yang berdampak pada kemampuan diri dalam menyelesaikan aktivitas pembelajaran tari.",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-TARI-B-01",
+      "cp_id": "CP-TARI-B",
+      "nama": "Mengalami (Experiencing)",
+      "teks_elemen": "Mengamati bentuk penyajian tari berdasarkan latar belakang serta mengeksplorasi unsur utama tari sesuai level gerak, dan perubahan arah hadap.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-TARI-B-02",
+      "cp_id": "CP-TARI-B",
+      "nama": "Merefleksikan (Reflecting)",
+      "teks_elemen": "Mengidentifikasi unsur utama tari sesuai level gerak, dan perubahan arah hadap, serta menilai pencapaian diri saat melakukan aktivitas pembelajaran tari.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-TARI-B-03",
+      "cp_id": "CP-TARI-B",
+      "nama": "Berpikir dan Bekerja Artistik (Thinking and Working Artistically)",
+      "teks_elemen": "Meragakan hasil tari dengan bekerja secara kooperatif untuk mengembangkan kemampuan bekerja sama dan saling menghargai demi tercapainya tujuan bersama.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-TARI-B-04",
+      "cp_id": "CP-TARI-B",
+      "nama": "Menciptakan (Creating)",
+      "teks_elemen": "Mengembangkan gerak dengan unsur utama tari, level, dan perubahan arah hadap.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-TARI-B-05",
+      "cp_id": "CP-TARI-B",
+      "nama": "Berdampak (Impacting)",
+      "teks_elemen": "Menerima proses pembelajaran sehingga tumbuh rasa ingin tahu dan dapat menunjukkan usaha yang berdampak pada kemampuan diri dalam menyelesaikan aktivitas pembelajaran tari.",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-TARI-C-01",
+      "cp_id": "CP-TARI-C",
+      "nama": "Mengalami (Experiencing)",
+      "teks_elemen": "Mengamati berbagai bentuk tari tradisi yang dapat digunakan untuk mengekspresikan diri melalui unsur pendukung tari.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-TARI-C-02",
+      "cp_id": "CP-TARI-C",
+      "nama": "Merefleksikan (Reflecting)",
+      "teks_elemen": "Mengidentifikasi unsur pendukung tari dalam tari tradisi serta menghargai hasil pencapaian diri dengan mempertimbangkan pendapat orang lain.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-TARI-C-03",
+      "cp_id": "CP-TARI-C",
+      "nama": "Berpikir dan Bekerja Artistik (Thinking and Working Artistically)",
+      "teks_elemen": "Meragakan hasil rangkaian gerak tari menggunakan unsur pendukung tari dengan menunjukan kerja sama dan berperan aktif dalam kelompok.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-TARI-C-04",
+      "cp_id": "CP-TARI-C",
+      "nama": "Menciptakan (Creating)",
+      "teks_elemen": "Merangkai gerak tari yang berpijak pada tradisi/ kreasi dengan menerapkan desain kelompok.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-TARI-C-05",
+      "cp_id": "CP-TARI-C",
+      "nama": "Berdampak (Impacting)",
+      "teks_elemen": "Menanggapi kejadian-kejadian di lingkungan sekitar melalui tari yang disajikan kepada penonton atau masyarakat sekitar.",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-TEATER-A-01",
+      "cp_id": "CP-TEATER-A",
+      "nama": "Mengalami (Experiencing)",
+      "teks_elemen": "Mengamati, merespons, meniru gerak tubuh dan suara sebagai media untuk mengomunikasikan emosi.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-TEATER-A-02",
+      "cp_id": "CP-TEATER-A",
+      "nama": "Merefleksikan (Reflecting)",
+      "teks_elemen": "Mengenali pengalaman dan emosi selama proses berseni teater serta menceritakan sebuah karya dengan kosakata sehari-hari.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-TEATER-A-03",
+      "cp_id": "CP-TEATER-A",
+      "nama": "Berpikir dan Bekerja Artistik (Thinking and Working Artistically)",
+      "teks_elemen": "Mengenal jenis-jenis properti/alat bantu yang dapat mendukung cerita/permainan peran.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-TEATER-A-04",
+      "cp_id": "CP-TEATER-A",
+      "nama": "Menciptakan (Creating)",
+      "teks_elemen": "Mengeksplorasi beragam peran mengenai tokoh di sekitar atau rekaan, dan memainkan sebuah lakon pertunjukan.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-TEATER-A-05",
+      "cp_id": "CP-TEATER-A",
+      "nama": "Berdampak (Impacting)",
+      "teks_elemen": "Memainkan gerak dan lagu sesuai arahan dari pendidik.",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-TEATER-B-01",
+      "cp_id": "CP-TEATER-B",
+      "nama": "Mengalami (Experiencing)",
+      "teks_elemen": "Mengenal teknik dasar akting (pemeranan) melalui proses meniru (mimesis), mengenal gerak tubuh, suara/vokal sesuai tokoh/peran atau perilaku objek sekitar.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-TEATER-B-02",
+      "cp_id": "CP-TEATER-B",
+      "nama": "Merefleksikan (Reflecting)",
+      "teks_elemen": "Mengenali lingkungan sekitarnya dan pengalaman dalam bermain teater.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-TEATER-B-03",
+      "cp_id": "CP-TEATER-B",
+      "nama": "Berpikir dan Bekerja Artistik (Thinking and Working Artistically)",
+      "teks_elemen": "Menggunakan properti yang sesuai dengan tokoh yang diperankan.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-TEATER-B-04",
+      "cp_id": "CP-TEATER-B",
+      "nama": "Menciptakan (Creating)",
+      "teks_elemen": "Mengamati berbagai peran, mengenal tokoh di sekitar, dan memainkan sebuah lakon dalam cerita.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-TEATER-B-05",
+      "cp_id": "CP-TEATER-B",
+      "nama": "Berdampak (Impacting)",
+      "teks_elemen": "Mengenal bentuk lakon dalam bermain teater.",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-TEATER-C-01",
+      "cp_id": "CP-TEATER-C",
+      "nama": "Mengalami (Experiencing)",
+      "teks_elemen": "Melakukan permainan peran berkelompok, seperti improvisasi untuk melatih aksi dan reaksi dalam mengelaborasi cerita atau tokoh dan melakukan pengenalan karakter melalui pengamatan kebiasaan tokoh yang diperankan.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-TEATER-C-02",
+      "cp_id": "CP-TEATER-C",
+      "nama": "Merefleksikan (Reflecting)",
+      "teks_elemen": "Menceritakan pendapatnya tentang sebuah cerita sederhana (penokohan, perwatakan).",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-TEATER-C-03",
+      "cp_id": "CP-TEATER-C",
+      "nama": "Berpikir dan Bekerja Artistik (Thinking and Working Artistically)",
+      "teks_elemen": "Mengidentifikasi properti sederhana berdasarkan cerita yang akan dimainkan.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-TEATER-C-04",
+      "cp_id": "CP-TEATER-C",
+      "nama": "Menciptakan (Creating)",
+      "teks_elemen": "Mengenal dan memainkan ragam peran dari cerita sederhana berdasarkan hasil pengamatan.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-TEATER-C-05",
+      "cp_id": "CP-TEATER-C",
+      "nama": "Berdampak (Impacting)",
+      "teks_elemen": "Memerankan lakon secara individu maupun berkelompok berdasarkan minat, pengamatan, dan pengalaman.",
+      "urutan": 5
+    },
+    {
+      "id": "ELM-PJOK-A-01",
+      "cp_id": "CP-PJOK-A",
+      "nama": "Terampil Bergerak",
+      "teks_elemen": "Mempraktikkan keterampilan gerak fundamental dan menerapkannya dalam berbagai situasi gerak yang berbeda; mengeksplorasi berbagai strategi gerak; dan mengeksplorasi berbagai konsep gerak serta menyimpulkan efektivitasnya.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-PJOK-A-02",
+      "cp_id": "CP-PJOK-A",
+      "nama": "Belajar Melalui Gerak",
+      "teks_elemen": "Menaati peraturan untuk menumbuhkan fair play di dalam berbagai aktivitas jasmani; menerapkan strategi kolaborasi ketika berpartisipasi dalam aktivitas jasmani.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-PJOK-A-03",
+      "cp_id": "CP-PJOK-A",
+      "nama": "Bergaya Hidup Aktif",
+      "teks_elemen": "Berpartisipasi di dalam berbagai aktivitas jasmani dan mengidentifikasi manfaatnya.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-PJOK-A-04",
+      "cp_id": "CP-PJOK-A",
+      "nama": "Memilih Hidup yang Menyehatkan",
+      "teks_elemen": "Mengenali gaya hidup aktif dan sehat; mengenali manfaat komponen makanan bergizi seimbang; serta mengenali situasi dan potensi yang berisiko terhadap kesehatan dan keselamatan serta strategi mencari bantuan kepada orang dewasa terpercaya.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-PJOK-B-01",
+      "cp_id": "CP-PJOK-B",
+      "nama": "Terampil Bergerak",
+      "teks_elemen": "Menghaluskan keterampilan gerak fundamental dan menerapkannya dalam situasi gerak yang baru; menyesuaikan strategi gerak untuk mendapatkan capaian keterampilan gerak; dan memperagakan berbagai konsep gerak yang dapat diterapkan dalam rangkaian gerak.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-PJOK-B-02",
+      "cp_id": "CP-PJOK-B",
+      "nama": "Belajar Melalui Gerak",
+      "teks_elemen": "Menerapkan strategi gerak sederhana dan memecahkan masalah gerak; menerapkan peraturan untuk menumbuhkan fair play di dalam berbagai aktivitas jasmani; dan berpartisipasi secara positif dalam kelompok atau tim di dalam berbagai aktivitas jasmani.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-PJOK-B-03",
+      "cp_id": "CP-PJOK-B",
+      "nama": "Bergaya Hidup Aktif",
+      "teks_elemen": "Berpartisipasi dalam berbagai aktivitas jasmani dan mengenali faktor-faktor yang menyebabkan aktivitas jasmani menyenangkan.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-PJOK-B-04",
+      "cp_id": "CP-PJOK-B",
+      "nama": "Memilih Hidup yang Menyehatkan",
+      "teks_elemen": "Mengenali risiko kesehatan akibat gaya hidup dan berbagai aktivitas jasmani untuk pencegahannya; mengidentifikasi pola makan sehat dan bergizi seimbang sesuai rekomendasi kesehatan untuk menunjang aktivitas sehari-hari; dan mempraktikkan penanganan cedera ringan sesuai pemahaman tentang prinsip pertolongan pertama.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-PJOK-C-01",
+      "cp_id": "CP-PJOK-C",
+      "nama": "Terampil Bergerak",
+      "teks_elemen": "Menyesuaikan keterampilan gerak melintasi berbagai situasi gerak; mentransfer strategi gerak yang sudah dikuasai ke dalam berbagai situasi gerak yang berbeda; dan menginvestigasi berbagai konsep gerak yang dapat diterapkan untuk meningkatkan capaian keterampilan gerak",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-PJOK-C-02",
+      "cp_id": "CP-PJOK-C",
+      "nama": "Belajar Melalui Gerak",
+      "teks_elemen": "Menguji efektivitas penerapan strategi gerak dalam berbagai situasi gerak; merancang peraturan alternatif dan modifikasi permainan untuk mendukung fair play dan partisipasi inklusif; dan menjalankan berbagai peran untuk mencapai keberhasilan kelompok atau tim di dalam berbagai aktivitas jasmani.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-PJOK-C-03",
+      "cp_id": "CP-PJOK-C",
+      "nama": "Bergaya Hidup Aktif",
+      "teks_elemen": "Berpartisipasi dalam aktivitas jasmani dan menjelaskan pengaruh aktivitas jasmani yang teratur terhadap kesehatan; mengidentifikasi rekomendasi aktivitas jasmani serta pencegahan perilaku sedenter.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-PJOK-C-04",
+      "cp_id": "CP-PJOK-C",
+      "nama": "Memilih Hidup yang Menyehatkan",
+      "teks_elemen": "Mengidentifikasi dan menghubungkan antara gaya hidup, risiko kesehatan, dan aktivitas pencegahannya sesuai rekomendasi otoritas kesehatan; menjelaskan pola makan sehat untuk menunjang aktivitas jasmani berdasarkan informasi kandungan gizi pada makanan; dan mempraktikkan penanganan cedera sedang sesuai pemahaman tentang prinsip pertolongan pertama.",
+      "urutan": 4
+    },
+    {
+      "id": "ELM-KKA-C-01",
+      "cp_id": "CP-KKA-C",
+      "nama": "Berpikir Komputasional",
+      "teks_elemen": "Memahami permasalahan sederhana dalam kehidupan sehari-hari, menerapkan pemecahan masalah secara sistematis, serta menuliskan instruksi logis dan terstruktur menggunakan sekumpulan kosakata atau simbol.",
+      "urutan": 1
+    },
+    {
+      "id": "ELM-KKA-C-02",
+      "cp_id": "CP-KKA-C",
+      "nama": "Literasi Digital",
+      "teks_elemen": "Memahami konsep dasar, manfaat, dan dampak teknologi digital, memahami sistem komputer tingkat pradasar, menerapkan pengamanan informasi pribadi dalam komunikasi daring, memanfaatkan internet, dan memproduksi serta mendiseminasi konten digital dalam bentuk teks dan gambar.",
+      "urutan": 2
+    },
+    {
+      "id": "ELM-KKA-C-03",
+      "cp_id": "CP-KKA-C",
+      "nama": "Literasi dan Etika Kecerdasan Artifisial",
+      "teks_elemen": "Memahami konsep KA sederhana, manfaat dan dampak KA pada kehidupan sehari-hari, prinsip bahwa KA dikembangkan untuk meningkatkan kesejahteraan manusia dan tidak boleh merugikan manusia, mengetahui perbedaan manusia dan komputer dalam melakukan penginderaan, dan mengetahui perbedaan antara mesin cerdas dan mesin non-cerdas. Memahami etika dasar penggunaan KA seperti empati dan tidak menyakiti orang lain.",
+      "urutan": 3
+    },
+    {
+      "id": "ELM-KKA-C-04",
+      "cp_id": "CP-KKA-C",
+      "nama": "Pemanfaatan dan Pengembangan Kecerdasan Artifisial",
+      "teks_elemen": "Menyimulasikan secara sederhana kerja KA saat mengenali pola, mengklasifikasi benda konkret berdasarkan sifatnya, dan mengetahui bagaimana prediksi sistem KA dipengaruhi input benda konkret.",
+      "urutan": 4
+    }
+  ],
+  "tp_rekomendasi": [
+    {
+      "kode_tampil": "TP-PP-1-1.1",
+      "elemen_id": "ELM-PP-A-01",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengenal bendera negara, lagu kebangsaan, simbol dan sila-sila Pancasila dalam lambang negara Garuda Pancasila dan simbol Pancasila beserta sila-sila Pancasila",
+      "semester": 1,
+      "halaman_lampiran": 82
+    },
+    {
+      "kode_tampil": "TP-PP-2-1.2",
+      "elemen_id": "ELM-PP-A-01",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu menerapkan nilai-nilai Pancasila di lingkungan keluarga.",
+      "semester": 1,
+      "halaman_lampiran": 82
+    },
+    {
+      "kode_tampil": "TP-PP-1-2.1",
+      "elemen_id": "ELM-PP-A-02",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengenal aturan di lingkungan keluarga",
+      "semester": 1,
+      "halaman_lampiran": 82
+    },
+    {
+      "kode_tampil": "TP-PP-2-2.2",
+      "elemen_id": "ELM-PP-A-02",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu menunjukkan dan menceritakan sikap mematuhi aturan di lingkungan keluarga.",
+      "semester": 1,
+      "halaman_lampiran": 82
+    },
+    {
+      "kode_tampil": "TP-PP-1-3.1",
+      "elemen_id": "ELM-PP-A-03",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengenal semboyan Bhinneka Tunggal Ika",
+      "semester": 1,
+      "halaman_lampiran": 82
+    },
+    {
+      "kode_tampil": "TP-PP-2-3.2",
+      "elemen_id": "ELM-PP-A-03",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu mengidentifikasi dan menghargai identitas dirinya sesuai dengan jenis kelamin, hobi, bahasa, serta agama dan kepercayaan di lingkungan sekitar.",
+      "semester": 1,
+      "halaman_lampiran": 82
+    },
+    {
+      "kode_tampil": "TP-PP-1-4.1",
+      "elemen_id": "ELM-PP-A-04",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengenal karakteristik lingkungan tempat tinggal dan sekolah, sebagai bagian dari wilayah Negara Kesatuan Republik Indonesia",
+      "semester": 1,
+      "halaman_lampiran": 82
+    },
+    {
+      "kode_tampil": "TP-PP-2-4.2",
+      "elemen_id": "ELM-PP-A-04",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu menceritakan dan mempraktikkan bekerja sama menjaga lingkungan sekitar dalam keberagaman.",
+      "semester": 1,
+      "halaman_lampiran": 82
+    },
+    {
+      "kode_tampil": "TP-PP-3-1.1",
+      "elemen_id": "ELM-PP-B-01",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengidentifikasi makna sila-sila Pancasila, dan penerapannya dalam kehidupan sehari-hari",
+      "semester": 1,
+      "halaman_lampiran": 83
+    },
+    {
+      "kode_tampil": "TP-PP-4-1.2",
+      "elemen_id": "ELM-PP-B-01",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu mengenal karakter para perumus Pancasila",
+      "semester": 1,
+      "halaman_lampiran": 83
+    },
+    {
+      "kode_tampil": "TP-PP-3-1.3",
+      "elemen_id": "ELM-PP-B-01",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu menunjukkan sikap bangga menjadi anak Indonesia yang memiliki bahasa Indonesia sebagai bahasa persatuan di lingkungan sekitar.",
+      "semester": 2,
+      "halaman_lampiran": 83
+    },
+    {
+      "kode_tampil": "TP-PP-3-2.1",
+      "elemen_id": "ELM-PP-B-02",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengidentifikasi dan melaksanakan aturan di sekolah dan lingkungan tempat tinggal",
+      "semester": 1,
+      "halaman_lampiran": 83
+    },
+    {
+      "kode_tampil": "TP-PP-4-2.2",
+      "elemen_id": "ELM-PP-B-02",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu mengidentifikasi dan menerapkan hak yang didapat dan kewajiban sebagai anggota keluarga dan sebagai warga sekolah.",
+      "semester": 1,
+      "halaman_lampiran": 83
+    },
+    {
+      "kode_tampil": "TP-PP-3-3.1",
+      "elemen_id": "ELM-PP-B-03",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu membedakan dan menghargai identitas, keluarga, dan teman-temannya sesuai budaya, suku bangsa, bahasa, agama dan kepercayaannya di lingkungan sekitar.",
+      "semester": 1,
+      "halaman_lampiran": 83
+    },
+    {
+      "kode_tampil": "TP-PP-3-4.1",
+      "elemen_id": "ELM-PP-B-04",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengidentifikasi lingkungan tempat tinggal (RT, RW, desa atau kelurahan, dan kecamatan) sebagai bagian dari wilayah Negara Kesatuan Republik Indonesia",
+      "semester": 1,
+      "halaman_lampiran": 83
+    },
+    {
+      "kode_tampil": "TP-PP-4-4.2",
+      "elemen_id": "ELM-PP-B-04",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu menunjukkan perilaku bekerja sama dalam berbagai bentuk keberagaman suku bangsa, sosial, dan budaya di Indonesia yang terikat persatuan dan kesatuan di lingkungan sekitar.",
+      "semester": 1,
+      "halaman_lampiran": 83
+    },
+    {
+      "kode_tampil": "TP-PP-5-1.1",
+      "elemen_id": "ELM-PP-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu memahami kronologi sejarah kelahiran Pancasila",
+      "semester": 1,
+      "halaman_lampiran": 84
+    },
+    {
+      "kode_tampil": "TP-PP-6-1.2",
+      "elemen_id": "ELM-PP-C-01",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu meneladani sikap para perumus Pancasila dan menerapkan di lingkungan masyarakat",
+      "semester": 1,
+      "halaman_lampiran": 84
+    },
+    {
+      "kode_tampil": "TP-PP-5-1.3",
+      "elemen_id": "ELM-PP-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menghubungkan sila-sila dalam Pancasila sebagai suatu kesatuan yang utuh",
+      "semester": 2,
+      "halaman_lampiran": 84
+    },
+    {
+      "kode_tampil": "TP-PP-6-1.4",
+      "elemen_id": "ELM-PP-C-01",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu menguraikan makna nilai-nilai Pancasila sebagai dasar negara, dan pandangan hidup bangsa.",
+      "semester": 2,
+      "halaman_lampiran": 84
+    },
+    {
+      "kode_tampil": "TP-PP-5-2.1",
+      "elemen_id": "ELM-PP-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mengimplementasikan bentuk-bentuk norma, hak, dan kewajiban dalam kedudukannya sebagai warga negara",
+      "semester": 1,
+      "halaman_lampiran": 84
+    },
+    {
+      "kode_tampil": "TP-PP-6-2.2",
+      "elemen_id": "ELM-PP-C-02",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu mengenal Pembukaan Undang-Undang Dasar Negara Republik Indonesia tahun 1945",
+      "semester": 1,
+      "halaman_lampiran": 84
+    },
+    {
+      "kode_tampil": "TP-PP-5-2.3",
+      "elemen_id": "ELM-PP-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mempraktikkan musyawarah untuk membuat kesepakatan dan aturan bersama, serta menerapkannya dalam lingkungan keluarga dan sekolah.",
+      "semester": 2,
+      "halaman_lampiran": 84
+    },
+    {
+      "kode_tampil": "TP-PP-5-3.1",
+      "elemen_id": "ELM-PP-C-03",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menyajikan hasil identifikasi sikap menghormati, menjaga, dan melestarikan keberagaman budaya sesuai semboyan dalam bingkai Bhinneka Tunggal Ika di lingkungan sekitar.",
+      "semester": 1,
+      "halaman_lampiran": 84
+    },
+    {
+      "kode_tampil": "TP-PP-5-4.1",
+      "elemen_id": "ELM-PP-C-04",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mengenal wilayahnya dalam konteks kabupaten/kota, dan provinsi sebagai bagian dari wilayah Negara Kesatuan Republik Indonesia",
+      "semester": 1,
+      "halaman_lampiran": 84
+    },
+    {
+      "kode_tampil": "TP-PP-6-4.2",
+      "elemen_id": "ELM-PP-C-04",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu menunjukkan perilaku gotong royong untuk menjaga persatuan di lingkungan sekolah dan sekitar sebagai wujud bela negara.",
+      "semester": 1,
+      "halaman_lampiran": 84
+    },
+    {
+      "kode_tampil": "TP-BI-1-1.1",
+      "elemen_id": "ELM-BI-A-01",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu memahami informasi dari teks nonsastra berbentuk teks aural (teks yang dibacakan dan/atau didengarkan) berupa percakapan yang berkaitan dengan diri, keluarga, dan/atau lingkungan sekitar",
+      "semester": 1,
+      "halaman_lampiran": 94
+    },
+    {
+      "kode_tampil": "TP-BI-2-1.2",
+      "elemen_id": "ELM-BI-A-01",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu dan memahami pesan teks sastra berbentuk teks aural.",
+      "semester": 1,
+      "halaman_lampiran": 94
+    },
+    {
+      "kode_tampil": "TP-BI-1-2.1",
+      "elemen_id": "ELM-BI-A-02",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu membaca kata-kata sederhana dengan fasih dari bacaan dan/atau tayangan yang dipirsa tentang diri, keluarga, kesehatan, dan/atau lingkungan sekitar",
+      "semester": 1,
+      "halaman_lampiran": 94
+    },
+    {
+      "kode_tampil": "TP-BI-2-2.2",
+      "elemen_id": "ELM-BI-A-02",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu dan memahami isi bacaan dan/atau tayangan yang dipirsa tentang diri, keluarga, kesehatan, dan/atau lingkungan sekitar.",
+      "semester": 1,
+      "halaman_lampiran": 94
+    },
+    {
+      "kode_tampil": "TP-BI-1-3.1",
+      "elemen_id": "ELM-BI-A-03",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu merespons dengan bertanya tentang sesuatu, menjawab, dan menanggapi komentar orang lain (teman, pendidik, dan/atau orang dewasa) dengan baik dan santun dalam suatu percakapan tentang diri, keluarga, kesehatan, dan/atau lingkungan sekitar",
+      "semester": 1,
+      "halaman_lampiran": 94
+    },
+    {
+      "kode_tampil": "TP-BI-2-3.2",
+      "elemen_id": "ELM-BI-A-03",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu mengungkapkan perasaan dan gagasan secara lisan dengan atau tanpa bantuan gambar",
+      "semester": 1,
+      "halaman_lampiran": 94
+    },
+    {
+      "kode_tampil": "TP-BI-1-3.3",
+      "elemen_id": "ELM-BI-A-03",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu dan menceritakan kembali isi berbagai tipe teks yang dibaca, dipirsa, atau didengar tentang diri, keluarga, kesehatan, dan/atau lingkungan sekitar.",
+      "semester": 2,
+      "halaman_lampiran": 94
+    },
+    {
+      "kode_tampil": "TP-BI-1-4.1",
+      "elemen_id": "ELM-BI-A-04",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu menulis permulaan dengan benar di atas kertas dan/atau melalui media digital",
+      "semester": 1,
+      "halaman_lampiran": 94
+    },
+    {
+      "kode_tampil": "TP-BI-2-4.2",
+      "elemen_id": "ELM-BI-A-04",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu mengembangkan tulisan tangan yang semakin baik",
+      "semester": 1,
+      "halaman_lampiran": 94
+    },
+    {
+      "kode_tampil": "TP-BI-1-4.3",
+      "elemen_id": "ELM-BI-A-04",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu dan menulis berbagai tipe teks sederhana tentang diri, keluarga, dan/atau lingkungan sekitar dengan beberapa kalimat sederhana.",
+      "semester": 2,
+      "halaman_lampiran": 94
+    },
+    {
+      "kode_tampil": "TP-BI-3-1.1",
+      "elemen_id": "ELM-BI-B-01",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu memahami ide pokok suatu informasi dari teks nonsastra berbentuk teks aural (teks yang dibacakan dan/atau didengarkan)",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-4-1.2",
+      "elemen_id": "ELM-BI-B-01",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu dan memahami isi teks sastra berbentuk teks aural.",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-3-2.1",
+      "elemen_id": "ELM-BI-B-02",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu membaca kata-kata baru dengan fasih dari bacaan dan/atau tayangan yang dipirsa",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-4-2.2",
+      "elemen_id": "ELM-BI-B-02",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu dan memahami ide pokok, ide pendukung, pesan, dan informasi dalam teks sastra dan nonsastra berbentuk cetak dan/atau elektronik.",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-3-3.1",
+      "elemen_id": "ELM-BI-B-03",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu menyajikan pendapat dengan pilihan kata dan sikap tubuh/gestur yang sesuai, menggunakan volume dan intonasi yang tepat sesuai konteks",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-4-3.2",
+      "elemen_id": "ELM-BI-B-03",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu menanggapi diskusi sesuai tata cara",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-3-3.3",
+      "elemen_id": "ELM-BI-B-03",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu dan menceritakan kembali isi dan/atau informasi dari berbagai tipe teks yang dibaca, dipirsa, atau didengar.",
+      "semester": 2,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-3-4.1",
+      "elemen_id": "ELM-BI-B-04",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu menulis berbagai tipe teks sederhana dengan rangkaian kalimat yang beragam",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-4-4.2",
+      "elemen_id": "ELM-BI-B-04",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu dan menggunakan kaidah kebahasaan dan kosakata baru yang memiliki makna denotatif untuk menulis teks sesuai dengan konteks.",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-5-1.1",
+      "elemen_id": "ELM-BI-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menganalisis informasi dari teks nonsastra berbentuk teks aural (teks yang dibacakan dan/atau didengarkan",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-6-1.2",
+      "elemen_id": "ELM-BI-C-01",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu dan menganalisis isi teks sastra berbentuk teks aural.",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-5-2.1",
+      "elemen_id": "ELM-BI-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu membaca kata-kata dengan berbagai pola kombinasi huruf dengan fasih dari bacaan dan/atau tayangan yang dipirsa",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-6-2.2",
+      "elemen_id": "ELM-BI-C-02",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu dan menganalisis informasi serta nilai-nilai dalam teks sastra dan nonsastra berwujud teks visual dan/atau audiovisual.",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-5-3.1",
+      "elemen_id": "ELM-BI-C-03",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mempresentasikan gagasan dari berbagai tipe teks dengan efektif dan santun",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-6-3.2",
+      "elemen_id": "ELM-BI-C-03",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu dan menyampaikan perasaan berdasarkan fakta, imajinasi (dari diri sendiri dan orang lain) secara indah dan menarik dalam bentuk teks sastra dengan penggunaan kosakata secara kreatif.",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-5-4.1",
+      "elemen_id": "ELM-BI-C-04",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menulis berbagai tipe teks sederhana berdasarkan gagasan, hasil pengamatan, pengalaman, dan/atau imajinasi dengan rangkaian kalimat kompleks secara kreatif, menarik, dan/atau indah",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-BI-6-4.2",
+      "elemen_id": "ELM-BI-C-04",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu dan menggunakan kaidah kebahasaan dan kosakata baru yang memiliki makna denotatif dan konotatif.",
+      "semester": 1,
+      "halaman_lampiran": 95
+    },
+    {
+      "kode_tampil": "TP-MAT-1-1.1",
+      "elemen_id": "ELM-MAT-A-01",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu menunjukkan pemahaman dan memiliki intuisi bilangan (number sense) pada bilangan cacah sampai 100",
+      "semester": 1,
+      "halaman_lampiran": 111
+    },
+    {
+      "kode_tampil": "TP-MAT-2-1.2",
+      "elemen_id": "ELM-MAT-A-01",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu membaca, menulis, menentukan nilai tempat, membandingkan, mengurutkan, serta melakukan komposisi (menyusun) dan dekomposisi (mengurai) bilangan",
+      "semester": 1,
+      "halaman_lampiran": 111
+    },
+    {
+      "kode_tampil": "TP-MAT-1-1.3",
+      "elemen_id": "ELM-MAT-A-01",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu melakukan operasi penjumlahan dan pengurangan menggunakan benda-benda konkret yang banyaknya sampai 20",
+      "semester": 2,
+      "halaman_lampiran": 111
+    },
+    {
+      "kode_tampil": "TP-MAT-2-1.4",
+      "elemen_id": "ELM-MAT-A-01",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu dan menunjukkan pemahaman pecahan sebagai bagian dari keseluruhan melalui konteks membagi sebuah benda atau kumpulan benda sama banyak (pecahan yang diperkenalkan adalah setengah dan seperempat).",
+      "semester": 2,
+      "halaman_lampiran": 111
+    },
+    {
+      "kode_tampil": "TP-MAT-1-2.1",
+      "elemen_id": "ELM-MAT-A-02",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu menunjukan pemahaman makna simbol matematika \"=\" dalam suatu kalimat matematika yang terkait dengan penjumlahan dan pengurangan bilangan cacah sampai 20 menggunakan gambar.",
+      "semester": 1,
+      "halaman_lampiran": 111
+    },
+    {
+      "kode_tampil": "TP-MAT-2-2.2",
+      "elemen_id": "ELM-MAT-A-02",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu contoh: Murid dapat mengenali, meniru, dan melanjutkan pola bukan bilangan (misalnya, gambar, warna, bunyi/suara).",
+      "semester": 1,
+      "halaman_lampiran": 111
+    },
+    {
+      "kode_tampil": "TP-MAT-1-3.1",
+      "elemen_id": "ELM-MAT-A-03",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu membandingkan panjang dan berat benda secara langsung, dan membandingkan durasi waktu",
+      "semester": 1,
+      "halaman_lampiran": 111
+    },
+    {
+      "kode_tampil": "TP-MAT-2-3.2",
+      "elemen_id": "ELM-MAT-A-03",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu mengukur dan mengestimasi panjang dan berat benda menggunakan satuan tidak baku.",
+      "semester": 1,
+      "halaman_lampiran": 111
+    },
+    {
+      "kode_tampil": "TP-MAT-1-4.1",
+      "elemen_id": "ELM-MAT-A-04",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengenal berbagai bangun datar (segitiga, segiempat, segi banyak, lingkaran) dan bangun ruang (balok, kubus, kerucut, dan bola)",
+      "semester": 1,
+      "halaman_lampiran": 111
+    },
+    {
+      "kode_tampil": "TP-MAT-2-4.2",
+      "elemen_id": "ELM-MAT-A-04",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu melakukan komposisi (penyusunan) dan dekomposisi (penguraian) suatu bangun datar (segitiga, segiempat, dan segi banyak)",
+      "semester": 1,
+      "halaman_lampiran": 111
+    },
+    {
+      "kode_tampil": "TP-MAT-1-4.3",
+      "elemen_id": "ELM-MAT-A-04",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu dan menentukan posisi benda terhadap benda lain (kanan, kiri, depan belakang, bawah, atas).",
+      "semester": 2,
+      "halaman_lampiran": 111
+    },
+    {
+      "kode_tampil": "TP-MAT-1-5.1",
+      "elemen_id": "ELM-MAT-A-05",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengurutkan, menyortir, mengelompokkan, membandingkan, dan menyajikan data dari banyak benda dengan menggunakan turus dan piktogram paling banyak 4 kategori.",
+      "semester": 1,
+      "halaman_lampiran": 111
+    },
+    {
+      "kode_tampil": "TP-MAT-3-1.1",
+      "elemen_id": "ELM-MAT-B-01",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu memiliki pemahaman dan intuisi bilangan (number sense) pada bilangan cacah sampai 10.000",
+      "semester": 1,
+      "halaman_lampiran": 112
+    },
+    {
+      "kode_tampil": "TP-MAT-4-1.2",
+      "elemen_id": "ELM-MAT-B-01",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu membaca, menulis, membandingkan, dan mengurutkan bilangan",
+      "semester": 1,
+      "halaman_lampiran": 112
+    },
+    {
+      "kode_tampil": "TP-MAT-3-1.3",
+      "elemen_id": "ELM-MAT-B-01",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu menentukan dan menggunakan nilai tempat",
+      "semester": 2,
+      "halaman_lampiran": 112
+    },
+    {
+      "kode_tampil": "TP-MAT-4-1.4",
+      "elemen_id": "ELM-MAT-B-01",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu melakukan komposisi dan dekomposisi bilangan cacah sampai 10.000.",
+      "semester": 2,
+      "halaman_lampiran": 112
+    },
+    {
+      "kode_tampil": "TP-MAT-3-2.1",
+      "elemen_id": "ELM-MAT-B-02",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu menemukan nilai yang tidak diketahui dalam kalimat matematika yang melibatkan penjumlahan dan pengurangan pada bilangan cacah sampai 100, dengan menggunakan sifat-sifat bilangan dan operasinya.",
+      "semester": 1,
+      "halaman_lampiran": 112
+    },
+    {
+      "kode_tampil": "TP-MAT-4-2.2",
+      "elemen_id": "ELM-MAT-B-02",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu murid dapat mengidentifikasi, meniru, dan mengembangkan pola gambar atau objek sederhana dan pola bilangan membesar dan mengecil yang dapat melibatkan penjumlahan dan pengurangan pada bilangan cacah sampai 100.",
+      "semester": 1,
+      "halaman_lampiran": 112
+    },
+    {
+      "kode_tampil": "TP-MAT-3-3.1",
+      "elemen_id": "ELM-MAT-B-03",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengukur panjang dan berat benda menggunakan satuan baku",
+      "semester": 1,
+      "halaman_lampiran": 112
+    },
+    {
+      "kode_tampil": "TP-MAT-4-3.2",
+      "elemen_id": "ELM-MAT-B-03",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu menentukan hubungan antar-satuan baku panjang (cm, m) dan antar-satuan berat (g, kg)",
+      "semester": 1,
+      "halaman_lampiran": 112
+    },
+    {
+      "kode_tampil": "TP-MAT-3-3.3",
+      "elemen_id": "ELM-MAT-B-03",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu serta mengukur dan mengestimasi luas dan volume menggunakan satuan tidak baku dan satuan baku berupa bilangan cacah.",
+      "semester": 2,
+      "halaman_lampiran": 112
+    },
+    {
+      "kode_tampil": "TP-MAT-3-4.1",
+      "elemen_id": "ELM-MAT-B-04",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mendeskripsikan ciri berbagai bentuk bangun datar (segiempat, segitiga, segi banyak)",
+      "semester": 1,
+      "halaman_lampiran": 112
+    },
+    {
+      "kode_tampil": "TP-MAT-4-4.2",
+      "elemen_id": "ELM-MAT-B-04",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu menyusun (komposisi) dan mengurai (dekomposisi) berbagai bangun datar dengan lebih dari satu cara jika memungkinkan.",
+      "semester": 1,
+      "halaman_lampiran": 112
+    },
+    {
+      "kode_tampil": "TP-MAT-3-5.1",
+      "elemen_id": "ELM-MAT-B-05",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengurutkan, membandingkan, menyajikan, menganalisis dan menginterpretasi data dalam bentuk tabel, diagram gambar, piktogram, dan diagram batang (skala satu satuan).",
+      "semester": 1,
+      "halaman_lampiran": 112
+    },
+    {
+      "kode_tampil": "TP-MAT-5-1.1",
+      "elemen_id": "ELM-MAT-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menunjukkan pemahaman dan intuisi bilangan (number sense) pada bilangan cacah sampai 1.000.000",
+      "semester": 1,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-MAT-6-1.2",
+      "elemen_id": "ELM-MAT-C-01",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu membaca, menulis, menentukan nilai tempat, membandingkan, mengurutkan, melakukan komposisi dan dekomposisi bilangan",
+      "semester": 1,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-MAT-5-1.3",
+      "elemen_id": "ELM-MAT-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menyelesaikan masalah yang berkaitan dengan uang",
+      "semester": 2,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-MAT-6-1.4",
+      "elemen_id": "ELM-MAT-C-01",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu melakukan operasi penjumlahan, pengurangan, perkalian, dan pembagian bilangan cacah sampai 100.000",
+      "semester": 2,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-MAT-5-2.1",
+      "elemen_id": "ELM-MAT-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menemukan nilai yang belum diketahui dalam kalimat matematika yang melibatkan penjumlahan, pengurangan, perkalian, dan pembagian pada bilangan cacah sampai 1000 dengan menggunakan sifat-sifat bilangan dan operasinya.",
+      "semester": 1,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-MAT-6-2.2",
+      "elemen_id": "ELM-MAT-C-02",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu murid dapat mengidentifikasi, meniru, dan mengembangkan pola bilangan membesar dan mengecil yang melibatkan perkalian dan pembagian",
+      "semester": 1,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-MAT-5-2.3",
+      "elemen_id": "ELM-MAT-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu bernalar secara proporsional untuk menyelesaikan masalah sehari-hari dengan rasio satuan",
+      "semester": 2,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-MAT-6-2.4",
+      "elemen_id": "ELM-MAT-C-02",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu menggunakan operasi perkalian dan pembagian dalam menyelesaikan masalah sehari- hari yang terkait dengan proporsi.",
+      "semester": 2,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-MAT-5-3.1",
+      "elemen_id": "ELM-MAT-C-03",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menentukan keliling dan luas berbagai bentuk bangun datar (segitiga, segiempat, dan segi banyak) serta gabungannya",
+      "semester": 1,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-MAT-6-3.2",
+      "elemen_id": "ELM-MAT-C-03",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu menghitung durasi waktu dan mengukur besar sudut pada bangun datar atau yang dibentuk dari dua garis berpotongan.",
+      "semester": 1,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-MAT-5-4.1",
+      "elemen_id": "ELM-MAT-C-04",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mengkonstruksi dan mengurai bangun ruang (kubus, balok, dan gabungannya) dan mengenali visualisasi spasial (bagian depan, atas, dan samping)",
+      "semester": 1,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-MAT-6-4.2",
+      "elemen_id": "ELM-MAT-C-04",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu membandingkan karakteristik antar bangun datar dan antar bangun ruang",
+      "semester": 1,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-MAT-5-4.3",
+      "elemen_id": "ELM-MAT-C-04",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu serta menentukan lokasi pada peta yang menggunakan sistem berpetak.",
+      "semester": 2,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-MAT-5-5.1",
+      "elemen_id": "ELM-MAT-C-05",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mengurutkan, membandingkan, menyajikan, dan menganalisis data banyak benda dan data hasil pengukuran dalam bentuk gambar, piktogram, diagram batang, dan tabel frekuensi untuk mendapatkan informasi",
+      "semester": 1,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-MAT-6-5.2",
+      "elemen_id": "ELM-MAT-C-05",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu menentukan kejadian dengan kemungkinan yang lebih besar atau lebih kecil dalam suatu percobaan acak.",
+      "semester": 1,
+      "halaman_lampiran": 114
+    },
+    {
+      "kode_tampil": "TP-BING-3-1.1",
+      "elemen_id": "ELM-BING-B-01",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu memahami dan merespon teks lisan atau teks multimodal sederhana tentang kehidupan sehari-hari baik secara verbal atau non-verbal sesuai konteks. (understand and respond to simple oral or multimodal texts about everyday life verbally or non-verbally in line with its context)",
+      "semester": 1,
+      "halaman_lampiran": 133
+    },
+    {
+      "kode_tampil": "TP-BING-3-2.1",
+      "elemen_id": "ELM-BING-B-02",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu memahami teks tulis pendek sederhana atau teks multimodal tentang kehidupan sehari-hari dan meresponsnya secara verbal atau non-verbal sesuai konteks. (Understand simple short texts or multimodal texts about everyday life and respond to them verbally or non-verbally in line with its context)",
+      "semester": 1,
+      "halaman_lampiran": 133
+    },
+    {
+      "kode_tampil": "TP-BING-3-3.1",
+      "elemen_id": "ELM-BING-B-03",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengomunikasikan gagasan tentang topik sehari-hari dalam teks tulis pendek atau teks multimodal sesuai konteks. (Communicate their ideas on everyday life topics in simple written or multimodal texts in line with its context)",
+      "semester": 1,
+      "halaman_lampiran": 133
+    },
+    {
+      "kode_tampil": "TP-BING-5-1.1",
+      "elemen_id": "ELM-BING-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu memahami alur informasi teks secara keseluruhan dan merespon teks lisan atau teks multimodal sederhana tentang topik sehari-hari secara lisan dengan kalimat pendek dan sederhana sesuai konteks. (Understand the entire flow of information and respond to simple oral or multimodal texts about everyday topics using short and simple sentences verbally in line with its context)",
+      "semester": 1,
+      "halaman_lampiran": 134
+    },
+    {
+      "kode_tampil": "TP-BING-5-2.1",
+      "elemen_id": "ELM-BING-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu memahami alur informasi secara keseluruhan, gagasan utama dan informasi rinci dari beragam teks pendek atau teks multimodal tentang topik sehari-hari dan meresponnya sesuai konteks. (Understand the entire flow of information, main ideas and details from a variety of short texts or multimodal texts about everyday topics and respond in line with its context)",
+      "semester": 1,
+      "halaman_lampiran": 134
+    },
+    {
+      "kode_tampil": "TP-BING-5-3.1",
+      "elemen_id": "ELM-BING-C-03",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mengomunikasikan ide dan pengalamannya melalui berbagai jenis teks tulis sederhana atau teks multimodal tentang topik sehari-hari sesuai konteks. (Communicate their ideas and experiences through various types of simple written texts or multimodal texts about everyday topics in line with its context)",
+      "semester": 1,
+      "halaman_lampiran": 134
+    },
+    {
+      "kode_tampil": "TP-IPAS-3-1.1",
+      "elemen_id": "ELM-IPAS-B-01",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu menjelaskan bentuk dan fungsi pancaindra",
+      "semester": 1,
+      "halaman_lampiran": 149
+    },
+    {
+      "kode_tampil": "TP-IPAS-4-1.2",
+      "elemen_id": "ELM-IPAS-B-01",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu menganalisis siklus hidup makhluk hidup dan upaya pelestariannya",
+      "semester": 1,
+      "halaman_lampiran": 149
+    },
+    {
+      "kode_tampil": "TP-IPAS-3-1.3",
+      "elemen_id": "ELM-IPAS-B-01",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu menghasilkan solusi untuk masalah yang berkaitan dengan pelestarian sumber daya alam sebagai upaya mitigasi perubahan iklim",
+      "semester": 2,
+      "halaman_lampiran": 149
+    },
+    {
+      "kode_tampil": "TP-IPAS-4-1.4",
+      "elemen_id": "ELM-IPAS-B-01",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu menyimpulkan proses perubahan wujud zat",
+      "semester": 2,
+      "halaman_lampiran": 149
+    },
+    {
+      "kode_tampil": "TP-IPAS-3-2.1",
+      "elemen_id": "ELM-IPAS-B-02",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mampu menerapkan keterampilan proses yang meliputi: ● Mengamati Murid mengamati fenomena dan peristiwa secara sederhana dan dapat mencatat hasil pengamatannya. ● Mempertanyakan dan Memprediksi Secara mandiri, murid mengajukan pertanyaan tentang hal-hal yang ingin diketahui saat melakukan pengamatan dan membuat prediksi berdasarkan pengetahuan yang dimiliki sebelumnya. ● Merencanakan dan Melakukan Penyelidikan Dengan panduan pendidik, murid membuat rencana dan melakukan langkah-langkah operasional untuk menjawab pertanyaan yang diajukan.",
+      "semester": 1,
+      "halaman_lampiran": 149
+    },
+    {
+      "kode_tampil": "TP-IPAS-4-2.2",
+      "elemen_id": "ELM-IPAS-B-02",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu murid melakukan observasi menggunakan alat bantu pengukuran sederhana. ● Memproses, Menganalisis Data dan Informasi Dengan panduan pendidik, murid mengorganisasikan data dalam bentuk turus dan diagram gambar untuk menyajikan dan mengidentifikasi pola.",
+      "semester": 1,
+      "halaman_lampiran": 149
+    },
+    {
+      "kode_tampil": "TP-IPAS-3-2.3",
+      "elemen_id": "ELM-IPAS-B-02",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu murid membandingkan antara hasil pengamatan dengan prediksi dan memberikan penjelasan. ● Mengevaluasi dan Refleksi Murid melakukan refleksi terhadap penyelidikan yang sudah dilakukan. ● Mengomunikasikan Hasil Murid mengomunikasikan hasil penyelidikan secara lisan dan tertulis dalam berbagai media.",
+      "semester": 2,
+      "halaman_lampiran": 149
+    },
+    {
+      "kode_tampil": "TP-IPAS-5-1.1",
+      "elemen_id": "ELM-IPAS-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu merefleksikan sistem organ tubuh manusia yang dikaitkan dengan cara menjaga kesehatan tubuhnya",
+      "semester": 1,
+      "halaman_lampiran": 151
+    },
+    {
+      "kode_tampil": "TP-IPAS-6-1.2",
+      "elemen_id": "ELM-IPAS-C-01",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu menganalisis hubungan antar komponen biotik dan abiotik, serta pengaruhnya terhadap ekosistem",
+      "semester": 1,
+      "halaman_lampiran": 151
+    },
+    {
+      "kode_tampil": "TP-IPAS-5-1.3",
+      "elemen_id": "ELM-IPAS-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menjelaskan fenomena gelombang bunyi dan cahaya dalam kehidupan sehari-hari",
+      "semester": 2,
+      "halaman_lampiran": 151
+    },
+    {
+      "kode_tampil": "TP-IPAS-6-1.4",
+      "elemen_id": "ELM-IPAS-C-01",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu menghasilkan upaya penghematan energi, serta pemanfaatan sumber energi alternatif dari sumber daya yang ada di sekitarnya sebagai upaya mitigasi perubahan iklim",
+      "semester": 2,
+      "halaman_lampiran": 151
+    },
+    {
+      "kode_tampil": "TP-IPAS-5-2.1",
+      "elemen_id": "ELM-IPAS-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mampu menerapkan keterampilan proses yang meliputi: ● Mengamati Murid mengamati fenomena dan peristiwa secara sederhana, mencatat hasil pengamatannya, serta mencari persamaan dan perbedaannya. ● Mempertanyakan dan Memprediksi Dengan panduan pendidik, murid mengidentifikasi pertanyaan yang dapat diselidiki secara ilmiah dan membuat prediksinya. ● Merencanakan dan Melakukan Penyelidikan Secara mandiri, murid merencanakan dan melakukan langkah-langkah operasional untuk menjawab pertanyaan yang diajukan.",
+      "semester": 1,
+      "halaman_lampiran": 151
+    },
+    {
+      "kode_tampil": "TP-IPAS-6-2.2",
+      "elemen_id": "ELM-IPAS-C-02",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu murid melakukan observasi menggunakan alat bantu pengukuran sederhana. ● Memproses serta Menganalisis Data dan Informasi Murid mengolah data dalam bentuk tabel dan grafik, serta menjelaskan hasil pengamatan dan pola atau hubungan pada data.",
+      "semester": 1,
+      "halaman_lampiran": 151
+    },
+    {
+      "kode_tampil": "TP-IPAS-5-2.3",
+      "elemen_id": "ELM-IPAS-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu murid membandingkan data dengan prediksi dan memberikan alasan berdasarkan bukti. ● Mengevaluasi dan Refleksi Melakukan refleksi dan memberikan saran perbaikan terhadap penyelidikan yang sudah dilakukan. ● Mengomunikasikan Hasil Murid mengomunikasikan hasil penyelidikan secara utuh yang ditunjang dengan argumen dalam berbagai media.",
+      "semester": 2,
+      "halaman_lampiran": 151
+    },
+    {
+      "kode_tampil": "TP-SMUS-1-1.1",
+      "elemen_id": "ELM-SMUS-A-01",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengenali unsur-unsur musik (nada dan irama) menggunakan anggota tubuh maupun alat musik.",
+      "semester": 1,
+      "halaman_lampiran": 238
+    },
+    {
+      "kode_tampil": "TP-SMUS-1-2.1",
+      "elemen_id": "ELM-SMUS-A-02",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu melakukan umpan balik mengenai praktik bermain musik diri sendiri atau orang lain menggunakan bahasa sehari-hari.",
+      "semester": 1,
+      "halaman_lampiran": 238
+    },
+    {
+      "kode_tampil": "TP-SMUS-1-3.1",
+      "elemen_id": "ELM-SMUS-A-03",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu menirukan pola irama dan nada menggunakan alat musik ritmis atau melodis",
+      "semester": 1,
+      "halaman_lampiran": 238
+    },
+    {
+      "kode_tampil": "TP-SMUS-2-3.2",
+      "elemen_id": "ELM-SMUS-A-03",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu mengenali ragam alat musik dan bunyi yang dihasilkan",
+      "semester": 1,
+      "halaman_lampiran": 238
+    },
+    {
+      "kode_tampil": "TP-SMUS-1-3.3",
+      "elemen_id": "ELM-SMUS-A-03",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengenali cara memainkan dan membersihkan instrumen/alat musik.",
+      "semester": 2,
+      "halaman_lampiran": 238
+    },
+    {
+      "kode_tampil": "TP-SMUS-1-4.1",
+      "elemen_id": "ELM-SMUS-A-04",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu membuat pola irama menggunakan anggota tubuh atau alat musik ritmis yang tersedia di lingkungan sekitar.",
+      "semester": 1,
+      "halaman_lampiran": 238
+    },
+    {
+      "kode_tampil": "TP-SMUS-1-5.1",
+      "elemen_id": "ELM-SMUS-A-05",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu menunjukkan ekspresi senang dalam kegiatan bermusik.",
+      "semester": 1,
+      "halaman_lampiran": 238
+    },
+    {
+      "kode_tampil": "TP-SMUS-3-1.1",
+      "elemen_id": "ELM-SMUS-B-01",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengenali nada dan pola irama menggunakan anggota tubuh maupun alat musik.",
+      "semester": 1,
+      "halaman_lampiran": 239
+    },
+    {
+      "kode_tampil": "TP-SMUS-3-2.1",
+      "elemen_id": "ELM-SMUS-B-02",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu melakukan umpan balik mengenai praktik bermusik diri sendiri atau orang lain menggunakan istilah musik.",
+      "semester": 1,
+      "halaman_lampiran": 239
+    },
+    {
+      "kode_tampil": "TP-SMUS-3-3.1",
+      "elemen_id": "ELM-SMUS-B-03",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu menirukan pola irama dan melodi menggunakan alat musik ritmis atau melodis",
+      "semester": 1,
+      "halaman_lampiran": 239
+    },
+    {
+      "kode_tampil": "TP-SMUS-4-3.2",
+      "elemen_id": "ELM-SMUS-B-03",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu menyebutkan karakteristik ragam alat musik dan bunyi yang dihasilkan",
+      "semester": 1,
+      "halaman_lampiran": 239
+    },
+    {
+      "kode_tampil": "TP-SMUS-3-3.3",
+      "elemen_id": "ELM-SMUS-B-03",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengetahui cara memainkan dan merawat alat musik.",
+      "semester": 2,
+      "halaman_lampiran": 239
+    },
+    {
+      "kode_tampil": "TP-SMUS-3-4.1",
+      "elemen_id": "ELM-SMUS-B-04",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu membuat bunyi menggunakan anggota tubuh atau alat musik ritmis dan melodis yang tersedia di lingkungan sekitar.",
+      "semester": 1,
+      "halaman_lampiran": 239
+    },
+    {
+      "kode_tampil": "TP-SMUS-3-5.1",
+      "elemen_id": "ELM-SMUS-B-05",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu menunjukkan minat dalam kegiatan bermusik.",
+      "semester": 1,
+      "halaman_lampiran": 239
+    },
+    {
+      "kode_tampil": "TP-SMUS-5-1.1",
+      "elemen_id": "ELM-SMUS-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mengenali dan menerapkan unsur-unsur musik (nada, irama dan melodi) menggunakan alat musik ritmis dan melodis serta menunjukkan tingkat kepekaan akan unsur-unsur musik dengan menggunakan alat musik ritmis dan melodis.",
+      "semester": 1,
+      "halaman_lampiran": 240
+    },
+    {
+      "kode_tampil": "TP-SMUS-5-2.1",
+      "elemen_id": "ELM-SMUS-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu melakukan umpan balik mengenai karya dan kemampuan bermusik diri sendiri atau orang lain menggunakan istilah musik yang tepat.",
+      "semester": 1,
+      "halaman_lampiran": 240
+    },
+    {
+      "kode_tampil": "TP-SMUS-5-3.1",
+      "elemen_id": "ELM-SMUS-C-03",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mengeksplorasi variasi pola irama, tempo dan melodi dengan alat musik ritmis dan melodis menggunakan notasi musik dan teknik dasar yang telah dipelajari",
+      "semester": 1,
+      "halaman_lampiran": 240
+    },
+    {
+      "kode_tampil": "TP-SMUS-6-3.2",
+      "elemen_id": "ELM-SMUS-C-03",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu menemukan alternatif untuk menghasilkan bunyi musik sederhana melalui eksplorasi material yang tersedia di lingkungan sekitar dan menerapkan cara memainkan dan merawat alat musik dengan teknik yang tepat sesuai dengan spesifikasi bahan alat musik.",
+      "semester": 1,
+      "halaman_lampiran": 240
+    },
+    {
+      "kode_tampil": "TP-SMUS-5-4.1",
+      "elemen_id": "ELM-SMUS-C-04",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu membuat dan mengembangkan pola irama menggunakan anggota tubuh atau alat musik ritmis yang tersedia berdasarkan nilai kearifan lokal daerahnya.",
+      "semester": 1,
+      "halaman_lampiran": 240
+    },
+    {
+      "kode_tampil": "TP-SMUS-5-5.1",
+      "elemen_id": "ELM-SMUS-C-05",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menunjukkan minat dan rasa ingin tahu dalam kegiatan bermusik.",
+      "semester": 1,
+      "halaman_lampiran": 240
+    },
+    {
+      "kode_tampil": "TP-RUPA-1-1.1",
+      "elemen_id": "ELM-RUPA-A-01",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengenali dan menyebutkan unsur-unsur rupa dalam benda-benda di sekitar/karya seni rupa.",
+      "semester": 1,
+      "halaman_lampiran": 246
+    },
+    {
+      "kode_tampil": "TP-RUPA-1-2.1",
+      "elemen_id": "ELM-RUPA-A-02",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu merefleksikan dan mengapresiasi karya diri sendiri.",
+      "semester": 1,
+      "halaman_lampiran": 246
+    },
+    {
+      "kode_tampil": "TP-RUPA-1-3.1",
+      "elemen_id": "ELM-RUPA-A-03",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengenali dan menguji coba alat dan/atau bahan yang dimiliki.",
+      "semester": 1,
+      "halaman_lampiran": 246
+    },
+    {
+      "kode_tampil": "TP-RUPA-1-4.1",
+      "elemen_id": "ELM-RUPA-A-04",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu membuat karya seni rupa berdasarkan pengalaman dan hasil pengamatan terhadap lingkungan sekitar.",
+      "semester": 1,
+      "halaman_lampiran": 246
+    },
+    {
+      "kode_tampil": "TP-RUPA-1-5.1",
+      "elemen_id": "ELM-RUPA-A-05",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu menghasilkan karya seni rupa yang berdampak pada perasaan dirinya.",
+      "semester": 1,
+      "halaman_lampiran": 246
+    },
+    {
+      "kode_tampil": "TP-RUPA-3-1.1",
+      "elemen_id": "ELM-RUPA-B-01",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengidentifikasi unsur rupa dan prinsip desain dalam benda-benda di sekitar/karya seni rupa.",
+      "semester": 1,
+      "halaman_lampiran": 247
+    },
+    {
+      "kode_tampil": "TP-RUPA-3-2.1",
+      "elemen_id": "ELM-RUPA-B-02",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu merefleksikan dan mengapresiasi karya diri sendiri dan teman sekelas menggunakan kosa kata seni rupa yang sesuai.",
+      "semester": 1,
+      "halaman_lampiran": 247
+    },
+    {
+      "kode_tampil": "TP-RUPA-3-3.1",
+      "elemen_id": "ELM-RUPA-B-03",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengenali dan menguji coba alat dan/atau bahan yang dimiliki serta prosedur penggunaannya.",
+      "semester": 1,
+      "halaman_lampiran": 247
+    },
+    {
+      "kode_tampil": "TP-RUPA-3-4.1",
+      "elemen_id": "ELM-RUPA-B-04",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu membuat karya seni rupa berdasarkan pengalaman dan hasil pengamatan terhadap lingkungan sekitar.",
+      "semester": 1,
+      "halaman_lampiran": 247
+    },
+    {
+      "kode_tampil": "TP-RUPA-3-5.1",
+      "elemen_id": "ELM-RUPA-B-05",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu menghasilkan karya seni rupa yang berdampak pada perasaan atau mewakili harapannya.",
+      "semester": 1,
+      "halaman_lampiran": 247
+    },
+    {
+      "kode_tampil": "TP-RUPA-5-1.1",
+      "elemen_id": "ELM-RUPA-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menjelaskan unsur rupa dan prinsip desain dalam benda-benda di sekitar/karya seni rupa.",
+      "semester": 1,
+      "halaman_lampiran": 247
+    },
+    {
+      "kode_tampil": "TP-RUPA-5-2.1",
+      "elemen_id": "ELM-RUPA-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu merefleksikan dan mengapresiasi karya diri sendiri dan teman sekelas menggunakan kosa kata seni rupa yang sesuai.",
+      "semester": 1,
+      "halaman_lampiran": 247
+    },
+    {
+      "kode_tampil": "TP-RUPA-5-3.1",
+      "elemen_id": "ELM-RUPA-C-03",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mengenali dan menguji coba variasi teknik penggunaan alat dan/atau bahan.",
+      "semester": 1,
+      "halaman_lampiran": 247
+    },
+    {
+      "kode_tampil": "TP-RUPA-5-4.1",
+      "elemen_id": "ELM-RUPA-C-04",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu membuat karya seni rupa berdasarkan pengalaman dan/atau hasil pengamatan terhadap lingkungan sekitar melalui pengembangan imajinasi.",
+      "semester": 1,
+      "halaman_lampiran": 247
+    },
+    {
+      "kode_tampil": "TP-RUPA-5-5.1",
+      "elemen_id": "ELM-RUPA-C-05",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menghasilkan karya seni rupa yang mewakili minatnya.",
+      "semester": 1,
+      "halaman_lampiran": 247
+    },
+    {
+      "kode_tampil": "TP-TARI-1-1.1",
+      "elemen_id": "ELM-TARI-A-01",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengenal bentuk tari sebagai media komunikasi serta mengembangkan kesadaran diri dalam bereksplorasi unsur utama tari meliputi gerak, ruang, tenaga, waktu, gerak di tempat dan gerak berpindah.",
+      "semester": 1,
+      "halaman_lampiran": 256
+    },
+    {
+      "kode_tampil": "TP-TARI-1-2.1",
+      "elemen_id": "ELM-TARI-A-02",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengidentifikasi unsur utama tari meliputi gerak, ruang, tenaga, waktu, gerak di tempat dan gerak berpindah, serta mengemukakan pencapaian diri secara lisan, tulisan, dan kinestetik.",
+      "semester": 1,
+      "halaman_lampiran": 256
+    },
+    {
+      "kode_tampil": "TP-TARI-1-3.1",
+      "elemen_id": "ELM-TARI-A-03",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu meragakan hasil gerak berdasarkan etika sebagai penampil dan penonton dengan keyakinan dan percaya diri saat mengekspresikan ide, perasaan kepada penonton atau lingkungan sekitar.",
+      "semester": 1,
+      "halaman_lampiran": 256
+    },
+    {
+      "kode_tampil": "TP-TARI-1-4.1",
+      "elemen_id": "ELM-TARI-A-04",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengembangkan unsur utama tari (gerak, ruang, waktu, dan tenaga), gerak di tempat, dan gerak berpindah untuk membuat gerak sederhana yang memiliki kesatuan gerak yang indah.",
+      "semester": 1,
+      "halaman_lampiran": 256
+    },
+    {
+      "kode_tampil": "TP-TARI-1-5.1",
+      "elemen_id": "ELM-TARI-A-05",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu menerima proses pembelajaran sehingga tumbuh rasa ingin tahu dan dapat menunjukkan antusiasme yang berdampak pada kemampuan diri dalam menyelesaikan aktivitas pembelajaran tari.",
+      "semester": 1,
+      "halaman_lampiran": 256
+    },
+    {
+      "kode_tampil": "TP-TARI-3-1.1",
+      "elemen_id": "ELM-TARI-B-01",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengamati bentuk penyajian tari berdasarkan latar belakang serta mengeksplorasi unsur utama tari sesuai level gerak, dan perubahan arah hadap.",
+      "semester": 1,
+      "halaman_lampiran": 257
+    },
+    {
+      "kode_tampil": "TP-TARI-3-2.1",
+      "elemen_id": "ELM-TARI-B-02",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengidentifikasi unsur utama tari sesuai level gerak, dan perubahan arah hadap, serta menilai pencapaian diri saat melakukan aktivitas pembelajaran tari.",
+      "semester": 1,
+      "halaman_lampiran": 257
+    },
+    {
+      "kode_tampil": "TP-TARI-3-3.1",
+      "elemen_id": "ELM-TARI-B-03",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu meragakan hasil tari dengan bekerja secara kooperatif untuk mengembangkan kemampuan bekerja sama dan saling menghargai demi tercapainya tujuan bersama.",
+      "semester": 1,
+      "halaman_lampiran": 257
+    },
+    {
+      "kode_tampil": "TP-TARI-3-4.1",
+      "elemen_id": "ELM-TARI-B-04",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengembangkan gerak dengan unsur utama tari, level, dan perubahan arah hadap.",
+      "semester": 1,
+      "halaman_lampiran": 257
+    },
+    {
+      "kode_tampil": "TP-TARI-3-5.1",
+      "elemen_id": "ELM-TARI-B-05",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu menerima proses pembelajaran sehingga tumbuh rasa ingin tahu dan dapat menunjukkan usaha yang berdampak pada kemampuan diri dalam menyelesaikan aktivitas pembelajaran tari.",
+      "semester": 1,
+      "halaman_lampiran": 257
+    },
+    {
+      "kode_tampil": "TP-TARI-5-1.1",
+      "elemen_id": "ELM-TARI-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mengamati berbagai bentuk tari tradisi yang dapat digunakan untuk mengekspresikan diri melalui unsur pendukung tari.",
+      "semester": 1,
+      "halaman_lampiran": 257
+    },
+    {
+      "kode_tampil": "TP-TARI-5-2.1",
+      "elemen_id": "ELM-TARI-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mengidentifikasi unsur pendukung tari dalam tari tradisi serta menghargai hasil pencapaian diri dengan mempertimbangkan pendapat orang lain.",
+      "semester": 1,
+      "halaman_lampiran": 257
+    },
+    {
+      "kode_tampil": "TP-TARI-5-3.1",
+      "elemen_id": "ELM-TARI-C-03",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu meragakan hasil rangkaian gerak tari menggunakan unsur pendukung tari dengan menunjukan kerja sama dan berperan aktif dalam kelompok.",
+      "semester": 1,
+      "halaman_lampiran": 257
+    },
+    {
+      "kode_tampil": "TP-TARI-5-4.1",
+      "elemen_id": "ELM-TARI-C-04",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu merangkai gerak tari yang berpijak pada tradisi/ kreasi dengan menerapkan desain kelompok.",
+      "semester": 1,
+      "halaman_lampiran": 257
+    },
+    {
+      "kode_tampil": "TP-TARI-5-5.1",
+      "elemen_id": "ELM-TARI-C-05",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menanggapi kejadian-kejadian di lingkungan sekitar melalui tari yang disajikan kepada penonton atau masyarakat sekitar.",
+      "semester": 1,
+      "halaman_lampiran": 257
+    },
+    {
+      "kode_tampil": "TP-TEATER-1-1.1",
+      "elemen_id": "ELM-TEATER-A-01",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengamati, merespons, meniru gerak tubuh dan suara sebagai media untuk mengomunikasikan emosi.",
+      "semester": 1,
+      "halaman_lampiran": 264
+    },
+    {
+      "kode_tampil": "TP-TEATER-1-2.1",
+      "elemen_id": "ELM-TEATER-A-02",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengenali pengalaman dan emosi selama proses berseni teater serta menceritakan sebuah karya dengan kosakata sehari-hari.",
+      "semester": 1,
+      "halaman_lampiran": 264
+    },
+    {
+      "kode_tampil": "TP-TEATER-1-3.1",
+      "elemen_id": "ELM-TEATER-A-03",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengenal jenis-jenis properti/alat bantu yang dapat mendukung cerita/permainan peran.",
+      "semester": 1,
+      "halaman_lampiran": 264
+    },
+    {
+      "kode_tampil": "TP-TEATER-1-4.1",
+      "elemen_id": "ELM-TEATER-A-04",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengeksplorasi beragam peran mengenai tokoh di sekitar atau rekaan, dan memainkan sebuah lakon pertunjukan.",
+      "semester": 1,
+      "halaman_lampiran": 264
+    },
+    {
+      "kode_tampil": "TP-TEATER-1-5.1",
+      "elemen_id": "ELM-TEATER-A-05",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu memainkan gerak dan lagu sesuai arahan dari pendidik.",
+      "semester": 1,
+      "halaman_lampiran": 264
+    },
+    {
+      "kode_tampil": "TP-TEATER-3-1.1",
+      "elemen_id": "ELM-TEATER-B-01",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengenal teknik dasar akting (pemeranan) melalui proses meniru (mimesis), mengenal gerak tubuh, suara/vokal sesuai tokoh/peran atau perilaku objek sekitar.",
+      "semester": 1,
+      "halaman_lampiran": 264
+    },
+    {
+      "kode_tampil": "TP-TEATER-3-2.1",
+      "elemen_id": "ELM-TEATER-B-02",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengenali lingkungan sekitarnya dan pengalaman dalam bermain teater.",
+      "semester": 1,
+      "halaman_lampiran": 264
+    },
+    {
+      "kode_tampil": "TP-TEATER-3-3.1",
+      "elemen_id": "ELM-TEATER-B-03",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu menggunakan properti yang sesuai dengan tokoh yang diperankan.",
+      "semester": 1,
+      "halaman_lampiran": 264
+    },
+    {
+      "kode_tampil": "TP-TEATER-3-4.1",
+      "elemen_id": "ELM-TEATER-B-04",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengamati berbagai peran, mengenal tokoh di sekitar, dan memainkan sebuah lakon dalam cerita.",
+      "semester": 1,
+      "halaman_lampiran": 264
+    },
+    {
+      "kode_tampil": "TP-TEATER-3-5.1",
+      "elemen_id": "ELM-TEATER-B-05",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengenal bentuk lakon dalam bermain teater.",
+      "semester": 1,
+      "halaman_lampiran": 264
+    },
+    {
+      "kode_tampil": "TP-TEATER-5-1.1",
+      "elemen_id": "ELM-TEATER-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu melakukan permainan peran berkelompok, seperti improvisasi untuk melatih aksi dan reaksi dalam mengelaborasi cerita atau tokoh dan melakukan pengenalan karakter melalui pengamatan kebiasaan tokoh yang diperankan.",
+      "semester": 1,
+      "halaman_lampiran": 265
+    },
+    {
+      "kode_tampil": "TP-TEATER-5-2.1",
+      "elemen_id": "ELM-TEATER-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menceritakan pendapatnya tentang sebuah cerita sederhana (penokohan, perwatakan).",
+      "semester": 1,
+      "halaman_lampiran": 265
+    },
+    {
+      "kode_tampil": "TP-TEATER-5-3.1",
+      "elemen_id": "ELM-TEATER-C-03",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mengidentifikasi properti sederhana berdasarkan cerita yang akan dimainkan.",
+      "semester": 1,
+      "halaman_lampiran": 265
+    },
+    {
+      "kode_tampil": "TP-TEATER-5-4.1",
+      "elemen_id": "ELM-TEATER-C-04",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mengenal dan memainkan ragam peran dari cerita sederhana berdasarkan hasil pengamatan.",
+      "semester": 1,
+      "halaman_lampiran": 265
+    },
+    {
+      "kode_tampil": "TP-TEATER-5-5.1",
+      "elemen_id": "ELM-TEATER-C-05",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu memerankan lakon secara individu maupun berkelompok berdasarkan minat, pengamatan, dan pengalaman.",
+      "semester": 1,
+      "halaman_lampiran": 265
+    },
+    {
+      "kode_tampil": "TP-PJOK-1-1.1",
+      "elemen_id": "ELM-PJOK-A-01",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mempraktikkan keterampilan gerak fundamental dan menerapkannya dalam berbagai situasi gerak yang berbeda",
+      "semester": 1,
+      "halaman_lampiran": 310
+    },
+    {
+      "kode_tampil": "TP-PJOK-2-1.2",
+      "elemen_id": "ELM-PJOK-A-01",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu mengeksplorasi berbagai strategi gerak",
+      "semester": 1,
+      "halaman_lampiran": 310
+    },
+    {
+      "kode_tampil": "TP-PJOK-1-1.3",
+      "elemen_id": "ELM-PJOK-A-01",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu dan mengeksplorasi berbagai konsep gerak serta menyimpulkan efektivitasnya.",
+      "semester": 2,
+      "halaman_lampiran": 310
+    },
+    {
+      "kode_tampil": "TP-PJOK-1-2.1",
+      "elemen_id": "ELM-PJOK-A-02",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu menaati peraturan untuk menumbuhkan fair play di dalam berbagai aktivitas jasmani",
+      "semester": 1,
+      "halaman_lampiran": 310
+    },
+    {
+      "kode_tampil": "TP-PJOK-2-2.2",
+      "elemen_id": "ELM-PJOK-A-02",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu menerapkan strategi kolaborasi ketika berpartisipasi dalam aktivitas jasmani.",
+      "semester": 1,
+      "halaman_lampiran": 310
+    },
+    {
+      "kode_tampil": "TP-PJOK-1-3.1",
+      "elemen_id": "ELM-PJOK-A-03",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu berpartisipasi di dalam berbagai aktivitas jasmani dan mengidentifikasi manfaatnya.",
+      "semester": 1,
+      "halaman_lampiran": 310
+    },
+    {
+      "kode_tampil": "TP-PJOK-1-4.1",
+      "elemen_id": "ELM-PJOK-A-04",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu mengenali gaya hidup aktif dan sehat",
+      "semester": 1,
+      "halaman_lampiran": 310
+    },
+    {
+      "kode_tampil": "TP-PJOK-2-4.2",
+      "elemen_id": "ELM-PJOK-A-04",
+      "tingkat_kelas": 2,
+      "teks_tujuan": "Murid mampu mengenali manfaat komponen makanan bergizi seimbang",
+      "semester": 1,
+      "halaman_lampiran": 310
+    },
+    {
+      "kode_tampil": "TP-PJOK-1-4.3",
+      "elemen_id": "ELM-PJOK-A-04",
+      "tingkat_kelas": 1,
+      "teks_tujuan": "Murid mampu serta mengenali situasi dan potensi yang berisiko terhadap kesehatan dan keselamatan serta strategi mencari bantuan kepada orang dewasa terpercaya.",
+      "semester": 2,
+      "halaman_lampiran": 310
+    },
+    {
+      "kode_tampil": "TP-PJOK-3-1.1",
+      "elemen_id": "ELM-PJOK-B-01",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu menghaluskan keterampilan gerak fundamental dan menerapkannya dalam situasi gerak yang baru",
+      "semester": 1,
+      "halaman_lampiran": 311
+    },
+    {
+      "kode_tampil": "TP-PJOK-4-1.2",
+      "elemen_id": "ELM-PJOK-B-01",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu menyesuaikan strategi gerak untuk mendapatkan capaian keterampilan gerak",
+      "semester": 1,
+      "halaman_lampiran": 311
+    },
+    {
+      "kode_tampil": "TP-PJOK-3-1.3",
+      "elemen_id": "ELM-PJOK-B-01",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu dan memperagakan berbagai konsep gerak yang dapat diterapkan dalam rangkaian gerak.",
+      "semester": 2,
+      "halaman_lampiran": 311
+    },
+    {
+      "kode_tampil": "TP-PJOK-3-2.1",
+      "elemen_id": "ELM-PJOK-B-02",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu menerapkan strategi gerak sederhana dan memecahkan masalah gerak",
+      "semester": 1,
+      "halaman_lampiran": 311
+    },
+    {
+      "kode_tampil": "TP-PJOK-4-2.2",
+      "elemen_id": "ELM-PJOK-B-02",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu menerapkan peraturan untuk menumbuhkan fair play di dalam berbagai aktivitas jasmani",
+      "semester": 1,
+      "halaman_lampiran": 311
+    },
+    {
+      "kode_tampil": "TP-PJOK-3-2.3",
+      "elemen_id": "ELM-PJOK-B-02",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu dan berpartisipasi secara positif dalam kelompok atau tim di dalam berbagai aktivitas jasmani.",
+      "semester": 2,
+      "halaman_lampiran": 311
+    },
+    {
+      "kode_tampil": "TP-PJOK-3-3.1",
+      "elemen_id": "ELM-PJOK-B-03",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu berpartisipasi dalam berbagai aktivitas jasmani dan mengenali faktor-faktor yang menyebabkan aktivitas jasmani menyenangkan.",
+      "semester": 1,
+      "halaman_lampiran": 311
+    },
+    {
+      "kode_tampil": "TP-PJOK-3-4.1",
+      "elemen_id": "ELM-PJOK-B-04",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu mengenali risiko kesehatan akibat gaya hidup dan berbagai aktivitas jasmani untuk pencegahannya",
+      "semester": 1,
+      "halaman_lampiran": 311
+    },
+    {
+      "kode_tampil": "TP-PJOK-4-4.2",
+      "elemen_id": "ELM-PJOK-B-04",
+      "tingkat_kelas": 4,
+      "teks_tujuan": "Murid mampu mengidentifikasi pola makan sehat dan bergizi seimbang sesuai rekomendasi kesehatan untuk menunjang aktivitas sehari-hari",
+      "semester": 1,
+      "halaman_lampiran": 311
+    },
+    {
+      "kode_tampil": "TP-PJOK-3-4.3",
+      "elemen_id": "ELM-PJOK-B-04",
+      "tingkat_kelas": 3,
+      "teks_tujuan": "Murid mampu dan mempraktikkan penanganan cedera ringan sesuai pemahaman tentang prinsip pertolongan pertama.",
+      "semester": 2,
+      "halaman_lampiran": 311
+    },
+    {
+      "kode_tampil": "TP-PJOK-5-1.1",
+      "elemen_id": "ELM-PJOK-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menyesuaikan keterampilan gerak melintasi berbagai situasi gerak",
+      "semester": 1,
+      "halaman_lampiran": 312
+    },
+    {
+      "kode_tampil": "TP-PJOK-6-1.2",
+      "elemen_id": "ELM-PJOK-C-01",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu mentransfer strategi gerak yang sudah dikuasai ke dalam berbagai situasi gerak yang berbeda",
+      "semester": 1,
+      "halaman_lampiran": 312
+    },
+    {
+      "kode_tampil": "TP-PJOK-5-1.3",
+      "elemen_id": "ELM-PJOK-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu dan menginvestigasi berbagai konsep gerak yang dapat diterapkan untuk meningkatkan capaian keterampilan gerak",
+      "semester": 2,
+      "halaman_lampiran": 312
+    },
+    {
+      "kode_tampil": "TP-PJOK-5-2.1",
+      "elemen_id": "ELM-PJOK-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menguji efektivitas penerapan strategi gerak dalam berbagai situasi gerak",
+      "semester": 1,
+      "halaman_lampiran": 312
+    },
+    {
+      "kode_tampil": "TP-PJOK-6-2.2",
+      "elemen_id": "ELM-PJOK-C-02",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu merancang peraturan alternatif dan modifikasi permainan untuk mendukung fair play dan partisipasi inklusif",
+      "semester": 1,
+      "halaman_lampiran": 312
+    },
+    {
+      "kode_tampil": "TP-PJOK-5-2.3",
+      "elemen_id": "ELM-PJOK-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu dan menjalankan berbagai peran untuk mencapai keberhasilan kelompok atau tim di dalam berbagai aktivitas jasmani.",
+      "semester": 2,
+      "halaman_lampiran": 312
+    },
+    {
+      "kode_tampil": "TP-PJOK-5-3.1",
+      "elemen_id": "ELM-PJOK-C-03",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu berpartisipasi dalam aktivitas jasmani dan menjelaskan pengaruh aktivitas jasmani yang teratur terhadap kesehatan",
+      "semester": 1,
+      "halaman_lampiran": 312
+    },
+    {
+      "kode_tampil": "TP-PJOK-6-3.2",
+      "elemen_id": "ELM-PJOK-C-03",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu mengidentifikasi rekomendasi aktivitas jasmani serta pencegahan perilaku sedenter.",
+      "semester": 1,
+      "halaman_lampiran": 312
+    },
+    {
+      "kode_tampil": "TP-PJOK-5-4.1",
+      "elemen_id": "ELM-PJOK-C-04",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu mengidentifikasi dan menghubungkan antara gaya hidup, risiko kesehatan, dan aktivitas pencegahannya sesuai rekomendasi otoritas kesehatan",
+      "semester": 1,
+      "halaman_lampiran": 312
+    },
+    {
+      "kode_tampil": "TP-PJOK-6-4.2",
+      "elemen_id": "ELM-PJOK-C-04",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu menjelaskan pola makan sehat untuk menunjang aktivitas jasmani berdasarkan informasi kandungan gizi pada makanan",
+      "semester": 1,
+      "halaman_lampiran": 312
+    },
+    {
+      "kode_tampil": "TP-PJOK-5-4.3",
+      "elemen_id": "ELM-PJOK-C-04",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu dan mempraktikkan penanganan cedera sedang sesuai pemahaman tentang prinsip pertolongan pertama.",
+      "semester": 2,
+      "halaman_lampiran": 312
+    },
+    {
+      "kode_tampil": "TP-KKA-5-1.1",
+      "elemen_id": "ELM-KKA-C-01",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu memahami permasalahan sederhana dalam kehidupan sehari-hari, menerapkan pemecahan masalah secara sistematis, serta menuliskan instruksi logis dan terstruktur menggunakan sekumpulan kosakata atau simbol.",
+      "semester": 1,
+      "halaman_lampiran": 342
+    },
+    {
+      "kode_tampil": "TP-KKA-5-2.1",
+      "elemen_id": "ELM-KKA-C-02",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu memahami konsep dasar, manfaat, dan dampak teknologi digital, memahami sistem komputer tingkat pradasar, menerapkan pengamanan informasi pribadi dalam komunikasi daring, memanfaatkan internet, dan memproduksi serta mendiseminasi konten digital dalam bentuk teks dan gambar.",
+      "semester": 1,
+      "halaman_lampiran": 342
+    },
+    {
+      "kode_tampil": "TP-KKA-5-3.1",
+      "elemen_id": "ELM-KKA-C-03",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu memahami konsep KA sederhana, manfaat dan dampak KA pada kehidupan sehari-hari, prinsip bahwa KA dikembangkan untuk meningkatkan kesejahteraan manusia dan tidak boleh merugikan manusia, mengetahui perbedaan manusia dan komputer dalam melakukan penginderaan, dan mengetahui perbedaan antara mesin cerdas dan mesin non-cerdas.",
+      "semester": 1,
+      "halaman_lampiran": 342
+    },
+    {
+      "kode_tampil": "TP-KKA-6-3.2",
+      "elemen_id": "ELM-KKA-C-03",
+      "tingkat_kelas": 6,
+      "teks_tujuan": "Murid mampu memahami etika dasar penggunaan KA seperti empati dan tidak menyakiti orang lain.",
+      "semester": 1,
+      "halaman_lampiran": 342
+    },
+    {
+      "kode_tampil": "TP-KKA-5-4.1",
+      "elemen_id": "ELM-KKA-C-04",
+      "tingkat_kelas": 5,
+      "teks_tujuan": "Murid mampu menyimulasikan secara sederhana kerja KA saat mengenali pola, mengklasifikasi benda konkret berdasarkan sifatnya, dan mengetahui bagaimana prediksi sistem KA dipengaruhi input benda konkret.",
+      "semester": 1,
+      "halaman_lampiran": 342
+    }
+  ],
+  "referensi": [
+    {
+      "id": "REF-PANDUAN-ROOT",
+      "jenis": "panduan_resmi",
+      "judul": "Panduan Mata Pelajaran - Kemendikdasmen",
+      "mapel_kode": "",
+      "kelas": "1-6",
+      "fase": "A-C",
+      "penerbit": "Pusat Kurikulum dan Pembelajaran, Kemendikdasmen",
+      "tahun": "2025",
+      "versi": "live-index",
+      "isbn": "",
+      "url": "https://kurikulum.kemendikdasmen.go.id/panduan-mapel",
+      "lingkup_izin": "metadata_dan_tautan"
+    },
+    {
+      "id": "REF-PANDUAN-PP",
+      "jenis": "panduan_resmi",
+      "judul": "Panduan Mata Pelajaran Pendidikan Pancasila",
+      "mapel_kode": "PP",
+      "kelas": "1-6",
+      "fase": "A-C",
+      "penerbit": "Pusat Kurikulum dan Pembelajaran, Kemendikdasmen",
+      "tahun": "2025",
+      "versi": "Revisi 3",
+      "isbn": "",
+      "url": "https://kurikulum.kemendikdasmen.go.id/file/panduan/dokumen/2.%20Final%20Panduan%20Mata%20Pelajaran%20Pendidikan%20Pancasila_12_09_2025_Revisi%203.pdf",
+      "lingkup_izin": "metadata_dan_tautan"
+    },
+    {
+      "id": "REF-PANDUAN-IPAS",
+      "jenis": "panduan_resmi",
+      "judul": "Panduan Mata Pelajaran IPAS",
+      "mapel_kode": "IPAS",
+      "kelas": "3-6",
+      "fase": "B-C",
+      "penerbit": "Pusat Kurikulum dan Pembelajaran, Kemendikdasmen",
+      "tahun": "2025",
+      "versi": "Revisi 4",
+      "isbn": "",
+      "url": "https://kurikulum.kemendikdasmen.go.id/file/panduan/dokumen/7.%20Final%20Panduan%20Mata%20Pelajaran%20IPAS_03_10_2025_Revisi%204.pdf",
+      "lingkup_izin": "metadata_dan_tautan"
+    },
+    {
+      "id": "REF-PANDUAN-PJOK",
+      "jenis": "panduan_resmi",
+      "judul": "Panduan Mata Pelajaran PJOK",
+      "mapel_kode": "PJOK",
+      "kelas": "1-6",
+      "fase": "A-C",
+      "penerbit": "Pusat Kurikulum dan Pembelajaran, Kemendikdasmen",
+      "tahun": "2025",
+      "versi": "2025",
+      "isbn": "",
+      "url": "https://kurikulum.kemendikdasmen.go.id/file/panduan/dokumen/Panduan%20Mata%20Pelajaran%20PJOK.pdf",
+      "lingkup_izin": "metadata_dan_tautan"
+    },
+    {
+      "id": "REF-PANDUAN-SMUS",
+      "jenis": "panduan_resmi",
+      "judul": "Panduan Mata Pelajaran Seni Musik",
+      "mapel_kode": "SMUS",
+      "kelas": "1-6",
+      "fase": "A-C",
+      "penerbit": "Pusat Kurikulum dan Pembelajaran, Kemendikdasmen",
+      "tahun": "2025",
+      "versi": "Revisi 3",
+      "isbn": "",
+      "url": "https://kurikulum.kemendikdasmen.go.id/file/panduan/dokumen/19.%20Final%20Panduan%20Mata%20Pelajaran%20Seni%20Musik_13_09_2025_Revisi%203.pdf",
+      "lingkup_izin": "metadata_dan_tautan"
+    },
+    {
+      "id": "REF-PANDUAN-KKA",
+      "jenis": "panduan_resmi",
+      "judul": "Panduan Mata Pelajaran Koding dan Kecerdasan Artifisial",
+      "mapel_kode": "KKA",
+      "kelas": "5-6",
+      "fase": "C",
+      "penerbit": "Pusat Kurikulum dan Pembelajaran, Kemendikdasmen",
+      "tahun": "2025",
+      "versi": "Revisi 3",
+      "isbn": "",
+      "url": "https://kurikulum.kemendikdasmen.go.id/file/panduan/dokumen/33.%20Final%20Panduan%20Mata%20Pelajaran%20Panduan%20Mata%20Pelajaran%20Koding%20dan%20Kecerdasan%20Artifisial_12_Sep_2025_revisi%203.pdf",
+      "lingkup_izin": "metadata_dan_tautan"
+    },
+    {
+      "id": "REF-SIBI-ROOT",
+      "jenis": "katalog_resmi",
+      "judul": "SIBI - Katalog Buku Sekolah",
+      "mapel_kode": "",
+      "kelas": "1-6",
+      "fase": "A-C",
+      "penerbit": "Kemendikdasmen",
+      "tahun": "",
+      "versi": "live",
+      "isbn": "",
+      "url": "https://buku.kemendikdasmen.go.id/katalog/",
+      "lingkup_izin": "metadata_dan_tautan"
+    }
+  ],
+  "referensi_bab": [],
+  "materi": [],
+  "pemetaan_bab_tp": [],
+  "cp_agama_pending_020_2026": [
+    {
+      "id": "CP-PAI-A",
+      "mapel_kode": "PAI",
+      "fase_kode": "A",
+      "cabang_kode": "",
+      "agama_kode": "ISLAM",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAI-B",
+      "mapel_kode": "PAI",
+      "fase_kode": "B",
+      "cabang_kode": "",
+      "agama_kode": "ISLAM",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAI-C",
+      "mapel_kode": "PAI",
+      "fase_kode": "C",
+      "cabang_kode": "",
+      "agama_kode": "ISLAM",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAK-A",
+      "mapel_kode": "PAK",
+      "fase_kode": "A",
+      "cabang_kode": "",
+      "agama_kode": "KRISTEN",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAK-B",
+      "mapel_kode": "PAK",
+      "fase_kode": "B",
+      "cabang_kode": "",
+      "agama_kode": "KRISTEN",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAK-C",
+      "mapel_kode": "PAK",
+      "fase_kode": "C",
+      "cabang_kode": "",
+      "agama_kode": "KRISTEN",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAKat-A",
+      "mapel_kode": "PAKat",
+      "fase_kode": "A",
+      "cabang_kode": "",
+      "agama_kode": "KATOLIK",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAKat-B",
+      "mapel_kode": "PAKat",
+      "fase_kode": "B",
+      "cabang_kode": "",
+      "agama_kode": "KATOLIK",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAKat-C",
+      "mapel_kode": "PAKat",
+      "fase_kode": "C",
+      "cabang_kode": "",
+      "agama_kode": "KATOLIK",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAH-A",
+      "mapel_kode": "PAH",
+      "fase_kode": "A",
+      "cabang_kode": "",
+      "agama_kode": "HINDU",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAH-B",
+      "mapel_kode": "PAH",
+      "fase_kode": "B",
+      "cabang_kode": "",
+      "agama_kode": "HINDU",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAH-C",
+      "mapel_kode": "PAH",
+      "fase_kode": "C",
+      "cabang_kode": "",
+      "agama_kode": "HINDU",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAB-A",
+      "mapel_kode": "PAB",
+      "fase_kode": "A",
+      "cabang_kode": "",
+      "agama_kode": "BUDDHA",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAB-B",
+      "mapel_kode": "PAB",
+      "fase_kode": "B",
+      "cabang_kode": "",
+      "agama_kode": "BUDDHA",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAB-C",
+      "mapel_kode": "PAB",
+      "fase_kode": "C",
+      "cabang_kode": "",
+      "agama_kode": "BUDDHA",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAKh-A",
+      "mapel_kode": "PAKh",
+      "fase_kode": "A",
+      "cabang_kode": "",
+      "agama_kode": "KHONGHUCU",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAKh-B",
+      "mapel_kode": "PAKh",
+      "fase_kode": "B",
+      "cabang_kode": "",
+      "agama_kode": "KHONGHUCU",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    },
+    {
+      "id": "CP-PAKh-C",
+      "mapel_kode": "PAKh",
+      "fase_kode": "C",
+      "cabang_kode": "",
+      "agama_kode": "KHONGHUCU",
+      "teks_capaian": "",
+      "dokumen_kode": "020/2026",
+      "halaman_lampiran": "",
+      "status_verifikasi": "PENDING_DOKUMEN_RESMI_LANGSUNG",
+      "catatan": "Keberadaan dan ruang lingkup perubahan 020/2026 terverifikasi dari siaran pers resmi; teks keputusan langsung belum ditemukan pada URL resmi yang dapat diakses, sehingga sengaja tidak diisi dari sumber sekunder."
+    }
+  ],
+  "status_impor": {
+    "cp_non_agama_terverifikasi": 29,
+    "cp_agama_pending": 18,
+    "catatan": "Data berstatus PENDING tidak boleh diaktifkan sebagai CP resmi sampai diverifikasi dari sumber resmi 020/2026."
+  }
+}

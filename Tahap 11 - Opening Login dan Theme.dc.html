@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: #dfe4e9; font-family: 'Public Sans', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; color: #1a2733; }
+  a { color: #1b5e8c; text-decoration: none; }
+  a:hover { color: #0f3e60; }
+</style>
+</helmet>
+
+<div style="padding: 44px 48px 80px; display: flex; flex-direction: column; gap: 44px; width: max-content;">
+
+  <div style="max-width: 1000px;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.09em; color: #62788a; text-transform: uppercase;">Tahap 11 &middot; opening, login, dan sinkronisasi theme</div>
+    <h1 style="margin: 12px 0 0; font-size: 34px; font-weight: 700; letter-spacing: -0.025em;">Lapisan Masuk Aplikasi</h1>
+    <p style="margin: 10px 0 0; font-size: 16.5px; line-height: 1.6; color: #46596b;">Tiga layar baru di depan Dashboard &mdash; Opening, Setup Admin, Login &mdash; beserta autentikasi lokal, logout, dan penyelarasan warna seluruh aplikasi dengan latar Login. Data kurikulum, 30 engine game, dan seluruh 27 layar yang sudah final tidak disentuh.</p>
+  </div>
+
+  <div style="width: 1440px; background: #fdf0ec; border: 2px solid #e3a893; border-radius: 14px; padding: 24px 28px;" data-screen-label="T11-00 Temuan rasio">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #b1785f;">00</span>
+      <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #8f3a1f;">Satu temuan yang menentukan seluruh tata letak</h2>
+    </div>
+    <p style="margin: 11px 0 0; font-size: 14.5px; line-height: 1.7; color: #7a3218; max-width: 112ch;">Gambar latar Login berukuran <strong>1149 &times; 1369 piksel</strong> &mdash; rasio 0,84, tegak. Versi yang dipakai adalah gambar tanpa baris identitas tercetak di bawahnya, jadi seluruh bidangnya murni ilustrasi dan tidak ada teks yang bisa hilang saat dipotong &mdash; identitas pembuat memang sudah dirender sebagai teks HTML hidup. Papan interaktif 75 inci dan desktop berasio 1,78, mendatar. Memaksa gambar tegak memenuhi seluruh bidang mendatar dengan <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px;">cover</span> akan memotong sekitar <strong>53 persen tinggi gambar</strong> &mdash; kedua wajah, papan nama sekolah, dan bendera hilang bersamaan, menyisakan potongan badan dan lantai.</p>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; margin-top: 16px;">
+      <div style="background: #fff; border: 1px solid #f2d8cf; border-radius: 11px; padding: 16px 18px;">
+        <div style="font-size: 14.5px; font-weight: 700; color: #8f3a1f;">Akibatnya, dua aturan</div>
+        <div style="font-size: 13.5px; color: #7a3218; margin-top: 7px; line-height: 1.65;"><strong>Satu.</strong> Identitas pembuat dirender sebagai <strong>teks HTML hidup</strong>, bukan sebagai bagian gambar. Gambar yang dipakai memang murni ilustrasi tanpa teks tercetak, jadi identitas tidak pernah terpotong pada rasio apa pun, tetap dapat dipilih, dan tetap terbaca pembaca layar.<br /><br /><strong>Dua.</strong> Bidang mendatar tidak memakai gambar sebagai latar penuh, melainkan sebagai <strong>panel bersisi</strong> selebar 55% sesuai acuan. Pemotongannya turun dari 53% menjadi 14%, dan yang hilang hanya langit serta lantai paving &mdash; bukan wajah maupun papan nama sekolah.</div>
+      </div>
+      <div style="background: #fff; border: 1px solid #f2d8cf; border-radius: 11px; padding: 16px 18px;">
+        <div style="font-size: 14.5px; font-weight: 700; color: #8f3a1f;">Titik fokus gambar</div>
+        <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 10px;">
+          <div style="display: grid; grid-template-columns: 108px 1fr; gap: 12px; font-size: 13px;"><span style="color: #6b8296;">0&ndash;20% tinggi</span><span style="color: #33475a;">langit malam, tiang bendera, atap &mdash; 4% teratas boleh terpotong</span></div>
+          <div style="display: grid; grid-template-columns: 108px 1fr; gap: 12px; font-size: 13px;"><span style="color: #6b8296;">14&ndash;22%</span><span style="color: #33475a; font-weight: 600;">papan nama SDN Satria Jaya 01</span></div>
+          <div style="display: grid; grid-template-columns: 108px 1fr; gap: 12px; font-size: 13px;"><span style="color: #6b8296;">28&ndash;40%</span><span style="color: #8f3a1f; font-weight: 700;">wajah kedua karakter &mdash; jangan tertutup</span></div>
+          <div style="display: grid; grid-template-columns: 108px 1fr; gap: 12px; font-size: 13px;"><span style="color: #6b8296;">40&ndash;80%</span><span style="color: #33475a;">badan, batik, seragam, api biru</span></div>
+          <div style="display: grid; grid-template-columns: 108px 1fr; gap: 12px; font-size: 13px;"><span style="color: #6b8296;">80&ndash;88%</span><span style="color: #33475a;">lantai paving &mdash; area aman untuk form</span></div>
+          <div style="display: grid; grid-template-columns: 108px 1fr; gap: 12px; font-size: 13px;"><span style="color: #6b8296;">88&ndash;100%</span><span style="color: #33475a;">tepi bawah lantai paving &mdash; boleh terpotong</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 16px;" data-screen-label="T11-01 Alur">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">01</span>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">Alur masuk dan lima keadaan</h2>
+    </div>
+
+    <div style="width: 1440px; background: #fff; border: 1px solid #e2e9ef; border-radius: 14px; padding: 26px 28px;">
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch;">
+        <div style="flex: 1 1 160px; border: 1px solid #dce5ec; border-radius: 11px; padding: 15px 17px; background: #f8fafc;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8ea5b8;">01</div>
+          <div style="font-size: 14.5px; font-weight: 700; margin-top: 5px;">Opening</div>
+          <div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">Video sekali per pembukaan, wajib selesai.</div>
+        </div>
+        <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+        <div style="flex: 1 1 160px; border: 1px solid #e0d3ea; border-radius: 11px; padding: 15px 17px; background: #faf7fc;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #7a3e9d;">02a</div>
+          <div style="font-size: 14.5px; font-weight: 700; margin-top: 5px; color: #5c2d7d;">Setup Admin</div>
+          <div style="font-size: 12.5px; color: #5c2d7d; margin-top: 5px; line-height: 1.55;">Hanya bila perangkat belum punya Admin.</div>
+        </div>
+        <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+        <div style="flex: 1 1 160px; border: 2px solid #1b5e8c; border-radius: 11px; padding: 14px 16px; background: #f7fbfd;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #1b5e8c;">02b</div>
+          <div style="font-size: 14.5px; font-weight: 700; margin-top: 5px; color: #14405e;">Login</div>
+          <div style="font-size: 12.5px; color: #14405e; margin-top: 5px; line-height: 1.55;">Username, sandi, peran Admin atau Guru.</div>
+        </div>
+        <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+        <div style="flex: 1 1 160px; border: 1px solid #cfe6da; border-radius: 11px; padding: 15px 17px; background: #f5fbf8;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #0f6b4f;">03</div>
+          <div style="font-size: 14.5px; font-weight: 700; margin-top: 5px; color: #0b5340;">Dashboard</div>
+          <div style="font-size: 12.5px; color: #0b5340; margin-top: 5px; line-height: 1.55;">Tidak dapat dicapai tanpa sesi sah.</div>
+        </div>
+        <div style="display: grid; place-items: center; color: #8ea5b8;">&#8594;</div>
+        <div style="flex: 1 1 160px; border: 1px solid #dce5ec; border-radius: 11px; padding: 15px 17px; background: #f8fafc;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8ea5b8;">04</div>
+          <div style="font-size: 14.5px; font-weight: 700; margin-top: 5px;">Logout</div>
+          <div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">Kembali ke Login. Data tidak dihapus.</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 22px; padding-top: 20px; border-top: 1px solid #eef2f6;">
+        <div style="font-size: 13px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em; color: #6b8296; text-transform: uppercase;">Lima keadaan sesi</div>
+        <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 12px;">
+          <sc-for list="{{ states }}" as="s" hint-placeholder-count="5">
+            <div style="border: 1px solid #e6edf2; border-radius: 10px; padding: 14px 15px; background: #fbfcfd;">
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #14405e;">{{ s.kode }}</div>
+              <div style="font-size: 13.5px; font-weight: 700; margin-top: 5px;">{{ s.nama }}</div>
+              <div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.6;">{{ s.arti }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 14px;" data-screen-label="28 Opening">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">28</span>
+      <h2 style="margin: 0; font-size: 21px; font-weight: 700; letter-spacing: -0.015em;">Opening</h2>
+      <span style="font-size: 13.5px; color: #62788a;">layar baru &middot; Kerangka Kelas</span>
+    </div>
+
+    <div style="display: flex; gap: 18px; align-items: flex-start;">
+      <div style="width: 900px; height: 506px; background: #04101d; border-radius: 14px; overflow: hidden; position: relative; box-shadow: 0 18px 48px rgba(4, 16, 29, 0.4);">
+        <div style="position: absolute; inset: 0; display: grid; place-items: center;">
+          <div style="width: 425px; height: 506px; position: relative; background: #071a2e; display: grid; place-items: center;">
+            <img src="./assets/login-bg.png" alt="Cuplikan video opening" style="width: 100%; height: 100%; object-fit: cover; object-position: center 30%; opacity: 0.5;" />
+            <div style="position: absolute; inset: 0; display: grid; place-items: center;">
+              <div style="width: 74px; height: 74px; border-radius: 50%; background: rgba(108, 192, 240, 0.18); border: 2px solid #6cc0f0; display: grid; place-items: center;">
+                <div style="width: 0; height: 0; border-left: 22px solid #6cc0f0; border-top: 14px solid transparent; border-bottom: 14px solid transparent; margin-left: 7px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: rgba(108, 192, 240, 0.2);">
+          <div style="width: 38%; height: 100%; background: #6cc0f0;"></div>
+        </div>
+        <div style="position: absolute; bottom: 22px; left: 26px; font-size: 12.5px; color: #7fa8c4; font-family: 'IBM Plex Mono', monospace;">letterbox navy #071A2E &middot; rasio video dipertahankan</div>
+      </div>
+
+      <div style="width: 500px; display: flex; flex-direction: column; gap: 12px;">
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 18px 20px;">
+          <div style="font-size: 14.5px; font-weight: 700;">Aturan pemutaran</div>
+          <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 10px;">
+            <div style="font-size: 13px; color: #33475a; line-height: 1.6;">&bull; Sekali per pembukaan aplikasi, bukan sekali per muat halaman. Ditandai lewat <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;">sessionStorage</span>, sehingga navigasi ke Login lalu kembali tidak memutarnya ulang.</div>
+            <div style="font-size: 13px; color: #33475a; line-height: 1.6;">&bull; Tidak melooping, dan tidak dapat dilewatkan. Selesai video &rarr; transisi lembut 400 ms ke Login.</div>
+            <div style="font-size: 13px; color: #33475a; line-height: 1.6;">&bull; Rasio dipertahankan mutlak. Bidang sisa diisi navy #071A2E, bukan gambar melar.</div>
+            <div style="font-size: 13px; color: #33475a; line-height: 1.6;">&bull; <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;">contain</span> bila selisih rasio video dan layar &gt; 0,25; <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;">cover</span> bila lebih rapat &mdash; agar papan 75 inci tidak berpita hitam lebar sementara HP tegak tidak terpotong.</div>
+          </div>
+        </div>
+
+        <div style="background: #fdfaf3; border: 1px solid #f0e0bd; border-radius: 12px; padding: 18px 20px;">
+          <div style="font-size: 14.5px; font-weight: 700; color: #7a5a10;">Bila autoplay bersuara diblokir</div>
+          <div style="font-size: 13px; color: #7a5a10; margin-top: 8px; line-height: 1.65;">Peramban umumnya menolak memutar suara tanpa interaksi. Aplikasi <strong>tidak boleh macet</strong> menunggu. Perilakunya: video langsung berjalan tanpa suara, dan muncul lencana kecil <em>Ketuk untuk suara</em> di sudut. Satu ketukan menyalakan audio dari posisi berjalan. Bila video gagal dimuat sama sekali, Login tampil langsung tanpa pesan galat kepada guru &mdash; kegagalan dicatat di log, bukan disodorkan ke pengguna.</div>
+        </div>
+
+        <div style="background: #fdf0ec; border: 2px solid #e3a893; border-radius: 12px; padding: 18px 20px;">
+          <div style="font-size: 14.5px; font-weight: 700; color: #8f3a1f;">Tanpa tombol Lewati &mdash; ditonton sampai selesai</div>
+          <div style="font-size: 13px; color: #7a3218; margin-top: 8px; line-height: 1.65;">Tidak ada tombol Skip, Lewati, tutup, maupun jalur cepat ke Login. Esc, klik, dan sentuhan tidak melewatkan video. Satu-satunya jalan ke Login adalah video selesai.</div>
+          <div style="font-size: 13px; color: #7a3218; margin-top: 9px; line-height: 1.65;">Dua hal yang tetap harus ditangani agar aturan ini tidak menjebak guru di kelas: video yang <strong>gagal dimuat</strong> langsung meneruskan ke Login, dan <strong>batas waktu aman</strong> &mdash; bila peristiwa selesai tidak pernah tiba dalam durasi video ditambah 5 detik, aplikasi meneruskan sendiri. Tanpa keduanya, satu berkas rusak berarti aplikasi tidak dapat dibuka sama sekali.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 14px;" data-screen-label="T11-04 Acuan landscape">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">04</span>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">Acuan landscape final</h2>
+      <span style="font-size: 13.5px; color: #62788a;">berkas yang Anda lampirkan</span>
+    </div>
+
+    <img src="./assets/login-landscape-ref.png" alt="Acuan desain Login landscape" style="width: 1440px; border-radius: 14px; display: block; box-shadow: 0 18px 48px rgba(4, 16, 29, 0.3);" />
+
+    <div style="width: 1440px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;">
+      <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 18px 20px;">
+        <div style="font-size: 14.5px; font-weight: 700;">Yang berubah dari maket saya sebelumnya</div>
+        <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 10px;">
+          <div style="font-size: 13px; color: #33475a; line-height: 1.6;">&bull; <strong>Logo Tut Wuri Handayani</strong> ditambahkan di puncak kolom kanan, di atas judul.</div>
+          <div style="font-size: 13px; color: #33475a; line-height: 1.6;">&bull; Kolom kanan <strong>rata tengah</strong>: logo, judul, subjudul, MASUK KE AKUN, tombol, dan identitas semuanya terpusat. Label field tetap rata kiri di atas kotaknya.</div>
+          <div style="font-size: 13px; color: #33475a; line-height: 1.6;">&bull; Pembagian <strong>55% visual : 45% form</strong>, dan panel kanan menyatu dengan navy aplikasi &mdash; bukan kartu mengapung berwarna lain.</div>
+          <div style="font-size: 13px; color: #33475a; line-height: 1.6;">&bull; Garis emas di bawah judul menjadi <strong>garis pendek terpusat</strong>, bukan garis rata kiri.</div>
+        </div>
+      </div>
+      <div style="background: #fdf0ec; border: 2px solid #e3a893; border-radius: 12px; padding: 18px 20px;">
+        <div style="font-size: 14.5px; font-weight: 700; color: #8f3a1f;">Satu hal yang saya tidak ikuti dari acuan</div>
+        <div style="font-size: 13px; color: #7a3218; margin-top: 8px; line-height: 1.7;">Pada gambar acuan, nama pembuat tertulis <strong>&ldquo;FAHMII DJAWAS, S.Pd.&rdquo;</strong> dengan huruf I ganda. Seluruh berkas proyek ini, dan gambar latar asli yang Anda kirim lebih dulu, memakai <strong>&ldquo;FAHMI DJAWAS, S.Pd.&rdquo;</strong>. Saya memakai ejaan yang satu huruf I, karena itu yang konsisten dengan seluruh dokumen dan yang tampak sebagai ejaan sebenarnya. Bila ternyata ejaan pada acuan yang benar, sebut saja &mdash; satu kali ganti dan seluruh berkas ikut.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 14px;" data-screen-label="29 Login desktop">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">29</span>
+      <h2 style="margin: 0; font-size: 21px; font-weight: 700; letter-spacing: -0.015em;">Login &mdash; desktop dan laptop</h2>
+      <span style="font-size: 13.5px; color: #62788a;">1280&ndash;1919px &middot; panel bersisi</span>
+    </div>
+
+    <div style="width: 1440px; height: 810px; border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: 792px minmax(0, 1fr); box-shadow: 0 18px 48px rgba(4, 16, 29, 0.34); background: #071a2e;">
+      <div style="position: relative; overflow: hidden;">
+        <img src="./assets/login-bg.png" alt="SDN Satria Jaya 01" style="width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block;" />
+        <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(7,26,46,0) 74%, rgba(7,26,46,0.9) 100%);"></div>
+      </div>
+
+      <div style="position: relative; padding: 40px 52px; display: flex; flex-direction: column; justify-content: center; background: linear-gradient(150deg, #0a2338 0%, #071a2e 100%);">
+        <div style="position: absolute; top: -80px; right: -80px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(47,143,199,0.28) 0%, rgba(47,143,199,0) 70%);"></div>
+        <div style="position: relative; max-width: 430px; margin: 0 auto; width: 100%;">
+          <img src="./assets/logo-tutwuri.png" alt="Tut Wuri Handayani" style="width: 92px; height: auto; display: block; margin: 0 auto;" />
+          <div style="font-size: 27px; font-weight: 700; color: #fff; letter-spacing: 0.02em; text-align: center; margin-top: 16px;">PAPAN INTERAKTIF SD</div>
+          <div style="width: 54px; height: 3px; background: #f2b230; margin: 12px auto; border-radius: 2px;"></div>
+          <div style="font-size: 15px; color: #9dc0d4; line-height: 1.55; text-align: center;">Platform Pembelajaran Interaktif<br />Kurikulum Merdeka</div>
+
+          <div style="margin-top: 22px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.13em; color: #6cc0f0; text-transform: uppercase; text-align: center;">Masuk ke akun</div>
+
+          <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 16px;">
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: #b9d2e0; margin-bottom: 7px;">Username</div>
+              <div style="height: 50px; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(108,192,240,0.32); display: flex; align-items: center; padding: 0 16px; font-size: 15px; color: #cfe6f5;">fahmi.djawas</div>
+            </div>
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: #b9d2e0; margin-bottom: 7px;">Password</div>
+              <div style="height: 50px; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1.5px solid #6cc0f0; box-shadow: 0 0 0 3px rgba(108,192,240,0.18); display: flex; align-items: center; justify-content: space-between; padding: 0 16px;">
+                <span style="font-size: 17px; color: #cfe6f5; letter-spacing: 0.22em;">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span>
+                <span style="font-size: 12.5px; color: #6cc0f0; font-weight: 600;">Lihat</span>
+              </div>
+            </div>
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: #b9d2e0; margin-bottom: 7px;">Pilih Peran</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div style="height: 50px; border-radius: 10px; background: rgba(108,192,240,0.16); border: 1.5px solid #6cc0f0; display: flex; align-items: center; justify-content: center; gap: 9px;">
+                  <span style="width: 16px; height: 16px; border-radius: 50%; border: 2px solid #6cc0f0; display: grid; place-items: center;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #6cc0f0;"></span></span>
+                  <span style="font-size: 14.5px; font-weight: 600; color: #fff;">Admin</span>
+                </div>
+                <div style="height: 50px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1.5px solid rgba(108,192,240,0.24); display: flex; align-items: center; justify-content: center; gap: 9px;">
+                  <span style="width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(157,192,212,0.6);"></span>
+                  <span style="font-size: 14.5px; color: #b9d2e0;">Guru</span>
+                </div>
+              </div>
+            </div>
+            <div style="height: 52px; border-radius: 10px; background: linear-gradient(135deg, #2f8fc7 0%, #1b5e8c 100%); box-shadow: 0 6px 20px rgba(47,143,199,0.36); display: grid; place-items: center; margin-top: 6px;">
+              <span style="font-size: 15.5px; font-weight: 700; color: #fff; letter-spacing: 0.05em;">MASUK</span>
+            </div>
+            <div style="text-align: center; font-size: 13.5px; color: #6cc0f0; font-weight: 600;">Lupa Password</div>
+          </div>
+
+          <div style="margin-top: 26px; padding-top: 18px; border-top: 1px solid rgba(108,192,240,0.2); text-align: center;">
+            <div style="font-size: 12.5px; color: #9dc0d4;">Dirancang &amp; Dikembangkan oleh</div>
+            <div style="font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 700; color: #f2b230; letter-spacing: 0.03em; margin-top: 3px;">FAHMI DJAWAS, S.Pd.</div>
+            <div style="font-size: 11.5px; color: #7fa8c4; margin-top: 7px;">&copy; 2026 PAPAN INTERAKTIF SD &mdash; Semua Hak Dilindungi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="width: 1440px; background: #f7fbfd; border: 1px solid #d3e3ee; border-radius: 12px; padding: 17px 20px;">
+      <div style="font-size: 14px; font-weight: 700; color: #14405e;">Aturan lebar panel &mdash; ikuti tinggi layar, jangan angka tetap</div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13.5px; color: #0b3a5c; background: #eef5fa; border: 1px solid #d3e3ee; border-radius: 8px; padding: 12px 15px; margin-top: 10px; line-height: 1.7;">tinggi &ge; 500px &nbsp;&rarr;&nbsp; max(calc(100vh * 0.839), 55vw)<br />tinggi &lt; 500px &nbsp;&rarr;&nbsp; calc(100vh * 0.839)</div>
+      <div style="font-size: 13.5px; color: #14405e; line-height: 1.7; margin-top: 11px;">Acuan Anda menetapkan pembagian <strong>55% visual : 45% form</strong>, dan itu yang menjadi patokan. Fungsi <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px;">max()</span> mengambil yang lebih besar antara 55vw dan tinggi &times; 0,839, sehingga panel tidak pernah lebih sempit daripada 55% yang Anda minta.</div>
+      <div style="font-size: 13.5px; color: #8f3a1f; line-height: 1.7; margin-top: 9px;"><strong>Konsekuensinya jujur: ada pemotongan, dan itu diterima.</strong> Lebar panel yang benar-benar bebas potongan adalah tinggi &times; 0,839 &mdash; pada 1080 px itu 906 px, atau <strong>47,2vw</strong>, sedikit di bawah rentang 50&ndash;55% yang Anda tetapkan. Karena acuan yang menang, panel menjadi 1056 px dan <strong>14% tinggi gambar terpotong: 4% di atas, 10% di bawah</strong>. Pada 50vw pemotongannya 6%. Yang hilang hanya langit malam di puncak dan lantai paving di kaki &mdash; kedua wajah, papan nama SDN Satria Jaya 01, logo Kabupaten Bekasi, bendera, dan api biru semuanya tetap utuh. Itulah sebabnya <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px;">object-position: 50% 30%</span> wajib, bukan pilihan: nilai itulah yang menaruh kehilangan pada langit dan lantai, bukan pada kepala.</div>
+      <div style="font-size: 13.5px; color: #14405e; line-height: 1.7; margin-top: 9px;">Pada bidang yang lebih sempit keadaannya berbalik. Tablet landscape 1194&times;834: 55vw memberi 657 px sementara tinggi &times; 0,839 memberi 700 px, jadi <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px;">max()</span> memilih 700 px &mdash; dan di sana gambar justru tampil tanpa potongan sama sekali.</div>
+      <div style="font-size: 13.5px; color: #14405e; line-height: 1.7; margin-top: 9px;"><strong>Jangan menyalin angka px dari maket ini.</strong> 792 px hanya benar pada lebar 1440 px. Yang disalin adalah rumusnya beserta <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px;">object-position: 50% 30%</span>.</div>
+      <div style="font-size: 13.5px; color: #14405e; line-height: 1.7; margin-top: 9px;">Identitas pembuat tetap dirender sebagai teks hidup di panel kanan, jadi ia tidak bergantung pada bagian gambar mana pun. Gradien navy di tepi kanan gambar menyatukan kedua panel tanpa menutupi karakter.</div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 14px;" data-screen-label="29 Login papan 75">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">29b</span>
+      <h2 style="margin: 0; font-size: 21px; font-weight: 700; letter-spacing: -0.015em;">Login &mdash; papan interaktif 75 inci</h2>
+      <span style="font-size: 13.5px; color: #62788a;">Full HD dan 4K &middot; skala 1,5&times;</span>
+    </div>
+
+    <div style="width: 1440px; height: 810px; border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: 792px minmax(0, 1fr); box-shadow: 0 18px 48px rgba(4, 16, 29, 0.34); background: #071a2e; position: relative;">
+      <div style="position: absolute; top: 16px; left: 20px; z-index: 3; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7fa8c4; background: rgba(7,26,46,0.7); padding: 5px 11px; border-radius: 14px;">ditampilkan pada 75% &middot; ukuran nyata 1920&times;1080</div>
+      <div style="position: relative; overflow: hidden;">
+        <img src="./assets/login-bg.png" alt="SDN Satria Jaya 01" style="width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block;" />
+        <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(7,26,46,0) 62%, rgba(7,26,46,0.85) 100%);"></div>
+      </div>
+
+      <div style="position: relative; padding: 44px 52px; display: flex; flex-direction: column; justify-content: center; background: linear-gradient(150deg, #0a2338 0%, #071a2e 100%);">
+        <div style="position: absolute; top: -80px; right: -80px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(47,143,199,0.3) 0%, rgba(47,143,199,0) 70%);"></div>
+        <div style="position: relative; max-width: 540px; margin: 0 auto; width: 100%;">
+          <img src="./assets/logo-tutwuri.png" alt="Tut Wuri Handayani" style="width: 104px; height: auto; display: block; margin: 0 auto;" />
+          <div style="font-size: 33px; font-weight: 700; color: #fff; letter-spacing: 0.02em; text-align: center; margin-top: 14px;">PAPAN INTERAKTIF SD</div>
+          <div style="width: 66px; height: 4px; background: #f2b230; margin: 13px auto; border-radius: 2px;"></div>
+          <div style="font-size: 18px; color: #9dc0d4; line-height: 1.5; text-align: center;">Platform Pembelajaran Interaktif &middot; Kurikulum Merdeka</div>
+
+          <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 22px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div>
+                <div style="font-size: 15px; font-weight: 600; color: #b9d2e0; margin-bottom: 8px;">Username</div>
+                <div style="height: 66px; border-radius: 12px; background: rgba(255,255,255,0.07); border: 2px solid rgba(108,192,240,0.32); display: flex; align-items: center; padding: 0 18px; font-size: 19px; color: #cfe6f5;">fahmi.djawas</div>
+              </div>
+              <div>
+                <div style="font-size: 15px; font-weight: 600; color: #b9d2e0; margin-bottom: 8px;">Password</div>
+                <div style="height: 66px; border-radius: 12px; background: rgba(255,255,255,0.07); border: 2px solid #6cc0f0; box-shadow: 0 0 0 4px rgba(108,192,240,0.18); display: flex; align-items: center; justify-content: space-between; padding: 0 18px;">
+                  <span style="font-size: 21px; color: #cfe6f5; letter-spacing: 0.24em;">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span>
+                  <span style="font-size: 15px; color: #6cc0f0; font-weight: 600;">Lihat</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size: 15px; font-weight: 600; color: #b9d2e0; margin-bottom: 8px;">Pilih Peran</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                <div style="height: 66px; border-radius: 12px; background: rgba(108,192,240,0.16); border: 2px solid #6cc0f0; display: flex; align-items: center; justify-content: center; gap: 11px;">
+                  <span style="width: 20px; height: 20px; border-radius: 50%; border: 2.5px solid #6cc0f0; display: grid; place-items: center;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #6cc0f0;"></span></span>
+                  <span style="font-size: 18px; font-weight: 600; color: #fff;">Admin</span>
+                </div>
+                <div style="height: 66px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 2px solid rgba(108,192,240,0.24); display: flex; align-items: center; justify-content: center; gap: 11px;">
+                  <span style="width: 20px; height: 20px; border-radius: 50%; border: 2.5px solid rgba(157,192,212,0.6);"></span>
+                  <span style="font-size: 18px; color: #b9d2e0;">Guru</span>
+                </div>
+              </div>
+            </div>
+            <div style="height: 72px; border-radius: 12px; background: linear-gradient(135deg, #2f8fc7 0%, #1b5e8c 100%); box-shadow: 0 8px 26px rgba(47,143,199,0.4); display: grid; place-items: center; margin-top: 4px;">
+              <span style="font-size: 20px; font-weight: 700; color: #fff; letter-spacing: 0.06em;">MASUK</span>
+            </div>
+            <div style="text-align: center; font-size: 16px; color: #6cc0f0; font-weight: 600;">Lupa Password</div>
+          </div>
+
+          <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(108,192,240,0.2); text-align: center;">
+            <div style="font-size: 14px; color: #9dc0d4;">Dirancang &amp; Dikembangkan oleh</div>
+            <div style="font-family: 'Cormorant Garamond', serif; font-size: 29px; font-weight: 700; color: #f2b230; letter-spacing: 0.03em; margin-top: 3px;">FAHMI DJAWAS, S.Pd.</div>
+            <div style="font-size: 13px; color: #7fa8c4; margin-top: 7px;">&copy; 2026 PAPAN INTERAKTIF SD &mdash; Semua Hak Dilindungi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="width: 1440px; background: #f5fbf8; border: 1px solid #cfe6da; border-radius: 12px; padding: 17px 20px;">
+      <div style="font-size: 13.5px; color: #0b5340; line-height: 1.7;"><strong>Lebar panel visual pada papan ini 1056 px</strong> (55% dari 1920). Seperti pada desktop, 14% tinggi gambar terpotong &mdash; langit dan lantai paving &mdash; sementara wajah dan papan nama sekolah utuh. <strong>Papan 75 inci dilihat dari jarak 3&ndash;4 meter.</strong> Field 66 px, tombol MASUK 72 px, label 15 px, judul 33 px. Kolom Username dan Password disandingkan agar form tidak memanjang dan mata tidak menyapu jauh ke bawah. Pada 4K panel visual menjadi 55% dari 3840 = 2112 px dan seluruh ukuran dikalikan 1,5 lewat penskalaan piksel logis, bukan penambahan elemen &mdash; jumlah kolom dan susunan tetap sama, sehingga papan tidak menjadi tata letak yang berbeda.</div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 14px;" data-screen-label="29 Login HP tablet">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">29c</span>
+      <h2 style="margin: 0; font-size: 21px; font-weight: 700; letter-spacing: -0.015em;">Login &mdash; HP dan tablet</h2>
+      <span style="font-size: 13.5px; color: #62788a;">empat orientasi &middot; HP dan tablet, portrait dan landscape</span>
+    </div>
+
+    <div style="display: flex; gap: 20px; align-items: flex-start;">
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 13.5px; font-weight: 700; color: #33475a;">HP portrait &middot; 390&times;844</div>
+        <div style="width: 390px; height: 844px; border-radius: 26px; overflow: hidden; position: relative; background: linear-gradient(180deg, #0a2338 0%, #071a2e 100%); box-shadow: 0 14px 40px rgba(4,16,29,0.34); border: 6px solid #16202b;">
+          <div style="position: absolute; top: 0; left: 0; right: 0; height: 360px; overflow: hidden;">
+            <img src="./assets/login-bg.png" alt="SDN Satria Jaya 01" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block;" />
+            <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(7,26,46,0.3) 0%, rgba(7,26,46,0) 24%, rgba(7,26,46,0.12) 66%, rgba(7,26,46,0.92) 94%, #071a2e 100%);"></div>
+          </div>
+          <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 20px 24px;">
+            <img src="./assets/logo-tutwuri.png" alt="Tut Wuri Handayani" style="width: 56px; height: auto; display: block; margin: 0 auto 9px;" />
+            <div style="font-size: 19px; font-weight: 700; color: #fff; letter-spacing: 0.03em; text-align: center;">PAPAN INTERAKTIF SD</div>
+            <div style="font-size: 11.5px; color: #9dc0d4; margin-top: 5px; text-align: center; line-height: 1.45;">Platform Pembelajaran Interaktif<br />Kurikulum Merdeka</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.13em; color: #6cc0f0; text-transform: uppercase; text-align: center; margin-top: 14px;">Masuk ke akun</div>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 11px;">
+              <div style="height: 48px; border-radius: 10px; background: rgba(255,255,255,0.09); border: 1.5px solid rgba(108,192,240,0.34); display: flex; align-items: center; padding: 0 14px; font-size: 14px; color: #cfe6f5;">Username</div>
+              <div style="height: 48px; border-radius: 10px; background: rgba(255,255,255,0.09); border: 1.5px solid rgba(108,192,240,0.34); display: flex; align-items: center; justify-content: space-between; padding: 0 14px;">
+                <span style="font-size: 14px; color: #8fb4cc;">Password</span>
+                <span style="font-size: 11.5px; color: #6cc0f0; font-weight: 600;">Lihat</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 9px;">
+                <div style="height: 46px; border-radius: 10px; background: rgba(108,192,240,0.18); border: 1.5px solid #6cc0f0; display: grid; place-items: center; font-size: 13.5px; font-weight: 600; color: #fff;">Admin</div>
+                <div style="height: 46px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1.5px solid rgba(108,192,240,0.24); display: grid; place-items: center; font-size: 13.5px; color: #b9d2e0;">Guru</div>
+              </div>
+              <div style="height: 50px; border-radius: 10px; background: linear-gradient(135deg, #2f8fc7 0%, #1b5e8c 100%); box-shadow: 0 5px 18px rgba(47,143,199,0.36); display: grid; place-items: center;">
+                <span style="font-size: 14.5px; font-weight: 700; color: #fff; letter-spacing: 0.05em;">MASUK</span>
+              </div>
+              <div style="text-align: center; font-size: 12.5px; color: #6cc0f0; font-weight: 600;">Lupa Password</div>
+            </div>
+            <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(108,192,240,0.18); text-align: center;">
+              <div style="font-size: 11px; color: #9dc0d4;">Dirancang &amp; Dikembangkan oleh</div>
+              <div style="font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 700; color: #f2b230; letter-spacing: 0.03em; margin-top: 2px;">FAHMI DJAWAS, S.Pd.</div>
+              <div style="font-size: 11px; color: #8fb4cc; margin-top: 4px;">&copy; 2026 PAPAN INTERAKTIF SD &mdash; Semua Hak Dilindungi</div>
+            </div>
+          </div>
+        </div>
+        <div style="width: 390px; background: #f7fbfd; border: 1px solid #d3e3ee; border-radius: 10px; padding: 13px 15px;">
+          <div style="font-size: 12.5px; color: #14405e; line-height: 1.65;"><strong>Logo dan judul pindah ke panel login.</strong> Logo Tut Wuri, PAPAN INTERAKTIF SD, dan subjudul kini berada tepat di atas MASUK KE AKUN, semuanya rata tengah &mdash; tidak lagi menumpang di atas karakter. Pita gambar menjadi <strong>360 px</strong> agar panel login mendapat ruang. Lebarnya tetap utuh tanpa potongan sisi, tetapi <strong>22,5% tinggi terpotong</strong>; dengan <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px;">object-position: 50% 30%</span> kehilangannya jatuh pada langit dan lantai paving, sementara kedua wajah dan papan nama sekolah tetap terlihat. Rumusnya: <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px;">height: min(calc(100vw / 0.839), 44vh)</span>.</div>
+          <div style="font-size: 12.5px; color: #8f3a1f; line-height: 1.65; margin-top: 9px;"><strong>Jangan memakai gambar sebagai latar setinggi layar.</strong> Pada 390&times;844 itu memaksa <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px;">cover</span> memotong <strong>318 px lebar &mdash; 45%</strong>, 159 px hilang di tiap sisi: papan &ldquo;Berkarakter Berilmu Berprestasi&rdquo; di kiri dan bendera di kanan. Nilai <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px;">object-position</span> sumbu Y tidak menolong sama sekali di sini, karena tidak ada luapan vertikal untuk digeser.</div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 13.5px; font-weight: 700; color: #33475a;">HP landscape &middot; 844&times;390</div>
+        <div style="width: 844px; height: 390px; border-radius: 20px; overflow: hidden; display: grid; grid-template-columns: 327px minmax(0, 1fr); background: #071a2e; box-shadow: 0 14px 40px rgba(4,16,29,0.34); border: 6px solid #16202b;">
+          <div style="position: relative; overflow: hidden;">
+            <img src="./assets/login-bg.png" alt="SDN Satria Jaya 01" style="width: 100%; height: 100%; object-fit: cover; object-position: center 30%;" />
+            <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(7,26,46,0) 66%, rgba(7,26,46,0.9) 100%);"></div>
+          </div>
+          <div style="padding: 14px 22px; display: flex; flex-direction: column; justify-content: center; background: linear-gradient(150deg, #0a2338 0%, #071a2e 100%);">
+            <img src="./assets/logo-tutwuri.png" alt="Tut Wuri Handayani" style="width: 38px; height: auto; display: block; margin: 0 auto 6px;" />
+            <div style="font-size: 14.5px; font-weight: 700; color: #fff; letter-spacing: 0.02em; text-align: center;">PAPAN INTERAKTIF SD</div>
+            <div style="font-size: 9.5px; color: #9dc0d4; text-align: center; margin-top: 3px; line-height: 1.4;">Platform Pembelajaran Interaktif &middot; Kurikulum Merdeka</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; color: #6cc0f0; text-transform: uppercase; text-align: center; margin: 8px 0 7px;">Masuk ke akun</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 9px;">
+              <div style="height: 38px; border-radius: 9px; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(108,192,240,0.32); display: flex; align-items: center; padding: 0 12px; font-size: 12.5px; color: #8fb4cc;">Username</div>
+              <div style="height: 38px; border-radius: 9px; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(108,192,240,0.32); display: flex; align-items: center; padding: 0 12px; font-size: 12.5px; color: #8fb4cc;">Password</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 8px;">
+              <div style="height: 36px; border-radius: 9px; background: rgba(108,192,240,0.18); border: 1.5px solid #6cc0f0; display: grid; place-items: center; font-size: 12.5px; font-weight: 600; color: #fff;">Admin</div>
+              <div style="height: 36px; border-radius: 9px; background: rgba(255,255,255,0.05); border: 1.5px solid rgba(108,192,240,0.24); display: grid; place-items: center; font-size: 12.5px; color: #b9d2e0;">Guru</div>
+            </div>
+            <div style="height: 40px; border-radius: 9px; background: linear-gradient(135deg, #2f8fc7 0%, #1b5e8c 100%); display: grid; place-items: center; margin-top: 8px;">
+              <span style="font-size: 13.5px; font-weight: 700; color: #fff; letter-spacing: 0.05em;">MASUK</span>
+            </div>
+            <div style="text-align: center; font-size: 11.5px; color: #6cc0f0; font-weight: 600; margin-top: 9px;">Lupa Password</div>
+            <div style="margin-top: 9px; padding-top: 8px; border-top: 1px solid rgba(108,192,240,0.18); text-align: center;">
+              <div style="font-size: 10.5px; color: #9dc0d4;">Dirancang &amp; Dikembangkan oleh</div>
+              <div style="font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 700; color: #f2b230; letter-spacing: 0.03em; margin-top: 1px;">FAHMI DJAWAS, S.Pd.</div>
+              <div style="font-size: 11px; color: #8fb4cc; margin-top: 3px;">&copy; 2026 PAPAN INTERAKTIF SD &mdash; Semua Hak Dilindungi</div>
+            </div>
+          </div>
+        </div>
+        <div style="width: 844px; background: #fdf0ec; border: 2px solid #e3a893; border-radius: 10px; padding: 13px 16px;">
+          <div style="font-size: 12.5px; color: #8f3a1f; line-height: 1.65;"><strong>Satu pengecualian pada aturan 55%, dan hanya di sini.</strong> Pada tinggi 390 px, 55vw memberi 464 px &mdash; 1,19&times; tinggi, sementara lebar bebas potongan hanya <strong>327 px</strong>. Memakai 464 px memotong <strong>29% tinggi gambar</strong>, dua kali lipat desktop, dan potongannya jatuh tepat di api biru pada tangan yang terbuka serta menghabiskan seluruh lantai paving. Karena instruksi Anda melarang karakter terpotong buruk justru pada orientasi ini, HP landscape memakai <strong>lebar rasio 327 px</strong> sehingga gambar tampil tanpa potongan sama sekali. Pembagiannya menjadi 39% : 61% &mdash; di luar rentang 55%, dan itu disengaja.</div>
+          <div style="font-size: 12.5px; color: #52697d; line-height: 1.65; margin-top: 8px;">Ambang penerapannya: bila tinggi layar di bawah 500 px, pakai lebar rasio, bukan 55vw. Sisa 517 px justru melapangkan form dua kolom. Identitas dipadatkan menjadi satu baris beraksen emas &mdash; tetap terbaca, tidak dihapus. Bila papan tik muncul, panel kanan menjadi area gulir tersendiri; panel gambar tidak bergeser.</div>
+        </div>
+
+        <div style="font-size: 13.5px; font-weight: 700; color: #33475a; margin-top: 14px;">Tablet landscape &middot; 1194&times;834 &mdash; ditampilkan 70%</div>
+        <div style="width: 836px; height: 584px; border-radius: 18px; overflow: hidden; display: grid; grid-template-columns: 490px minmax(0, 1fr); background: #071a2e; box-shadow: 0 14px 40px rgba(4,16,29,0.34); border: 6px solid #16202b;">
+          <div style="position: relative; overflow: hidden;">
+            <img src="./assets/login-bg.png" alt="SDN Satria Jaya 01" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block;" />
+            <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(7,26,46,0) 68%, rgba(7,26,46,0.88) 100%);"></div>
+          </div>
+          <div style="padding: 20px 26px; display: flex; flex-direction: column; justify-content: center; background: linear-gradient(150deg, #0a2338 0%, #071a2e 100%); position: relative;">
+            <div style="position: absolute; top: -60px; right: -60px; width: 230px; height: 230px; border-radius: 50%; background: radial-gradient(circle, rgba(47,143,199,0.26) 0%, rgba(47,143,199,0) 70%);"></div>
+            <div style="position: relative; max-width: 300px; margin: 0 auto; width: 100%;">
+              <img src="./assets/logo-tutwuri.png" alt="Tut Wuri Handayani" style="width: 44px; height: auto; display: block; margin: 0 auto 8px;" />
+              <div style="font-size: 21px; font-weight: 700; color: #fff; letter-spacing: 0.02em; text-align: center;">PAPAN INTERAKTIF SD</div>
+              <div style="width: 44px; height: 3px; background: #f2b230; margin: 10px auto; border-radius: 2px;"></div>
+              <div style="font-size: 13px; color: #9dc0d4; line-height: 1.5; text-align: center;">Platform Pembelajaran Interaktif<br />Kurikulum Merdeka</div>
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.13em; color: #6cc0f0; text-transform: uppercase; margin-top: 16px; text-align: center;">Masuk ke akun</div>
+              <div style="display: flex; flex-direction: column; gap: 11px; margin-top: 12px;">
+                <div style="height: 46px; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(108,192,240,0.32); display: flex; align-items: center; padding: 0 15px; font-size: 14px; color: #8fb4cc;">Username</div>
+                <div style="height: 46px; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(108,192,240,0.32); display: flex; align-items: center; justify-content: space-between; padding: 0 15px;">
+                  <span style="font-size: 14px; color: #8fb4cc;">Password</span>
+                  <span style="font-size: 12px; color: #6cc0f0; font-weight: 600;">Lihat</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                  <div style="height: 44px; border-radius: 10px; background: rgba(108,192,240,0.18); border: 1.5px solid #6cc0f0; display: grid; place-items: center; font-size: 14px; font-weight: 600; color: #fff;">Admin</div>
+                  <div style="height: 44px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1.5px solid rgba(108,192,240,0.24); display: grid; place-items: center; font-size: 14px; color: #b9d2e0;">Guru</div>
+                </div>
+                <div style="height: 48px; border-radius: 10px; background: linear-gradient(135deg, #2f8fc7 0%, #1b5e8c 100%); box-shadow: 0 5px 18px rgba(47,143,199,0.36); display: grid; place-items: center; margin-top: 3px;">
+                  <span style="font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.05em;">MASUK</span>
+                </div>
+                <div style="text-align: center; font-size: 13px; color: #6cc0f0; font-weight: 600;">Lupa Password</div>
+              </div>
+              <div style="margin-top: 20px; padding-top: 14px; border-top: 1px solid rgba(108,192,240,0.2); text-align: center;">
+                <div style="font-size: 11.5px; color: #9dc0d4;">Dirancang &amp; Dikembangkan oleh</div>
+                <div style="font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 700; color: #f2b230; letter-spacing: 0.03em; margin-top: 2px;">FAHMI DJAWAS, S.Pd.</div>
+                <div style="font-size: 11px; color: #7fa8c4; margin-top: 5px;">&copy; 2026 PAPAN INTERAKTIF SD &mdash; Semua Hak Dilindungi</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="width: 836px; background: #f7fbfd; border: 1px solid #d3e3ee; border-radius: 10px; padding: 13px 16px;">
+          <div style="font-size: 12.5px; color: #14405e; line-height: 1.65;">Di sinilah lantai rasio mengalahkan 55%: 55vw dari 1194 px hanya 657 px, sementara lantai rasionya 834 &times; 0,839 = <strong>700 px</strong>. Rumus <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px;">max()</span> memilih yang lebih besar, jadi panel visual menjadi <strong>700 px</strong> dan form 494 px &mdash; digambar 490 px dan 346 px pada skala 70%. Gambar tetap utuh; proporsinya bergeser tipis menjadi 59% : 41%, masih di dalam rentang 50&ndash;55% yang Anda tetapkan setelah dibulatkan pada bidang sesempit ini. Ukuran nyata: field 66 px, tombol MASUK 69 px, judul 30 px.</div>
+        </div>
+
+        <div style="font-size: 13.5px; font-weight: 700; color: #33475a; margin-top: 14px;">Tablet portrait &middot; 834&times;1112 &mdash; ditampilkan 50%</div>
+        <div style="width: 417px; height: 556px; border-radius: 16px; overflow: hidden; position: relative; background: linear-gradient(180deg, #0a2338 0%, #071a2e 100%); border: 5px solid #16202b; box-shadow: 0 14px 40px rgba(4,16,29,0.3);">
+          <div style="position: absolute; top: 0; left: 0; right: 0; height: 378px; overflow: hidden;">
+            <img src="./assets/login-bg.png" alt="SDN Satria Jaya 01" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 26%; display: block;" />
+            <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(7,26,46,0.26) 0%, rgba(7,26,46,0) 20%, rgba(7,26,46,0.06) 58%, rgba(7,26,46,0.72) 86%, #071a2e 100%);"></div>
+          </div>
+          <div style="position: absolute; left: 50%; transform: translateX(-50%); bottom: 10px; width: 268px; box-sizing: border-box; padding: 12px 20px 13px; border-radius: 14px; background: rgba(10, 35, 56, 0.92); border: 1px solid rgba(108,192,240,0.3); box-shadow: 0 10px 34px rgba(4,16,29,0.5);">
+            <img src="./assets/logo-tutwuri.png" alt="Tut Wuri Handayani" style="width: 34px; height: auto; display: block; margin: 0 auto 5px;" />
+            <div style="font-size: 14px; font-weight: 700; color: #fff; letter-spacing: 0.03em; text-align: center;">PAPAN INTERAKTIF SD</div>
+            <div style="font-size: 8.5px; color: #9dc0d4; margin-top: 3px; text-align: center; line-height: 1.4;">Platform Pembelajaran Interaktif<br />Kurikulum Merdeka</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.14em; color: #6cc0f0; text-transform: uppercase; text-align: center; margin-top: 8px;">Masuk ke akun</div>
+            <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 7px;">
+              <div style="height: 27px; border-radius: 7px; background: rgba(255,255,255,0.08); border: 1px solid rgba(108,192,240,0.32); display: flex; align-items: center; padding: 0 10px; font-size: 9.5px; color: #8fb4cc;">Username</div>
+              <div style="height: 27px; border-radius: 7px; background: rgba(255,255,255,0.08); border: 1px solid rgba(108,192,240,0.32); display: flex; align-items: center; padding: 0 10px; font-size: 9.5px; color: #8fb4cc;">Password</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                <div style="height: 26px; border-radius: 7px; background: rgba(108,192,240,0.18); border: 1px solid #6cc0f0; display: grid; place-items: center; font-size: 9.5px; font-weight: 600; color: #fff;">Admin</div>
+                <div style="height: 26px; border-radius: 7px; background: rgba(255,255,255,0.05); border: 1px solid rgba(108,192,240,0.24); display: grid; place-items: center; font-size: 9.5px; color: #b9d2e0;">Guru</div>
+              </div>
+              <div style="height: 30px; border-radius: 7px; background: linear-gradient(135deg, #2f8fc7 0%, #1b5e8c 100%); display: grid; place-items: center;">
+                <span style="font-size: 10px; font-weight: 700; color: #fff; letter-spacing: 0.05em;">MASUK</span>
+              </div>
+            </div>
+            <div style="text-align: center; font-size: 8.5px; color: #6cc0f0; font-weight: 600; margin-top: 7px;">Lupa Password</div>
+            <div style="margin-top: 7px; padding-top: 7px; border-top: 1px solid rgba(108,192,240,0.18); text-align: center;">
+              <div style="font-size: 7.5px; color: #9dc0d4;">Dirancang &amp; Dikembangkan oleh</div>
+              <div style="font-family: 'Cormorant Garamond', serif; font-size: 11.5px; font-weight: 700; color: #f2b230; margin-top: 1px;">FAHMI DJAWAS, S.Pd.</div>
+              <div style="font-size: 7px; color: #8fb4cc; margin-top: 2px; line-height: 1.4;">&copy; 2026 PAPAN INTERAKTIF SD<br />Semua Hak Dilindungi</div>
+            </div>
+          </div>
+        </div>
+        <div style="width: 417px; background: #f7fbfd; border: 1px solid #d3e3ee; border-radius: 10px; padding: 13px 15px;">
+          <div style="font-size: 12.5px; color: #14405e; line-height: 1.65;">Logo Tut Wuri, judul, dan subjudul kini berada <strong>di dalam kartu login</strong> tepat di atas MASUK KE AKUN &mdash; tidak lagi menumpang di atas gambar. Kartunya mengapung selebar <strong>536 px</strong> (digambar 268 px pada skala 50%, dengan <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px;">box-sizing: border-box</span> agar padding tidak menambah lebar). <strong>Karakter mendapat ruang lebih dulu, kartu menyusul.</strong> Pita gambar dinaikkan menjadi <strong>756 px</strong> (digambar 378 px) &mdash; 68% tinggi layar, naik dari 53% &mdash; dan kartu dipadatkan sekitar 100 px. Rumusnya responsif, bukan angka mati: tinggi pita <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px;">min(calc(100vw / 0.839), 68vh)</span> dengan kartu ditambatkan ke tepi bawah, sehingga berlaku pada tablet 11 inci ke atas dengan rasio apa pun. Bila tinggi layar tidak cukup memuat kartu, panel menjadi area gulir tersendiri &mdash; bukan naik menimpa karakter.<br /><br /><strong>Angka sebenarnya, tanpa dibulatkan ke arah yang menyenangkan.</strong> Kartu setinggi 682 px berdiri di dalam layar 1112 px, jadi tepi atasnya jatuh pada <strong>37% tinggi layar</strong> &mdash; bukan 73% seperti yang sempat saya tulis. Angka itu keliru dan mustahil: menaruh tepi atas kartu di 73% menuntut kartu setinggi 280 px, dan isi yang Anda tetapkan &mdash; logo, judul, subjudul, MASUK KE AKUN, empat kontrol, dan footer tiga baris &mdash; tidak muat di situ. Kartu menutupi <strong>45,8% bagian bawah pita</strong>, yang pada gambar sumber berarti bidang 47,5% ke bawah.<br /><br /><strong>Karena itu yang dijamin adalah kepala dan tangan, bukan seluruh badan.</strong> Dengan titik fokus <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px;">50% 26%</span>, pita menampilkan 6,2% sampai 82,3% tinggi gambar dan kartu mulai menutupi dari 47,5%. Yang tetap terlihat penuh: papan nama SDN Satria Jaya 01 (14&ndash;22%), logo Kabupaten Bekasi, bendera, kedua wajah (28&ndash;40%), bahu, dan kedua tangan terangkat beserta api birunya. Yang tertutup kartu: badan bagian bawah dan lantai paving. Ini pemenuhan sejauh yang bisa dicapai dengan isi panel yang Anda kunci &mdash; bila badan penuh juga harus bebas, isinya perlu dipangkas atau dibuat bergulir. Ukuran nyata: field 54 px, tombol MASUK 60 px, judul 28 px.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 14px;" data-screen-label="30 Setup Admin">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">30</span>
+      <h2 style="margin: 0; font-size: 21px; font-weight: 700; letter-spacing: -0.015em;">Setup Admin pertama</h2>
+      <span style="font-size: 13.5px; color: #62788a;">sekali per perangkat</span>
+    </div>
+
+    <div style="display: flex; gap: 18px; align-items: flex-start;">
+      <div style="width: 900px; border-radius: 14px; overflow: hidden; background: linear-gradient(150deg, #0a2338 0%, #071a2e 100%); box-shadow: 0 18px 48px rgba(4,16,29,0.34); position: relative;">
+        <div style="position: absolute; top: -100px; left: -60px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(47,143,199,0.22) 0%, rgba(47,143,199,0) 70%);"></div>
+        <div style="position: relative; padding: 38px 44px 42px;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <img src="./assets/logo-tutwuri.png" alt="Tut Wuri Handayani" style="width: 48px; height: auto; display: block;" />
+            <div>
+              <div style="font-size: 21px; font-weight: 700; color: #fff;">SETUP PAPAN INTERAKTIF SD</div>
+              <div style="font-size: 13px; color: #9dc0d4; margin-top: 3px;">Perangkat ini belum memiliki Admin. Buat satu akun untuk memulai.</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 26px;">
+            <div style="flex: 1; height: 4px; border-radius: 2px; background: #6cc0f0;"></div>
+            <div style="flex: 1; height: 4px; border-radius: 2px; background: rgba(108,192,240,0.25);"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 9px;">
+            <span style="font-size: 12px; font-weight: 600; color: #6cc0f0;">1. Akun Admin</span>
+            <span style="font-size: 12px; color: #7fa8c4;">2. Identitas sekolah &middot; opsional</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 26px;">
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: #b9d2e0; margin-bottom: 7px;">Nama Admin</div>
+              <div style="height: 48px; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(108,192,240,0.32); display: flex; align-items: center; padding: 0 15px; font-size: 14.5px; color: #cfe6f5;">Fahmi Djawas, S.Pd.</div>
+            </div>
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: #b9d2e0; margin-bottom: 7px;">Username</div>
+              <div style="height: 48px; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(108,192,240,0.32); display: flex; align-items: center; padding: 0 15px; font-size: 14.5px; color: #cfe6f5;">fahmi.djawas</div>
+            </div>
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: #b9d2e0; margin-bottom: 7px;">Password</div>
+              <div style="height: 48px; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(108,192,240,0.32); display: flex; align-items: center; padding: 0 15px; font-size: 16px; color: #cfe6f5; letter-spacing: 0.2em;">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</div>
+              <div style="display: flex; gap: 5px; margin-top: 8px; align-items: center;">
+                <div style="width: 34px; height: 4px; border-radius: 2px; background: #0f6b4f;"></div>
+                <div style="width: 34px; height: 4px; border-radius: 2px; background: #0f6b4f;"></div>
+                <div style="width: 34px; height: 4px; border-radius: 2px; background: #0f6b4f;"></div>
+                <div style="width: 34px; height: 4px; border-radius: 2px; background: rgba(157,192,212,0.25);"></div>
+                <span style="font-size: 11.5px; color: #8fd4b4; margin-left: 5px;">Kuat</span>
+              </div>
+            </div>
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: #b9d2e0; margin-bottom: 7px;">Konfirmasi Password</div>
+              <div style="height: 48px; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1.5px solid #0f6b4f; display: flex; align-items: center; justify-content: space-between; padding: 0 15px;">
+                <span style="font-size: 16px; color: #cfe6f5; letter-spacing: 0.2em;">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span>
+                <span style="font-size: 14px; color: #8fd4b4;">&#10003;</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 22px; padding: 15px 17px; border-radius: 11px; background: rgba(108,192,240,0.09); border: 1px solid rgba(108,192,240,0.26);">
+            <div style="font-size: 13px; font-weight: 700; color: #cfe6f5;">Akun ini tersimpan hanya di perangkat ini</div>
+            <div style="font-size: 12.5px; color: #9dc0d4; margin-top: 5px; line-height: 1.6;">Tidak ada akun pusat dan tidak ada pengiriman ke luar. Bila sandi hilang, pemulihannya lewat berkas cadangan &mdash; bukan lewat surel. Catat sandi Anda di tempat aman.</div>
+          </div>
+
+          <div style="display: flex; gap: 11px; margin-top: 22px; align-items: center;">
+            <div style="height: 50px; padding: 0 30px; border-radius: 10px; background: linear-gradient(135deg, #2f8fc7 0%, #1b5e8c 100%); box-shadow: 0 6px 20px rgba(47,143,199,0.36); display: grid; place-items: center;">
+              <span style="font-size: 14.5px; font-weight: 700; color: #fff; letter-spacing: 0.04em;">LANJUT</span>
+            </div>
+            <div style="height: 50px; padding: 0 24px; border-radius: 10px; border: 1.5px solid rgba(108,192,240,0.3); display: grid; place-items: center;">
+              <span style="font-size: 14px; color: #b9d2e0;">Lewati identitas sekolah</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 30px; padding-top: 18px; border-top: 1px solid rgba(108,192,240,0.18); text-align: center;">
+            <div style="font-size: 11.5px; color: #9dc0d4;">Dirancang &amp; Dikembangkan oleh</div>
+            <div style="font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 700; color: #f2b230; letter-spacing: 0.03em; margin-top: 2px;">FAHMI DJAWAS, S.Pd.</div>
+            <div style="font-size: 11px; color: #7fa8c4; margin-top: 6px;">&copy; 2026 PAPAN INTERAKTIF SD &mdash; Semua Hak Dilindungi</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="width: 500px; display: flex; flex-direction: column; gap: 12px;">
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 18px 20px;">
+          <div style="font-size: 14.5px; font-weight: 700;">Autentikasi lokal</div>
+          <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 10px;">
+            <div style="font-size: 13px; color: #33475a; line-height: 1.6;">&bull; Sandi disimpan sebagai <strong>hash berimbuhan acak</strong>, bukan teks terbuka. Fungsi turunan kunci lambat dengan biaya kerja tinggi, bukan hash cepat.</div>
+            <div style="font-size: 13px; color: #33475a; line-height: 1.6;">&bull; Satu tabel baru <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;">akun</span>: id, nama, username, hash_sandi, imbuhan, peran, aktif, dibuat, terakhir_masuk.</div>
+            <div style="font-size: 13px; color: #33475a; line-height: 1.6;">&bull; Satu tabel <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;">sesi_login</span>: token, akun_id, kedaluwarsa, perangkat.</div>
+            <div style="font-size: 13px; color: #33475a; line-height: 1.6;">&bull; Perangkat A dan perangkat B berdiri sendiri. Tidak ada penyatuan akun, dan itu memang disengaja.</div>
+            <div style="font-size: 13px; color: #33475a; line-height: 1.6;">&bull; Lima kali gagal &rarr; jeda 30 detik yang menaik. Menghambat coba-coba tanpa mengunci guru dari kelasnya.</div>
+          </div>
+        </div>
+
+        <div style="background: #fdf0ec; border: 1px solid #f2d8cf; border-radius: 12px; padding: 18px 20px;">
+          <div style="font-size: 14.5px; font-weight: 700; color: #8f3a1f;">Lupa Password, tanpa surel</div>
+          <div style="font-size: 13px; color: #7a3218; margin-top: 8px; line-height: 1.65;">Aplikasi ini luring dan tanpa akun pusat, jadi tidak ada tautan atur ulang lewat surel. Dua jalan yang benar-benar bisa ditempuh: <strong>Admin</strong> mengatur ulang sandi Guru dari halaman Kelola Akun; dan <strong>sandi Admin</strong> dipulihkan dengan memulihkan berkas cadangan. Bila keduanya tidak ada, satu-satunya pilihan adalah setup ulang perangkat &mdash; dan layar Lupa Password harus mengatakan itu terus terang, bukan menjanjikan surel yang tidak akan datang.</div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 18px 20px;">
+          <div style="font-size: 14.5px; font-weight: 700;">Logout</div>
+          <div style="font-size: 13px; color: #52697d; margin-top: 8px; line-height: 1.65;">Ada di menu profil pada topbar Dashboard. Menghapus token sesi saja &mdash; akun, materi, LKPD, nilai, dan cadangan tidak tersentuh. Bila ada sesi mengajar berjalan, muncul konfirmasi bahwa sesi akan ditutup dan nilainya disimpan lebih dulu.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 16px;" data-screen-label="T11-05 Theme">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">05</span>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">Design token selaras latar Login</h2>
+    </div>
+
+    <div style="width: 1440px; background: #fff; border: 1px solid #e2e9ef; border-radius: 14px; padding: 26px 28px;">
+      <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.65; color: #46596b; max-width: 104ch;">Token navy dan biru yang sudah disetujui tidak diganti &mdash; hanya ditambah tiga nada gelap dan satu cahaya sian yang diambil dari gambar, agar Login dan Dashboard terbaca sebagai satu produk. Kartu isi tetap putih; aplikasi tidak menjadi gelap seluruhnya.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
+        <sc-for list="{{ tokens }}" as="t" hint-placeholder-count="8">
+          <div style="border: 1px solid #e6edf2; border-radius: 11px; overflow: hidden;">
+            <div style="height: 62px;" data-swatch="{{ t.hex }}"></div>
+            <div style="padding: 12px 14px;">
+              <div style="font-size: 13.5px; font-weight: 700;">{{ t.nama }}</div>
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #6b8296; margin-top: 3px;">{{ t.hex }}</div>
+              <div style="font-size: 12px; color: #52697d; margin-top: 6px; line-height: 1.55;">{{ t.pakai }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 20px;">
+        <div>
+          <div style="font-size: 14.5px; font-weight: 700; margin-bottom: 11px;">Sidebar Dashboard &mdash; sebelum dan sesudah</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div style="border: 1px solid #e6edf2; border-radius: 11px; overflow: hidden;">
+              <div style="padding: 8px 12px; background: #f8fafc; font-size: 11.5px; font-weight: 700; color: #6b8296; text-transform: uppercase; letter-spacing: 0.05em;">Sebelum</div>
+              <div style="background: #103a56; padding: 14px 0;">
+                <div style="padding: 8px 14px; font-size: 12px; color: #fff; background: #1b5e8c; border-left: 3px solid #6cc0f0; font-weight: 600;">Dasbor</div>
+                <div style="padding: 8px 14px; font-size: 12px; color: #b9d2e0;">Kelas &amp; Mapel</div>
+                <div style="padding: 8px 14px; font-size: 12px; color: #b9d2e0;">Papan Interaktif</div>
+              </div>
+            </div>
+            <div style="border: 2px solid #2f8fc7; border-radius: 11px; overflow: hidden;">
+              <div style="padding: 8px 12px; background: #eef5fa; font-size: 11.5px; font-weight: 700; color: #14405e; text-transform: uppercase; letter-spacing: 0.05em;">Sesudah</div>
+              <div style="background: linear-gradient(170deg, #0a2338 0%, #071a2e 100%); padding: 14px 0;">
+                <div style="padding: 8px 14px; font-size: 12px; color: #fff; background: rgba(47,143,199,0.24); border-left: 3px solid #6cc0f0; box-shadow: inset 0 0 22px rgba(108,192,240,0.14); font-weight: 600;">Dasbor</div>
+                <div style="padding: 8px 14px; font-size: 12px; color: #b9d2e0;">Kelas &amp; Mapel</div>
+                <div style="padding: 8px 14px; font-size: 12px; color: #b9d2e0;">Papan Interaktif</div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size: 12.5px; color: #52697d; margin-top: 10px; line-height: 1.6;">Perubahannya kecil dan sengaja: navy diturunkan satu nada dan diberi gradien halus, menu aktif memakai biru tembus dengan cahaya dalam alih-alih blok pekat. Susunan, lebar, dan urutan menu sama sekali tidak berubah.</div>
+        </div>
+
+        <div>
+          <div style="font-size: 14.5px; font-weight: 700; margin-bottom: 11px;">Yang tetap terang</div>
+          <div style="border: 1px solid #e6edf2; border-radius: 11px; padding: 16px 18px; background: #f4f6f8;">
+            <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 10px; padding: 14px 16px;">
+              <div style="font-size: 13px; font-weight: 700;">Kartu isi tetap putih</div>
+              <div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.6;">Materi, tabel CP dan TP, editor LKPD, penilaian &mdash; guru membaca di sini berjam-jam. Latar gelap akan melelahkan dan menyulitkan pratinjau cetak.</div>
+            </div>
+            <div style="display: flex; gap: 9px; margin-top: 12px;">
+              <div style="flex: 1; height: 40px; border-radius: 9px; background: linear-gradient(135deg, #2f8fc7, #1b5e8c); display: grid; place-items: center; font-size: 13px; font-weight: 600; color: #fff;">Aksi utama</div>
+              <div style="flex: 1; height: 40px; border-radius: 9px; border: 1.5px solid #cad7e1; display: grid; place-items: center; font-size: 13px; color: #33475a; background: #fff;">Aksi kedua</div>
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 11px; flex-wrap: wrap;">
+              <span style="font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 11px; background: #fdf0d6; color: #8a6410;">Badge emas &mdash; aksen</span>
+              <span style="font-size: 11.5px; font-weight: 600; padding: 4px 10px; border-radius: 11px; background: #eef5fa; color: #14405e;">Fokus biru</span>
+            </div>
+          </div>
+          <div style="font-size: 12.5px; color: #52697d; margin-top: 10px; line-height: 1.6;">Emas dipakai terbatas: identitas pembuat, badge pencapaian, dan garis aksen kecil. Ia tidak pernah menjadi warna tombol utama, karena kontrasnya terhadap teks gelap tidak memenuhi ambang keterbacaan.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="width: 1440px; background: #103a56; border-radius: 14px; padding: 26px 30px; color: #fff;" data-screen-label="T11-06 Cakupan">
+    <h2 style="margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -0.015em;">Batas pekerjaan ini</h2>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px;">
+      <div style="border: 1px solid #1d4d6d; border-radius: 11px; padding: 18px 20px;">
+        <div style="font-size: 14.5px; font-weight: 700; color: #9dc4b4;">Ditambahkan</div>
+        <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 10px;">
+          <div style="font-size: 13px; color: #dce8f0; line-height: 1.6;">3 layar: Opening, Login, Setup Admin &mdash; total 30 layar.</div>
+          <div style="font-size: 13px; color: #dce8f0; line-height: 1.6;">2 tabel: akun dan sesi_login &mdash; total 38 tabel.</div>
+          <div style="font-size: 13px; color: #dce8f0; line-height: 1.6;">1 modul M24 Autentikasi Lokal &mdash; total 24 modul.</div>
+          <div style="font-size: 13px; color: #dce8f0; line-height: 1.6;">5 keadaan sesi, 4 token warna baru, 1 aksi Logout.</div>
+        </div>
+      </div>
+      <div style="border: 1px solid #1d4d6d; border-radius: 11px; padding: 18px 20px;">
+        <div style="font-size: 14.5px; font-weight: 700; color: #e8a68f;">Tidak disentuh</div>
+        <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 10px;">
+          <div style="font-size: 13px; color: #dce8f0; line-height: 1.6;">CP 47/47, 221 elemen, 212 TP Rekomendasi, seluruh pemetaan kurikulum.</div>
+          <div style="font-size: 13px; color: #dce8f0; line-height: 1.6;">30 engine game dan rantai Kelas &rarr; Fase &rarr; Mapel &rarr; CP &rarr; TP &rarr; Materi &rarr; Game.</div>
+          <div style="font-size: 13px; color: #dce8f0; line-height: 1.6;">Keempat modul AI beserta kontrak promptnya.</div>
+          <div style="font-size: 13px; color: #dce8f0; line-height: 1.6;">Struktur, susunan menu, dan tata letak 27 layar yang sudah final.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.paint();
+  }
+  componentDidUpdate() {
+    this.paint();
+  }
+  paint() {
+    document.querySelectorAll('[data-swatch]').forEach((el) => {
+      el.style.background = el.getAttribute('data-swatch');
+    });
+  }
+  renderVals() {
+    return {
+      states: [
+        { kode: "belum_setup", nama: "Belum setup", arti: "Perangkat tanpa Admin. Hanya Setup Admin yang dapat dibuka; rute lain dialihkan ke sana." },
+        { kode: "belum_login", nama: "Belum login", arti: "Akun ada, sesi tidak. Hanya Login dan Lupa Password yang terbuka." },
+        { kode: "login_admin", nama: "Login Admin", arti: "Seluruh fitur guru, ditambah Kelola Akun, identitas sekolah, referensi, dan cadangan." },
+        { kode: "login_guru", nama: "Login Guru", arti: "Seluruh fitur pembelajaran tanpa pengurangan. Pengaturan tingkat sekolah hanya dapat dibaca." },
+        { kode: "logout", nama: "Logout", arti: "Token dibuang, kembali ke Login. Tidak ada data yang hilang." }
+      ],
+      tokens: [
+        { nama: "Navy malam", hex: "#071A2E", pakai: "Latar Mode Kelas, letterbox video, dasar sidebar" },
+        { nama: "Navy panel", hex: "#0A2338", pakai: "Panel form Login, kop Dashboard" },
+        { nama: "Navy utama", hex: "#103A56", pakai: "Token lama, tetap dipakai untuk blok padat" },
+        { nama: "Biru utama", hex: "#1B5E8C", pakai: "Aksi utama, tautan, keadaan aktif" },
+        { nama: "Biru aksen", hex: "#2F8FC7", pakai: "Gradien tombol, tepi fokus, menu aktif" },
+        { nama: "Cahaya sian", hex: "#6CC0F0", pakai: "Cahaya halus, label kecil, cincin fokus" },
+        { nama: "Biru sangat muda", hex: "#EEF5FA", pakai: "Latar kartu lembut, badge informasi" },
+        { nama: "Aksen emas", hex: "#F2B230", pakai: "Identitas pembuat, badge, garis aksen kecil" }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Nunito:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: #dfe4e9; font-family: 'Public Sans', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; color: #1a2733; }
+  a { color: #1b5e8c; text-decoration: none; }
+  a:hover { color: #0f3e60; }
+</style>
+</helmet>
+
+<div style="padding: 44px 48px 80px; display: flex; flex-direction: column; gap: 46px; width: max-content;">
+
+  <div style="max-width: 900px;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.09em; color: #62788a; text-transform: uppercase;">Tahap 2 &middot; desain layar &middot; bagian C dari D</div>
+    <h1 style="margin: 12px 0 0; font-size: 34px; font-weight: 700; letter-spacing: -0.025em;">Studio AI</h1>
+    <p style="margin: 10px 0 0; font-size: 16.5px; line-height: 1.6; color: #46596b;">AI Game Generator, AI LKPD Generator, Editor LKPD, dan Pembuat Soal. Empat layar dengan satu pola yang sama: konteks kurikulum terkunci di atas, prompt bebas guru di tengah, hasil berlabel ungu yang wajib disetujui sebelum dipakai.</p>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 14px;" data-screen-label="09 AI Game Generator">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">09</span>
+      <h2 style="margin: 0; font-size: 21px; font-weight: 700; letter-spacing: -0.015em;">AI Game Generator</h2>
+      <span style="font-size: 13.5px; color: #62788a;">AI merekomendasikan engine lebih dulu</span>
+    </div>
+
+    <div style="width: 1440px; background: #f4f6f8; border-radius: 14px; overflow: hidden; box-shadow: 0 18px 48px rgba(16, 40, 60, 0.16); display: flex; align-items: stretch;">
+      <dc-import name="AppSidebar" active="Game Generator" hint-size="250px,940px"></dc-import>
+      <div style="flex: 1 1 auto; min-width: 0;">
+        <div style="background: #fff; border-bottom: 1px solid #e2e9ef; padding: 13px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+          <div style="display: flex; align-items: center; gap: 7px; flex-wrap: wrap;">
+            <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 11px; border-radius: 7px; background: #f4f0f8; color: #5c2d7d;">KONTEKS TERKUNCI</span>
+            <span style="font-size: 13px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #103a56; color: #fff;">Kelas 4</span>
+            <span style="font-size: 13px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #dff0e7; color: #0f6b4f;">Fase B</span>
+            <span style="font-size: 13px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">Matematika</span>
+            <span style="font-size: 13px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">Bilangan</span>
+            <span style="font-size: 13px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">TP 4.2</span>
+          </div>
+          <div style="font-size: 13px; font-weight: 600; padding: 10px 15px; border-radius: 8px; border: 1px solid #cad7e1; background: #fff; color: #23405a;">Ganti konteks</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: minmax(0, 1fr) 420px; align-items: stretch; min-height: 840px;">
+
+          <div style="padding: 24px 26px 30px;">
+            <h3 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.02em;">Buat game untuk TP 4.2</h3>
+            <p style="margin: 7px 0 0; font-size: 14.5px; color: #52697d; max-width: 76ch;">Tulis permintaan Anda. AI akan memilih engine yang sesuai dengan tujuan pembelajaran, bukan sekadar yang terlihat menarik.</p>
+
+            <div style="margin-top: 20px; border: 1.5px solid #cad7e1; border-radius: 11px; overflow: hidden; background: #fff;">
+              <div style="padding: 16px 18px; font-size: 15px; line-height: 1.7; color: #33475a; min-height: 92px;">Buat game yang cocok untuk TP ini. Siswa saya 29 orang, biasanya saya bagi 7 kelompok berempat. Pakai konteks pasar tradisional dan nama anak dari daerah kami. Waktunya sekitar 8 menit.</div>
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 15px; background: #f8fafc; border-top: 1px solid #e6edf2;">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  <span style="font-size: 12px; padding: 6px 11px; border-radius: 15px; background: #fff; border: 1px solid #dce5ec; color: #46596b;">kelompok 4</span>
+                  <span style="font-size: 12px; padding: 6px 11px; border-radius: 15px; background: #fff; border: 1px solid #dce5ec; color: #46596b;">sedang</span>
+                  <span style="font-size: 12px; padding: 6px 11px; border-radius: 15px; background: #fff; border: 1px solid #dce5ec; color: #46596b;">8 menit</span>
+                  <span style="font-size: 12px; padding: 6px 11px; border-radius: 15px; background: #fff; border: 1px solid #dce5ec; color: #46596b;">konteks lokal</span>
+                  <span style="font-size: 12px; padding: 6px 11px; border-radius: 15px; background: #fff; border: 1px solid #dce5ec; color: #46596b;">+ kendali</span>
+                </div>
+                <div style="font-size: 13.5px; font-weight: 600; padding: 10px 20px; border-radius: 8px; background: #7a3e9d; color: #fff;">Rekomendasikan engine</div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 10px; margin-top: 26px;">
+              <span style="width: 24px; height: 24px; border-radius: 6px; background: #7a3e9d; display: grid; place-items: center; font-size: 12px; font-weight: 700; color: #fff;">1</span>
+              <h4 style="margin: 0; font-size: 16.5px; font-weight: 700;">AI menyarankan 3 engine</h4>
+              <span style="font-size: 12.5px; color: #6b8296;">pilih satu sebelum ada yang dibuat</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+              <div style="border: 2px solid #7a3e9d; border-radius: 12px; padding: 18px 20px; background: #faf7fc;">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 18px;">
+                  <div style="min-width: 0;">
+                    <div style="display: flex; align-items: center; gap: 9px;">
+                      <span style="font-size: 16.5px; font-weight: 700; color: #4d2569;">Jodohkan pasangan</span>
+                      <span style="font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 11px; background: #7a3e9d; color: #fff;">PALING COCOK</span>
+                    </div>
+                    <div style="font-size: 14px; color: #5c2d7d; margin-top: 7px; line-height: 1.6; max-width: 64ch;">TP 4.2 menuntut siswa mengenali kesenilaian, bukan menghitung. Jodohkan menguji itu secara langsung dan cocok untuk kerja kelompok di papan.</div>
+                    <div style="display: flex; gap: 6px; margin-top: 11px; flex-wrap: wrap;">
+                      <span style="font-size: 11.5px; padding: 4px 9px; border-radius: 12px; background: #fff; color: #5c2d7d; border: 1px solid #e0d3ea;">kelompok</span>
+                      <span style="font-size: 11.5px; padding: 4px 9px; border-radius: 12px; background: #fff; color: #5c2d7d; border: 1px solid #e0d3ea;">8 menit</span>
+                      <span style="font-size: 11.5px; padding: 4px 9px; border-radius: 12px; background: #fff; color: #5c2d7d; border: 1px solid #e0d3ea;">10 butir</span>
+                    </div>
+                  </div>
+                  <div style="font-size: 13.5px; font-weight: 600; padding: 11px 18px; border-radius: 8px; background: #7a3e9d; color: #fff; flex: 0 0 auto;">Pilih ini</div>
+                </div>
+              </div>
+
+              <div style="border: 1px solid #e0d3ea; border-radius: 12px; padding: 17px 20px; background: #fff;">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 18px;">
+                  <div style="min-width: 0;">
+                    <div style="font-size: 16px; font-weight: 700; color: #4d2569;">Susun urutan</div>
+                    <div style="font-size: 14px; color: #5c2d7d; margin-top: 6px; line-height: 1.6; max-width: 64ch;">Menguji bagian &ldquo;mengurutkan&rdquo; dari TP. Cocok dipakai setelah jodohkan, sebagai latihan lanjutan.</div>
+                  </div>
+                  <div style="font-size: 13.5px; font-weight: 600; padding: 11px 18px; border-radius: 8px; border: 1px solid #cfb8e0; color: #5c2d7d; flex: 0 0 auto;">Pilih ini</div>
+                </div>
+              </div>
+
+              <div style="border: 1px solid #e0d3ea; border-radius: 12px; padding: 17px 20px; background: #fff;">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 18px;">
+                  <div style="min-width: 0;">
+                    <div style="font-size: 16px; font-weight: 700; color: #4d2569;">Bingo edukasi</div>
+                    <div style="font-size: 14px; color: #5c2d7d; margin-top: 6px; line-height: 1.6; max-width: 64ch;">Melibatkan seluruh kelas sekaligus dan pas dengan konteks pasar. Kurang tepat untuk mengukur ketuntasan per siswa.</div>
+                  </div>
+                  <div style="font-size: 13.5px; font-weight: 600; padding: 11px 18px; border-radius: 8px; border: 1px solid #cfb8e0; color: #5c2d7d; flex: 0 0 auto;">Pilih ini</div>
+                </div>
+              </div>
+
+              <div style="border: 1px dashed #cfdae3; border-radius: 12px; padding: 15px 20px; background: #fbfcfd;">
+                <div style="font-size: 13.5px; font-weight: 600; color: #46596b;">Tidak disarankan untuk TP ini</div>
+                <div style="font-size: 13px; color: #6b8296; margin-top: 5px; line-height: 1.6;">Maze, simulasi, coding blocks, dan debugging challenge disembunyikan &mdash; tidak mengukur kesenilaian pecahan dan terlalu kompleks untuk Fase B.</div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 10px; margin-top: 26px;">
+              <span style="width: 24px; height: 24px; border-radius: 6px; background: #7a3e9d; display: grid; place-items: center; font-size: 12px; font-weight: 700; color: #fff;">2</span>
+              <h4 style="margin: 0; font-size: 16.5px; font-weight: 700;">Uji coba sebelum disetujui</h4>
+            </div>
+
+            <div style="margin-top: 14px; border: 1px solid #e0d3ea; border-radius: 12px; overflow: hidden;">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; background: #faf7fc; border-bottom: 1px solid #e0d3ea;">
+                <div style="display: flex; align-items: center; gap: 9px;">
+                  <span style="font-size: 14.5px; font-weight: 700; color: #4d2569;">Pasar Pecahan &middot; jodohkan</span>
+                  <span style="font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 11px; background: #7a3e9d; color: #fff;">BELUM DISETUJUI</span>
+                </div>
+                <div style="font-size: 12.5px; color: #5c2d7d;">10 butir dibuat</div>
+              </div>
+              <div style="padding: 18px 20px; background: #123f31;">
+                <div style="border-radius: 10px; background: #fdfaf5; padding: 20px 22px;">
+                  <div style="font-size: 13.5px; font-weight: 700; color: #6b7d74; font-family: 'Nunito', sans-serif;">Bu Ratna menjual 3/4 bagian kue. Mana yang sama banyaknya?</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin-top: 14px;">
+                    <div style="border: 3px solid #123f31; border-radius: 9px; padding: 14px 0; text-align: center; font-size: 22px; font-weight: 800; color: #123f31; font-family: 'Nunito', sans-serif;">6/8</div>
+                    <div style="border: 3px solid #dfe7e2; border-radius: 9px; padding: 14px 0; text-align: center; font-size: 22px; font-weight: 800; color: #34433c; font-family: 'Nunito', sans-serif;">2/3</div>
+                    <div style="border: 3px solid #dfe7e2; border-radius: 9px; padding: 14px 0; text-align: center; font-size: 22px; font-weight: 800; color: #34433c; font-family: 'Nunito', sans-serif;">9/12</div>
+                    <div style="border: 3px solid #dfe7e2; border-radius: 9px; padding: 14px 0; text-align: center; font-size: 22px; font-weight: 800; color: #34433c; font-family: 'Nunito', sans-serif;">4/5</div>
+                  </div>
+                  <div style="font-size: 12.5px; color: #6b7d74; margin-top: 12px; font-family: 'Nunito', sans-serif;">Butir 1 dari 10 &middot; pratinjau ukuran papan diperkecil</div>
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 14px;">
+                  <div style="font-size: 13px; font-weight: 600; padding: 10px 16px; border-radius: 8px; background: #f2b230; color: #123f31;">Mainkan uji coba</div>
+                  <div style="font-size: 13px; font-weight: 600; padding: 10px 16px; border-radius: 8px; background: #1c5442; color: #dcece5;">Lihat 10 butir</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="border-left: 1px solid #e2e9ef; background: #fbfcfd; padding: 24px 22px;">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.09em; color: #6b8296; text-transform: uppercase;">Kendali guru</div>
+            <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 14px;">
+              <div>
+                <div style="font-size: 13px; font-weight: 600; color: #46596b;">Tingkat kesulitan</div>
+                <div style="display: flex; gap: 5px; margin-top: 7px;">
+                  <div style="flex: 1; font-size: 12.5px; padding: 9px 0; border-radius: 7px; border: 1px solid #dce5ec; background: #fff; color: #46596b; text-align: center;">Mudah</div>
+                  <div style="flex: 1; font-size: 12.5px; font-weight: 600; padding: 9px 0; border-radius: 7px; background: #7a3e9d; color: #fff; text-align: center;">Sedang</div>
+                  <div style="flex: 1; font-size: 12.5px; padding: 9px 0; border-radius: 7px; border: 1px solid #dce5ec; background: #fff; color: #46596b; text-align: center;">Sulit</div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size: 13px; font-weight: 600; color: #46596b;">Mode permainan</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 7px;">
+                  <div style="font-size: 12.5px; padding: 9px 0; border-radius: 7px; border: 1px solid #dce5ec; background: #fff; color: #46596b; text-align: center;">Individu</div>
+                  <div style="font-size: 12.5px; font-weight: 600; padding: 9px 0; border-radius: 7px; background: #7a3e9d; color: #fff; text-align: center;">Kelompok</div>
+                  <div style="font-size: 12.5px; padding: 9px 0; border-radius: 7px; border: 1px solid #dce5ec; background: #fff; color: #46596b; text-align: center;">Battle</div>
+                  <div style="font-size: 12.5px; padding: 9px 0; border-radius: 7px; border: 1px solid #dce5ec; background: #fff; color: #46596b; text-align: center;">Kelas</div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; align-items: baseline; justify-content: space-between;"><span style="font-size: 13px; font-weight: 600; color: #46596b;">Jumlah butir</span><span style="font-size: 13px; font-weight: 700; color: #4d2569;">10</span></div>
+                <div style="height: 5px; border-radius: 3px; background: #e6edf2; margin-top: 9px; overflow: hidden;"><div style="width: 40%; height: 100%; background: #7a3e9d;"></div></div>
+              </div>
+              <div>
+                <div style="display: flex; align-items: baseline; justify-content: space-between;"><span style="font-size: 13px; font-weight: 600; color: #46596b;">Detik per butir</span><span style="font-size: 13px; font-weight: 700; color: #4d2569;">20</span></div>
+                <div style="height: 5px; border-radius: 3px; background: #e6edf2; margin-top: 9px; overflow: hidden;"><div style="width: 33%; height: 100%; background: #7a3e9d;"></div></div>
+              </div>
+              <div>
+                <div style="font-size: 13px; font-weight: 600; color: #46596b;">Level berpikir</div>
+                <div style="display: flex; gap: 5px; margin-top: 7px;">
+                  <div style="flex: 1; font-size: 12.5px; font-weight: 600; padding: 9px 0; border-radius: 7px; background: #7a3e9d; color: #fff; text-align: center;">LOTS &rarr; HOTS</div>
+                  <div style="flex: 1; font-size: 12.5px; padding: 9px 0; border-radius: 7px; border: 1px solid #dce5ec; background: #fff; color: #46596b; text-align: center;">Merata</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 22px; padding-top: 18px; border-top: 1px solid #e6edf2;">
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.09em; color: #6b8296; text-transform: uppercase;">Daftar periksa</div>
+              <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 12px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 8px; background: #fff; border: 1px solid #e0d3ea;"><span style="font-size: 12.5px; color: #5c2d7d;">Sesuai TP 4.2</span><span style="font-size: 11.5px; font-weight: 700; color: #0f6b4f;">10/10</span></div>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 8px; background: #fff; border: 1px solid #e0d3ea;"><span style="font-size: 12.5px; color: #5c2d7d;">Instruksi guru dipatuhi</span><span style="font-size: 11.5px; font-weight: 700; color: #0f6b4f;">4/4</span></div>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 8px; background: #fff; border: 1px solid #e0d3ea;"><span style="font-size: 12.5px; color: #5c2d7d;">Tingkat bahasa kelas 4</span><span style="font-size: 11.5px; font-weight: 700; color: #0f6b4f;">sesuai</span></div>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 8px; background: #fff; border: 1px solid #e0d3ea;"><span style="font-size: 12.5px; color: #5c2d7d;">CP/TP tidak diubah AI</span><span style="font-size: 11.5px; font-weight: 700; color: #0f6b4f;">terkunci</span></div>
+              </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 14px 15px; border-radius: 10px; background: #f4f0f8; border: 1px solid #e0d3ea;">
+              <div style="font-size: 12.5px; font-weight: 700; color: #4d2569;">Yang akan tersimpan</div>
+              <div style="font-size: 12px; color: #5c2d7d; margin-top: 6px; line-height: 1.65;">kelas, fase, mapel, CP, TP, materi, engine, tingkat kesulitan, mode permainan, durasi, skor, dan hasil setiap siswa.</div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 20px;">
+              <div style="font-size: 14px; font-weight: 600; padding: 13px 16px; border-radius: 9px; background: #1b5e8c; color: #fff; text-align: center;">Setujui &amp; simpan ke katalog</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 7px;">
+                <div style="font-size: 13px; padding: 11px 12px; border-radius: 8px; border: 1px solid #cad7e1; background: #fff; text-align: center; color: #33475a;">Minta perbaikan</div>
+                <div style="font-size: 13px; padding: 11px 12px; border-radius: 8px; border: 1px solid #cad7e1; background: #fff; text-align: center; color: #33475a;">Buat ulang</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 14px;" data-screen-label="10 AI LKPD Generator">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">10</span>
+      <h2 style="margin: 0; font-size: 21px; font-weight: 700; letter-spacing: -0.015em;">AI LKPD Generator</h2>
+      <span style="font-size: 13.5px; color: #62788a;">tiga langkah &middot; prompt bebas guru</span>
+    </div>
+
+    <div style="width: 1440px; background: #f4f6f8; border-radius: 14px; overflow: hidden; box-shadow: 0 18px 48px rgba(16, 40, 60, 0.16); display: flex; align-items: stretch;">
+      <dc-import name="AppSidebar" active="Pembuat LKPD" hint-size="250px,900px"></dc-import>
+      <div style="flex: 1 1 auto; min-width: 0;">
+        <div style="background: #fff; border-bottom: 1px solid #e2e9ef; padding: 13px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+          <div style="display: flex; align-items: center; gap: 7px; flex-wrap: wrap;">
+            <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 11px; border-radius: 7px; background: #f4f0f8; color: #5c2d7d;">KONTEKS TERKUNCI</span>
+            <span style="font-size: 13px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #103a56; color: #fff;">Kelas 4</span>
+            <span style="font-size: 13px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #dff0e7; color: #0f6b4f;">Fase B</span>
+            <span style="font-size: 13px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">Matematika</span>
+            <span style="font-size: 13px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">TP 4.2</span>
+            <span style="font-size: 13px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">Materi: Pecahan Senilai</span>
+          </div>
+          <div style="font-size: 13px; font-weight: 600; padding: 10px 15px; border-radius: 8px; border: 1px solid #cad7e1; background: #fff; color: #23405a;">Ganti konteks</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: minmax(0, 1fr) 460px; align-items: stretch; min-height: 800px;">
+
+          <div style="padding: 24px 26px 30px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="width: 24px; height: 24px; border-radius: 6px; background: #103a56; display: grid; place-items: center; font-size: 12px; font-weight: 700; color: #fff;">1</span>
+              <h3 style="margin: 0; font-size: 18px; font-weight: 700;">Konteks dari basis data</h3>
+              <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 11px; background: #eef5fa; color: #14405e;">tidak boleh dikosongkan</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 13px;">
+              <div style="display: grid; grid-template-columns: 62px 1fr; gap: 10px; align-items: baseline; padding: 11px 13px; border-radius: 8px; background: #fff; border: 1px solid #e2e9ef;"><span style="font-size: 12.5px; color: #6b8296;">CP</span><span style="font-size: 13.5px; font-weight: 600; color: #14405e;">Bilangan <span style="font-size: 11px; padding: 2px 7px; border-radius: 9px; background: #eef5fa; margin-left: 4px;">resmi</span></span></div>
+              <div style="display: grid; grid-template-columns: 62px 1fr; gap: 10px; align-items: baseline; padding: 11px 13px; border-radius: 8px; background: #fff; border: 1px solid #e2e9ef;"><span style="font-size: 12.5px; color: #6b8296;">TP</span><span style="font-size: 13.5px; font-weight: 600; color: #14405e;">4.2 <span style="font-size: 11px; padding: 2px 7px; border-radius: 9px; background: #dff0e7; margin-left: 4px;">rekomendasi</span></span></div>
+            </div>
+            <div style="margin-top: 9px; padding: 12px 14px; border-radius: 9px; background: #fdf0ec; border: 1px solid #f2d8cf;">
+              <div style="font-size: 12.5px; color: #8f3a1f; line-height: 1.6;">AI hanya mengutip CP dan TP ini. Bila guru ingin tujuan lain, ia harus menambahkannya lebih dulu sebagai TP sekolah &mdash; bukan meminta AI mengarangnya.</div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 8px; margin-top: 26px;">
+              <span style="width: 24px; height: 24px; border-radius: 6px; background: #103a56; display: grid; place-items: center; font-size: 12px; font-weight: 700; color: #fff;">2</span>
+              <h3 style="margin: 0; font-size: 18px; font-weight: 700;">Prompt bebas Anda</h3>
+              <span style="font-size: 12px; color: #6b8296;">tanpa batas kata</span>
+            </div>
+
+            <div style="margin-top: 13px; border: 1.5px solid #cad7e1; border-radius: 11px; overflow: hidden; background: #fff;">
+              <div style="padding: 17px 19px; font-size: 15px; line-height: 1.75; color: #33475a; min-height: 150px;">Buatkan LKPD 2 halaman untuk kegiatan kelompok berempat. Gunakan konteks pasar tradisional dan nama anak dari daerah kami: Asep, Nining, Dadang, Euis. Halaman pertama berisi pengamatan harga dan tabel, halaman kedua 6 pertanyaan bertingkat dari mudah ke sulit. Sertakan ruang menggambar untuk menandai pecahan. Bahasa sederhana untuk kelas 4, satu perintah satu baris. Jangan pakai kata &ldquo;senilai&rdquo; sebelum pertanyaan nomor 3.</div>
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 15px; background: #f8fafc; border-top: 1px solid #e6edf2;">
+                <div style="font-size: 12.5px; color: #6b8296;">Instruksi ini disimpan utuh bersama hasilnya</div>
+                <div style="font-size: 13.5px; font-weight: 600; padding: 10px 22px; border-radius: 8px; background: #7a3e9d; color: #fff;">Buat LKPD</div>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 7px; margin-top: 13px;">
+              <span style="font-size: 12.5px; padding: 7px 12px; border-radius: 16px; background: #fff; border: 1px solid #dce5ec; color: #46596b;">2 halaman</span>
+              <span style="font-size: 12.5px; padding: 7px 12px; border-radius: 16px; background: #fff; border: 1px solid #dce5ec; color: #46596b;">A4 potret</span>
+              <span style="font-size: 12.5px; padding: 7px 12px; border-radius: 16px; background: #fff; border: 1px solid #dce5ec; color: #46596b;">kelompok 4</span>
+              <span style="font-size: 12.5px; padding: 7px 12px; border-radius: 16px; background: #fff; border: 1px solid #dce5ec; color: #46596b;">6 pertanyaan</span>
+              <span style="font-size: 12.5px; padding: 7px 12px; border-radius: 16px; background: #fff; border: 1px solid #dce5ec; color: #46596b;">LOTS &rarr; HOTS</span>
+              <span style="font-size: 12.5px; padding: 7px 12px; border-radius: 16px; background: #fff; border: 1px solid #dce5ec; color: #46596b;">hemat tinta</span>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 8px; margin-top: 26px;">
+              <span style="width: 24px; height: 24px; border-radius: 6px; background: #7a3e9d; display: grid; place-items: center; font-size: 12px; font-weight: 700; color: #fff;">3</span>
+              <h3 style="margin: 0; font-size: 18px; font-weight: 700;">Riwayat prompt untuk TP ini</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 13px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 15px; border-radius: 9px; background: #fff; border: 1px solid #e2e9ef;">
+                <div style="min-width: 0;">
+                  <div style="font-size: 13.5px; font-weight: 600;">LKPD pengamatan pasar &middot; 2 halaman</div>
+                  <div style="font-size: 12.5px; color: #6b8296; margin-top: 3px;">14 Agustus 2026 &middot; disetujui &middot; dicetak 29 lembar</div>
+                </div>
+                <div style="font-size: 12.5px; font-weight: 600; padding: 8px 14px; border-radius: 7px; border: 1px solid #cad7e1; color: #23405a; flex: 0 0 auto;">Pakai lagi</div>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 15px; border-radius: 9px; background: #fff; border: 1px solid #e2e9ef;">
+                <div style="min-width: 0;">
+                  <div style="font-size: 13.5px; font-weight: 600;">LKPD latihan mandiri &middot; 1 halaman</div>
+                  <div style="font-size: 12.5px; color: #6b8296; margin-top: 3px;">8 Agustus 2026 &middot; disetujui</div>
+                </div>
+                <div style="font-size: 12.5px; font-weight: 600; padding: 8px 14px; border-radius: 7px; border: 1px solid #cad7e1; color: #23405a; flex: 0 0 auto;">Pakai lagi</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="border-left: 1px solid #e2e9ef; background: #f8fafc; padding: 24px 24px 30px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <div style="display: flex; align-items: center; gap: 9px;">
+                <h3 style="margin: 0; font-size: 16px; font-weight: 700;">Hasil AI</h3>
+                <span style="font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 11px; background: #7a3e9d; color: #fff;">BELUM DISETUJUI</span>
+              </div>
+              <span style="font-size: 12.5px; color: #6b8296;">halaman 1 dari 2</span>
+            </div>
+
+            <div style="margin-top: 14px; background: #fff; border: 1px solid #dce5ec; border-radius: 6px; padding: 26px 28px; box-shadow: 0 3px 14px rgba(16, 40, 60, 0.07);">
+              <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding-bottom: 12px; border-bottom: 2px solid #1a2733;">
+                <div>
+                  <div style="font-size: 12.5px; font-weight: 700; letter-spacing: 0.03em;">LEMBAR KERJA PESERTA DIDIK</div>
+                  <div style="font-size: 11.5px; color: #46596b; margin-top: 3px;">SDN Satria Jaya 01 &middot; Kelas 4 &middot; Fase B</div>
+                </div>
+                <div style="text-align: right; font-size: 11px; color: #46596b; line-height: 1.5;">Matematika<br />TP 4.2</div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 13px;">
+                <div style="font-size: 11.5px; color: #33475a;">Nama kelompok: <span style="display: inline-block; width: 90px; border-bottom: 1px solid #8ea5b8;"></span></div>
+                <div style="font-size: 11.5px; color: #33475a;">Kelas: <span style="display: inline-block; width: 60px; border-bottom: 1px solid #8ea5b8;"></span></div>
+                <div style="font-size: 11.5px; color: #33475a; grid-column: span 2;">Anggota: Asep, Nining, Dadang, Euis</div>
+              </div>
+
+              <div style="margin-top: 15px;">
+                <div style="font-size: 12.5px; font-weight: 700;">Tujuan kegiatan</div>
+                <div style="font-size: 11.5px; line-height: 1.6; color: #33475a; margin-top: 4px;">Kami dapat menemukan dua pecahan yang menunjukkan bagian sama besar dari barang di pasar.</div>
+              </div>
+
+              <div style="margin-top: 14px;">
+                <div style="font-size: 12.5px; font-weight: 700;">Langkah kerja</div>
+                <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 5px;">
+                  <div style="font-size: 11.5px; color: #33475a;">1. Amati gambar barang dagangan di halaman ini.</div>
+                  <div style="font-size: 11.5px; color: #33475a;">2. Tandai bagian yang sudah terjual.</div>
+                  <div style="font-size: 11.5px; color: #33475a;">3. Tulis pecahannya pada tabel di bawah.</div>
+                  <div style="font-size: 11.5px; color: #33475a;">4. Bandingkan hasil kelompokmu dengan kelompok lain.</div>
+                </div>
+              </div>
+
+              <div style="margin-top: 14px;">
+                <div style="font-size: 12.5px; font-weight: 700;">Tabel pengamatan</div>
+                <div style="border: 1px solid #33475a; border-radius: 2px; margin-top: 6px; overflow: hidden;">
+                  <div style="display: grid; grid-template-columns: 1.3fr 1fr 1fr; background: #eef2f6; border-bottom: 1px solid #33475a;">
+                    <div style="font-size: 10.5px; font-weight: 700; padding: 6px 8px; border-right: 1px solid #33475a;">Barang</div>
+                    <div style="font-size: 10.5px; font-weight: 700; padding: 6px 8px; border-right: 1px solid #33475a;">Terjual</div>
+                    <div style="font-size: 10.5px; font-weight: 700; padding: 6px 8px;">Pecahan</div>
+                  </div>
+                  <div style="display: grid; grid-template-columns: 1.3fr 1fr 1fr; border-bottom: 1px solid #b6c4cf;"><div style="font-size: 10.5px; padding: 9px 8px; border-right: 1px solid #b6c4cf; color: #33475a;">Kue lapis</div><div style="border-right: 1px solid #b6c4cf;"></div><div></div></div>
+                  <div style="display: grid; grid-template-columns: 1.3fr 1fr 1fr; border-bottom: 1px solid #b6c4cf;"><div style="font-size: 10.5px; padding: 9px 8px; border-right: 1px solid #b6c4cf; color: #33475a;">Semangka</div><div style="border-right: 1px solid #b6c4cf;"></div><div></div></div>
+                  <div style="display: grid; grid-template-columns: 1.3fr 1fr 1fr;"><div style="font-size: 10.5px; padding: 9px 8px; border-right: 1px solid #b6c4cf; color: #33475a;">Tempe</div><div style="border-right: 1px solid #b6c4cf;"></div><div></div></div>
+                </div>
+              </div>
+
+              <div style="margin-top: 14px;">
+                <div style="font-size: 12.5px; font-weight: 700;">Ruang menggambar</div>
+                <div style="border: 1px dashed #8ea5b8; border-radius: 3px; height: 76px; margin-top: 6px; display: grid; place-items: center;">
+                  <span style="font-size: 10.5px; color: #8ea5b8;">Gambarkan bagian yang terjual</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 7px; margin-top: 13px;">
+              <div style="flex: 1; font-size: 12.5px; font-weight: 600; padding: 9px 0; border-radius: 7px; background: #fff; border: 1px solid #cad7e1; color: #23405a; text-align: center;">Halaman 1</div>
+              <div style="flex: 1; font-size: 12.5px; padding: 9px 0; border-radius: 7px; background: #fff; border: 1px solid #dce5ec; color: #6b8296; text-align: center;">Halaman 2</div>
+            </div>
+
+            <div style="margin-top: 18px; padding: 14px 16px; border-radius: 10px; background: #fff; border: 1px solid #e0d3ea;">
+              <div style="font-size: 13px; font-weight: 700; color: #4d2569;">Daftar periksa kepatuhan</div>
+              <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 11px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;"><span style="font-size: 12.5px; color: #5c2d7d;">2 halaman seperti diminta</span><span style="font-size: 11.5px; font-weight: 700; color: #0f6b4f;">ya</span></div>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;"><span style="font-size: 12.5px; color: #5c2d7d;">Nama anak daerah dipakai</span><span style="font-size: 11.5px; font-weight: 700; color: #0f6b4f;">4 nama</span></div>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;"><span style="font-size: 12.5px; color: #5c2d7d;">Kata &ldquo;senilai&rdquo; ditahan sampai nomor 3</span><span style="font-size: 11.5px; font-weight: 700; color: #0f6b4f;">patuh</span></div>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;"><span style="font-size: 12.5px; color: #5c2d7d;">6 pertanyaan bertingkat</span><span style="font-size: 11.5px; font-weight: 700; color: #0f6b4f;">di halaman 2</span></div>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;"><span style="font-size: 12.5px; color: #5c2d7d;">Tabel &amp; ruang gambar</span><span style="font-size: 11.5px; font-weight: 700; color: #0f6b4f;">ada</span></div>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 16px;">
+              <div style="font-size: 14px; font-weight: 600; padding: 13px 16px; border-radius: 9px; background: #1b5e8c; color: #fff; text-align: center;">Setujui &amp; buka Editor LKPD</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 7px;">
+                <div style="font-size: 13px; padding: 11px 12px; border-radius: 8px; border: 1px solid #cad7e1; background: #fff; text-align: center; color: #33475a;">Minta perbaikan</div>
+                <div style="font-size: 13px; padding: 11px 12px; border-radius: 8px; border: 1px solid #cad7e1; background: #fff; text-align: center; color: #33475a;">Buat ulang</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 14px;" data-screen-label="11 Editor LKPD">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">11</span>
+      <h2 style="margin: 0; font-size: 21px; font-weight: 700; letter-spacing: -0.015em;">Editor LKPD</h2>
+      <span style="font-size: 13.5px; color: #62788a;">Kerangka Studio &middot; empat panel</span>
+    </div>
+
+    <div style="width: 1440px; background: #f4f6f8; border-radius: 14px; overflow: hidden; box-shadow: 0 18px 48px rgba(16, 40, 60, 0.16);">
+      <div style="background: #103a56; padding: 13px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 8px; background: #1b5e8c; color: #fff;">&larr; Kembali ke TP 4.2</div>
+          <div style="font-size: 15px; font-weight: 700; color: #fff;">LKPD Pengamatan Pasar</div>
+          <span style="font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 11px; background: #0f6b4f; color: #fff;">DISETUJUI</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 9px;">
+          <div style="font-size: 12.5px; color: #9dc0d4;">Tersimpan otomatis 09.42</div>
+          <div style="font-size: 13px; font-weight: 600; padding: 10px 15px; border-radius: 8px; background: #1b5e8c; color: #fff;">Pratinjau cetak</div>
+          <div style="font-size: 13px; font-weight: 600; padding: 10px 15px; border-radius: 8px; background: #f2b230; color: #123f31;">Export PDF</div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 220px minmax(0, 1fr) 250px 210px; align-items: stretch; min-height: 820px;">
+
+        <div style="border-right: 1px solid #e2e9ef; background: #fbfcfd; padding: 18px 16px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.09em; color: #6b8296; text-transform: uppercase;">Blok LKPD</div>
+          <div style="display: flex; flex-direction: column; gap: 5px; margin-top: 11px;">
+            <div style="display: flex; align-items: center; gap: 8px; padding: 10px 11px; border-radius: 7px; background: #fff; border: 1px solid #dce5ec;"><span style="width: 5px; height: 16px; border-radius: 2px; background: #8ea5b8;"></span><span style="font-size: 12.5px; color: #33475a;">Identitas siswa</span></div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 10px 11px; border-radius: 7px; background: #fff; border: 1px solid #dce5ec;"><span style="width: 5px; height: 16px; border-radius: 2px; background: #8ea5b8;"></span><span style="font-size: 12.5px; color: #33475a;">Kelas / fase / mapel</span></div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 10px 11px; border-radius: 7px; background: #fff; border: 1px solid #dce5ec;"><span style="width: 5px; height: 16px; border-radius: 2px; background: #8ea5b8;"></span><span style="font-size: 12.5px; color: #33475a;">CP &amp; TP tercantum</span></div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 10px 11px; border-radius: 7px; background: #eef5fa; border: 1px solid #d3e3ee;"><span style="width: 5px; height: 16px; border-radius: 2px; background: #1b5e8c;"></span><span style="font-size: 12.5px; font-weight: 600; color: #14405e;">Tujuan kegiatan</span></div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 10px 11px; border-radius: 7px; background: #fff; border: 1px solid #dce5ec;"><span style="width: 5px; height: 16px; border-radius: 2px; background: #8ea5b8;"></span><span style="font-size: 12.5px; color: #33475a;">Alat &amp; bahan</span></div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 10px 11px; border-radius: 7px; background: #fff; border: 1px solid #dce5ec;"><span style="width: 5px; height: 16px; border-radius: 2px; background: #8ea5b8;"></span><span style="font-size: 12.5px; color: #33475a;">Langkah kerja</span></div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 10px 11px; border-radius: 7px; background: #fff; border: 1px solid #dce5ec;"><span style="width: 5px; height: 16px; border-radius: 2px; background: #8ea5b8;"></span><span style="font-size: 12.5px; color: #33475a;">Tabel pengamatan</span></div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 10px 11px; border-radius: 7px; background: #fff; border: 1px solid #dce5ec;"><span style="width: 5px; height: 16px; border-radius: 2px; background: #8ea5b8;"></span><span style="font-size: 12.5px; color: #33475a;">Pertanyaan bertingkat</span></div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 10px 11px; border-radius: 7px; background: #fff; border: 1px solid #dce5ec;"><span style="width: 5px; height: 16px; border-radius: 2px; background: #8ea5b8;"></span><span style="font-size: 12.5px; color: #33475a;">Ruang menggambar</span></div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 10px 11px; border-radius: 7px; background: #fff; border: 1px solid #dce5ec;"><span style="width: 5px; height: 16px; border-radius: 2px; background: #8ea5b8;"></span><span style="font-size: 12.5px; color: #33475a;">Rubrik penilaian</span></div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 10px 11px; border-radius: 7px; background: #fff; border: 1px solid #dce5ec;"><span style="width: 5px; height: 16px; border-radius: 2px; background: #8ea5b8;"></span><span style="font-size: 12.5px; color: #33475a;">Refleksi siswa</span></div>
+            <div style="display: flex; align-items: center; gap: 8px; padding: 10px 11px; border-radius: 7px; background: #fff; border: 1px solid #dce5ec;"><span style="width: 5px; height: 16px; border-radius: 2px; background: #8ea5b8;"></span><span style="font-size: 12.5px; color: #33475a;">Tanda tangan</span></div>
+          </div>
+          <div style="margin-top: 16px; padding: 12px 13px; border-radius: 9px; background: #f4f0f8; border: 1px solid #e0d3ea;">
+            <div style="font-size: 12px; color: #5c2d7d; line-height: 1.6;">Blok dari AI ditandai ungu di kanvas. Semuanya dapat dipindah, dihapus, dan diketik ulang.</div>
+          </div>
+        </div>
+
+        <div style="background: #e8ecf0; padding: 22px 24px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
+          <div style="display: flex; align-items: center; gap: 9px; align-self: stretch; justify-content: space-between;">
+            <div style="display: flex; gap: 6px;">
+              <div style="font-size: 12.5px; font-weight: 600; padding: 8px 13px; border-radius: 7px; background: #fff; border: 1px solid #cad7e1; color: #23405a;">Halaman 1</div>
+              <div style="font-size: 12.5px; padding: 8px 13px; border-radius: 7px; background: #fff; border: 1px solid #dce5ec; color: #6b8296;">Halaman 2</div>
+              <div style="font-size: 12.5px; padding: 8px 11px; border-radius: 7px; background: #fff; border: 1px dashed #cfdae3; color: #8ea5b8;">+</div>
+            </div>
+            <div style="display: flex; gap: 6px; align-items: center;">
+              <span style="font-size: 12px; color: #62788a;">A4 potret &middot; 100%</span>
+            </div>
+          </div>
+
+          <div style="width: 520px; background: #fff; border-radius: 3px; padding: 34px 36px; box-shadow: 0 6px 22px rgba(16, 40, 60, 0.13);">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding-bottom: 13px; border-bottom: 2px solid #1a2733;">
+              <div>
+                <div style="font-size: 13.5px; font-weight: 700; letter-spacing: 0.03em;">LEMBAR KERJA PESERTA DIDIK</div>
+                <div style="font-size: 12px; color: #46596b; margin-top: 4px;">SDN Satria Jaya 01 &middot; Kelas 4 &middot; Fase B</div>
+              </div>
+              <div style="text-align: right; font-size: 11.5px; color: #46596b; line-height: 1.5;">Matematika<br />TP 4.2</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 11px; margin-top: 15px;">
+              <div style="font-size: 12px; color: #33475a;">Nama kelompok: <span style="display: inline-block; width: 96px; border-bottom: 1px solid #8ea5b8;"></span></div>
+              <div style="font-size: 12px; color: #33475a;">Kelas: <span style="display: inline-block; width: 66px; border-bottom: 1px solid #8ea5b8;"></span></div>
+            </div>
+
+            <div style="margin-top: 17px; padding: 11px 13px; border: 2px solid #7a3e9d; border-radius: 5px; background: #faf7fc; position: relative;">
+              <div style="position: absolute; top: -9px; left: 11px; font-size: 9.5px; font-weight: 700; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 8px; background: #7a3e9d; color: #fff;">DARI AI &middot; TERPILIH</div>
+              <div style="font-size: 13px; font-weight: 700; margin-top: 3px;">Tujuan kegiatan</div>
+              <div style="font-size: 12px; line-height: 1.6; color: #33475a; margin-top: 4px;">Kami dapat menemukan dua pecahan yang menunjukkan bagian sama besar dari barang di pasar.</div>
+            </div>
+
+            <div style="margin-top: 15px;">
+              <div style="font-size: 13px; font-weight: 700;">Langkah kerja</div>
+              <div style="display: flex; flex-direction: column; gap: 5px; margin-top: 6px;">
+                <div style="font-size: 12px; color: #33475a;">1. Amati gambar barang dagangan di halaman ini.</div>
+                <div style="font-size: 12px; color: #33475a;">2. Tandai bagian yang sudah terjual.</div>
+                <div style="font-size: 12px; color: #33475a;">3. Tulis pecahannya pada tabel di bawah.</div>
+                <div style="font-size: 12px; color: #33475a;">4. Bandingkan hasil kelompokmu dengan kelompok lain.</div>
+              </div>
+            </div>
+
+            <div style="margin-top: 15px;">
+              <div style="font-size: 13px; font-weight: 700;">Tabel pengamatan</div>
+              <div style="border: 1px solid #33475a; border-radius: 2px; margin-top: 7px; overflow: hidden;">
+                <div style="display: grid; grid-template-columns: 1.3fr 1fr 1fr; background: #eef2f6; border-bottom: 1px solid #33475a;">
+                  <div style="font-size: 11px; font-weight: 700; padding: 7px 9px; border-right: 1px solid #33475a;">Barang</div>
+                  <div style="font-size: 11px; font-weight: 700; padding: 7px 9px; border-right: 1px solid #33475a;">Terjual</div>
+                  <div style="font-size: 11px; font-weight: 700; padding: 7px 9px;">Pecahan</div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1.3fr 1fr 1fr; border-bottom: 1px solid #b6c4cf;"><div style="font-size: 11px; padding: 11px 9px; border-right: 1px solid #b6c4cf; color: #33475a;">Kue lapis</div><div style="border-right: 1px solid #b6c4cf;"></div><div></div></div>
+                <div style="display: grid; grid-template-columns: 1.3fr 1fr 1fr; border-bottom: 1px solid #b6c4cf;"><div style="font-size: 11px; padding: 11px 9px; border-right: 1px solid #b6c4cf; color: #33475a;">Semangka</div><div style="border-right: 1px solid #b6c4cf;"></div><div></div></div>
+                <div style="display: grid; grid-template-columns: 1.3fr 1fr 1fr;"><div style="font-size: 11px; padding: 11px 9px; border-right: 1px solid #b6c4cf; color: #33475a;">Tempe</div><div style="border-right: 1px solid #b6c4cf;"></div><div></div></div>
+              </div>
+            </div>
+
+            <div style="margin-top: 15px;">
+              <div style="font-size: 13px; font-weight: 700;">Ruang menggambar</div>
+              <div style="border: 1px dashed #8ea5b8; border-radius: 3px; height: 96px; margin-top: 7px; display: grid; place-items: center;">
+                <span style="font-size: 11px; color: #8ea5b8;">Gambarkan bagian yang terjual</span>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px; padding-top: 11px; border-top: 1px solid #dce5ec;">
+              <span style="font-size: 10px; color: #8ea5b8;">SDN Satria Jaya 01 &middot; TP 4.2</span>
+              <span style="font-size: 10px; color: #8ea5b8;">Halaman 1 dari 2</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-left: 1px solid #e2e9ef; background: #fbfcfd; padding: 18px 16px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.09em; color: #6b8296; text-transform: uppercase;">Properti blok</div>
+          <div style="margin-top: 11px; padding: 11px 13px; border-radius: 8px; background: #faf7fc; border: 1px solid #e0d3ea;">
+            <div style="font-size: 13px; font-weight: 700; color: #4d2569;">Tujuan kegiatan</div>
+            <div style="font-size: 11.5px; color: #5c2d7d; margin-top: 3px;">blok dari AI &middot; halaman 1</div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 13px; margin-top: 16px;">
+            <div>
+              <div style="font-size: 12.5px; font-weight: 600; color: #46596b;">Judul blok</div>
+              <div style="font-size: 12.5px; padding: 9px 11px; border-radius: 7px; border: 1px solid #cfdae3; background: #fff; color: #33475a; margin-top: 6px;">Tujuan kegiatan</div>
+            </div>
+            <div>
+              <div style="font-size: 12.5px; font-weight: 600; color: #46596b;">Tampilkan judul</div>
+              <div style="display: flex; gap: 5px; margin-top: 6px;">
+                <div style="flex: 1; font-size: 12px; font-weight: 600; padding: 8px 0; border-radius: 7px; background: #1b5e8c; color: #fff; text-align: center;">Ya</div>
+                <div style="flex: 1; font-size: 12px; padding: 8px 0; border-radius: 7px; border: 1px solid #dce5ec; background: #fff; color: #46596b; text-align: center;">Tidak</div>
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; align-items: baseline; justify-content: space-between;"><span style="font-size: 12.5px; font-weight: 600; color: #46596b;">Garis bantu tulis</span><span style="font-size: 12px; color: #6b8296;">0 baris</span></div>
+              <div style="height: 5px; border-radius: 3px; background: #e6edf2; margin-top: 8px; overflow: hidden;"><div style="width: 0%; height: 100%; background: #1b5e8c;"></div></div>
+            </div>
+            <div>
+              <div style="font-size: 12.5px; font-weight: 600; color: #46596b;">Ukuran huruf</div>
+              <div style="display: flex; gap: 5px; margin-top: 6px;">
+                <div style="flex: 1; font-size: 12px; padding: 8px 0; border-radius: 7px; border: 1px solid #dce5ec; background: #fff; color: #46596b; text-align: center;">12pt</div>
+                <div style="flex: 1; font-size: 12px; font-weight: 600; padding: 8px 0; border-radius: 7px; background: #1b5e8c; color: #fff; text-align: center;">13pt</div>
+                <div style="flex: 1; font-size: 12px; padding: 8px 0; border-radius: 7px; border: 1px solid #dce5ec; background: #fff; color: #46596b; text-align: center;">14pt</div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size: 12.5px; font-weight: 600; color: #46596b;">Sorot blok saat cetak</div>
+              <div style="display: flex; gap: 5px; margin-top: 6px;">
+                <div style="flex: 1; font-size: 12px; padding: 8px 0; border-radius: 7px; border: 1px solid #dce5ec; background: #fff; color: #46596b; text-align: center;">Kotak</div>
+                <div style="flex: 1; font-size: 12px; font-weight: 600; padding: 8px 0; border-radius: 7px; background: #1b5e8c; color: #fff; text-align: center;">Tanpa</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #e6edf2;">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.09em; color: #6b8296; text-transform: uppercase;">Instruksi asli guru</div>
+            <div style="font-size: 11.5px; color: #52697d; margin-top: 9px; line-height: 1.65; padding: 11px 12px; border-radius: 8px; background: #fff; border: 1px solid #e2e9ef;">&ldquo;Buatkan LKPD 2 halaman untuk kegiatan kelompok berempat. Gunakan konteks pasar tradisional&hellip;&rdquo;</div>
+            <div style="font-size: 12px; font-weight: 600; color: #1b5e8c; margin-top: 8px;">Lihat prompt lengkap</div>
+          </div>
+        </div>
+
+        <div style="border-left: 1px solid #e2e9ef; background: #f4f6f8; padding: 18px 16px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.09em; color: #6b8296; text-transform: uppercase;">Pratinjau cetak</div>
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 11px;">
+            <div style="background: #fff; border: 1px solid #cad7e1; border-radius: 3px; padding: 9px; box-shadow: 0 2px 8px rgba(16, 40, 60, 0.07);">
+              <div style="height: 3px; background: #33475a; margin-bottom: 5px;"></div>
+              <div style="display: flex; flex-direction: column; gap: 3px;">
+                <div style="height: 3px; background: #dce5ec;"></div>
+                <div style="height: 3px; background: #dce5ec; width: 70%;"></div>
+                <div style="height: 22px; background: #eef2f6; margin-top: 3px;"></div>
+                <div style="height: 3px; background: #dce5ec;"></div>
+                <div style="height: 3px; background: #dce5ec; width: 85%;"></div>
+                <div style="height: 26px; border: 1px dashed #b6c4cf; margin-top: 3px;"></div>
+              </div>
+              <div style="font-size: 9px; color: #8ea5b8; text-align: center; margin-top: 6px;">Halaman 1</div>
+            </div>
+            <div style="background: #fff; border: 1px solid #dce5ec; border-radius: 3px; padding: 9px;">
+              <div style="display: flex; flex-direction: column; gap: 3px;">
+                <div style="height: 3px; background: #dce5ec; width: 50%;"></div>
+                <div style="height: 3px; background: #dce5ec;"></div>
+                <div style="height: 3px; background: #dce5ec;"></div>
+                <div style="height: 3px; background: #dce5ec; width: 80%;"></div>
+                <div style="height: 3px; background: #dce5ec;"></div>
+                <div style="height: 16px; background: #eef2f6; margin-top: 4px;"></div>
+              </div>
+              <div style="font-size: 9px; color: #8ea5b8; text-align: center; margin-top: 6px;">Halaman 2</div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 18px;">
+            <div>
+              <div style="font-size: 12.5px; font-weight: 600; color: #46596b;">Mode cetak</div>
+              <div style="display: flex; flex-direction: column; gap: 5px; margin-top: 6px;">
+                <div style="font-size: 12px; font-weight: 600; padding: 9px 11px; border-radius: 7px; background: #1b5e8c; color: #fff;">Hemat tinta</div>
+                <div style="font-size: 12px; padding: 9px 11px; border-radius: 7px; border: 1px solid #dce5ec; background: #fff; color: #46596b;">Berwarna</div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size: 12.5px; font-weight: 600; color: #46596b;">Kertas</div>
+              <div style="display: flex; gap: 5px; margin-top: 6px;">
+                <div style="flex: 1; font-size: 12px; font-weight: 600; padding: 8px 0; border-radius: 7px; background: #1b5e8c; color: #fff; text-align: center;">A4</div>
+                <div style="flex: 1; font-size: 12px; padding: 8px 0; border-radius: 7px; border: 1px solid #dce5ec; background: #fff; color: #46596b; text-align: center;">F4</div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size: 12.5px; font-weight: 600; color: #46596b;">Kop sekolah</div>
+              <div style="font-size: 12px; color: #6b8296; margin-top: 6px; line-height: 1.55;">Diambil dari Pengaturan &rarr; Profil Sekolah.</div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 20px;">
+            <div style="font-size: 13px; font-weight: 600; padding: 11px 12px; border-radius: 8px; background: #1b5e8c; color: #fff; text-align: center;">Export PDF</div>
+            <div style="font-size: 13px; font-weight: 600; padding: 11px 12px; border-radius: 8px; border: 1px solid #cad7e1; background: #fff; color: #23405a; text-align: center;">Cetak 29 lembar</div>
+            <div style="font-size: 13px; font-weight: 600; padding: 11px 12px; border-radius: 8px; border: 1px solid #cad7e1; background: #fff; color: #23405a; text-align: center;">Bagikan ke sesi</div>
+            <div style="font-size: 13px; padding: 11px 12px; border-radius: 8px; border: 1px solid #cad7e1; background: #fff; color: #23405a; text-align: center;">Simpan ke bank LKPD</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 14px;" data-screen-label="12 Pembuat Soal AI">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">12</span>
+      <h2 style="margin: 0; font-size: 21px; font-weight: 700; letter-spacing: -0.015em;">Pembuat Soal AI</h2>
+      <span style="font-size: 13.5px; color: #62788a;">10 butir &middot; setiap butir dapat ditolak sendiri-sendiri</span>
+    </div>
+
+    <div style="width: 1440px; background: #f4f6f8; border-radius: 14px; overflow: hidden; box-shadow: 0 18px 48px rgba(16, 40, 60, 0.16); display: flex; align-items: stretch;">
+      <dc-import name="AppSidebar" active="Pembuat Soal" hint-size="250px,880px"></dc-import>
+      <div style="flex: 1 1 auto; min-width: 0;">
+        <div style="background: #fff; border-bottom: 1px solid #e2e9ef; padding: 13px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+          <div style="display: flex; align-items: center; gap: 7px; flex-wrap: wrap;">
+            <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 11px; border-radius: 7px; background: #f4f0f8; color: #5c2d7d;">KONTEKS TERKUNCI</span>
+            <span style="font-size: 13px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #103a56; color: #fff;">Kelas 4</span>
+            <span style="font-size: 13px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #dff0e7; color: #0f6b4f;">Fase B</span>
+            <span style="font-size: 13px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">Matematika</span>
+            <span style="font-size: 13px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">TP 4.2</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 9px;">
+            <div style="font-size: 13px; font-weight: 600; padding: 10px 15px; border-radius: 8px; border: 1px solid #cad7e1; background: #fff; color: #23405a;">Bank soal</div>
+            <div style="font-size: 13px; font-weight: 600; padding: 10px 15px; border-radius: 8px; background: #1b5e8c; color: #fff;">Export PDF</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 340px minmax(0, 1fr); align-items: stretch; min-height: 780px;">
+
+          <div style="border-right: 1px solid #e2e9ef; background: #fbfcfd; padding: 22px 20px;">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 700;">Permintaan Anda</h3>
+            <div style="margin-top: 12px; border: 1.5px solid #cad7e1; border-radius: 10px; background: #fff; padding: 14px 15px; font-size: 13.5px; line-height: 1.7; color: #33475a; min-height: 128px;">Buat 10 soal untuk asesmen formatif TP 4.2. Enam soal mudah dan sedang, empat soal HOTS berbentuk soal cerita. Pakai konteks pasar dan makanan daerah. Hindari angka lebih dari 20. Sertakan kunci dan pembahasan singkat untuk saya, bukan untuk siswa.</div>
+            <div style="font-size: 13.5px; font-weight: 600; padding: 11px 0; border-radius: 8px; background: #7a3e9d; color: #fff; text-align: center; margin-top: 11px;">Buat 10 soal</div>
+
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.09em; color: #6b8296; text-transform: uppercase; margin-top: 22px;">Bentuk soal</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;">
+              <span style="font-size: 12px; font-weight: 600; padding: 6px 11px; border-radius: 15px; background: #eef5fa; color: #14405e; border: 1px solid #d3e3ee;">pilihan ganda</span>
+              <span style="font-size: 12px; font-weight: 600; padding: 6px 11px; border-radius: 15px; background: #eef5fa; color: #14405e; border: 1px solid #d3e3ee;">isian singkat</span>
+              <span style="font-size: 12px; font-weight: 600; padding: 6px 11px; border-radius: 15px; background: #eef5fa; color: #14405e; border: 1px solid #d3e3ee;">soal cerita</span>
+              <span style="font-size: 12px; padding: 6px 11px; border-radius: 15px; background: #fff; color: #6b8296; border: 1px solid #dce5ec;">benar/salah</span>
+              <span style="font-size: 12px; padding: 6px 11px; border-radius: 15px; background: #fff; color: #6b8296; border: 1px solid #dce5ec;">menjodohkan</span>
+              <span style="font-size: 12px; padding: 6px 11px; border-radius: 15px; background: #fff; color: #6b8296; border: 1px solid #dce5ec;">uraian</span>
+            </div>
+
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.09em; color: #6b8296; text-transform: uppercase; margin-top: 20px;">Sebaran level</div>
+            <div style="display: flex; flex-direction: column; gap: 9px; margin-top: 11px;">
+              <div>
+                <div style="display: flex; align-items: baseline; justify-content: space-between;"><span style="font-size: 12.5px; color: #46596b;">LOTS &middot; mengingat, memahami</span><span style="font-size: 12.5px; font-weight: 700;">4</span></div>
+                <div style="height: 5px; border-radius: 3px; background: #e6edf2; margin-top: 6px; overflow: hidden;"><div style="width: 40%; height: 100%; background: #0f6b4f;"></div></div>
+              </div>
+              <div>
+                <div style="display: flex; align-items: baseline; justify-content: space-between;"><span style="font-size: 12.5px; color: #46596b;">MOTS &middot; menerapkan</span><span style="font-size: 12.5px; font-weight: 700;">2</span></div>
+                <div style="height: 5px; border-radius: 3px; background: #e6edf2; margin-top: 6px; overflow: hidden;"><div style="width: 20%; height: 100%; background: #1b5e8c;"></div></div>
+              </div>
+              <div>
+                <div style="display: flex; align-items: baseline; justify-content: space-between;"><span style="font-size: 12.5px; color: #46596b;">HOTS &middot; menganalisis</span><span style="font-size: 12.5px; font-weight: 700;">4</span></div>
+                <div style="height: 5px; border-radius: 3px; background: #e6edf2; margin-top: 6px; overflow: hidden;"><div style="width: 40%; height: 100%; background: #7a3e9d;"></div></div>
+              </div>
+            </div>
+
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.09em; color: #6b8296; text-transform: uppercase; margin-top: 20px;">Jenis asesmen</div>
+            <div style="display: flex; gap: 5px; margin-top: 10px;">
+              <div style="flex: 1; font-size: 12.5px; font-weight: 600; padding: 9px 0; border-radius: 7px; background: #1b5e8c; color: #fff; text-align: center;">Formatif</div>
+              <div style="flex: 1; font-size: 12.5px; padding: 9px 0; border-radius: 7px; border: 1px solid #dce5ec; background: #fff; color: #46596b; text-align: center;">Sumatif</div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 13px 14px; border-radius: 9px; background: #fdf0ec; border: 1px solid #f2d8cf;">
+              <div style="font-size: 12.5px; color: #8f3a1f; line-height: 1.6;">Setiap butir wajib menunjuk ke TP 4.2. Butir yang tidak dapat dipetakan ke TP akan ditandai dan tidak bisa disimpan.</div>
+            </div>
+          </div>
+
+          <div style="padding: 22px 26px 30px;">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 20px;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 9px;">
+                  <h3 style="margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -0.02em;">10 butir dibuat</h3>
+                  <span style="font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 11px; background: #7a3e9d; color: #fff;">BELUM DISETUJUI</span>
+                </div>
+                <p style="margin: 6px 0 0; font-size: 14px; color: #52697d;">Tinjau satu per satu. Butir yang ditolak akan digantikan tanpa mengubah butir lain.</p>
+              </div>
+              <div style="display: flex; gap: 7px; flex: 0 0 auto;">
+                <div style="font-size: 13px; font-weight: 600; padding: 10px 15px; border-radius: 8px; border: 1px solid #cad7e1; background: #fff; color: #23405a;">Tolak semua</div>
+                <div style="font-size: 13px; font-weight: 600; padding: 10px 16px; border-radius: 8px; background: #1b5e8c; color: #fff;">Setujui 10 butir</div>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 18px;">
+
+              <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 11px; padding: 17px 19px;">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 18px;">
+                  <div style="min-width: 0;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 3px 8px; border-radius: 6px; background: #f4f6f8; color: #46596b;">01</span>
+                      <span style="font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 10px; background: #dff0e7; color: #0f6b4f;">LOTS</span>
+                      <span style="font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 10px; background: #f4f6f8; color: #52697d;">PILIHAN GANDA</span>
+                    </div>
+                    <div style="font-size: 15px; font-weight: 500; margin-top: 10px; line-height: 1.5;">Bu Euis memotong tempe menjadi 4 bagian sama besar. Ia menjual 2 bagian. Berapa bagian tempe yang terjual?</div>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-top: 11px; max-width: 460px;">
+                      <div style="font-size: 13px; padding: 8px 11px; border-radius: 7px; background: #dff0e7; border: 1px solid #b9dccb; color: #0b5340; font-weight: 600;">A. 2/4</div>
+                      <div style="font-size: 13px; padding: 8px 11px; border-radius: 7px; background: #f8fafc; border: 1px solid #e6edf2; color: #46596b;">B. 4/2</div>
+                      <div style="font-size: 13px; padding: 8px 11px; border-radius: 7px; background: #f8fafc; border: 1px solid #e6edf2; color: #46596b;">C. 2/2</div>
+                      <div style="font-size: 13px; padding: 8px 11px; border-radius: 7px; background: #f8fafc; border: 1px solid #e6edf2; color: #46596b;">D. 1/4</div>
+                    </div>
+                    <div style="font-size: 12.5px; color: #6b8296; margin-top: 10px;">Kunci A &middot; Pembahasan: 2 dari 4 bagian ditulis 2/4. <span style="color: #8ea5b8;">Hanya tampil untuk guru.</span></div>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 6px; flex: 0 0 auto;">
+                    <div style="font-size: 12.5px; font-weight: 600; padding: 8px 14px; border-radius: 7px; border: 1px solid #cad7e1; color: #23405a; text-align: center;">Edit</div>
+                    <div style="font-size: 12.5px; font-weight: 600; padding: 8px 14px; border-radius: 7px; border: 1px solid #cad7e1; color: #23405a; text-align: center;">Ganti</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 11px; padding: 17px 19px;">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 18px;">
+                  <div style="min-width: 0;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 3px 8px; border-radius: 6px; background: #f4f6f8; color: #46596b;">02</span>
+                      <span style="font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 10px; background: #dff0e7; color: #0f6b4f;">LOTS</span>
+                      <span style="font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 10px; background: #f4f6f8; color: #52697d;">ISIAN SINGKAT</span>
+                    </div>
+                    <div style="font-size: 15px; font-weight: 500; margin-top: 10px; line-height: 1.5;">Lengkapi agar kedua pecahan menunjukkan bagian sama besar: 1/2 = &hellip;/6</div>
+                    <div style="font-size: 12.5px; color: #6b8296; margin-top: 10px;">Kunci 3 &middot; Pembahasan: penyebut dikali 3, pembilang juga dikali 3.</div>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 6px; flex: 0 0 auto;">
+                    <div style="font-size: 12.5px; font-weight: 600; padding: 8px 14px; border-radius: 7px; border: 1px solid #cad7e1; color: #23405a; text-align: center;">Edit</div>
+                    <div style="font-size: 12.5px; font-weight: 600; padding: 8px 14px; border-radius: 7px; border: 1px solid #cad7e1; color: #23405a; text-align: center;">Ganti</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: #fff; border: 1px solid #e0d3ea; border-radius: 11px; padding: 17px 19px;">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 18px;">
+                  <div style="min-width: 0;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 3px 8px; border-radius: 6px; background: #f4f0f8; color: #5c2d7d;">07</span>
+                      <span style="font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 10px; background: #f4f0f8; color: #5c2d7d;">HOTS</span>
+                      <span style="font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 10px; background: #f4f6f8; color: #52697d;">SOAL CERITA</span>
+                    </div>
+                    <div style="font-size: 15px; font-weight: 500; margin-top: 10px; line-height: 1.5; max-width: 74ch;">Asep membeli 2/4 kilogram gula. Nining membeli 1/2 kilogram gula. Mereka mengatakan berat gulanya berbeda. Menurutmu benar atau tidak? Jelaskan dengan gambar.</div>
+                    <div style="font-size: 12.5px; color: #6b8296; margin-top: 10px;">Kunci: tidak benar, keduanya sama berat &middot; Rubrik: 3 poin bila menjelaskan dengan gambar.</div>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 6px; flex: 0 0 auto;">
+                    <div style="font-size: 12.5px; font-weight: 600; padding: 8px 14px; border-radius: 7px; border: 1px solid #cad7e1; color: #23405a; text-align: center;">Edit</div>
+                    <div style="font-size: 12.5px; font-weight: 600; padding: 8px 14px; border-radius: 7px; border: 1px solid #cad7e1; color: #23405a; text-align: center;">Ganti</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: #fdf6f3; border: 1px solid #f2d8cf; border-radius: 11px; padding: 17px 19px;">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 18px;">
+                  <div style="min-width: 0;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 3px 8px; border-radius: 6px; background: #f7e2da; color: #8f3a1f;">08</span>
+                      <span style="font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 10px; background: #b14a2c; color: #fff;">PERLU DIPERIKSA</span>
+                    </div>
+                    <div style="font-size: 15px; font-weight: 500; margin-top: 10px; line-height: 1.5; max-width: 74ch; color: #33475a;">Sebuah kue dibagi 24 bagian. Berapa bagian yang senilai dengan 3/8?</div>
+                    <div style="font-size: 12.5px; color: #8f3a1f; margin-top: 10px; line-height: 1.6;">Angka 24 melewati batas &ldquo;hindari angka lebih dari 20&rdquo; dari instruksi Anda.</div>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 6px; flex: 0 0 auto;">
+                    <div style="font-size: 12.5px; font-weight: 600; padding: 8px 14px; border-radius: 7px; background: #b14a2c; color: #fff; text-align: center;">Ganti butir</div>
+                    <div style="font-size: 12.5px; font-weight: 600; padding: 8px 14px; border-radius: 7px; border: 1px solid #e0b8a8; color: #8f3a1f; text-align: center;">Tetap pakai</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 15px 19px; border: 1px dashed #c7d4de; border-radius: 11px; background: #fbfcfd;">
+                <div style="font-size: 13.5px; color: #52697d;">Butir 03 sampai 06, 09, dan 10 disembunyikan pada mockup ini.</div>
+                <div style="font-size: 13px; font-weight: 600; padding: 9px 15px; border-radius: 8px; border: 1px solid #cad7e1; background: #fff; color: #23405a;">Tampilkan semua</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

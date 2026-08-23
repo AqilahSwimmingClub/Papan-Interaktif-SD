@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Public Sans', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; color: #1a2733; }
+  doc-page:not(:defined) { visibility: hidden; }
+  a { color: #1b5e8c; }
+  a:hover { color: #0f3e60; }
+  h1, h2, h3 { text-wrap: balance; }
+  p, li { text-wrap: pretty; }
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+
+<doc-page margin="0.7in">
+
+  <div slot="header" style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 7px; border-bottom: 1.5px solid #103a56; font-size: 9pt; color: #46596b;">
+    <span style="font-weight: 700; color: #103a56;">IMPLEMENTATION HANDOFF FOR CODEX &mdash; PAPAN INTERAKTIF SD</span>
+    <span>v1.1 &middot; 23 Agustus 2026</span>
+  </div>
+
+  <div slot="footer" style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-top: 7px; border-top: 1px solid #cfdae3; font-size: 8.5pt; color: #6b8296;">
+    <span>SDN Satria Jaya 01</span>
+    <span>Baca bersama MASTER SPECIFICATION FINAL</span>
+  </div>
+
+  <div style="padding: 30pt 0 18pt; border-bottom: 3px solid #103a56;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9pt; letter-spacing: 0.14em; color: #6b8296; text-transform: uppercase;">Paket serah terima implementasi</div>
+    <h1 style="margin: 11pt 0 0; font-size: 25pt; font-weight: 700; letter-spacing: -0.02em; line-height: 1.14; color: #103a56;">Implementation Handoff<br />for Codex</h1>
+    <p style="margin: 11pt 0 0; font-size: 11pt; line-height: 1.55; color: #33475a; max-width: 64ch;">Daftar berkas, urutan pengerjaan, kontrak data, dan jebakan yang harus dihindari. Master Specification Final adalah acuan isinya; dokumen ini adalah acuan cara mengerjakannya.</p>
+  </div>
+
+  <h2 style="margin: 20pt 0 8pt; font-size: 13.5pt; font-weight: 700; color: #103a56;">1 &middot; Status akhir proyek desain</h2>
+  <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+    <tbody>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; width: 52%;">DESAIN FINAL</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; 30 layar hi-fi, 5 kerangka halaman, 2 permukaan</td></tr>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">DATABASE KURIKULUM FINAL</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; 38 tabel, 6 zona, aturan integritas lengkap</td></tr>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">CP RESMI</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; <strong>47 / 47 baris &mdash; 100%</strong> &middot; 29 non-agama dari BSKAP 046/H/KR/2025 &plus; 18 agama dari BKPDM 020/2026</td></tr>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">ELEMEN</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; 221 elemen &middot; 125 non-agama &plus; 96 agama &middot; seluruhnya bertaut CP</td></tr>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">HALAMAN LAMPIRAN</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #8a6410;">18 baris agama terisi (hlm 6&ndash;42) &middot; 29 baris non-agama menunggu penomoran</td></tr>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">TP REKOMENDASI FINAL</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; 212 TP diimpor &middot; 11 mapel &middot; kelas 1&ndash;6 &middot; label TP Rekomendasi</td></tr>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">30 GAME ENGINE</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; Tabel engine + 4 penyaring + profil fase</td></tr>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">HP ANDROID</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; Bilah bawah, 1 kolom, target 48 px</td></tr>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">TABLET</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; Touch-first, sidebar ikon, target 56 px</td></tr>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">DESKTOP</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; Sidebar 250 px, 4 panel studio</td></tr>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">PAPAN INTERAKTIF 75&rdquo; FULL HD / 4K</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; Mode Kelas tersendiri, teks &ge; 24 px, alat 96 px</td></tr>
+      <tr style="background: #fdfaf3;"><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">MULTI-REFERENSI BUKU</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; 4 tabel, 2 layar, 5 jenis referensi, pemetaan bab&rarr;TP</td></tr>
+      <tr style="background: #f7fbfd;"><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">OPENING &middot; LOGIN &middot; SETUP ADMIN</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; 3 layar, 5 keadaan sesi, autentikasi lokal, Logout, video tanpa Skip &middot; Tahap 11</td></tr>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">IDENTITAS PEMBUAT</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; Teks HTML hidup pada Login, Setup Admin, dan Tentang Aplikasi &mdash; tidak bergantung piksel gambar</td></tr>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">THEME LOGIN &plus; DASHBOARD</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; Sinkron &middot; 4 token baru dari latar Login &middot; kartu isi tetap terang</td></tr>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">OFFLINE / PWA</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; Cakupan + antrean AI + backup/restore</td></tr>
+      <tr><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3;">AI LKPD / SOAL / GAME / MATERI</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #0f6b4f;">&#10004; Kontrak prompt + daftar periksa + alur persetujuan</td></tr>
+      <tr style="background: #f7fbfd;"><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700;">SIAP CODEX</td><td style="padding: 5pt 9pt; border: 0.75pt solid #cfdae3; font-weight: 700; color: #14405e;">&#10004; Seluruh 24 modul dapat mulai dikoding. Database kurikulum lengkap 47/47.</td></tr>
+    </tbody>
+  </table>
+  <p style="margin: 9pt 0 0; font-size: 10pt; line-height: 1.6; color: #46596b;">Seluruh baris bercentang. Satu baris berwarna amber &mdash; halaman lampiran &mdash; bukan karena data kurang, melainkan karena 29 baris non-agama belum bernomor halaman sehingga penelusuran ke lampiran aslinya masih manual. Itu kolom pelengkap, bukan prasyarat implementasi. Penjelasannya di bagian 5.</p>
+
+  <h2 style="margin: 20pt 0 8pt; font-size: 13.5pt; font-weight: 700; color: #103a56;">2 &middot; Berkas yang diserahkan</h2>
+  <table style="width: 100%; border-collapse: collapse; font-size: 9.5pt;">
+    <thead><tr style="background: #eef5fa;"><th style="text-align: left; padding: 6pt 8pt; border: 0.75pt solid #b6c4cf; font-size: 8.5pt; text-transform: uppercase; color: #14405e; width: 32%;">Berkas</th><th style="text-align: left; padding: 6pt 8pt; border: 0.75pt solid #b6c4cf; font-size: 8.5pt; text-transform: uppercase; color: #14405e;">Isi dan cara dipakai</th></tr></thead>
+    <tbody>
+      <tr style="background: #f7fbfd;"><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 700;">MASTER SPECIFICATION FINAL</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;"><strong>Acuan tunggal.</strong> 14 bagian: aturan pengikat, sumber kurikulum, struktur, 36 tabel, sitemap, AI, game, papan, penilaian, offline, responsive, design token, keadaan layar, acceptance criteria. Bila berkas lain berbeda, dokumen ini yang berlaku.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 700;">IMPLEMENTATION HANDOFF</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Dokumen ini. Urutan pengerjaan, kontrak data, jebakan.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tahap 8 &mdash; Data CP dan TP Rekomendasi</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;"><strong>Data seed.</strong> Hasil tiga impor resmi: 47 CP, 221 elemen, 212 TP Rekomendasi kelas 1&ndash;6, hasil tiga puluh dua pemeriksaan integritas, dan sebaran per mapel. Bagian 00c memuat impor agama beserta tiga temuan strukturalnya. Bagian 00 adalah data yang berlaku; bagian 01&ndash;05 catatan rintisan sebelum impor.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tahap 3 &mdash; Database Kurikulum</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Skema visual, tiga zona kepemilikan, dan tiga layar pengelolaan: Basis Data, Kelola TP Sekolah, Muat CP Resmi.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tahap 2A &mdash; Kerja Guru</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Layar 1&ndash;4: Dashboard, Pilih Kelas, Mapel, CP &amp; TP.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tahap 2B &mdash; Mengajar di Kelas</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Layar 5&ndash;8: Materi, Papan Interaktif, Katalog Game, Game berjalan.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tahap 2C &mdash; Studio AI</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Layar 9&ndash;12: Game Generator, LKPD Generator, Editor LKPD, Pembuat Soal.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tahap 2D &mdash; Data dan Pengaturan</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Layar 13&ndash;16: Data Siswa, Penilaian, Perpustakaan, Pengaturan Kurikulum.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tahap 5 &mdash; Layar Pelengkap</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Layar 17&ndash;25: Kelompok, Rekap CP/TP, Media, Pencarian, Profil, Backup, Offline, Mode Siswa, Mode Kelas.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tahap 11 &mdash; Opening, Login, Theme</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;"><strong>Lapisan masuk.</strong> Layar 28 Opening, 29 Login (6 titik henti, 4 orientasi), 30 Setup Admin; autentikasi lokal, Logout, 5 keadaan sesi, dan penyelarasan design token dengan latar Login. Bagian 04 memuat acuan landscape yang disetujui. Aset: <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8.5pt;">assets/login-bg.png</span>, <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8.5pt;">assets/opening.mp4</span>, <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8.5pt;">assets/logo-tutwuri.png</span>, <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8.5pt;">assets/logo-bekasi.png</span>, <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8.5pt;">assets/login-landscape-ref.png</span>.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tahap 10 &mdash; Kontrak Impor Data</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;"><strong>Jalur masuk data.</strong> Sembilan berkas JSON dan CSV, spesifikasi kolom, sepuluh aturan penolakan, dan alur empat langkah. Semua data resmi masuk lewat sini.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tahap 9 &mdash; Sistem Multi-Referensi</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;"><strong>Lapisan buku.</strong> 4 tabel baru, layar 26 Referensi Pembelajaran dan 27 Pemetaan Bab &rarr; TP, serta integrasi referensi ke keempat modul AI dan papan.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tahap 6 &mdash; Responsive dan Papan</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Matriks empat perangkat dan rincian 24 alat papan.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tahap 7 &mdash; Pustaka Game Engine</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">30 engine: yang diukur, mode, kecocokan fase, mapel, kata kerja TP.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Blueprint Tahap 1 &amp; Tahap 4</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Design system, sitemap, user flow, dan status pengisian kurikulum. Latar keputusan, bukan spesifikasi operasional.</td></tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin: 20pt 0 8pt; font-size: 13.5pt; font-weight: 700; color: #103a56; break-before: page;">3 &middot; Urutan pengerjaan</h2>
+  <p style="margin: 0 0 10pt; font-size: 10.5pt; line-height: 1.6;">Enam tahap. Setiap tahap dapat diperagakan sebelum tahap berikutnya dimulai.</p>
+  <table style="width: 100%; border-collapse: collapse; font-size: 9.5pt;">
+    <thead><tr style="background: #eef5fa;"><th style="text-align: left; padding: 6pt 8pt; border: 0.75pt solid #b6c4cf; font-size: 8.5pt; text-transform: uppercase; color: #14405e; width: 15%;">Tahap</th><th style="text-align: left; padding: 6pt 8pt; border: 0.75pt solid #b6c4cf; font-size: 8.5pt; text-transform: uppercase; color: #14405e; width: 26%;">Modul</th><th style="text-align: left; padding: 6pt 8pt; border: 0.75pt solid #b6c4cf; font-size: 8.5pt; text-transform: uppercase; color: #14405e;">Alasan urutannya</th></tr></thead>
+    <tbody>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 700;">1 Fondasi</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;"><strong>M24 autentikasi</strong> &middot; M1 database &middot; M2 muat CP &middot; M23 impor data &middot; M15 pengaturan kurikulum &middot; M16 profil</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Semua modul lain membaca dari sini. Konfigurasi kurikulum menentukan mapel apa yang muncul, jadi ia harus ada sebelum navigasi dibuat. M24 dikerjakan lebih dulu karena penjagaan rute harus ada sejak layar pertama &mdash; menambahkannya belakangan berarti membongkar setiap rute yang sudah jadi.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 700;">2 Navigasi</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">M3 navigasi kurikulum &middot; M4 materi &middot; M11 siswa &amp; kelompok</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Rantai Kelas&rarr;TP harus bisa dijelajahi sebelum ada isi yang menggantung padanya.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 700;">3 Mengajar</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">M5 papan &middot; M20 Mode Kelas &middot; M17 offline</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Inti nilai produk. Papan adalah alat yang paling sering dipakai dan wajib jalan offline sejak awal.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 700;">4 Game</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">M6 game &middot; M13 gamifikasi &middot; M19 Mode Siswa</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Mulai dari 6 engine yang mencakup empat mode main, lalu tambah. Engine baru tidak mengubah skema.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 700;">5 Studio AI</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">M7 LKPD &middot; M8 soal &middot; M9 game generator &middot; M10 editor</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Baru berguna setelah CP/TP terisi dan katalog engine ada. Editor LKPD dikerjakan bersama M7 karena keduanya satu alur.</td></tr>
+      <tr style="background: #fdfaf3;"><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 700;">5b Referensi</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">M22 referensi pembelajaran</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Setelah Studio AI berjalan, karena manfaat utamanya adalah memberi konteks buku kepada AI. Dapat juga dikerjakan lebih awal &mdash; tabelnya berdiri sendiri dan tidak mengubah tabel lain.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 700;">6 Penutup</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">M12 penilaian &middot; M14 perpustakaan &amp; pencarian &middot; M18 backup &middot; M21 responsive</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Penilaian perlu data hasil nyata dari game dan LKPD. Uji responsive dijalankan menyeluruh di akhir, bukan per layar.</td></tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin: 20pt 0 8pt; font-size: 13.5pt; font-weight: 700; color: #103a56;">4 &middot; Kontrak yang tidak boleh berubah</h2>
+  <p style="margin: 0 0 9pt; font-size: 10.5pt; line-height: 1.6;">Enam kontrak berikut menjadi tempat modul-modul bertemu. Mengubahnya berarti mengubah arsitektur, dan itu perlu persetujuan pemilik proyek.</p>
+  <table style="width: 100%; border-collapse: collapse; font-size: 9.5pt;">
+    <thead><tr style="background: #f8fafc;"><th style="text-align: left; padding: 6pt 8pt; border: 0.75pt solid #cfdae3; font-size: 8.5pt; text-transform: uppercase; color: #46596b; width: 24%;">Kontrak</th><th style="text-align: left; padding: 6pt 8pt; border: 0.75pt solid #cfdae3; font-size: 8.5pt; text-transform: uppercase; color: #46596b;">Bentuk</th></tr></thead>
+    <tbody>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 600;">Konteks kurikulum</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Satu objek berisi tingkat_kelas, fase_kode, mapel_kode, cabang_kode, agama_kode, cp_id, elemen_id, tp_id, materi_id, referensi_id, referensi_bab_id. Dua kolom terakhir boleh kosong. Dibawa bilah konteks, dikirim ke AI, disimpan di sesi, dan dipakai penyaring game. Satu bentuk untuk semuanya.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 600;">Tautan isi ke TP</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Selalu lewat tabel tautan_tp, tidak pernah kolom lepas. Kelima jenis isi memakai jalur yang sama sehingga penambahan jenis baru tidak mengubah kueri lama.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 600;">Permintaan AI</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Selalu berpasangan: satu baris prompt_ai (teks guru utuh + konteks + kendali) dan satu baris keluaran berstatus belum_disetujui. Tidak ada jalur AI yang melewati pasangan ini.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 600;">Hasil belajar</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Satu bentuk baris hasil untuk game, LKPD, dan asesmen: siswa_id, tp_id, jenis_aktivitas, skor, ketuntasan. Rekap dihitung dari sini, tidak dari tabel per jenis.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 600;">Kontrak engine game</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Setiap engine menerima daftar butir dan profil fase, mengembalikan skor per siswa per butir. Engine tidak pernah menulis langsung ke tabel hasil.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 600;">Arah tautan buku</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Bab buku menunjuk ke TP lewat pemetaan_bab_tp. TP tidak pernah menyimpan nomor bab. Karena itu dua sekolah dengan buku berbeda memakai kurikulum yang sama, dan menghapus buku tidak merusak apa pun.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 600;">Penjagaan sesi</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Setiap rute selain Opening, Setup Admin, Login, dan Lupa Password menolak akses tanpa sesi sah &mdash; ditolak di lapisan rute, bukan disembunyikan dari menu. Peran menentukan hak, bukan keberadaan fitur: Guru tidak kehilangan satu pun fitur pembelajaran.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3; font-weight: 600;">Batas offline</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Hanya tiga hal yang boleh memerlukan jaringan: pemanggilan AI, pemuatan CP, dan salinan awan. Kode baru yang memerlukan jaringan di luar ketiganya adalah pelanggaran.</td></tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin: 20pt 0 8pt; font-size: 13.5pt; font-weight: 700; color: #103a56;">5 &middot; Perlakuan data CP</h2>
+  <p style="margin: 0 0 8pt; font-size: 10.5pt; line-height: 1.6;">Paket impor resmi memakai penataan mapel yang berbeda dari draf awal: Seni dipecah menjadi empat mapel tersendiri (SMUS, RUPA, TARI, TEATER), bukan satu mapel bercabang. <strong>Kode paket yang berlaku.</strong> Konsekuensinya kolom <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5pt;">cabang_kode</span> tidak dipakai; pemilihan cabang seni di Pengaturan Kurikulum Sekolah bekerja dengan mengaktifkan mapel mana, bukan cabang mana pada satu mapel. Perilaku layarnya tidak berubah. Totalnya <strong>47 baris, seluruhnya terisi</strong>: 29 non-agama dan 18 agama.</p>
+  <p style="margin: 0 0 8pt; font-size: 10.5pt; line-height: 1.6;">Basis data dikirim dengan <strong>seluruh 47 baris CP terisi</strong> dari tiga paket resmi. Statusnya <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5pt;">menunggu_verifikasi</span> hingga operator mencocokkannya dengan PDF lampiran lewat langkah 3 modul M2 &mdash; keadaan yang sah dan sudah dirancang. Delapan belas baris agama sudah membawa nomor halaman lampirannya, sehingga verifikasinya dapat langsung dijalankan; 29 baris non-agama masih perlu penomoran.</p>
+  <p style="margin: 0 0 8pt; font-size: 10.5pt; line-height: 1.6;"><strong>Tidak ada baris CP kosong.</strong> Yang tersisa hanya kolom pelengkap: nomor halaman lampiran untuk 29 baris non-agama, serta TP Rekomendasi mapel agama &mdash; dokumen 020/2026 hanya menetapkan CP dan tidak memuat daftar TP nasional, jadi TP agama disusun sekolah sebagai TP Sekolah/Guru atau ditambahkan lewat impor terpisah berlabel TP Rekomendasi. <strong>Ringkasan cakupan bukan teks CP</strong> &mdash; jangan dipindahkan ke kolom teks_capaian, dan jangan biarkan AI mengutipnya sebagai capaian resmi. Tiga berkas impor masuk kosong dan itu bukan kegagalan: <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5pt;">07-referensi-bab</span>, <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5pt;">08-materi</span>, dan <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5pt;">09-pemetaan</span> menyusul setelah katalog buku tersedia.</p>
+  <ul style="margin: 0; padding-left: 18pt; font-size: 10.5pt; line-height: 1.65;">
+    <li style="margin-bottom: 6pt;"><strong>Jangan mengisi kekosongan.</strong> Berlaku terus, meski kini tidak ada baris CP yang kosong: bila kelak muncul baris baru, ia tidak boleh diisi teks dari model bahasa, parafrase, maupun CP dokumen lama. Baris kosong tetap kosong sampai operator memuatnya.</li>
+    <li style="margin-bottom: 6pt;"><strong>Tampilkan status apa adanya.</strong> Baris terisi tetapi belum terverifikasi diberi penanda, bukan disembunyikan &mdash; itu keadaan seluruh 47 baris saat penyerahan. Keadaan &ldquo;teks capaian belum dimuat&rdquo; tetap harus ada di layar CP &amp; TP untuk sekolah yang memulai dari basis data kosong.</li>
+    <li style="margin-bottom: 6pt;"><strong>Aplikasi tetap berguna tanpa teks CP.</strong> TP Sekolah/Guru, materi, game, LKPD, sesi, nilai, dan rekap berjalan penuh. Ini penting bagi sekolah yang belum menjalankan impor, bukan bagi paket yang diserahkan &mdash; paket ini sudah membawa CP lengkap.</li>
+    <li style="margin-bottom: 6pt;"><strong>AI wajib menolak dengan jelas.</strong> Bila kutipan CP kosong, AI memberi tahu guru bahwa dokumen belum dimuat dan tidak menyusun CP versinya sendiri. Untuk mapel agama AI wajib mengutip 020/2026, bukan 046/H/KR/2025 yang digantikannya.</li>
+    <li style="margin-bottom: 6pt;"><strong>Pemuatan tidak merusak.</strong> Memuat CP menambah versi baru; TP dan materi yang sudah dibuat tetap punya acuan ke versi sebelumnya.</li>
+    <li><strong>Dua hambatan berbeda pada sumber resmi.</strong> <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5pt;">kurikulum.kemendikdasmen.go.id</span> (Panduan Mata Pelajaran) ditolak di tingkat jaringan pada dua percobaan &mdash; perlu diunggah manual. <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5pt;">buku.kemendikdasmen.go.id</span> (katalog SIBI) <strong>terjangkau</strong> tetapi berupa aplikasi JavaScript, jadi katalognya tidak ada di HTML &mdash; jangan dilewati, ambil lewat antarmuka datanya. Sumber 18 baris CP agama adalah <strong>Kepka BKPDM 020/2026</strong>, PDF resminya terbit 7 Agustus 2026.</li>
+  </ul>
+
+  <h2 style="margin: 20pt 0 8pt; font-size: 13.5pt; font-weight: 700; color: #103a56;">6 &middot; Sembilan belas jebakan yang sudah terlihat dari desain</h2>
+  <ol style="margin: 0; padding-left: 18pt; font-size: 10.5pt; line-height: 1.65;">
+    <li style="margin-bottom: 6pt;"><strong>Memakai satu tata letak untuk semua ukuran.</strong> Mode Kelas bukan layar desktop yang diperbesar, dan HP bukan desktop yang diperkecil. Keduanya tata letak tersendiri.</li>
+    <li style="margin-bottom: 6pt;"><strong>Menambah isi pada 4K.</strong> Skala naik 1,5&times;, jumlah kolom tetap. Papan dilihat dari 4 meter.</li>
+    <li style="margin-bottom: 6pt;"><strong>Menaruh informasi hanya di hover.</strong> Tablet dan papan tidak punya kursor. Setiap keadaan hover perlu padanan tekan.</li>
+    <li style="margin-bottom: 6pt;"><strong>Menampilkan peringkat pribadi di perangkat siswa.</strong> Hanya tiga teratas, dan itu di papan kelas. Aturan ini menyangkut anak SD, bukan preferensi tampilan.</li>
+    <li style="margin-bottom: 6pt;"><strong>Membiarkan hasil AI langsung dipakai.</strong> Status belum_disetujui memblokir bagikan, cetak, dan mainkan. Blokir di lapisan data, bukan hanya menyembunyikan tombol.</li>
+    <li style="margin-bottom: 6pt;"><strong>Meringkas prompt guru.</strong> Simpan utuh. Pada revisi, instruksi lama tetap berlaku sampai guru membatalkannya.</li>
+    <li style="margin-bottom: 6pt;"><strong>Menawarkan semua engine di semua TP.</strong> Empat penyaring berjalan berurutan; penyaring kata kerja TP yang paling menentukan. Coding blocks tidak muncul di Bahasa Indonesia.</li>
+    <li style="margin-bottom: 6pt;"><strong>Menghapus berantai.</strong> Menghapus TP atau isi yang punya nilai hanya mengarsipkan. Baris hasil tidak pernah ikut terhapus.</li>
+    <li style="margin-bottom: 6pt;"><strong>Menulis identitas sekolah di kode.</strong> Semuanya dari tabel sekolah dan guru, termasuk kop cetak.</li>
+    <li style="margin-bottom: 6pt;"><strong>Mengunci TP ke nomor bab.</strong> Sekali sebuah TP menyimpan &ldquo;Bab 3&rdquo;, aplikasi hanya cocok untuk sekolah yang memakai buku itu. Pemetaan selalu dari arah buku.</li>
+    <li style="margin-bottom: 6pt;"><strong>Menyalin isi buku ke basis data.</strong> Hanya judul bab, nomor, halaman, dan ringkasan tulisan guru. Materi milik guru sendiri boleh penuh.</li>
+    <li style="margin-bottom: 6pt;"><strong>Menyamakan bentuk elemen semua mapel.</strong> Agama Kristen bertingkat dua (4 induk, 10 sub-elemen) dan Agama Katolik punya capaian tingkat fase di samping capaian per elemen. Skema yang hanya menampung daftar rata akan kehilangan salah satunya.</li>
+    <li style="margin-bottom: 6pt;"><strong>Memperlakukan elemen tidak berlaku sebagai data hilang.</strong> Allah Penyelamat dan Allah Pembaru memang belum diajarkan pada Fase A. Simpan sebagai <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5pt;">tidak_berlaku</span>, jangan sebagai teks kosong yang menunggu diisi.</li>
+    <li style="margin-bottom: 6pt;"><strong>Memindahkan ringkasan ke kolom teks CP.</strong> Ringkasan cakupan elemen menerangkan capaian; ia bukan kutipannya. Menyalinnya ke <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5pt;">teks_capaian</span> membuat parafrase tampak sebagai dokumen resmi.</li>
+    <li style="margin-bottom: 6pt;"><strong>Memakai <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5pt;">cover</span> buta pada latar Login.</strong> Gambarnya tegak 1149&times;1369; layar papan 75 inci mendatar 1,78. Cover memotong 53% tinggi dan yang hilang lebih dulu adalah baris identitas pembuat. Bidang mendatar memakai panel bersisi selebar rasio asli gambar.</li>
+    <li style="margin-bottom: 6pt;"><strong>Mengandalkan identitas pembuat dari piksel gambar.</strong> Ia harus teks HTML hidup, agar tidak terpotong pada rasio apa pun dan tetap terbaca pembaca layar.</li>
+    <li style="margin-bottom: 6pt;"><strong>Menunggu autoplay bersuara sebelum melanjutkan.</strong> Peramban akan menolaknya dan aplikasi tampak macet di layar hitam. Jalankan tanpa suara, sediakan lencana untuk menyalakan.</li>
+    <li style="margin-bottom: 6pt;"><strong>Membuat video wajib tanpa jalan keluar teknis.</strong> Tidak ada tombol Skip &mdash; itu keputusan pemilik proyek. Tetapi video yang gagal dimuat harus langsung meneruskan ke Login, dan batas waktu aman durasi&plus;5 detik harus meneruskan sendiri. Tanpa keduanya, satu berkas rusak membuat aplikasi tidak dapat dibuka sama sekali.</li>
+    <li style="margin-bottom: 6pt;"><strong>Menaruh identitas pembuat kiri-kanan.</strong> Ketiga barisnya satu kolom rata tengah pada setiap layar dan setiap titik henti &mdash; <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5pt;">space-between</span> ditolak. Pakai satu komponen footer bersama, jangan menyalin tata letaknya per layar.</li>
+    <li style="margin-bottom: 6pt;"><strong>Menambatkan kartu login ke bawah tanpa memendekkan pita gambar.</strong> Kartu tumbuh ke atas; setiap elemen yang ditambahkan mendorong tepi atasnya ke zona wajah. Tinggi pita dan tinggi kartu harus dihitung bersama.</li>
+    <li><strong>Menganggap game hanya pelengkap.</strong> Skor game adalah salah satu dari tiga sumber ketuntasan TP. Kalau skornya tidak masuk tabel hasil, rekap di dasbor salah.</li>
+  </ol>
+
+  <h2 style="margin: 20pt 0 8pt; font-size: 13.5pt; font-weight: 700; color: #103a56;">7 &middot; Hasil audit akhir</h2>
+  <table style="width: 100%; border-collapse: collapse; font-size: 9.5pt;">
+    <thead><tr style="background: #eef5fa;"><th style="text-align: left; padding: 6pt 8pt; border: 0.75pt solid #b6c4cf; font-size: 8.5pt; text-transform: uppercase; color: #14405e; width: 30%;">Yang diperiksa</th><th style="text-align: left; padding: 6pt 8pt; border: 0.75pt solid #b6c4cf; font-size: 8.5pt; text-transform: uppercase; color: #14405e;">Hasil</th></tr></thead>
+    <tbody>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Layar hilang</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tidak ada. 30 layar berdesain hi-fi, termasuk Opening, Login, dan Setup Admin yang ditambahkan pada revisi terakhir.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Kontradiksi angka</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Empat ditemukan dan diperbaiki sepanjang proyek: jumlah tabel (24&rarr;32&rarr;36), jumlah engine per fase (14/26&rarr;22/27/30 dengan aturan hitung dinyatakan), inventaris baris CP (33/55&rarr;20/47&rarr;24/47&rarr;29&plus;18 pending&rarr;47/47), dan pernyataan akses domain SIBI yang saya tulis tanpa mengujinya lebih dulu.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Data contoh dianggap resmi</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tidak ada. Contoh TP 4.2 pada mockup Tahap 2&ndash;3 berlabel contoh; TP Rekomendasi asli ada di Tahap 8 dan berbeda kodenya.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Label TP Resmi</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Bersih. Seluruh berkas memakai TP Rekomendasi dan TP Sekolah/Guru. Badge &ldquo;resmi&rdquo; yang tersisa hanya menempel pada CP, bukan TP.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Struktur elemen belum pasti</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Seluruhnya terjawab. PJOK, Koding &amp; KA (4 elemen di Fase C, bukan 6), dan keenam agama &mdash; termasuk dua bentuk struktur yang tidak seragam pada Kristen dan Katolik.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Placeholder CP/TP</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Tidak ada. Seluruh 47 baris CP berteks dari dokumen resmi. Dua entri elemen Kristen bertanda tidak_berlaku pada Fase A &mdash; itu ketetapan dokumen, bukan placeholder.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Berkas mati</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Dua berkas eksplorasi awal (Dashboard Arah A dan B) dihapus setelah dilebur ke Tahap 2A. Semua rujukan antar berkas menunjuk berkas yang ada.</td></tr>
+      <tr><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Konsistensi CP Matematika</td><td style="padding: 5pt 8pt; border: 0.75pt solid #cfdae3;">Teks rintisan dari salinan sekunder sudah digantikan seluruhnya oleh paket impor resmi. Selama perbandingan salinan itu saya menemukan satu memuat angka rusak akibat pengenalan teks (10.000 terbaca 10) &mdash; alasan mengapa langkah verifikasi terhadap PDF asli tetap wajib meski data kini dari paket resmi.</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin: 20pt 0 0; padding: 15pt 18pt; border: 2pt solid #103a56; border-radius: 6pt; background: #f7fbfd; break-inside: avoid;">
+    <div style="font-size: 12.5pt; font-weight: 700; color: #103a56;">UI/UX terkunci, database kurikulum lengkap</div>
+    <p style="margin: 7pt 0 0; font-size: 10.5pt; line-height: 1.6;"><strong>Seluruh UI/UX dinyatakan terkunci per 23 Agustus 2026.</strong> Tiga puluh layar, aturan responsive keenam titik henti, lapisan Login dan Setup Admin, serta video opening tanpa Lewati tidak berubah lagi tanpa persetujuan pemilik proyek. Aplikasi tidak lagi terikat pada buku yang dipakai satu sekolah. CP dan TP menjadi lapisan bersama; buku menjadi lapisan yang dipilih tiap sekolah. Tidak ada tahap desain berikutnya. Codex dapat mulai dari Tahap 1 Fondasi. Perubahan pada arsitektur, UI/UX, atau daftar fitur memerlukan persetujuan pemilik proyek terlebih dahulu.</p>
+    <p style="margin: 7pt 0 0; font-size: 10.5pt; line-height: 1.6;">Dua pekerjaan non-koding yang masih terbuka, keduanya lewat modul M23 tanpa menyentuh struktur: <strong>verifikasi baris demi baris</strong> terhadap PDF lampiran sampai seluruh 47 baris berstatus terverifikasi, dan <strong>penyusunan TP mapel agama</strong> yang tidak boleh diambil dari 020/2026 karena dokumen itu tidak memuat daftar TP. Menyusul kemudian: nomor halaman lampiran 29 baris non-agama, katalog buku SIBI, daftar bab, dan pemetaan bab ke TP.</p>
+  </div>
+
+</doc-page>
+</x-dc>
+</body>
+</html>

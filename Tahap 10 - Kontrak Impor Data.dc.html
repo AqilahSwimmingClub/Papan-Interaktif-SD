@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: #dfe4e9; font-family: 'Public Sans', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; color: #1a2733; }
+  a { color: #1b5e8c; text-decoration: none; }
+  a:hover { color: #0f3e60; }
+</style>
+</helmet>
+
+<div style="padding: 44px 48px 80px; display: flex; flex-direction: column; gap: 42px; width: max-content;">
+
+  <div style="max-width: 980px;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.09em; color: #62788a; text-transform: uppercase;">Tahap 10 &middot; kontrak impor data kurikulum</div>
+    <h1 style="margin: 12px 0 0; font-size: 34px; font-weight: 700; letter-spacing: -0.025em;">Kontrak Impor Data</h1>
+    <p style="margin: 10px 0 0; font-size: 16.5px; line-height: 1.6; color: #46596b;">Sembilan berkas impor yang menerima seluruh data kurikulum: CP, elemen, TP Rekomendasi, Panduan Mata Pelajaran, Buku Guru dan Buku Siswa, bab, materi, serta pemetaan antara ketiganya. Berkas disiapkan di luar aplikasi lalu diunggah &mdash; tidak ada data yang perlu diketik ulang.</p>
+    <div style="display: flex; gap: 9px; margin-top: 18px; flex-wrap: wrap;">
+      <span style="font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 20px; background: #eef5fa; color: #14405e; border: 1px solid #d3e3ee;">JSON dan CSV</span>
+      <span style="font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 20px; background: #eef2f6; color: #46596b; border: 1px solid #dde4ea;">bertahap per mapel</span>
+      <span style="font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 20px; background: #fdf0ec; color: #8f3a1f; border: 1px solid #f2d8cf;">tidak menerima data karangan</span>
+    </div>
+  </div>
+
+  <div style="width: 1440px; background: #fff; border: 1px solid #e2e9ef; border-radius: 14px; padding: 26px 28px;" data-screen-label="T10-01 Sembilan berkas">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">01</span>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">Sembilan berkas dan urutannya</h2>
+    </div>
+    <p style="margin: 12px 0 20px; font-size: 15px; line-height: 1.65; color: #46596b; max-width: 104ch;">Urutan wajib, karena setiap berkas merujuk berkas sebelumnya. Berkas 1&ndash;3 mengisi zona kurikulum resmi, berkas 4 mengisi TP Rekomendasi, berkas 5&ndash;8 mengisi lapisan referensi buku, berkas 9 menyatukan keduanya.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 9px;">
+      <sc-for list="{{ berkas }}" as="b" hint-placeholder-count="9">
+        <div style="display: grid; grid-template-columns: 42px 210px minmax(0, 1fr) 175px; gap: 16px; align-items: start; padding: 14px 17px; border-radius: 11px;" data-zona="{{ b.zona }}">
+          <div style="width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; font-size: 12.5px; font-weight: 700; background: #103a56; color: #fff;">{{ b.no }}</div>
+          <div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: #14405e;">{{ b.nama }}</div>
+            <div style="font-size: 12px; color: #6b8296; margin-top: 4px;">{{ b.tabel }}</div>
+          </div>
+          <div style="font-size: 13.5px; color: #33475a; line-height: 1.6;">{{ b.isi }}</div>
+          <div style="font-size: 12.5px; color: #52697d; line-height: 1.55;">{{ b.syarat }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 16px;" data-screen-label="T10-02 Bentuk berkas">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">02</span>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">Bentuk berkas</h2>
+      <span style="font-size: 13.5px; color: #62788a;">JSON penuh atau CSV per berkas</span>
+    </div>
+
+    <div style="width: 1440px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;">
+      <div style="background: #fff; border: 2px solid #1b5e8c; border-radius: 13px; overflow: hidden;">
+        <div style="padding: 13px 20px; background: #f7fbfd; border-bottom: 1px solid #d3e3ee; display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-size: 15px; font-weight: 700; color: #14405e;">JSON &middot; disarankan</span>
+          <span style="font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 10px; background: #1b5e8c; color: #fff;">SATU BERKAS</span>
+        </div>
+        <div style="padding: 16px 20px;">
+          <p style="margin: 0 0 12px; font-size: 13.5px; line-height: 1.6; color: #52697d;">Satu berkas memuat seluruh sembilan bagian sekaligus, dengan relasi tersusun. Cocok bila data disiapkan lewat skrip.</p>
+          <div style="background: #0e2a3d; border-radius: 9px; padding: 15px 17px; overflow-x: auto;">
+            <pre style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; line-height: 1.65; color: #cfe0ea;">{
+  "versi_impor": "1.0",
+  "dokumen": [{
+    "kode": "046/H/KR/2025",
+    "judul": "Keputusan Kepala BSKAP ...",
+    "tanggal": "2025-07-16",
+    "versi": "2025.1",
+    "url_sumber": "https://...",
+    "jumlah_halaman": 1691
+  }],
+  "cp": [{
+    "id": "CP-MAT-B",
+    "mapel_kode": "MAT",
+    "fase_kode": "B",
+    "cabang_kode": null,
+    "agama_kode": null,
+    "teks_capaian": "&lt;kutipan verbatim&gt;",
+    "dokumen_kode": "046/H/KR/2025",
+    "halaman_lampiran": 412
+  }],
+  "elemen": [{
+    "id": "ELM-MAT-B-01",
+    "cp_id": "CP-MAT-B",
+    "nama": "Bilangan",
+    "teks_elemen": "&lt;kutipan verbatim&gt;",
+    "urutan": 1
+  }],
+  "tp_rekomendasi": [{
+    "kode_tampil": "TP 4.2",
+    "elemen_id": "ELM-MAT-B-01",
+    "tingkat_kelas": 4,
+    "teks_tujuan": "...",
+    "semester": 1,
+    "halaman_lampiran": 415
+  }],
+  "referensi": [ ... ],
+  "referensi_bab": [ ... ],
+  "materi": [ ... ],
+  "pemetaan_bab_tp": [ ... ]
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 13px; overflow: hidden;">
+        <div style="padding: 13px 20px; background: #f8fafc; border-bottom: 1px solid #e6edf2; display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-size: 15px; font-weight: 700;">CSV &middot; satu berkas per bagian</span>
+          <span style="font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 10px; background: #eef2f6; color: #46596b;">9 BERKAS</span>
+        </div>
+        <div style="padding: 16px 20px;">
+          <p style="margin: 0 0 12px; font-size: 13.5px; line-height: 1.6; color: #52697d;">Cocok bila data disiapkan di Excel oleh operator sekolah atau tim kurikulum. Kolom pertama selalu id, relasi memakai id berkas lain.</p>
+          <div style="background: #f8fafc; border: 1px solid #e6edf2; border-radius: 9px; padding: 14px 16px; overflow-x: auto;">
+            <pre style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; line-height: 1.7; color: #33475a;">03-cp.csv
+id,mapel_kode,fase_kode,cabang_kode,
+agama_kode,teks_capaian,dokumen_kode,
+halaman_lampiran
+
+04-elemen.csv
+id,cp_id,nama,teks_elemen,urutan
+
+05-tp-rekomendasi.csv
+kode_tampil,elemen_id,tingkat_kelas,
+teks_tujuan,semester,halaman_lampiran
+
+08-pemetaan-bab-tp.csv
+referensi_bab_id,tp_kode,kesesuaian,
+catatan</pre>
+          </div>
+          <div style="margin-top: 13px; padding: 12px 14px; border-radius: 9px; background: #fdfaf3; border: 1px solid #f0e0bd;">
+            <div style="font-size: 12.5px; color: #7a5a10; line-height: 1.6;">Berkas contoh kosong berisi baris kepala dapat diunduh dari halaman Muat CP Resmi, sehingga operator tidak perlu menebak nama kolom.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 16px;" data-screen-label="T10-03 Aturan penerimaan">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">03</span>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">Aturan penerimaan</h2>
+      <span style="font-size: 13.5px; color: #62788a;">apa yang ditolak, dan mengapa</span>
+    </div>
+
+    <div style="width: 1440px; background: #fff; border: 1px solid #e2e9ef; border-radius: 14px; overflow: hidden;">
+      <div style="display: grid; grid-template-columns: 250px minmax(0, 1fr) 190px; gap: 16px; padding: 13px 24px; background: #f8fafc; border-bottom: 1px solid #e6edf2;">
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase;">Keadaan</div>
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase;">Perilaku pengimpor</div>
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase;">Alasan</div>
+      </div>
+      <sc-for list="{{ aturan }}" as="r" hint-placeholder-count="10">
+        <div style="display: grid; grid-template-columns: 250px minmax(0, 1fr) 190px; gap: 16px; padding: 13px 24px; border-bottom: 1px solid #f1f5f8; align-items: start;">
+          <div style="font-size: 13.5px; font-weight: 600; color: #33475a;">{{ r.keadaan }}</div>
+          <div style="font-size: 13.5px; color: #33475a; line-height: 1.6;">{{ r.perilaku }}</div>
+          <div style="font-size: 12.5px; color: #6b8296; line-height: 1.55;">{{ r.alasan }}</div>
+        </div>
+      </sc-for>
+      <div style="padding: 16px 24px; background: #fdf0ec; border-top: 1px solid #f2d8cf;">
+        <div style="font-size: 13.5px; color: #8f3a1f; line-height: 1.65;"><strong>Pengimpor tidak pernah melengkapi data yang kurang.</strong> Baris yang tidak lengkap ditolak dan dilaporkan, bukan ditambal dengan perkiraan. Ini berlaku untuk seluruh sembilan berkas, dan berlaku juga bagi AI &mdash; tidak ada jalur yang membolehkan model bahasa mengisi kolom teks CP.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 16px;" data-screen-label="T10-04 Alur impor">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">04</span>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">Alur impor</h2>
+      <span style="font-size: 13.5px; color: #62788a;">memakai layar Muat CP Resmi yang sudah ada</span>
+    </div>
+
+    <div style="width: 1440px; background: #fff; border: 1px solid #e2e9ef; border-radius: 14px; padding: 26px 28px;">
+      <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.65; color: #46596b; max-width: 104ch;">Tidak ada layar baru. Empat langkah pada layar Muat CP Resmi &mdash; unggah, petakan, verifikasi, kunci &mdash; kini menerima kesembilan berkas, bukan hanya berkas CP. Menu Tambah Referensi pada layar Referensi Pembelajaran menerima berkas 5 sampai 8.</p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 11px; align-items: stretch;">
+        <div style="flex: 1 1 210px; border: 2px solid #1b5e8c; border-radius: 11px; padding: 17px 19px; background: #f7fbfd;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #1b5e8c;">LANGKAH 1</div>
+          <div style="font-size: 15px; font-weight: 700; margin-top: 6px; color: #14405e;">Unggah</div>
+          <div style="font-size: 13px; color: #14405e; margin-top: 7px; line-height: 1.6;">Satu berkas JSON, atau beberapa CSV sekaligus. Pengimpor mengenali jenisnya dari baris kepala.</div>
+        </div>
+        <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+        <div style="flex: 1 1 210px; border: 1px solid #dce5ec; border-radius: 11px; padding: 17px 19px; background: #f8fafc;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8ea5b8;">LANGKAH 2</div>
+          <div style="font-size: 15px; font-weight: 700; margin-top: 6px;">Petakan</div>
+          <div style="font-size: 13px; color: #52697d; margin-top: 7px; line-height: 1.6;">Cocokkan kolom berkas dengan kolom tabel. Pemetaan tersimpan agar impor berikutnya tidak perlu diulang.</div>
+        </div>
+        <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+        <div style="flex: 1 1 210px; border: 1px solid #dce5ec; border-radius: 11px; padding: 17px 19px; background: #f8fafc;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8ea5b8;">LANGKAH 3</div>
+          <div style="font-size: 15px; font-weight: 700; margin-top: 6px;">Periksa &amp; verifikasi</div>
+          <div style="font-size: 13px; color: #52697d; margin-top: 7px; line-height: 1.6;">Pratinjau baris demi baris berdampingan dengan dokumen asli. Operator menandai terverifikasi per baris, bukan sekaligus.</div>
+        </div>
+        <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+        <div style="flex: 1 1 210px; border: 1px solid #cfe6da; border-radius: 11px; padding: 17px 19px; background: #f5fbf8;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #0f6b4f;">LANGKAH 4</div>
+          <div style="font-size: 15px; font-weight: 700; margin-top: 6px; color: #0b5340;">Kunci</div>
+          <div style="font-size: 13px; color: #0b5340; margin-top: 7px; line-height: 1.6;">Baris terverifikasi menjadi hanya-baca. Baris yang belum diverifikasi tetap masuk, tetapi diberi penanda dan tidak dipakai AI sebagai kutipan.</div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; margin-top: 20px;">
+        <div style="border: 1px solid #e6edf2; border-radius: 11px; padding: 16px 18px; background: #f8fafc;">
+          <div style="font-size: 14px; font-weight: 700;">Bertahap per mapel</div>
+          <div style="font-size: 13px; color: #52697d; margin-top: 6px; line-height: 1.6;">Impor tidak harus sekaligus 47 baris. Satu mapel dapat diimpor lebih dulu, diuji rantai penuhnya sampai materi, baru mapel berikutnya menyusul.</div>
+        </div>
+        <div style="border: 1px solid #e6edf2; border-radius: 11px; padding: 16px 18px; background: #f8fafc;">
+          <div style="font-size: 14px; font-weight: 700;">Impor ulang aman</div>
+          <div style="font-size: 13px; color: #52697d; margin-top: 6px; line-height: 1.6;">Berkas yang diimpor ulang membuat versi baru pada tabel dokumen. Versi lama disimpan agar TP dan materi lama tetap punya acuan.</div>
+        </div>
+        <div style="border: 1px solid #e6edf2; border-radius: 11px; padding: 16px 18px; background: #f8fafc;">
+          <div style="font-size: 14px; font-weight: 700;">Laporan hasil impor</div>
+          <div style="font-size: 13px; color: #52697d; margin-top: 6px; line-height: 1.6;">Setiap impor menghasilkan ringkasan: baris masuk, baris ditolak beserta alasannya, dan baris yang menimpa versi sebelumnya.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="width: 1440px; background: #103a56; border-radius: 14px; padding: 26px 30px; color: #fff;">
+    <h2 style="margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -0.015em;">Status proyek setelah tiga impor</h2>
+    <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: #b9d2e0; max-width: 104ch;">Kontrak ini sudah dijalankan tiga kali. Paket pertama masuk 22 Agustus 2026, disusul dua pembaruan mapel agama pada 23 Agustus 2026 &mdash; ketiganya lolos seluruh pemeriksaan integritas tanpa satu pun galat. Hasilnya ada di Tahap 8 bagian 00, 00b, dan 00c.</p>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 13px; margin-top: 20px;">
+      <div style="border: 1px solid #1d4d6d; border-radius: 11px; padding: 16px 18px;">
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; color: #9dc0d4; text-transform: uppercase;">Siap</div>
+        <div style="font-size: 13px; color: #dce8f0; margin-top: 7px; line-height: 1.6;">27 layar &middot; 36 tabel &middot; 30 engine game &middot; 4 titik henti perangkat &middot; 23 modul</div>
+      </div>
+      <div style="border: 1px solid #1d4d6d; border-radius: 11px; padding: 16px 18px;">
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; color: #9dc0d4; text-transform: uppercase;">Terisi</div>
+        <div style="font-size: 13px; color: #dce8f0; margin-top: 7px; line-height: 1.6;">47 CP &middot; 221 elemen &middot; 212 TP Rekomendasi &middot; 17 mapel</div>
+      </div>
+      <div style="border: 1px solid #1d4d6d; border-radius: 11px; padding: 16px 18px;">
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; color: #9dc0d4; text-transform: uppercase;">Menunggu impor</div>
+        <div style="font-size: 13px; color: #dce8f0; margin-top: 7px; line-height: 1.6;">TP mapel agama &middot; halaman lampiran 29 baris non-agama &middot; katalog buku SIBI &middot; bab &middot; materi &middot; pemetaan</div>
+      </div>
+      <div style="border: 2px solid #0f6b4f; border-radius: 11px; padding: 16px 18px; background: #0d3049;">
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; color: #9dc4b4; text-transform: uppercase;">Siap Codex</div>
+        <div style="font-size: 13px; color: #dcece5; margin-top: 7px; line-height: 1.6;">Database kurikulum lengkap 47/47 setelah tiga impor. Codex dapat mulai sekarang.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const berkas = [
+      { no: "01", nama: "01-dokumen.json", tabel: "dokumen_kurikulum", zona: "resmi",
+        isi: "Dokumen sumber: nomor, judul, tanggal, versi, URL, jumlah halaman, dan dokumen yang digantikannya.",
+        syarat: "Wajib pertama. Semua baris CP merujuk ke sini." },
+      { no: "02", nama: "02-mapel.json", tabel: "mata_pelajaran \u00b7 cabang_seni \u00b7 agama", zona: "resmi",
+        isi: "Katalog mapel beserta status wajib atau pilihan, fase dan kelas tersedia, penanda bercabang, dan dasar hukumnya.",
+        syarat: "Sudah terisi 10 baris. Impor hanya bila ada perubahan struktur." },
+      { no: "03", nama: "03-cp.csv", tabel: "cp", zona: "resmi",
+        isi: "Teks capaian per mapel per fase, apa adanya dari dokumen, beserta nomor halaman lampiran asalnya.",
+        syarat: "Butuh berkas 01 dan 02. Inilah 23 baris yang masih kosong." },
+      { no: "04", nama: "04-elemen.csv", tabel: "elemen", zona: "resmi",
+        isi: "Nama dan uraian elemen di bawah setiap CP, beserta urutan tampilnya.",
+        syarat: "Butuh berkas 03. Baris tanpa cp_id yang dikenal ditolak." },
+      { no: "05", nama: "05-tp-rekomendasi.csv", tabel: "tp", zona: "sekolah",
+        isi: "TP bawaan aplikasi per elemen per tingkat kelas. Kolom sumber diisi otomatis bernilai rekomendasi.",
+        syarat: "Butuh berkas 04. Kode berawalan S ditolak \u2014 itu milik TP Sekolah/Guru." },
+      { no: "06", nama: "06-referensi.csv", tabel: "referensi", zona: "buku",
+        isi: "Panduan Mata Pelajaran, Buku Guru, Buku Siswa, dan buku penerbit lain: judul, penerbit, tahun, versi, ISBN, URL, lingkup izin.",
+        syarat: "Berdiri sendiri. Dapat diimpor kapan saja." },
+      { no: "07", nama: "07-referensi-bab.csv", tabel: "referensi_bab", zona: "buku",
+        isi: "Nomor tampil, judul bab, halaman awal, urutan, dan ringkasan ruang lingkup. Judul saja \u2014 bukan isi bab.",
+        syarat: "Butuh berkas 06. Kolom isi bab ditolak bila lingkup izin metadata_saja." },
+      { no: "08", nama: "08-materi.csv", tabel: "materi", zona: "guru",
+        isi: "Materi yang boleh disimpan penuh: materi buatan guru dan materi berlisensi terbuka. Blok isi, perkiraan menit, dan sumbernya.",
+        syarat: "Butuh berkas 05. tp_id wajib ada." },
+      { no: "09", nama: "09-pemetaan.csv", tabel: "pemetaan_bab_tp \u00b7 tautan_tp", zona: "buku",
+        isi: "Pemetaan bab buku ke TP, dan tautan materi, game, LKPD, soal, serta asesmen ke TP. Keduanya banyak ke banyak.",
+        syarat: "Butuh berkas 05 dan 07. Berkas terakhir." }
+    ];
+
+    const aturan = [
+      { keadaan: "Baris CP tanpa dokumen_kode", perilaku: "Ditolak. Laporan menyebut nomor barisnya dan dokumen apa saja yang dikenal sistem.", alasan: "CP tanpa jejak asal tidak dapat diverifikasi." },
+      { keadaan: "teks_capaian kosong", perilaku: "Ditolak. Baris tidak dibuat sama sekali \u2014 tidak ada baris CP kosong yang lahir dari impor.", alasan: "Kolom kosong dari impor tidak bisa dibedakan dari kelalaian." },
+      { keadaan: "mapel_kode tidak dikenal", perilaku: "Ditolak, bukan dibuatkan mapel baru. Laporan menyebut daftar kode yang sah.", alasan: "Struktur mapel mengikuti ketentuan, bukan isi berkas." },
+      { keadaan: "Koding dan KA pada fase A atau B", perilaku: "Ditolak dengan menyebut dasar hukumnya.", alasan: "kelas_tersedia terbatas pada 5 dan 6." },
+      { keadaan: "IPAS pada fase A", perilaku: "Ditolak. IPAS hanya berlaku Fase B dan C.", alasan: "Fase A memuat IPAS di dalam mapel lain." },
+      { keadaan: "TP berkode awalan S", perilaku: "Ditolak dari berkas 05. Kode S hanya lahir dari guru lewat layar Kelola TP Sekolah.", alasan: "Memisahkan TP Rekomendasi dari TP Sekolah/Guru." },
+      { keadaan: "Bab buku memuat isi penuh", perilaku: "Kolom isi dibuang bila referensi berlingkup metadata_saja. Baris tetap masuk dengan judul dan halamannya.", alasan: "Menjaga batas hak cipta di tingkat data." },
+      { keadaan: "Pemetaan menunjuk TP tak dikenal", perilaku: "Baris pemetaan ditolak; bab dan TP-nya sendiri tidak terpengaruh.", alasan: "Pemetaan boleh gagal tanpa merusak dua sisi yang dihubungkannya." },
+      { keadaan: "Impor ulang dokumen yang sama", perilaku: "Membuat versi baru. Baris lama diarsipkan, tidak dihapus.", alasan: "TP dan materi lama tetap punya acuan." },
+      { keadaan: "Baris duplikat dalam satu berkas", perilaku: "Yang pertama diterima, sisanya ditolak dan dilaporkan sebagai duplikat beserta nomor barisnya.", alasan: "Menghindari CP ganda yang sulit ditelusuri." }
+    ];
+
+    return { berkas, aturan };
+  }
+}
+</script>
+</body>
+</html>

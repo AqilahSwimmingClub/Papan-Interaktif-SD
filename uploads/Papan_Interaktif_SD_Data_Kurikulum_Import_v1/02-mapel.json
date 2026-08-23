@@ -1,0 +1,370 @@
+{
+  "mata_pelajaran": [
+    {
+      "kode": "PAI",
+      "nama": "Pendidikan Agama Islam dan Budi Pekerti",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib_sesuai_agama",
+      "bercabang": true,
+      "agama_kode": "ISLAM"
+    },
+    {
+      "kode": "PAK",
+      "nama": "Pendidikan Agama Kristen dan Budi Pekerti",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib_sesuai_agama",
+      "bercabang": true,
+      "agama_kode": "KRISTEN"
+    },
+    {
+      "kode": "PAKat",
+      "nama": "Pendidikan Agama Katolik dan Budi Pekerti",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib_sesuai_agama",
+      "bercabang": true,
+      "agama_kode": "KATOLIK"
+    },
+    {
+      "kode": "PAH",
+      "nama": "Pendidikan Agama Hindu dan Budi Pekerti",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib_sesuai_agama",
+      "bercabang": true,
+      "agama_kode": "HINDU"
+    },
+    {
+      "kode": "PAB",
+      "nama": "Pendidikan Agama Buddha dan Budi Pekerti",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib_sesuai_agama",
+      "bercabang": true,
+      "agama_kode": "BUDDHA"
+    },
+    {
+      "kode": "PAKh",
+      "nama": "Pendidikan Agama Khonghucu dan Budi Pekerti",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib_sesuai_agama",
+      "bercabang": true,
+      "agama_kode": "KHONGHUCU"
+    },
+    {
+      "kode": "PP",
+      "nama": "Pendidikan Pancasila",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib",
+      "bercabang": false
+    },
+    {
+      "kode": "BI",
+      "nama": "Bahasa Indonesia",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib",
+      "bercabang": false
+    },
+    {
+      "kode": "MAT",
+      "nama": "Matematika",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib",
+      "bercabang": false
+    },
+    {
+      "kode": "IPAS",
+      "nama": "Ilmu Pengetahuan Alam dan Sosial (IPAS)",
+      "fase": [
+        "B",
+        "C"
+      ],
+      "kelas": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib",
+      "bercabang": false
+    },
+    {
+      "kode": "PJOK",
+      "nama": "Pendidikan Jasmani, Olahraga, dan Kesehatan",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "wajib",
+      "bercabang": false
+    },
+    {
+      "kode": "BING",
+      "nama": "Bahasa Inggris",
+      "fase": [
+        "B",
+        "C"
+      ],
+      "kelas": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "sesuai_konfigurasi_sekolah",
+      "bercabang": false
+    },
+    {
+      "kode": "SMUS",
+      "nama": "Seni Musik",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "pilihan_cabang_seni",
+      "bercabang": true,
+      "cabang_kode": "SMUS"
+    },
+    {
+      "kode": "RUPA",
+      "nama": "Seni Rupa",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "pilihan_cabang_seni_default",
+      "bercabang": true,
+      "cabang_kode": "RUPA"
+    },
+    {
+      "kode": "TARI",
+      "nama": "Seni Tari",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "pilihan_cabang_seni",
+      "bercabang": true,
+      "cabang_kode": "TARI"
+    },
+    {
+      "kode": "TEATER",
+      "nama": "Seni Teater",
+      "fase": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kelas": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "pilihan_cabang_seni",
+      "bercabang": true,
+      "cabang_kode": "TEATER"
+    },
+    {
+      "kode": "KKA",
+      "nama": "Koding dan Kecerdasan Artifisial",
+      "fase": [
+        "C"
+      ],
+      "kelas": [
+        5,
+        6
+      ],
+      "status": "pilihan",
+      "bercabang": false
+    }
+  ],
+  "cabang_seni": [
+    {
+      "kode": "RUPA",
+      "nama": "Seni Rupa",
+      "default": true
+    },
+    {
+      "kode": "SMUS",
+      "nama": "Seni Musik"
+    },
+    {
+      "kode": "TARI",
+      "nama": "Seni Tari"
+    },
+    {
+      "kode": "TEATER",
+      "nama": "Seni Teater"
+    }
+  ],
+  "agama": [
+    {
+      "kode": "ISLAM",
+      "nama": "Islam"
+    },
+    {
+      "kode": "KRISTEN",
+      "nama": "Kristen"
+    },
+    {
+      "kode": "KATOLIK",
+      "nama": "Katolik"
+    },
+    {
+      "kode": "HINDU",
+      "nama": "Hindu"
+    },
+    {
+      "kode": "BUDDHA",
+      "nama": "Buddha"
+    },
+    {
+      "kode": "KHONGHUCU",
+      "nama": "Khonghucu"
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: #dfe4e9; font-family: 'Public Sans', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; color: #1a2733; }
+  a { color: #1b5e8c; text-decoration: none; }
+  a:hover { color: #0f3e60; }
+</style>
+</helmet>
+
+<div style="padding: 44px 48px 80px; display: flex; flex-direction: column; gap: 42px; width: max-content;">
+
+  <div style="max-width: 960px;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.09em; color: #62788a; text-transform: uppercase;">Tahap 7 &middot; pustaka game engine</div>
+    <h1 style="margin: 12px 0 0; font-size: 34px; font-weight: 700; letter-spacing: -0.025em;">30 Engine Game</h1>
+    <p style="margin: 10px 0 0; font-size: 16.5px; line-height: 1.6; color: #46596b;">Setiap engine adalah kerangka permainan yang diisi butir dari TP. Kolom fase menentukan engine mana yang ditawarkan; kolom mapel menentukan di mana ia masuk akal. Engine yang tidak cocok tidak ditampilkan sama sekali &mdash; guru tidak perlu menyaring sendiri.</p>
+  </div>
+
+  <div style="width: 1440px; background: #fff; border: 1px solid #e2e9ef; border-radius: 14px; overflow: hidden;" data-screen-label="T7-01 Tabel engine">
+    <div style="display: grid; grid-template-columns: 40px 168px minmax(0, 1fr) 132px 62px 62px 62px 150px; gap: 12px; padding: 13px 24px; background: #f8fafc; border-bottom: 1px solid #e6edf2;">
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase;">#</div>
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase;">Engine</div>
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase;">Yang diukur</div>
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase;">Mode</div>
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase; text-align: center;">A</div>
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase; text-align: center;">B</div>
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase; text-align: center;">C</div>
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase;">Mapel utama</div>
+    </div>
+
+    <sc-for list="{{ engines }}" as="e" hint-placeholder-count="30">
+      <div style="display: grid; grid-template-columns: 40px 168px minmax(0, 1fr) 132px 62px 62px 62px 150px; gap: 12px; padding: 11px 24px; border-bottom: 1px solid #f1f5f8; align-items: center;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #8ea5b8;">{{ e.no }}</div>
+        <div style="font-size: 13.5px; font-weight: 600;">{{ e.nama }}</div>
+        <div style="font-size: 12.5px; color: #52697d; line-height: 1.5;">{{ e.ukur }}</div>
+        <div style="font-size: 12px; color: #6b8296;">{{ e.mode }}</div>
+        <div style="text-align: center; font-size: 13px;">{{ e.a }}</div>
+        <div style="text-align: center; font-size: 13px;">{{ e.b }}</div>
+        <div style="text-align: center; font-size: 13px;">{{ e.c }}</div>
+        <div style="font-size: 12px; color: #6b8296;">{{ e.mapel }}</div>
+      </div>
+    </sc-for>
+
+    <div style="padding: 16px 24px; background: #f8fafc; border-top: 1px solid #e6edf2; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+      <div style="display: flex; gap: 18px; flex-wrap: wrap;">
+        <span style="display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: #52697d;"><span style="color: #0f6b4f; font-weight: 700;">&#10003;</span> cocok</span>
+        <span style="display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: #52697d;"><span style="color: #f2b230; font-weight: 700;">&#9675;</span> cocok dengan penyederhanaan &mdash; tetap ditawarkan</span>
+        <span style="display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: #52697d;"><span style="color: #cfdae3; font-weight: 700;">&mdash;</span> tidak ditawarkan</span>
+      </div>
+      <div style="font-size: 12.5px; color: #52697d;">Pustaka terbuka &mdash; engine baru ditambah tanpa mengubah skema tabel game.</div>
+    </div>
+  </div>
+
+  <div style="width: 1440px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;">
+    <div style="background: #fff; border: 1px solid #f0e0bd; border-radius: 13px; padding: 20px 22px;">
+      <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; color: #8a6410;">FASE A &middot; KELAS 1&ndash;2</div>
+      <div style="font-size: 17px; font-weight: 700; margin-top: 8px; color: #7a5a10;">Sederhana dan sangat visual</div>
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 13px;">
+        <div style="font-size: 13px; color: #7a5a10; line-height: 1.6;">Dua pilihan jawaban, kartu berukuran minimal 200 px.</div>
+        <div style="font-size: 13px; color: #7a5a10; line-height: 1.6;">Gambar mendominasi, teks maksimal satu baris pendek.</div>
+        <div style="font-size: 13px; color: #7a5a10; line-height: 1.6;">Tanpa hitungan detik. Tanpa peringkat antarsiswa.</div>
+        <div style="font-size: 13px; color: #7a5a10; line-height: 1.6;">Tombol bacakan pada setiap butir, wajib.</div>
+        <div style="font-size: 13px; color: #7a5a10; line-height: 1.6;">Maksimal 8 butir per sesi permainan.</div>
+      </div>
+      <div style="font-size: 12.5px; color: #8a6410; margin-top: 13px; padding-top: 12px; border-top: 1px solid #f0e0bd;">22 engine ditawarkan pada fase ini &mdash; 14 bertanda cocok, 8 bertanda cocok dengan penyederhanaan.</div>
+    </div>
+
+    <div style="background: #fff; border: 1px solid #cfe6da; border-radius: 13px; padding: 20px 22px;">
+      <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; color: #0f6b4f;">FASE B &middot; KELAS 3&ndash;4</div>
+      <div style="font-size: 17px; font-weight: 700; margin-top: 8px; color: #0b5340;">Pemecahan masalah</div>
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 13px;">
+        <div style="font-size: 13px; color: #0b5340; line-height: 1.6;">Empat pilihan jawaban, 20 detik per butir.</div>
+        <div style="font-size: 13px; color: #0b5340; line-height: 1.6;">Butir bertingkat: dua langkah penyelesaian.</div>
+        <div style="font-size: 13px; color: #0b5340; line-height: 1.6;">Mode kelompok berempat dan battle mulai dipakai.</div>
+        <div style="font-size: 13px; color: #0b5340; line-height: 1.6;">Papan skor kelompok, bukan peringkat pribadi.</div>
+        <div style="font-size: 13px; color: #0b5340; line-height: 1.6;">10 butir per sesi, sekitar 8 menit.</div>
+      </div>
+      <div style="font-size: 12.5px; color: #0f6b4f; margin-top: 13px; padding-top: 12px; border-top: 1px solid #cfe6da;">27 engine ditawarkan pada fase ini &mdash; 24 bertanda cocok, 3 dengan penyederhanaan.</div>
+    </div>
+
+    <div style="background: #fff; border: 1px solid #e0d3ea; border-radius: 13px; padding: 20px 22px;">
+      <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; color: #6b3590;">FASE C &middot; KELAS 5&ndash;6</div>
+      <div style="font-size: 17px; font-weight: 700; margin-top: 8px; color: #5c2d7d;">Analitis dan strategis</div>
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 13px;">
+        <div style="font-size: 13px; color: #5c2d7d; line-height: 1.6;">Empat sampai lima pilihan, atau jawaban terbuka.</div>
+        <div style="font-size: 13px; color: #5c2d7d; line-height: 1.6;">Simulasi, klasifikasi bertingkat, soal cerita bertahap.</div>
+        <div style="font-size: 13px; color: #5c2d7d; line-height: 1.6;">Strategi kelompok: keputusan berdampak pada babak berikut.</div>
+        <div style="font-size: 13px; color: #5c2d7d; line-height: 1.6;">Engine koding aktif bila Koding &amp; KA diaktifkan sekolah.</div>
+        <div style="font-size: 13px; color: #5c2d7d; line-height: 1.6;">12&ndash;15 butir per sesi, sampai 12 menit.</div>
+      </div>
+      <div style="font-size: 12.5px; color: #6b3590; margin-top: 13px; padding-top: 12px; border-top: 1px solid #e0d3ea;">30 engine ditawarkan pada fase ini &mdash; seluruh pustaka.</div>
+    </div>
+  </div>
+
+  <div style="width: 1440px; background: #fff; border: 1px solid #e2e9ef; border-radius: 14px; padding: 26px 28px;" data-screen-label="T7-02 Aturan penyaringan">
+    <h2 style="margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -0.015em;">Cara aplikasi menyaring engine</h2>
+    <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.65; color: #46596b; max-width: 100ch;">Empat penyaring berjalan berurutan setiap kali guru membuka katalog game atau meminta AI membuat game. Hasil akhirnya adalah daftar pendek yang semuanya benar-benar bisa dipakai.</p>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 11px; align-items: stretch; margin-top: 20px;">
+      <div style="flex: 1 1 200px; border: 1px solid #dce5ec; border-radius: 11px; padding: 16px 18px; background: #f8fafc;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8ea5b8;">SARING 1</div>
+        <div style="font-size: 14.5px; font-weight: 700; margin-top: 6px;">Fase</div>
+        <div style="font-size: 13px; color: #52697d; margin-top: 6px; line-height: 1.6;">Engine yang tidak berlabel fase ini dibuang. Fase A membuang 8 engine, Fase B membuang 3.</div>
+      </div>
+      <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+      <div style="flex: 1 1 200px; border: 1px solid #dce5ec; border-radius: 11px; padding: 16px 18px; background: #f8fafc;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8ea5b8;">SARING 2</div>
+        <div style="font-size: 14.5px; font-weight: 700; margin-top: 6px;">Mapel</div>
+        <div style="font-size: 13px; color: #52697d; margin-top: 6px; line-height: 1.6;">Coding blocks tidak muncul di Bahasa Indonesia. Matematika cepat tidak muncul di Seni.</div>
+      </div>
+      <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+      <div style="flex: 1 1 200px; border: 1px solid #d3e3ee; border-radius: 11px; padding: 16px 18px; background: #f7fbfd;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #1b5e8c;">SARING 3</div>
+        <div style="font-size: 14.5px; font-weight: 700; margin-top: 6px; color: #14405e;">Kata kerja TP</div>
+        <div style="font-size: 13px; color: #14405e; margin-top: 6px; line-height: 1.6;">Penyaring paling menentukan. TP &ldquo;mengurutkan&rdquo; memunculkan susun urutan dan sorting; TP &ldquo;mengenali&rdquo; memunculkan jodohkan dan memory card.</div>
+      </div>
+      <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+      <div style="flex: 1 1 200px; border: 1px solid #dce5ec; border-radius: 11px; padding: 16px 18px; background: #f8fafc;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8ea5b8;">SARING 4</div>
+        <div style="font-size: 14.5px; font-weight: 700; margin-top: 6px;">Konteks kelas</div>
+        <div style="font-size: 13px; color: #52697d; margin-top: 6px; line-height: 1.6;">Jumlah siswa, jumlah kelompok, waktu tersisa, dan ketersediaan perangkat siswa.</div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 20px;">
+      <div style="border: 1px solid #cfe6da; border-radius: 11px; padding: 18px 20px; background: #f5fbf8;">
+        <div style="font-size: 14.5px; font-weight: 700; color: #0b5340;">Minimal 6, tanpa batas atas</div>
+        <div style="font-size: 13px; color: #0b5340; margin-top: 7px; line-height: 1.65;">Setiap TP wajib punya sekurang-kurangnya 6 game relevan sejak awal. Katalog terus bertambah dari AI Game Generator dan dari guru lain di sekolah. Tidak ada angka maksimum di skema maupun di antarmuka.</div>
+      </div>
+      <div style="border: 1px solid #f2d8cf; border-radius: 11px; padding: 18px 20px; background: #fdf0ec;">
+        <div style="font-size: 14.5px; font-weight: 700; color: #8f3a1f;">Yang disimpan setiap game</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 5px 9px; border-radius: 6px; background: #fff; color: #8f3a1f;">kelas</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 5px 9px; border-radius: 6px; background: #fff; color: #8f3a1f;">fase</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 5px 9px; border-radius: 6px; background: #fff; color: #8f3a1f;">mapel</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 5px 9px; border-radius: 6px; background: #fff; color: #8f3a1f;">cp</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 5px 9px; border-radius: 6px; background: #fff; color: #8f3a1f;">tp</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 5px 9px; border-radius: 6px; background: #fff; color: #8f3a1f;">materi</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 5px 9px; border-radius: 6px; background: #fff; color: #8f3a1f;">engine</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 5px 9px; border-radius: 6px; background: #fff; color: #8f3a1f;">tingkat_kesulitan</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 5px 9px; border-radius: 6px; background: #fff; color: #8f3a1f;">mode_permainan</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 5px 9px; border-radius: 6px; background: #fff; color: #8f3a1f;">durasi</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 5px 9px; border-radius: 6px; background: #fff; color: #8f3a1f;">skor</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 5px 9px; border-radius: 6px; background: #fff; color: #8f3a1f;">hasil_siswa</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const Y = "\u2713", O = "\u25CB", N = "\u2014";
+    const raw = [
+      ["Pilihan ganda", "Pemahaman konsep, pengenalan istilah", "individu, kelas", Y, Y, Y, "semua mapel"],
+      ["Benar/salah", "Ketepatan pernyataan, miskonsepsi", "kelas, battle", Y, Y, Y, "semua mapel"],
+      ["Kuis cepat", "Kelancaran setelah konsep dipahami", "individu, battle", O, Y, Y, "semua mapel"],
+      ["Jodohkan", "Mengenali hubungan dan kesetaraan", "kelompok, individu", Y, Y, Y, "Mat, BIN, IPAS, ENG"],
+      ["Drag & drop", "Menempatkan pada kategori yang tepat", "individu, kelompok", Y, Y, Y, "semua mapel"],
+      ["Susun urutan", "Mengurutkan berdasarkan kriteria", "individu, kelompok", O, Y, Y, "Mat, IPAS, BIN"],
+      ["Isi rumpang", "Melengkapi pola atau kalimat", "individu", O, Y, Y, "BIN, Mat, ENG"],
+      ["Memory card", "Mengingat pasangan, daya ingat", "kelas, kelompok", Y, Y, Y, "semua mapel"],
+      ["Tebak gambar", "Mengenali objek dan istilah visual", "kelas, individu", Y, Y, Y, "IPAS, BIN, SBD, ENG"],
+      ["Tebak kata", "Kosakata dan ejaan", "kelompok, kelas", Y, Y, Y, "BIN, ENG"],
+      ["Susun kata", "Struktur kata dan kalimat", "individu, kelompok", O, Y, Y, "BIN, ENG"],
+      ["Puzzle", "Bagian dan keseluruhan, keruangan", "individu, kelompok", Y, Y, Y, "Mat, SBD, IPAS"],
+      ["Maze / labirin", "Perencanaan langkah, arah", "individu", O, Y, Y, "Mat, IPAS, KKA"],
+      ["Roda tantangan", "Pengulangan acak, seluruh kelas aktif", "kelas", Y, Y, Y, "semua mapel"],
+      ["Bingo edukasi", "Pengenalan cepat dalam kelompok besar", "kelas", Y, Y, Y, "Mat, BIN, IPAS"],
+      ["Balap soal", "Kelancaran berwaktu", "battle, kelompok", N, Y, Y, "Mat, BIN"],
+      ["Battle kelompok", "Kerja sama dan strategi kelompok", "battle", N, Y, Y, "semua mapel"],
+      ["Siapa cepat", "Reaksi dan penguasaan hafalan", "kelas, battle", O, Y, Y, "Mat, BIN, IPAS"],
+      ["Sorting", "Mengurutkan menurut aturan", "individu, kelompok", O, Y, Y, "Mat, IPAS"],
+      ["Klasifikasi", "Menggolongkan berdasarkan ciri", "kelompok, individu", O, Y, Y, "IPAS, PPKN, Mat"],
+      ["Timeline", "Urutan peristiwa dan sebab akibat", "kelompok", N, O, Y, "IPAS, PPKN, PABP"],
+      ["Simulasi", "Keputusan berdampak, sistem", "kelompok", N, N, Y, "IPAS, PPKN, KKA"],
+      ["Eksplorasi gambar", "Menemukan detail pada gambar besar", "kelas, kelompok", Y, Y, Y, "IPAS, SBD, BIN"],
+      ["Matematika cepat", "Kelancaran hitung", "individu, battle", O, Y, Y, "Mat"],
+      ["Soal cerita interaktif", "Penalaran bertahap, HOTS", "individu, kelompok", N, O, Y, "Mat, BIN, IPAS"],
+      ["Coding blocks", "Urutan perintah dan pengulangan", "individu, kelompok", N, N, Y, "KKA"],
+      ["Debugging challenge", "Menemukan dan memperbaiki kesalahan", "kelompok", N, N, Y, "KKA"],
+      ["Pattern recognition", "Menemukan pola dan aturan", "individu", O, Y, Y, "Mat, KKA, SBD"],
+      ["Peta interaktif", "Letak dan hubungan keruangan", "kelompok, kelas", N, O, Y, "IPAS, PPKN"],
+      ["Kartu peran", "Sikap, dialog, dan pembiasaan", "kelompok", O, Y, Y, "PPKN, PABP, BIN, SBD"]
+    ];
+    return {
+      engines: raw.map((r, i) => ({
+        no: String(i + 1).padStart(2, "0"),
+        nama: r[0], ukur: r[1], mode: r[2], a: r[3], b: r[4], c: r[5], mapel: r[6]
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

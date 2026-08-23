@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: #dfe4e9; font-family: 'Public Sans', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; color: #1a2733; }
+  a { color: #1b5e8c; text-decoration: none; }
+  a:hover { color: #0f3e60; }
+</style>
+</helmet>
+
+<div style="padding: 44px 48px 80px; display: flex; flex-direction: column; gap: 42px; width: max-content;">
+
+  <div style="max-width: 960px;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.09em; color: #62788a; text-transform: uppercase;">Tahap 4 &middot; pengisian database kurikulum</div>
+    <h1 style="margin: 12px 0 0; font-size: 34px; font-weight: 700; letter-spacing: -0.025em;">Isi Database Kurikulum</h1>
+    <p style="margin: 10px 0 0; font-size: 16.5px; line-height: 1.6; color: #46596b;">Struktur terisi sampai batas yang bisa saya isi tanpa mengarang: dokumen sumber teridentifikasi, kerangka mapel dan elemen lengkap, label TP diperbarui, dan pola penurunan TP Rekomendasi per kelas ditetapkan. Kolom teks CP tetap kosong &mdash; alasannya di bagian 01.</p>
+  </div>
+
+  <div style="width: 1440px; background: #f7fbfd; border: 1px solid #d3e3ee; border-radius: 12px; padding: 16px 22px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+    <div style="font-size: 14px; color: #14405e; line-height: 1.6;"><strong>Angka pada berkas ini mengikuti Tahap 8.</strong> Bila berbeda, yang berlaku adalah Tahap 8 &mdash; Data CP dan TP Rekomendasi, karena di sanalah teks CP dimuat dan dihitung.</div>
+    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #6b8296; flex: 0 0 auto;">diselaraskan 22 Agu 2026</span>
+  </div>
+
+  <div style="width: 1440px; background: #fdf0ec; border: 2px solid #e3a893; border-radius: 14px; padding: 28px 30px;" data-screen-label="T4-01 Status pengisian">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #b1785f;">01</span>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.015em; color: #8f3a1f;">Yang tidak bisa saya isi, dan mengapa</h2>
+    </div>
+
+    <p style="margin: 14px 0 0; font-size: 15.5px; line-height: 1.7; color: #7a3218; max-width: 104ch;">Anda meminta saya memasukkan seluruh teks CP resmi. Saya tidak memiliki teks verbatim lampiran <strong>Keputusan Kepala BSKAP Nomor 046/H/KR/2025</strong> yang berjumlah 1.691 halaman. Kalau saya menuliskannya sekarang, yang masuk ke basis data adalah susunan kata saya sendiri &mdash; terlihat meyakinkan, dipakai guru untuk menyusun TP dan LKPD, dan salah. Itu persis yang Anda larang di instruksi nomor 8, dan larangan itu benar.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; margin-top: 22px;">
+      <div style="background: #fff; border: 1px solid #e3c8bc; border-radius: 11px; padding: 18px 20px;">
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; color: #0f6b4f; text-transform: uppercase;">Sudah terisi</div>
+        <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 12px;">
+          <div style="font-size: 13.5px; color: #33475a; line-height: 1.5;">Dokumen sumber &amp; nomor keputusan</div>
+          <div style="font-size: 13.5px; color: #33475a; line-height: 1.5;">10 baris mata_pelajaran + status</div>
+          <div style="font-size: 13.5px; color: #33475a; line-height: 1.5;">4 baris cabang_seni, bawaan Seni Rupa</div>
+          <div style="font-size: 13.5px; color: #33475a; line-height: 1.5;">3 fase, 6 jenjang kelas, pemetaan tetap</div>
+          <div style="font-size: 13.5px; color: #33475a; line-height: 1.5;">Nama elemen per mapel</div>
+          <div style="font-size: 13.5px; color: #33475a; line-height: 1.5;">Label TP Rekomendasi &amp; TP Sekolah/Guru</div>
+          <div style="font-size: 13.5px; color: #33475a; line-height: 1.5;">Pola penurunan TP per kelas 1&ndash;6</div>
+        </div>
+      </div>
+      <div style="background: #fff; border: 2px solid #b14a2c; border-radius: 11px; padding: 18px 20px;">
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; color: #b14a2c; text-transform: uppercase;">Menunggu dokumen</div>
+        <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 12px;">
+          <div style="font-size: 13.5px; color: #8f3a1f; line-height: 1.5; font-weight: 600;">teks_capaian pada 23 baris CP yang tersisa</div>
+          <div style="font-size: 13.5px; color: #8f3a1f; line-height: 1.5; font-weight: 600;">teks_elemen pada 23 baris yang belum dimuat</div>
+          <div style="font-size: 13.5px; color: #8f3a1f; line-height: 1.5; font-weight: 600;">Kalimat TP Rekomendasi untuk 6 mapel yang CP-nya belum lengkap</div>
+        </div>
+        <div style="font-size: 12.5px; color: #8f3a1f; margin-top: 14px; line-height: 1.6; padding-top: 12px; border-top: 1px solid #f2d8cf;">Ketiganya adalah kutipan atau turunan langsung dari teks resmi. Tidak ada cara mengisinya tanpa dokumennya.</div>
+      </div>
+      <div style="background: #fff; border: 1px solid #e3c8bc; border-radius: 11px; padding: 18px 20px;">
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; color: #14405e; text-transform: uppercase;">Cara tercepat</div>
+        <div style="font-size: 13.5px; color: #33475a; margin-top: 12px; line-height: 1.65;">Unggah berkas CP lewat formulir di bawah, atau kirim tautan dokumennya. Format apa pun: PDF keputusan, salinan Excel, atau CSV olahan sekolah.</div>
+        <div style="font-size: 13.5px; color: #33475a; margin-top: 10px; line-height: 1.65;">Begitu masuk, saya isi ketiga kolom itu apa adanya dan turunkan TP Rekomendasi per kelas dari teks aslinya.</div>
+        <div style="font-size: 12.5px; color: #6b8296; margin-top: 12px; line-height: 1.6;">Boleh sebagian &mdash; misalnya Matematika dan Bahasa Indonesia dulu. Struktur menerima pemuatan bertahap per mapel.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 16px;" data-screen-label="T4-02 Dokumen sumber">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">02</span>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">Dokumen sumber</h2>
+      <span style="font-size: 13.5px; color: #62788a;">terisi ke kolom sumber_dokumen</span>
+    </div>
+
+    <div style="width: 1440px; background: #fff; border: 1px solid #e2e9ef; border-radius: 14px; padding: 26px 28px;">
+      <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 22px; align-items: start;">
+        <div>
+          <div style="border: 2px solid #1b5e8c; border-radius: 12px; padding: 20px 22px; background: #f7fbfd;">
+            <div style="display: flex; align-items: center; gap: 9px;">
+              <span style="font-size: 10.5px; font-weight: 700; padding: 4px 9px; border-radius: 10px; background: #1b5e8c; color: #fff;">BERLAKU</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #14405e;">versi 2025.1</span>
+            </div>
+            <div style="font-size: 18px; font-weight: 700; margin-top: 11px; line-height: 1.4; color: #14405e;">Keputusan Kepala Badan Standar, Kurikulum, dan Asesmen Pendidikan Nomor 046/H/KR/2025</div>
+            <div style="font-size: 14.5px; color: #33475a; margin-top: 9px; line-height: 1.6;">Tentang Capaian Pembelajaran pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah pada Kurikulum Merdeka.</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #d3e3ee;">
+              <div>
+                <div style="font-size: 11.5px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b8296;">Ditetapkan</div>
+                <div style="font-size: 14px; font-weight: 600; margin-top: 3px;">16 Juli 2025</div>
+              </div>
+              <div>
+                <div style="font-size: 11.5px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b8296;">Lampiran</div>
+                <div style="font-size: 14px; font-weight: 600; margin-top: 3px;">1.691 halaman</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="border: 1px solid #dce5ec; border-radius: 12px; padding: 18px 20px; background: #fbfcfd; margin-top: 12px;">
+            <div style="display: flex; align-items: center; gap: 9px;">
+              <span style="font-size: 10.5px; font-weight: 700; padding: 4px 9px; border-radius: 10px; background: #eef2f6; color: #6b8296;">DICABUT</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8ea5b8;">versi 2024.1</span>
+            </div>
+            <div style="font-size: 15px; font-weight: 600; margin-top: 10px; line-height: 1.45; color: #46596b;">Keputusan Kepala BSKAP Nomor 32/H/KR/2024</div>
+            <div style="font-size: 13.5px; color: #6b8296; margin-top: 7px; line-height: 1.6;">Dinyatakan tidak berlaku oleh keputusan 046/H/KR/2025. Disimpan di basis data sebagai versi lama agar TP dan materi yang dibuat sebelum pembaruan tetap punya acuan.</div>
+          </div>
+
+          <div style="border: 2px solid #0f6b4f; border-radius: 12px; padding: 18px 20px; background: #f5fbf8; margin-top: 12px;">
+            <div style="display: flex; align-items: center; gap: 9px;">
+              <span style="font-size: 10.5px; font-weight: 700; padding: 4px 9px; border-radius: 10px; background: #0f6b4f; color: #fff;">BERLAKU &middot; AGAMA</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #0b5340;">versi 2026.1</span>
+            </div>
+            <div style="font-size: 16px; font-weight: 700; margin-top: 10px; line-height: 1.4; color: #0b5340;">Keputusan Kepala BKPDM Nomor 020 Tahun 2026</div>
+            <div style="font-size: 13.5px; color: #0b5340; margin-top: 7px; line-height: 1.6;">Perubahan atas keputusan 046/H/KR/2025, ditetapkan 23 Juni 2026. Perubahannya hanya pada CP mata pelajaran Agama dan Budi Pekerti serta Pendidikan Khusus &mdash; mapel lain tetap memakai 046/H/KR/2025.</div>
+            <div style="font-size: 13px; color: #0f6b4f; margin-top: 9px; padding-top: 9px; border-top: 1px solid #cfe6da; line-height: 1.6;">Mencakup seluruh agama: Islam, Kristen, Katolik, Hindu, Buddha, Khonghucu, serta layanan Pendidikan Kepercayaan. Pada Pendidikan Agama Islam, pengembangannya diperkaya lima dimensi cinta.</div>
+            <div style="font-size: 12.5px; color: #0f6b4f; margin-top: 9px; font-weight: 600;">Basis data memakai dokumen ini untuk 18 baris CP agama &mdash; versi lama tidak dipakai.</div>
+          </div>
+
+          <div style="border: 1px solid #e0d3ea; border-radius: 12px; padding: 18px 20px; background: #faf7fc; margin-top: 12px;">
+            <div style="display: flex; align-items: center; gap: 9px;">
+              <span style="font-size: 10.5px; font-weight: 700; padding: 4px 9px; border-radius: 10px; background: #7a3e9d; color: #fff;">MAPEL PILIHAN</span>
+            </div>
+            <div style="font-size: 15px; font-weight: 600; margin-top: 10px; line-height: 1.45; color: #4d2569;">Permendikdasmen Nomor 13 Tahun 2025</div>
+            <div style="font-size: 13.5px; color: #5c2d7d; margin-top: 7px; line-height: 1.6;">Dasar hukum Koding dan Kecerdasan Artifisial sebagai mata pelajaran pilihan, diperkenalkan pada kelas 5 dan 6 SD. Terisi ke kolom dasar_hukum pada baris KKA.</div>
+          </div>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e9ef; border-radius: 12px; padding: 20px 22px;">
+          <h3 style="margin: 0; font-size: 16px; font-weight: 700;">Kolom jejak asal per baris CP</h3>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+            <div style="display: grid; grid-template-columns: 130px 1fr; gap: 11px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #1b5e8c;">sumber_dokumen</span><span style="font-size: 13px; color: #52697d;">046/H/KR/2025</span></div>
+            <div style="display: grid; grid-template-columns: 130px 1fr; gap: 11px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #46596b;">tanggal_dokumen</span><span style="font-size: 13px; color: #52697d;">2025-07-16</span></div>
+            <div style="display: grid; grid-template-columns: 130px 1fr; gap: 11px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #46596b;">versi</span><span style="font-size: 13px; color: #52697d;">2025.1</span></div>
+            <div style="display: grid; grid-template-columns: 130px 1fr; gap: 11px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #46596b;">halaman_lampiran</span><span style="font-size: 13px; color: #52697d;">nomor halaman asal kutipan</span></div>
+            <div style="display: grid; grid-template-columns: 130px 1fr; gap: 11px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #46596b;">terverifikasi</span><span style="font-size: 13px; color: #b14a2c; font-weight: 600;">salah &mdash; belum dicocokkan</span></div>
+          </div>
+          <div style="margin-top: 16px; padding: 13px 14px; border-radius: 9px; background: #fff; border: 1px solid #e6edf2;">
+            <div style="font-size: 12.5px; color: #52697d; line-height: 1.65;">Kolom halaman_lampiran membuat setiap teks CP dapat dilacak ke halaman dokumen aslinya. Guru yang ragu bisa memeriksa sendiri, dan pengawas bisa memverifikasi.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 16px;" data-screen-label="T4-03 Rantai dan label">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">03</span>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">Rantai dan penamaan baru</h2>
+      <span style="font-size: 13.5px; color: #62788a;">label sudah diganti di seluruh berkas</span>
+    </div>
+
+    <div style="width: 1440px; background: #fff; border: 1px solid #e2e9ef; border-radius: 14px; padding: 26px 28px;">
+      <div style="display: flex; flex-wrap: wrap; gap: 9px; align-items: center;">
+        <span style="font-size: 13.5px; font-weight: 600; padding: 10px 15px; border-radius: 9px; background: #103a56; color: #fff;">Kelas</span>
+        <span style="color: #b6c4cf;">&rarr;</span>
+        <span style="font-size: 13.5px; font-weight: 600; padding: 10px 15px; border-radius: 9px; background: #1b5e8c; color: #fff;">Fase</span>
+        <span style="color: #b6c4cf;">&rarr;</span>
+        <span style="font-size: 13.5px; font-weight: 600; padding: 10px 15px; border-radius: 9px; background: #2f7fb0; color: #fff;">Mapel</span>
+        <span style="color: #b6c4cf;">&rarr;</span>
+        <span style="font-size: 13.5px; font-weight: 600; padding: 10px 15px; border-radius: 9px; background: #4d9bc9; color: #fff;">Elemen</span>
+        <span style="color: #b6c4cf;">&rarr;</span>
+        <span style="font-size: 13.5px; font-weight: 700; padding: 10px 15px; border-radius: 9px; background: #eef5fa; color: #14405e; border: 2px solid #1b5e8c;">CP Resmi</span>
+        <span style="color: #b6c4cf;">&rarr;</span>
+        <span style="font-size: 13.5px; font-weight: 700; padding: 10px 15px; border-radius: 9px; background: #dff0e7; color: #0b5340; border: 2px solid #0f6b4f;">TP Rekomendasi</span>
+        <span style="color: #b6c4cf;">&rarr;</span>
+        <span style="font-size: 13.5px; font-weight: 600; padding: 10px 15px; border-radius: 9px; background: #f4f6f8; color: #46596b; border: 1px solid #dce5ec;">Materi</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; margin-top: 22px;">
+        <div style="border: 2px solid #1b5e8c; border-radius: 12px; padding: 19px 21px; background: #f7fbfd;">
+          <div style="display: flex; align-items: center; gap: 9px;">
+            <span style="width: 20px; height: 20px; border-radius: 5px; background: #1b5e8c; display: grid; place-items: center; font-size: 10px; color: #fff;">&#128274;</span>
+            <span style="font-size: 16px; font-weight: 700; color: #14405e;">CP Resmi</span>
+          </div>
+          <div style="font-size: 13.5px; color: #33475a; margin-top: 10px; line-height: 1.65;">Kutipan verbatim dari keputusan 046/H/KR/2025. Hanya-baca bagi semua pengguna, termasuk operator sekolah. Tidak ada formulir tambah atau edit CP di antarmuka mana pun.</div>
+          <div style="font-size: 12.5px; color: #6b8296; margin-top: 11px; padding-top: 11px; border-top: 1px solid #d3e3ee; line-height: 1.6;">Masuk hanya lewat halaman Muat CP Resmi, dengan nomor halaman lampiran sebagai jejak.</div>
+        </div>
+
+        <div style="border: 2px solid #0f6b4f; border-radius: 12px; padding: 19px 21px; background: #f5fbf8;">
+          <div style="display: flex; align-items: center; gap: 9px;">
+            <span style="width: 20px; height: 20px; border-radius: 5px; background: #0f6b4f; display: grid; place-items: center; font-size: 10px; color: #fff;">&#128274;</span>
+            <span style="font-size: 16px; font-weight: 700; color: #0b5340;">TP Rekomendasi</span>
+          </div>
+          <div style="font-size: 13.5px; color: #0b5340; margin-top: 10px; line-height: 1.65;">Bawaan aplikasi, diturunkan dari CP resmi dan panduan pembelajaran, lalu dibagi ke kelas 1&ndash;6. Bukan bagian dari keputusan &mdash; karena itu tidak disebut resmi.</div>
+          <div style="font-size: 12.5px; color: #0f6b4f; margin-top: 11px; padding-top: 11px; border-top: 1px solid #cfe6da; line-height: 1.6;">Hanya-baca bagi guru. Guru yang ingin versinya sendiri menyalinnya menjadi TP Sekolah/Guru.</div>
+        </div>
+
+        <div style="border: 2px solid #f2b230; border-radius: 12px; padding: 19px 21px; background: #fdfaf3;">
+          <div style="display: flex; align-items: center; gap: 9px;">
+            <span style="width: 20px; height: 20px; border-radius: 5px; background: #f2b230; display: grid; place-items: center; font-size: 10px; color: #123f31;">&#9998;</span>
+            <span style="font-size: 16px; font-weight: 700; color: #7a5a10;">TP Sekolah/Guru</span>
+          </div>
+          <div style="font-size: 13.5px; color: #7a5a10; margin-top: 10px; line-height: 1.65;">Dibuat guru sendiri. Boleh ditambah, diedit, dan dihapus. Kode berawalan S. Selalu tampil di bawah TP Rekomendasi, tidak pernah bercampur.</div>
+          <div style="font-size: 12.5px; color: #8a6410; margin-top: 11px; padding-top: 11px; border-top: 1px solid #f0e0bd; line-height: 1.6;">Menghapusnya hanya mengarsipkan bila sudah ada nilai siswa.</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 18px; padding: 16px 18px; border-radius: 11px; background: #f8fafc; border: 1px solid #e6edf2;">
+        <div style="font-size: 14px; font-weight: 700;">Perubahan yang sudah dijalankan</div>
+        <div style="font-size: 13.5px; color: #52697d; margin-top: 7px; line-height: 1.7;">Label &ldquo;TP Resmi&rdquo; dihapus dari seluruh berkas dan diganti &ldquo;TP Rekomendasi&rdquo;. Kolom <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;">sumber</span> pada tabel tp kini bernilai <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;">rekomendasi</span> atau <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;">sekolah</span>. Berkas yang diperbarui: Blueprint Tahap 1, Tahap 2A, Tahap 2C, Tahap 2D, dan Tahap 3. Dua berkas eksplorasi awal &mdash; Dashboard Guru Arah A dan Arah B &mdash; dihapus karena sudah dilebur ke Tahap 2A.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 16px;" data-screen-label="T4-04 Kerangka elemen">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">04</span>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">Kerangka CP dan elemen yang menunggu isi</h2>
+    </div>
+
+    <div style="width: 1440px; background: #fff; border: 1px solid #e2e9ef; border-radius: 14px; overflow: hidden;">
+      <div style="padding: 18px 26px; background: #f8fafc; border-bottom: 1px solid #e6edf2;">
+        <div style="font-size: 14px; color: #52697d; line-height: 1.65; max-width: 112ch;">Nama elemen di bawah adalah nama pembagian yang dipakai dokumen kurikulum. Yang belum ada adalah <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px;">teks_elemen</span> dan <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px;">teks_capaian</span> &mdash; uraian capaian per fase. Baris bertanda tanya berarti pembagian elemennya pun perlu dipastikan dari dokumen.</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 86px 86px 86px 118px; gap: 14px; padding: 13px 26px; background: #f4f6f8; border-bottom: 1px solid #e6edf2;">
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase;">Mapel</div>
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase;">Elemen</div>
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase;">Fase A</div>
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase;">Fase B</div>
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase;">Fase C</div>
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; color: #6b8296; text-transform: uppercase;">Teks CP</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 86px 86px 86px 118px; gap: 14px; padding: 14px 26px; border-bottom: 1px solid #f1f5f8; align-items: center;">
+        <div style="font-size: 14px; font-weight: 600;">Matematika</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Bilangan</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Aljabar</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Pengukuran</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Geometri</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Analisis Data dan Peluang</span>
+        </div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 12.5px; font-weight: 600; color: #0f6b4f;">Terisi 3/3</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 86px 86px 86px 118px; gap: 14px; padding: 14px 26px; border-bottom: 1px solid #f1f5f8; align-items: center;">
+        <div style="font-size: 14px; font-weight: 600;">Bahasa Indonesia</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Menyimak</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Membaca dan Memirsa</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Berbicara dan Mempresentasikan</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Menulis</span>
+        </div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 12.5px; font-weight: 600; color: #0f6b4f;">Terisi 3/3</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 86px 86px 86px 118px; gap: 14px; padding: 14px 26px; border-bottom: 1px solid #f1f5f8; align-items: center;">
+        <div style="font-size: 14px; font-weight: 600;">IPAS</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Pemahaman IPAS</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Keterampilan Proses</span>
+        </div>
+        <div style="font-size: 12.5px; color: #8ea5b8;">menyatu</div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 12.5px; font-weight: 600; color: #8a6410;">Terisi 1/2</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 86px 86px 86px 118px; gap: 14px; padding: 14px 26px; border-bottom: 1px solid #f1f5f8; align-items: center;">
+        <div style="font-size: 14px; font-weight: 600;">Pendidikan Pancasila</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Pancasila</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Undang-Undang Dasar NRI Tahun 1945</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Bhinneka Tunggal Ika</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Negara Kesatuan Republik Indonesia</span>
+        </div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 12.5px; font-weight: 600; color: #0f6b4f;">Terisi 3/3</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 86px 86px 86px 118px; gap: 14px; padding: 14px 26px; border-bottom: 1px solid #f1f5f8; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 7px; min-width: 0;">
+          <span style="font-size: 14px; font-weight: 600;">Seni dan Budaya</span>
+          <span style="font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 8px; background: #eef5fa; color: #14405e;">046</span>
+          <span style="font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 8px; background: #fdf0d6; color: #8a6410;">RUPA</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Mengalami</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Menciptakan</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Merefleksikan</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Berpikir dan Bekerja Artistik</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Berdampak</span>
+        </div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 12.5px; font-weight: 600; color: #8a6410;">Terisi 6/12</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 86px 86px 86px 118px; gap: 14px; padding: 14px 26px; border-bottom: 1px solid #f1f5f8; align-items: center;">
+        <div style="font-size: 14px; font-weight: 600;">PJOK</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Terampil Bergerak</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Belajar Melalui Gerak</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Bergaya Hidup Aktif</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Memilih Hidup yang Menyehatkan</span>
+        </div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 12.5px; font-weight: 600; color: #8a6410;">Terisi 2/3</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 86px 86px 86px 118px; gap: 14px; padding: 14px 26px; border-bottom: 1px solid #f1f5f8; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 7px; min-width: 0;">
+          <span style="font-size: 14px; font-weight: 600;">Agama dan Budi Pekerti</span>
+          <span style="font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 8px; background: #dff0e7; color: #0b5340;">020/2026</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Islam: Al-Qur&rsquo;an Hadis &middot; Akidah &middot; Akhlak &middot; Fikih &middot; SPI</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #fdf0ec; color: #8f3a1f;">agama lain menunggu BKPDM 020/2026</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #f4f6f8; color: #46596b;">6 agama + kepercayaan &times; 3 fase</span>
+        </div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 13px; color: #0f6b4f;">&#10003;</div>
+        <div style="font-size: 12.5px; font-weight: 600; color: #8a6410;">Islam 3/18</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 86px 86px 86px 118px; gap: 14px; padding: 14px 26px; border-bottom: 1px solid #f1f5f8; align-items: center; background: #fdfaf3;">
+        <div style="font-size: 14px; font-weight: 600; color: #7a5a10;">Bahasa Inggris</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #fdf0d6; color: #8a6410;">Menyimak &ndash; Berbicara</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #fdf0d6; color: #8a6410;">Membaca &ndash; Memirsa</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #fdf0d6; color: #8a6410;">Menulis &ndash; Mempresentasikan</span>
+        </div>
+        <div style="font-size: 13px; color: #8a6410;">pilihan</div>
+        <div style="font-size: 13px; color: #8a6410;">pilihan</div>
+        <div style="font-size: 13px; color: #8a6410;">pilihan</div>
+        <div style="font-size: 12.5px; font-weight: 600; color: #0f6b4f;">Terisi 2/2</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 86px 86px 86px 118px; gap: 14px; padding: 14px 26px; border-bottom: 1px solid #f1f5f8; align-items: center; background: #faf7fc;">
+        <div style="display: flex; align-items: center; gap: 7px; min-width: 0;">
+          <span style="font-size: 14px; font-weight: 600; color: #4d2569;">Koding dan KA</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Berpikir Komputasional</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Literasi Digital</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Literasi dan Etika KA</span>
+          <span style="font-size: 12.5px; padding: 5px 10px; border-radius: 14px; background: #eef5fa; color: #14405e;">Pemanfaatan dan Pengembangan KA</span>
+        </div>
+        <div style="font-size: 13px; color: #8ea5b8;">&mdash;</div>
+        <div style="font-size: 13px; color: #8ea5b8;">&mdash;</div>
+        <div style="font-size: 13px; color: #5c2d7d; font-weight: 600;">kelas 5&ndash;6</div>
+        <div style="font-size: 12.5px; font-weight: 600; color: #0f6b4f;">Terisi 1/1</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 86px 86px 86px 118px; gap: 14px; padding: 14px 26px; align-items: center; background: #fdfaf3;">
+        <div style="font-size: 14px; font-weight: 600; color: #7a5a10;">Muatan Lokal</div>
+        <div style="font-size: 12.5px; color: #8a6410;">Disusun sekolah atau pemerintah daerah &mdash; bukan bagian keputusan pusat</div>
+        <div style="font-size: 13px; color: #8a6410;">pilihan</div>
+        <div style="font-size: 13px; color: #8a6410;">pilihan</div>
+        <div style="font-size: 13px; color: #8a6410;">pilihan</div>
+        <div style="font-size: 12.5px; color: #8a6410;">Opsional</div>
+      </div>
+
+      <div style="padding: 16px 26px; background: #f8fafc; border-top: 1px solid #e6edf2;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+          <div style="font-size: 13.5px; color: #52697d;">Terisi: <strong style="color: #0b5340;">24 dari 47 baris CP</strong> (lihat Tahap 8). Sisa 23 baris menunggu berkas asli.</div>
+          <div style="font-size: 13px; color: #0f6b4f; font-weight: 600;">Elemen PJOK, PAI, dan Koding &amp; KA sudah pasti dari dokumen &mdash; tiga tanda tanya terjawab di Tahap 8</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 16px;" data-screen-label="T4-05 Pola TP Rekomendasi">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">05</span>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">Pola penurunan TP Rekomendasi</h2>
+      <span style="font-size: 13.5px; color: #62788a;">satu CP fase &rarr; TP dua kelas</span>
+    </div>
+
+    <div style="width: 1440px; background: #fff; border: 1px solid #e2e9ef; border-radius: 14px; padding: 26px 28px;">
+      <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.65; color: #46596b; max-width: 104ch;">CP resmi ditulis per fase, sedangkan guru mengajar per kelas. Aturan pembagian di bawah yang dipakai aplikasi untuk menurunkan TP Rekomendasi &mdash; sehingga hasilnya dapat diperiksa dan tidak berubah-ubah antar mapel.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px;">
+        <div style="border: 1px solid #f0e0bd; border-radius: 12px; padding: 19px 21px; background: #fdfaf3;">
+          <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; color: #8a6410;">FASE A &middot; CP DIBAGI KE KELAS 1 DAN 2</div>
+          <div style="display: flex; flex-direction: column; gap: 9px; margin-top: 13px;">
+            <div style="display: grid; grid-template-columns: 62px 1fr; gap: 11px; align-items: baseline;"><span style="font-size: 13px; font-weight: 700; color: #7a5a10;">Kelas 1</span><span style="font-size: 13px; color: #7a5a10; line-height: 1.55;">Pengenalan dan pengalaman langsung. Benda konkret, satu langkah per tujuan.</span></div>
+            <div style="display: grid; grid-template-columns: 62px 1fr; gap: 11px; align-items: baseline;"><span style="font-size: 13px; font-weight: 700; color: #7a5a10;">Kelas 2</span><span style="font-size: 13px; color: #7a5a10; line-height: 1.55;">Penguatan dan perluasan cakupan. Mulai dua langkah, masih dengan bantuan gambar.</span></div>
+          </div>
+          <div style="font-size: 12.5px; color: #8a6410; margin-top: 13px; padding-top: 12px; border-top: 1px solid #f0e0bd; line-height: 1.6;">Perkiraan 4&ndash;6 TP per elemen per kelas.</div>
+        </div>
+
+        <div style="border: 1px solid #cfe6da; border-radius: 12px; padding: 19px 21px; background: #f5fbf8;">
+          <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; color: #0f6b4f;">FASE B &middot; CP DIBAGI KE KELAS 3 DAN 4</div>
+          <div style="display: flex; flex-direction: column; gap: 9px; margin-top: 13px;">
+            <div style="display: grid; grid-template-columns: 62px 1fr; gap: 11px; align-items: baseline;"><span style="font-size: 13px; font-weight: 700; color: #0b5340;">Kelas 3</span><span style="font-size: 13px; color: #0b5340; line-height: 1.55;">Membangun konsep dan prosedur dasar. Mulai penerapan pada situasi dekat.</span></div>
+            <div style="display: grid; grid-template-columns: 62px 1fr; gap: 11px; align-items: baseline;"><span style="font-size: 13px; font-weight: 700; color: #0b5340;">Kelas 4</span><span style="font-size: 13px; color: #0b5340; line-height: 1.55;">Pemecahan masalah bertahap. Menghubungkan dua konsep dalam satu tujuan.</span></div>
+          </div>
+          <div style="font-size: 12.5px; color: #0f6b4f; margin-top: 13px; padding-top: 12px; border-top: 1px solid #cfe6da; line-height: 1.6;">Perkiraan 4&ndash;6 TP per elemen per kelas.</div>
+        </div>
+
+        <div style="border: 1px solid #e0d3ea; border-radius: 12px; padding: 19px 21px; background: #faf7fc;">
+          <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; color: #6b3590;">FASE C &middot; CP DIBAGI KE KELAS 5 DAN 6</div>
+          <div style="display: flex; flex-direction: column; gap: 9px; margin-top: 13px;">
+            <div style="display: grid; grid-template-columns: 62px 1fr; gap: 11px; align-items: baseline;"><span style="font-size: 13px; font-weight: 700; color: #5c2d7d;">Kelas 5</span><span style="font-size: 13px; color: #5c2d7d; line-height: 1.55;">Analisis dan penalaran. Beberapa langkah, mulai membandingkan strategi.</span></div>
+            <div style="display: grid; grid-template-columns: 62px 1fr; gap: 11px; align-items: baseline;"><span style="font-size: 13px; font-weight: 700; color: #5c2d7d;">Kelas 6</span><span style="font-size: 13px; color: #5c2d7d; line-height: 1.55;">Pemantapan dan penerapan lintas konteks. Menyiapkan peralihan ke Fase D.</span></div>
+          </div>
+          <div style="font-size: 12.5px; color: #6b3590; margin-top: 13px; padding-top: 12px; border-top: 1px solid #e0d3ea; line-height: 1.6;">Perkiraan 4&ndash;6 TP per elemen per kelas.</div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-top: 18px;">
+        <div style="border: 1px solid #e2e9ef; border-radius: 12px; padding: 20px 22px; background: #f8fafc;">
+          <h3 style="margin: 0; font-size: 16px; font-weight: 700;">Aturan penurunan</h3>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 13px;">
+            <div style="display: grid; grid-template-columns: 20px 1fr; gap: 11px;"><span style="width: 20px; height: 20px; border-radius: 5px; background: #eef5fa; display: grid; place-items: center; font-size: 11px; color: #14405e;">1</span><div style="font-size: 13px; color: #52697d; line-height: 1.6;">Setiap TP menunjuk tepat satu elemen dan satu tingkat kelas.</div></div>
+            <div style="display: grid; grid-template-columns: 20px 1fr; gap: 11px;"><span style="width: 20px; height: 20px; border-radius: 5px; background: #eef5fa; display: grid; place-items: center; font-size: 11px; color: #14405e;">2</span><div style="font-size: 13px; color: #52697d; line-height: 1.6;">Satu TP memuat satu kemampuan yang dapat diamati &mdash; bukan gabungan beberapa tujuan.</div></div>
+            <div style="display: grid; grid-template-columns: 20px 1fr; gap: 11px;"><span style="width: 20px; height: 20px; border-radius: 5px; background: #eef5fa; display: grid; place-items: center; font-size: 11px; color: #14405e;">3</span><div style="font-size: 13px; color: #52697d; line-height: 1.6;">Gabungan seluruh TP dua kelas harus menutupi CP fase itu, tanpa menambah tuntutan di luarnya.</div></div>
+            <div style="display: grid; grid-template-columns: 20px 1fr; gap: 11px;"><span style="width: 20px; height: 20px; border-radius: 5px; background: #eef5fa; display: grid; place-items: center; font-size: 11px; color: #14405e;">4</span><div style="font-size: 13px; color: #52697d; line-height: 1.6;">Kata kerja mengikuti tingkat berpikir yang wajar untuk kelas tersebut.</div></div>
+            <div style="display: grid; grid-template-columns: 20px 1fr; gap: 11px;"><span style="width: 20px; height: 20px; border-radius: 5px; background: #eef5fa; display: grid; place-items: center; font-size: 11px; color: #14405e;">5</span><div style="font-size: 13px; color: #52697d; line-height: 1.6;">Setiap TP menyimpan rujukan ke CP dan halaman lampiran asalnya.</div></div>
+          </div>
+        </div>
+
+        <div style="border: 1px solid #e2e9ef; border-radius: 12px; padding: 20px 22px;">
+          <h3 style="margin: 0; font-size: 16px; font-weight: 700;">Perkiraan volume TP Rekomendasi</h3>
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 13px;">
+            <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr) 68px; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 8px; background: #fdfaf3;"><span style="font-size: 13px; font-weight: 600; color: #7a5a10;">Kelas 1</span><div style="height: 7px; border-radius: 4px; background: #f7ebd3; overflow: hidden;"><div style="width: 62%; height: 100%; background: #f2b230;"></div></div><span style="font-size: 12.5px; color: #8a6410;">&plusmn;80 TP</span></div>
+            <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr) 68px; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 8px; background: #fdfaf3;"><span style="font-size: 13px; font-weight: 600; color: #7a5a10;">Kelas 2</span><div style="height: 7px; border-radius: 4px; background: #f7ebd3; overflow: hidden;"><div style="width: 66%; height: 100%; background: #f2b230;"></div></div><span style="font-size: 12.5px; color: #8a6410;">&plusmn;85 TP</span></div>
+            <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr) 68px; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 8px; background: #f5fbf8;"><span style="font-size: 13px; font-weight: 600; color: #0b5340;">Kelas 3</span><div style="height: 7px; border-radius: 4px; background: #dcece5; overflow: hidden;"><div style="width: 82%; height: 100%; background: #0f6b4f;"></div></div><span style="font-size: 12.5px; color: #0f6b4f;">&plusmn;105 TP</span></div>
+            <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr) 68px; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 8px; background: #f5fbf8;"><span style="font-size: 13px; font-weight: 600; color: #0b5340;">Kelas 4</span><div style="height: 7px; border-radius: 4px; background: #dcece5; overflow: hidden;"><div style="width: 86%; height: 100%; background: #0f6b4f;"></div></div><span style="font-size: 12.5px; color: #0f6b4f;">&plusmn;110 TP</span></div>
+            <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr) 68px; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 8px; background: #faf7fc;"><span style="font-size: 13px; font-weight: 600; color: #5c2d7d;">Kelas 5</span><div style="height: 7px; border-radius: 4px; background: #ebe0f2; overflow: hidden;"><div style="width: 96%; height: 100%; background: #7a3e9d;"></div></div><span style="font-size: 12.5px; color: #6b3590;">&plusmn;125 TP</span></div>
+            <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr) 68px; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 8px; background: #faf7fc;"><span style="font-size: 13px; font-weight: 600; color: #5c2d7d;">Kelas 6</span><div style="height: 7px; border-radius: 4px; background: #ebe0f2; overflow: hidden;"><div style="width: 92%; height: 100%; background: #7a3e9d;"></div></div><span style="font-size: 12.5px; color: #6b3590;">&plusmn;120 TP</span></div>
+          </div>
+          <div style="font-size: 12.5px; color: #6b8296; margin-top: 13px; line-height: 1.6;">Kelas 5 dan 6 lebih banyak karena mapel pilihan Koding dan KA ikut terhitung bila sekolah mengaktifkannya. Angka pasti mengikuti jumlah elemen pada dokumen.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 16px;" data-screen-label="T4-06 Contoh satu rantai penuh">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #62788a;">06</span>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">Bentuk satu baris setelah CP dimuat</h2>
+      <span style="font-size: 13.5px; color: #62788a;">contoh tampilan, teks CP masih kosong</span>
+    </div>
+
+    <div style="width: 1440px; background: #fff; border: 1px solid #e2e9ef; border-radius: 14px; padding: 26px 28px;">
+      <div style="display: flex; flex-direction: column; gap: 0;">
+
+        <div style="display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 20px; align-items: start;">
+          <div style="font-size: 13.5px; font-weight: 700; color: #14405e; padding-top: 14px;">Kelas &amp; Fase</div>
+          <div style="border: 1px solid #dce5ec; border-radius: 10px; padding: 14px 17px; background: #fbfcfd; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #6b8296;">tingkat = 4</span>
+            <span style="color: #cfdae3;">&middot;</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #6b8296;">fase_kode = B</span>
+          </div>
+        </div>
+        <div style="height: 16px; margin-left: 84px; border-left: 2px dashed #cad7e1;"></div>
+
+        <div style="display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 20px; align-items: start;">
+          <div style="font-size: 13.5px; font-weight: 700; color: #14405e; padding-top: 14px;">Mapel</div>
+          <div style="border: 1px solid #dce5ec; border-radius: 10px; padding: 14px 17px; background: #fbfcfd;">
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <span style="font-size: 14.5px; font-weight: 600;">Matematika</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #6b8296;">MAT</span>
+              <span style="font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 10px; background: #eef5fa; color: #14405e;">WAJIB</span>
+            </div>
+          </div>
+        </div>
+        <div style="height: 16px; margin-left: 84px; border-left: 2px dashed #cad7e1;"></div>
+
+        <div style="display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 20px; align-items: start;">
+          <div style="font-size: 13.5px; font-weight: 700; color: #14405e; padding-top: 14px;">Elemen</div>
+          <div style="border: 1px solid #dce5ec; border-radius: 10px; padding: 14px 17px; background: #fbfcfd;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 14.5px; font-weight: 600;">Bilangan</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #6b8296;">ELM-MAT-B-01</span>
+            </div>
+            <div style="font-size: 13px; color: #b14a2c; margin-top: 7px; font-style: italic;">teks_elemen &mdash; menunggu dokumen</div>
+          </div>
+        </div>
+        <div style="height: 16px; margin-left: 84px; border-left: 2px dashed #cad7e1;"></div>
+
+        <div style="display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 20px; align-items: start;">
+          <div style="display: flex; align-items: center; gap: 7px; padding-top: 16px;">
+            <span style="width: 18px; height: 18px; border-radius: 5px; background: #1b5e8c; display: grid; place-items: center; font-size: 9px; color: #fff;">&#128274;</span>
+            <span style="font-size: 13.5px; font-weight: 700; color: #14405e;">CP Resmi</span>
+          </div>
+          <div style="border: 2px solid #1b5e8c; border-radius: 10px; padding: 16px 18px; background: #f7fbfd;">
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #14405e;">CP-MAT-B</span>
+              <span style="font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 10px; background: #1b5e8c; color: #fff;">HANYA-BACA</span>
+              <span style="font-size: 12px; color: #6b8296;">046/H/KR/2025</span>
+            </div>
+            <div style="margin-top: 11px; padding: 14px 16px; border: 1px dashed #b14a2c; border-radius: 8px; background: #fff;">
+              <div style="font-size: 13.5px; color: #8f3a1f; font-weight: 600;">teks_capaian belum dimuat</div>
+              <div style="font-size: 13px; color: #52697d; margin-top: 6px; line-height: 1.6;">Setelah dokumen masuk, ruang ini memuat kutipan verbatim capaian Matematika Fase B beserta nomor halaman lampirannya.</div>
+            </div>
+          </div>
+        </div>
+        <div style="height: 16px; margin-left: 84px; border-left: 2px dashed #cad7e1;"></div>
+
+        <div style="display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 20px; align-items: start;">
+          <div style="display: flex; align-items: center; gap: 7px; padding-top: 16px;">
+            <span style="width: 18px; height: 18px; border-radius: 5px; background: #0f6b4f; display: grid; place-items: center; font-size: 9px; color: #fff;">&#128274;</span>
+            <span style="font-size: 13.5px; font-weight: 700; color: #0b5340;">TP Rekomendasi</span>
+          </div>
+          <div style="border: 2px solid #0f6b4f; border-radius: 10px; padding: 16px 18px; background: #f5fbf8;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 10px; background: #0f6b4f; color: #fff;">BAWAAN APLIKASI</span>
+                <span style="font-size: 13px; color: #0b5340;">dibagi per kelas</span>
+              </div>
+              <span style="font-size: 12.5px; color: #0f6b4f;">turunan dari CP-MAT-B</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 11px; margin-top: 13px;">
+              <div style="border: 1px solid #cfe6da; border-radius: 9px; padding: 13px 15px; background: #fff;">
+                <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.05em; color: #0f6b4f;">KELAS 3</div>
+                <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 9px;">
+                  <div style="display: grid; grid-template-columns: 52px 1fr; gap: 10px; align-items: baseline;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #0b5340;">TP 3.1</span><span style="font-size: 12.5px; color: #b14a2c; font-style: italic;">menunggu dokumen</span></div>
+                  <div style="display: grid; grid-template-columns: 52px 1fr; gap: 10px; align-items: baseline;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #0b5340;">TP 3.2</span><span style="font-size: 12.5px; color: #b14a2c; font-style: italic;">menunggu dokumen</span></div>
+                  <div style="display: grid; grid-template-columns: 52px 1fr; gap: 10px; align-items: baseline;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #8ea5b8;">&hellip;</span><span style="font-size: 12.5px; color: #6b8296;">4&ndash;6 TP</span></div>
+                </div>
+              </div>
+              <div style="border: 2px solid #0f6b4f; border-radius: 9px; padding: 12px 14px; background: #fff;">
+                <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.05em; color: #0f6b4f;">KELAS 4 &middot; SEDANG DIBUKA</div>
+                <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 9px;">
+                  <div style="display: grid; grid-template-columns: 52px 1fr; gap: 10px; align-items: baseline;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #0b5340;">TP 4.1</span><span style="font-size: 12.5px; color: #b14a2c; font-style: italic;">menunggu dokumen</span></div>
+                  <div style="display: grid; grid-template-columns: 52px 1fr; gap: 10px; align-items: baseline;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #0b5340;">TP 4.2</span><span style="font-size: 12.5px; color: #b14a2c; font-style: italic;">menunggu dokumen</span></div>
+                  <div style="display: grid; grid-template-columns: 52px 1fr; gap: 10px; align-items: baseline;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #8ea5b8;">&hellip;</span><span style="font-size: 12.5px; color: #6b8296;">4&ndash;6 TP</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="height: 16px; margin-left: 84px; border-left: 2px dashed #f0e0bd;"></div>
+
+        <div style="display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 20px; align-items: start;">
+          <div style="display: flex; align-items: center; gap: 7px; padding-top: 16px;">
+            <span style="width: 18px; height: 18px; border-radius: 5px; background: #f2b230; display: grid; place-items: center; font-size: 9px; color: #123f31;">&#9998;</span>
+            <span style="font-size: 13.5px; font-weight: 700; color: #7a5a10;">TP Sekolah/Guru</span>
+          </div>
+          <div style="border: 1px dashed #f0e0bd; border-radius: 10px; padding: 15px 18px; background: #fdfaf3;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;">
+              <div style="min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 9px;">
+                  <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 3px 8px; border-radius: 6px; background: #fdf0d6; color: #8a6410;">S-01</span>
+                  <span style="font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 10px; background: #f2b230; color: #123f31;">DAPAT DIEDIT</span>
+                </div>
+                <div style="font-size: 14px; color: #7a5a10; margin-top: 8px;">Menggunakan pecahan dalam jual beli di pasar tradisional sekitar sekolah.</div>
+                <div style="font-size: 12px; color: #8a6410; margin-top: 6px;">Dibuat Bu Sri Rahayu &middot; berdiri sendiri, tidak bergantung pemuatan CP</div>
+              </div>
+              <div style="display: flex; gap: 6px; flex: 0 0 auto;">
+                <span style="font-size: 12.5px; font-weight: 600; padding: 8px 13px; border-radius: 7px; border: 1px solid #e0cd9f; background: #fff; color: #7a5a10;">Edit</span>
+                <span style="font-size: 12.5px; font-weight: 600; padding: 8px 13px; border-radius: 7px; border: 1px solid #e0b8a8; background: #fff; color: #8f3a1f;">Hapus</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="height: 16px; margin-left: 84px; border-left: 2px dashed #cad7e1;"></div>
+
+        <div style="display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 20px; align-items: start;">
+          <div style="font-size: 13.5px; font-weight: 700; color: #46596b; padding-top: 14px;">Isi tertaut</div>
+          <div style="border: 1px solid #dce5ec; border-radius: 10px; padding: 16px 18px; background: #fbfcfd;">
+            <div style="font-size: 13.5px; color: #52697d; line-height: 1.6;">Lewat tabel <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;">tautan_tp</span>, dengan tp_id wajib. Berlaku sama untuk TP Rekomendasi maupun TP Sekolah/Guru.</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px;">
+              <span style="font-size: 12.5px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">materi</span>
+              <span style="font-size: 12.5px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">game</span>
+              <span style="font-size: 12.5px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">lkpd</span>
+              <span style="font-size: 12.5px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">soal</span>
+              <span style="font-size: 12.5px; font-weight: 600; padding: 7px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">asesmen</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="width: 1440px; background: #103a56; border-radius: 14px; padding: 28px 30px; color: #fff;">
+    <h3 style="margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -0.02em;">Langkah berikutnya ada di tangan Anda</h3>
+    <p style="margin: 9px 0 0; font-size: 15px; line-height: 1.65; color: #b9d2e0; max-width: 100ch;">Struktur database kurikulum sudah lengkap dan tidak menunggu apa pun dari saya. Yang tersisa hanya satu masukan: teks CP resmi.</p>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; margin-top: 20px;">
+      <div style="border: 1px solid #1d4d6d; border-radius: 11px; padding: 17px 19px;">
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; color: #9dc0d4; text-transform: uppercase;">Pilihan 1 &mdash; tercepat</div>
+        <div style="font-size: 14.5px; font-weight: 600; margin-top: 8px;">Unggah berkas CP</div>
+        <div style="font-size: 13px; color: #b9d2e0; margin-top: 6px; line-height: 1.6;">PDF lampiran 046/H/KR/2025, atau salinan Excel dan CSV yang sekolah Anda sudah punya. Boleh per mapel.</div>
+      </div>
+      <div style="border: 1px solid #1d4d6d; border-radius: 11px; padding: 17px 19px;">
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; color: #9dc0d4; text-transform: uppercase;">Pilihan 2</div>
+        <div style="font-size: 14.5px; font-weight: 600; margin-top: 8px;">Kirim tautan dokumen</div>
+        <div style="font-size: 13px; color: #b9d2e0; margin-top: 6px; line-height: 1.6;">Tautan halaman resmi tempat lampiran itu diunduh. Saya baca dan isikan dari sana.</div>
+      </div>
+      <div style="border: 1px solid #1d4d6d; border-radius: 11px; padding: 17px 19px;">
+        <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; color: #9dc0d4; text-transform: uppercase;">Pilihan 3</div>
+        <div style="font-size: 14.5px; font-weight: 600; margin-top: 8px;">Mulai dari dua mapel</div>
+        <div style="font-size: 13px; color: #b9d2e0; margin-top: 6px; line-height: 1.6;">Matematika dan Bahasa Indonesia lebih dulu, agar rantai penuh sampai materi bisa Anda uji sebelum mapel lain menyusul.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Nunito:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: #eef1f4; font-family: 'Public Sans', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; color: #1a2733; }
+  a { color: #1b5e8c; text-decoration: none; }
+  a:hover { color: #0f3e60; }
+  h1, h2, h3 { text-wrap: pretty; }
+</style>
+</helmet>
+
+<div style="display: grid; grid-template-columns: 250px minmax(0, 1fr); align-items: start; gap: 0;">
+
+  <aside style="position: sticky; top: 0; height: 100vh; overflow-y: auto; background: #103a56; color: #dce8f0; padding: 26px 0 30px;">
+    <div style="padding: 0 22px 22px; border-bottom: 1px solid #1d4d6d;">
+      <div style="display: flex; align-items: center; gap: 11px;">
+        <div style="width: 38px; height: 38px; border-radius: 9px; background: #2f8fc7; display: grid; place-items: center; font-weight: 700; font-size: 15px; color: #fff;">PI</div>
+        <div>
+          <div style="font-weight: 700; font-size: 13.5px; color: #fff;">Papan Interaktif SD</div>
+          <div style="font-size: 11px; color: #8fb4cc; margin-top: 2px;">Blueprint Tahap 1</div>
+        </div>
+      </div>
+    </div>
+    <nav style="display: flex; flex-direction: column; gap: 1px; padding-top: 14px;">
+      <a href="#ds" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 10px 22px; font-size: 13.5px; color: #cfe0ea;"><span style="color: #6f9ab5; font-family: 'IBM Plex Mono', monospace; font-size: 12px;">01</span>Design System</a>
+      <a href="#sitemap" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 10px 22px; font-size: 13.5px; color: #cfe0ea;"><span style="color: #6f9ab5; font-family: 'IBM Plex Mono', monospace; font-size: 12px;">02</span>Sitemap final</a>
+      <a href="#nav" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 10px 22px; font-size: 13.5px; color: #cfe0ea;"><span style="color: #6f9ab5; font-family: 'IBM Plex Mono', monospace; font-size: 12px;">03</span>Struktur navigasi</a>
+      <a href="#halaman" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 10px 22px; font-size: 13.5px; color: #cfe0ea;"><span style="color: #6f9ab5; font-family: 'IBM Plex Mono', monospace; font-size: 12px;">04</span>Struktur halaman</a>
+      <a href="#dashboard" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 10px 22px; font-size: 13.5px; color: #cfe0ea;"><span style="color: #6f9ab5; font-family: 'IBM Plex Mono', monospace; font-size: 12px;">05</span>Wireframe dashboard</a>
+      <a href="#flow-guru" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 10px 22px; font-size: 13.5px; color: #cfe0ea;"><span style="color: #6f9ab5; font-family: 'IBM Plex Mono', monospace; font-size: 12px;">06</span>User flow guru</a>
+      <a href="#flow-siswa" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 10px 22px; font-size: 13.5px; color: #cfe0ea;"><span style="color: #6f9ab5; font-family: 'IBM Plex Mono', monospace; font-size: 12px;">07</span>User flow siswa</a>
+      <a href="#flow-lkpd" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 10px 22px; font-size: 13.5px; color: #cfe0ea;"><span style="color: #6f9ab5; font-family: 'IBM Plex Mono', monospace; font-size: 12px;">08</span>Flow AI LKPD</a>
+      <a href="#flow-game" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 10px 22px; font-size: 13.5px; color: #cfe0ea;"><span style="color: #6f9ab5; font-family: 'IBM Plex Mono', monospace; font-size: 12px;">09</span>Flow AI Game</a>
+      <a href="#flow-cp" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 10px 22px; font-size: 13.5px; color: #cfe0ea;"><span style="color: #6f9ab5; font-family: 'IBM Plex Mono', monospace; font-size: 12px;">10</span>CP &rarr; TP &rarr; Aktivitas</a>
+      <a href="#kurikulum" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 10px 22px; font-size: 13.5px; color: #cfe0ea;"><span style="color: #6f9ab5; font-family: 'IBM Plex Mono', monospace; font-size: 12px;">11</span>Struktur mapel</a>
+      <a href="#data" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 10px 22px; font-size: 13.5px; color: #cfe0ea;"><span style="color: #6f9ab5; font-family: 'IBM Plex Mono', monospace; font-size: 12px;">12</span>Struktur data</a>
+    </nav>
+    <div style="margin: 20px 22px 0; padding: 14px 15px; border: 1px solid #1d4d6d; border-radius: 9px; font-size: 12px; line-height: 1.55; color: #9dc0d4;">Belum ada koding fitur. Dokumen ini yang disetujui lebih dulu.</div>
+  </aside>
+
+  <main style="min-width: 0; padding: 0 0 90px;">
+
+    <header style="background: #fff; border-bottom: 1px solid #dde4ea; padding: 46px 54px 40px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.08em; color: #6b8296; text-transform: uppercase;">Tahap 1 &middot; arsitektur &amp; desain &middot; 21 Agustus 2026</div>
+      <h1 style="margin: 14px 0 0; font-size: 38px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.15;">Papan Interaktif SD</h1>
+      <p style="margin: 14px 0 0; font-size: 17px; line-height: 1.6; color: #46596b; max-width: 74ch;">Platform pembelajaran interaktif SD kelas 1&ndash;6 berbasis Kurikulum Merdeka. Dokumen ini menetapkan design system dan arsitektur informasi sebelum satu fitur pun dikoding.</p>
+      <div style="display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap;">
+        <span style="font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 20px; background: #eef5fa; color: #14405e; border: 1px solid #d3e3ee;">Dasar: Arah A</span>
+        <span style="font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 20px; background: #fdf5e6; color: #7a5a10; border: 1px solid #f0e0bd;">Halaman pembelajaran: kekuatan Arah B</span>
+        <span style="font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 20px; background: #eef2f6; color: #46596b; border: 1px solid #dde4ea;">23 fitur dipetakan</span>
+      </div>
+    </header>
+
+    <section id="ds" style="padding: 46px 54px 0; scroll-margin-top: 20px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #8ea5b8;">01</span>
+        <h2 style="margin: 0; font-size: 27px; font-weight: 700; letter-spacing: -0.02em;">Design System</h2>
+      </div>
+      <p style="margin: 6px 0 24px; font-size: 15.5px; line-height: 1.65; color: #46596b; max-width: 80ch;">Satu sistem, dua permukaan. Guru bekerja di permukaan padat dan resmi; kelas melihat permukaan besar dan hangat. Warna dan huruf tidak berubah sembarangan &mdash; yang berubah adalah skala, bobot, dan jarak.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px;">
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; color: #6b8296; text-transform: uppercase;">Permukaan 1</div>
+          <h3 style="margin: 8px 0 0; font-size: 19px; font-weight: 700;">Mode Kerja Guru</h3>
+          <p style="margin: 8px 0 16px; font-size: 14.5px; line-height: 1.6; color: #52697d;">Dasbor, basis data CP/TP, editor LKPD, penilaian, pengaturan. Laptop dan tablet. Padat, informatif, tenang.</p>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+            <div style="height: 46px; border-radius: 8px; background: #103a56;"></div>
+            <div style="height: 46px; border-radius: 8px; background: #1b5e8c;"></div>
+            <div style="height: 46px; border-radius: 8px; background: #eef5fa; border: 1px solid #d3e3ee;"></div>
+          </div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #6b8296; margin-top: 9px;">#103A56 &middot; #1B5E8C &middot; #EEF5FA</div>
+          <div style="margin-top: 16px; font-size: 14px; color: #33475a; line-height: 1.7;">Public Sans &middot; 13&ndash;27px &middot; radius 9&ndash;12px<br />Baris tabel 44px &middot; tombol 40px</div>
+        </div>
+
+        <div style="background: #123f31; color: #fff; border-radius: 12px; padding: 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; color: #9dc4b4; text-transform: uppercase;">Permukaan 2</div>
+          <h3 style="margin: 8px 0 0; font-size: 19px; font-weight: 700; font-family: 'Nunito', sans-serif;">Mode Kelas</h3>
+          <p style="margin: 8px 0 16px; font-size: 14.5px; line-height: 1.6; color: #c3ddd2;">Papan interaktif, materi, game, layar siswa. Papan sentuh dan proyektor. Besar, kontras tinggi, sedikit elemen.</p>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+            <div style="height: 46px; border-radius: 8px; background: #0f6b4f;"></div>
+            <div style="height: 46px; border-radius: 8px; background: #f2b230;"></div>
+            <div style="height: 46px; border-radius: 8px; background: #fdfaf5;"></div>
+          </div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #9dc4b4; margin-top: 9px;">#0F6B4F &middot; #F2B230 &middot; #FDFAF5</div>
+          <div style="margin-top: 16px; font-size: 14px; color: #dcece5; line-height: 1.7;">Nunito 700/800 &middot; 20&ndash;56px &middot; radius 13&ndash;18px<br />Target sentuh minimal 64px &middot; tombol 17px+</div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; color: #6b8296; text-transform: uppercase;">Warna semantik</div>
+          <h3 style="margin: 8px 0 16px; font-size: 19px; font-weight: 700;">Arti, bukan hiasan</h3>
+          <div style="display: flex; flex-direction: column; gap: 11px;">
+            <div style="display: grid; grid-template-columns: 20px 1fr; gap: 12px; align-items: center;"><span style="width: 20px; height: 20px; border-radius: 5px; background: #1b5e8c;"></span><span style="font-size: 14px;">Aksi utama, tautan, keadaan aktif</span></div>
+            <div style="display: grid; grid-template-columns: 20px 1fr; gap: 12px; align-items: center;"><span style="width: 20px; height: 20px; border-radius: 5px; background: #0f6b4f;"></span><span style="font-size: 14px;">Tuntas, benar, siap dipakai</span></div>
+            <div style="display: grid; grid-template-columns: 20px 1fr; gap: 12px; align-items: center;"><span style="width: 20px; height: 20px; border-radius: 5px; background: #f2b230;"></span><span style="font-size: 14px;">Poin, badge, sorotan di papan</span></div>
+            <div style="display: grid; grid-template-columns: 20px 1fr; gap: 12px; align-items: center;"><span style="width: 20px; height: 20px; border-radius: 5px; background: #b14a2c;"></span><span style="font-size: 14px;">Perlu tindakan, belum lengkap</span></div>
+            <div style="display: grid; grid-template-columns: 20px 1fr; gap: 12px; align-items: center;"><span style="width: 20px; height: 20px; border-radius: 5px; background: #7a3e9d;"></span><span style="font-size: 14px;">Hasil AI, sebelum disetujui guru</span></div>
+          </div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; color: #6b8296; text-transform: uppercase;">Penanda fase</div>
+          <h3 style="margin: 8px 0 16px; font-size: 19px; font-weight: 700;">Fase punya warna tetap</h3>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 12px;"><span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; padding: 5px 11px; border-radius: 20px; background: #fdf0d6; color: #8a6410;">FASE A</span><span style="font-size: 14px; color: #46596b;">Kelas 1&ndash;2 &middot; ikon besar, teks pendek</span></div>
+            <div style="display: flex; align-items: center; gap: 12px;"><span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; padding: 5px 11px; border-radius: 20px; background: #dff0e7; color: #0f6b4f;">FASE B</span><span style="font-size: 14px; color: #46596b;">Kelas 3&ndash;4 &middot; ikon + teks</span></div>
+            <div style="display: flex; align-items: center; gap: 12px;"><span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; padding: 5px 11px; border-radius: 20px; background: #ece0f4; color: #6b3590;">FASE C</span><span style="font-size: 14px; color: #46596b;">Kelas 5&ndash;6 &middot; teks penuh, tabel</span></div>
+          </div>
+          <div style="margin-top: 18px; padding-top: 16px; border-top: 1px solid #eef2f6; font-size: 14px; line-height: 1.65; color: #52697d;">Warna fase dipakai konsisten di kartu kelas, penyaring game, badge CP, dan kop LKPD. Guru selalu tahu ia sedang berada di fase mana.</div>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 24px; margin-top: 18px;">
+        <h3 style="margin: 0 0 4px; font-size: 19px; font-weight: 700;">Skala responsif</h3>
+        <p style="margin: 0 0 18px; font-size: 14.5px; color: #52697d;">Satu tata letak, empat titik henti. Yang berubah: lebar sidebar dan jumlah kolom kartu.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+          <div style="border: 1px solid #e6edf2; border-radius: 10px; padding: 16px; background: #f8fafc;">
+            <div style="font-size: 14.5px; font-weight: 700;">Papan / proyektor</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #6b8296; margin-top: 5px;">&ge; 1920px</div>
+            <div style="font-size: 13.5px; color: #52697d; margin-top: 9px; line-height: 1.55;">Sidebar tersembunyi. Mode Kelas. Teks isi minimal 24px.</div>
+          </div>
+          <div style="border: 1px solid #e6edf2; border-radius: 10px; padding: 16px; background: #f8fafc;">
+            <div style="font-size: 14.5px; font-weight: 700;">Desktop</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #6b8296; margin-top: 5px;">1280&ndash;1919px</div>
+            <div style="font-size: 13.5px; color: #52697d; margin-top: 9px; line-height: 1.55;">Sidebar 264px. Kartu 4 kolom. Tata letak acuan.</div>
+          </div>
+          <div style="border: 1px solid #e6edf2; border-radius: 10px; padding: 16px; background: #f8fafc;">
+            <div style="font-size: 14.5px; font-weight: 700;">Laptop</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #6b8296; margin-top: 5px;">1024&ndash;1279px</div>
+            <div style="font-size: 13.5px; color: #52697d; margin-top: 9px; line-height: 1.55;">Sidebar menyusut jadi ikon. Kartu 3 kolom.</div>
+          </div>
+          <div style="border: 1px solid #e6edf2; border-radius: 10px; padding: 16px; background: #f8fafc;">
+            <div style="font-size: 14.5px; font-weight: 700;">Tablet</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #6b8296; margin-top: 5px;">768&ndash;1023px</div>
+            <div style="font-size: 13.5px; color: #52697d; margin-top: 9px; line-height: 1.55;">Sidebar jadi bilah bawah. Kartu 2 kolom. Target 48px.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sitemap" style="padding: 46px 54px 0; scroll-margin-top: 20px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #8ea5b8;">02</span>
+        <h2 style="margin: 0; font-size: 27px; font-weight: 700; letter-spacing: -0.02em;">Sitemap final</h2>
+      </div>
+      <p style="margin: 6px 0 24px; font-size: 15.5px; line-height: 1.65; color: #46596b; max-width: 80ch;">Delapan area utama. Jalur kurikulum adalah tulang punggungnya; sembilan area lain menempel padanya, bukan berdiri sendiri.</p>
+
+      <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 28px 26px;">
+        <div style="display: inline-block; padding: 13px 24px; border-radius: 10px; background: #103a56; color: #fff; font-size: 16px; font-weight: 700;">Dashboard Guru</div>
+        <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+
+          <div style="border: 2px solid #1b5e8c; border-radius: 11px; padding: 18px; background: #f7fbfd;">
+            <div style="font-size: 15.5px; font-weight: 700; color: #14405e;">1. Pembelajaran</div>
+            <div style="font-size: 12.5px; color: #6b8296; margin-top: 3px; font-family: 'IBM Plex Mono', monospace;">jalur inti kurikulum</div>
+            <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 14px;">
+              <div style="font-size: 14px; padding: 8px 11px; border-radius: 7px; background: #eef5fa; color: #14405e; font-weight: 600;">Pilih Kelas (1&ndash;6)</div>
+              <div style="font-size: 14px; padding: 8px 11px 8px 22px; border-radius: 7px; background: #f3f7fa; color: #33475a;">Fase A / B / C</div>
+              <div style="font-size: 14px; padding: 8px 11px 8px 34px; border-radius: 7px; background: #f3f7fa; color: #33475a;">Mata Pelajaran</div>
+              <div style="font-size: 14px; padding: 8px 11px 8px 46px; border-radius: 7px; background: #f3f7fa; color: #33475a;">CP &amp; Elemen</div>
+              <div style="font-size: 14px; padding: 8px 11px 8px 58px; border-radius: 7px; background: #f3f7fa; color: #33475a;">TP</div>
+              <div style="font-size: 13.5px; padding: 8px 11px 8px 70px; border-radius: 7px; background: #eef5fa; color: #14405e;">Materi</div>
+              <div style="font-size: 13.5px; padding: 8px 11px 8px 70px; border-radius: 7px; background: #eef5fa; color: #14405e;">Aktivitas / Game</div>
+              <div style="font-size: 13.5px; padding: 8px 11px 8px 70px; border-radius: 7px; background: #eef5fa; color: #14405e;">LKPD</div>
+              <div style="font-size: 13.5px; padding: 8px 11px 8px 70px; border-radius: 7px; background: #eef5fa; color: #14405e;">Asesmen</div>
+            </div>
+          </div>
+
+          <div style="border: 1px solid #e2e9ef; border-radius: 11px; padding: 18px;">
+            <div style="font-size: 15.5px; font-weight: 700;">2. Papan Interaktif</div>
+            <div style="font-size: 12.5px; color: #6b8296; margin-top: 3px; font-family: 'IBM Plex Mono', monospace;">mode kelas</div>
+            <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 14px; font-size: 14px; color: #33475a;">
+              <div>Papan kosong</div>
+              <div>Papan di atas materi</div>
+              <div>Halaman papan (berlapis)</div>
+              <div>Alat kelas: timer, undi nama</div>
+              <div>Tempel media &amp; game</div>
+              <div>Simpan ke sesi</div>
+            </div>
+            <div style="font-size: 15.5px; font-weight: 700; margin-top: 22px;">3. Game Edukasi</div>
+            <div style="font-size: 12.5px; color: #6b8296; margin-top: 3px; font-family: 'IBM Plex Mono', monospace;">terikat CP/TP</div>
+            <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 14px; font-size: 14px; color: #33475a;">
+              <div>Katalog + penyaring berantai</div>
+              <div>Mode: individu, kelompok, battle, kelas</div>
+              <div>Layar guru &amp; layar siswa</div>
+              <div>Hasil masuk ke penilaian</div>
+            </div>
+          </div>
+
+          <div style="border: 1px solid #e2e9ef; border-radius: 11px; padding: 18px;">
+            <div style="font-size: 15.5px; font-weight: 700;">4. Studio AI</div>
+            <div style="font-size: 12.5px; color: #6b8296; margin-top: 3px; font-family: 'IBM Plex Mono', monospace;">prompt bebas guru</div>
+            <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 14px; font-size: 14px; color: #33475a;">
+              <div>Pembuat LKPD</div>
+              <div>Pembuat Soal</div>
+              <div>Game Generator</div>
+              <div>Pembuat Materi &amp; Aktivitas</div>
+              <div>Riwayat prompt</div>
+            </div>
+            <div style="font-size: 15.5px; font-weight: 700; margin-top: 22px;">5. Editor &amp; Cetak</div>
+            <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 14px; font-size: 14px; color: #33475a;">
+              <div>Editor LKPD</div>
+              <div>Editor soal</div>
+              <div>Pratinjau cetak</div>
+              <div>Export PDF / cetak</div>
+            </div>
+          </div>
+
+          <div style="border: 1px solid #e2e9ef; border-radius: 11px; padding: 18px;">
+            <div style="font-size: 15.5px; font-weight: 700;">6. Kelas &amp; Siswa</div>
+            <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 14px; font-size: 14px; color: #33475a;">
+              <div>Data siswa</div>
+              <div>Kelompok / regu</div>
+              <div>Sesi belajar</div>
+              <div>Penilaian &amp; rekap</div>
+              <div>Poin, badge, leaderboard</div>
+            </div>
+            <div style="font-size: 15.5px; font-weight: 700; margin-top: 22px;">7. Perpustakaan</div>
+            <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 14px; font-size: 14px; color: #33475a;">
+              <div>Materi saya &amp; bawaan</div>
+              <div>Bank LKPD &amp; bank soal</div>
+              <div>Media: gambar, audio, video, PDF</div>
+              <div>Pencarian seluruh isi</div>
+            </div>
+          </div>
+
+          <div style="border: 1px solid #e2e9ef; border-radius: 11px; padding: 18px;">
+            <div style="font-size: 15.5px; font-weight: 700;">8. Pengaturan</div>
+            <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 14px; font-size: 14px; color: #33475a;">
+              <div>Profil sekolah &amp; guru</div>
+              <div>Kurikulum sekolah: mapel pilihan, cabang seni</div>
+              <div>Tahun ajaran &amp; semester</div>
+              <div>Offline / PWA</div>
+              <div>Backup &amp; restore</div>
+              <div>Preferensi tampilan &amp; papan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="nav" style="padding: 46px 54px 0; scroll-margin-top: 20px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #8ea5b8;">03</span>
+        <h2 style="margin: 0; font-size: 27px; font-weight: 700; letter-spacing: -0.02em;">Struktur navigasi</h2>
+      </div>
+      <p style="margin: 6px 0 24px; font-size: 15.5px; line-height: 1.65; color: #46596b; max-width: 80ch;">Tiga tingkat, dan tidak lebih. Sidebar tetap untuk area, konteks berantai untuk kurikulum, tab untuk isi halaman. Maksimum tiga ketukan dari dasbor sampai mengajar.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px;">
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; color: #6b8296; text-transform: uppercase;">Tingkat 1</div>
+          <h3 style="margin: 7px 0 12px; font-size: 18px; font-weight: 700;">Sidebar area</h3>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #52697d;">Selalu terlihat di desktop, jadi bilah bawah di tablet, tersembunyi di mode papan. Empat kelompok.</p>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="font-size: 14px; padding: 10px 12px; border-radius: 8px; background: #eef5fa; color: #14405e; font-weight: 600;">Mengajar</div>
+            <div style="font-size: 14px; padding: 10px 12px; border-radius: 8px; background: #f8fafc; color: #33475a;">Buat dengan AI</div>
+            <div style="font-size: 14px; padding: 10px 12px; border-radius: 8px; background: #f8fafc; color: #33475a;">Kelas &amp; Data</div>
+            <div style="font-size: 14px; padding: 10px 12px; border-radius: 8px; background: #f8fafc; color: #33475a;">Perpustakaan &amp; Pengaturan</div>
+          </div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; color: #6b8296; text-transform: uppercase;">Tingkat 2</div>
+          <h3 style="margin: 7px 0 12px; font-size: 18px; font-weight: 700;">Bilah konteks kurikulum</h3>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #52697d;">Menempel di atas setiap halaman pembelajaran. Ganti satu tingkat, tingkat di bawahnya menyesuaikan otomatis.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 7px; align-items: center;">
+            <span style="font-size: 13.5px; font-weight: 600; padding: 8px 13px; border-radius: 8px; background: #103a56; color: #fff;">Kelas 4</span>
+            <span style="color: #8ea5b8;">/</span>
+            <span style="font-size: 13.5px; font-weight: 600; padding: 8px 13px; border-radius: 8px; background: #dff0e7; color: #0f6b4f;">Fase B</span>
+            <span style="color: #8ea5b8;">/</span>
+            <span style="font-size: 13.5px; font-weight: 600; padding: 8px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">Matematika</span>
+            <span style="color: #8ea5b8;">/</span>
+            <span style="font-size: 13.5px; font-weight: 600; padding: 8px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">CP Bilangan</span>
+            <span style="color: #8ea5b8;">/</span>
+            <span style="font-size: 13.5px; font-weight: 600; padding: 8px 13px; border-radius: 8px; background: #eef5fa; color: #14405e;">TP 4.2</span>
+          </div>
+          <div style="margin-top: 16px; padding: 12px 14px; border-radius: 8px; background: #fdf5e6; border: 1px solid #f0e0bd; font-size: 13.5px; line-height: 1.6; color: #7a5a10;">Konteks ini juga yang dikirim ke AI. Guru tidak perlu mengetik ulang kelas, mapel, atau TP.</div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; color: #6b8296; text-transform: uppercase;">Tingkat 3</div>
+          <h3 style="margin: 7px 0 12px; font-size: 18px; font-weight: 700;">Tab isi TP</h3>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #52697d;">Satu TP membuka empat tab. Inilah tempat guru menghabiskan waktunya.</p>
+          <div style="display: flex; gap: 3px; border-bottom: 2px solid #e6edf2; flex-wrap: wrap;">
+            <div style="font-size: 14px; font-weight: 700; padding: 11px 15px; border-bottom: 3px solid #1b5e8c; color: #14405e; margin-bottom: -2px;">Materi</div>
+            <div style="font-size: 14px; font-weight: 600; padding: 11px 15px; color: #6b8296;">Aktivitas</div>
+            <div style="font-size: 14px; font-weight: 600; padding: 11px 15px; color: #6b8296;">LKPD</div>
+            <div style="font-size: 14px; font-weight: 600; padding: 11px 15px; color: #6b8296;">Asesmen</div>
+          </div>
+          <div style="margin-top: 16px; font-size: 14px; line-height: 1.65; color: #52697d;">Tombol tetap di kanan atas: <strong style="color: #14405e;">Buka di Papan</strong> &mdash; ada di keempat tab, karena mengajar adalah tujuan setiap halaman.</div>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px; margin-top: 18px;">
+        <h3 style="margin: 0 0 16px; font-size: 18px; font-weight: 700;">Tetap terjangkau dari mana saja</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px;">
+          <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 14px 16px; background: #f8fafc;"><div style="font-size: 14.5px; font-weight: 700;">Pencarian global</div><div style="font-size: 13.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">Materi, LKPD, soal, game, media, siswa. Satu kolom di kop.</div></div>
+          <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 14px 16px; background: #f8fafc;"><div style="font-size: 14.5px; font-weight: 700;">Buka Papan</div><div style="font-size: 13.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">Tombol utama di kop, di semua halaman.</div></div>
+          <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 14px 16px; background: #f8fafc;"><div style="font-size: 14.5px; font-weight: 700;">Status offline</div><div style="font-size: 13.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">Indikator tetap di kaki sidebar.</div></div>
+          <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 14px 16px; background: #f8fafc;"><div style="font-size: 14.5px; font-weight: 700;">Sesi berjalan</div><div style="font-size: 13.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">Bilah kembali ke sesi bila guru menavigasi keluar.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="halaman" style="padding: 46px 54px 0; scroll-margin-top: 20px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #8ea5b8;">04</span>
+        <h2 style="margin: 0; font-size: 27px; font-weight: 700; letter-spacing: -0.02em;">Struktur halaman</h2>
+      </div>
+      <p style="margin: 6px 0 24px; font-size: 15.5px; line-height: 1.65; color: #46596b; max-width: 80ch;">Lima kerangka halaman menampung seluruh aplikasi. Setiap layar baru harus jatuh ke salah satunya, bukan membuat pola baru.</p>
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 26px; align-items: center;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8ea5b8;">A</span><h3 style="margin: 0; font-size: 18px; font-weight: 700;">Kerangka Ikhtisar</h3></div>
+            <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: #52697d;">Kop + baris statistik + kisi kartu + panel samping. Dipakai: Dasbor, Pilih Kelas, Perpustakaan, Katalog Game, Data Siswa.</p>
+          </div>
+          <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 10px; background: #f8fafc; display: flex; flex-direction: column; gap: 6px;">
+            <div style="height: 20px; border-radius: 4px; background: #dce5ec;"></div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;"><div style="height: 26px; border-radius: 4px; background: #e8eef3;"></div><div style="height: 26px; border-radius: 4px; background: #e8eef3;"></div><div style="height: 26px; border-radius: 4px; background: #e8eef3;"></div><div style="height: 26px; border-radius: 4px; background: #e8eef3;"></div></div>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 6px;"><div style="height: 62px; border-radius: 4px; background: #e8eef3;"></div><div style="height: 62px; border-radius: 4px; background: #eef2f6;"></div></div>
+          </div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 26px; align-items: center;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8ea5b8;">B</span><h3 style="margin: 0; font-size: 18px; font-weight: 700;">Kerangka Kurikulum</h3></div>
+            <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: #52697d;">Bilah konteks + daftar CP/TP di kiri + isi di kanan + tab. Dipakai: Mapel, CP, TP, Materi, Asesmen. Dua kolom sesuai kesepakatan.</p>
+          </div>
+          <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 10px; background: #f8fafc; display: flex; flex-direction: column; gap: 6px;">
+            <div style="height: 14px; border-radius: 4px; background: #cddae4;"></div>
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 6px;">
+              <div style="display: flex; flex-direction: column; gap: 4px;"><div style="height: 14px; border-radius: 3px; background: #e8eef3;"></div><div style="height: 14px; border-radius: 3px; background: #d3e3ee;"></div><div style="height: 14px; border-radius: 3px; background: #e8eef3;"></div><div style="height: 14px; border-radius: 3px; background: #e8eef3;"></div></div>
+              <div style="display: flex; flex-direction: column; gap: 5px;"><div style="height: 12px; border-radius: 3px; background: #dce5ec;"></div><div style="height: 45px; border-radius: 4px; background: #e8eef3;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: #123f31; border-radius: 12px; padding: 22px 24px; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 26px; align-items: center; color: #fff;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #9dc4b4;">C</span><h3 style="margin: 0; font-size: 18px; font-weight: 700; font-family: 'Nunito', sans-serif;">Kerangka Kelas</h3></div>
+            <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: #c3ddd2;">Layar penuh tanpa sidebar. Alat mengapung di bawah, keluar di kanan atas. Dipakai: Papan Interaktif, Materi saat mengajar, Game berjalan, Layar siswa.</p>
+          </div>
+          <div style="border: 1px solid #3d6d5c; border-radius: 8px; padding: 10px; background: #0e3428; display: flex; flex-direction: column; gap: 6px;">
+            <div style="display: flex; justify-content: space-between;"><div style="width: 40%; height: 12px; border-radius: 3px; background: #1c5442;"></div><div style="width: 16px; height: 12px; border-radius: 3px; background: #f2b230;"></div></div>
+            <div style="height: 62px; border-radius: 4px; background: #fdfaf5;"></div>
+            <div style="display: flex; justify-content: center; gap: 5px;"><div style="width: 18px; height: 14px; border-radius: 4px; background: #1c5442;"></div><div style="width: 18px; height: 14px; border-radius: 4px; background: #f2b230;"></div><div style="width: 18px; height: 14px; border-radius: 4px; background: #1c5442;"></div><div style="width: 18px; height: 14px; border-radius: 4px; background: #1c5442;"></div></div>
+          </div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 26px; align-items: center;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8ea5b8;">D</span><h3 style="margin: 0; font-size: 18px; font-weight: 700;">Kerangka Studio</h3></div>
+            <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: #52697d;">Empat panel: daftar blok, kanvas, properti, pratinjau cetak. Dipakai: Editor LKPD, Editor soal, AI Game Generator.</p>
+          </div>
+          <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 10px; background: #f8fafc; display: grid; grid-template-columns: 0.7fr 2fr 0.9fr; gap: 6px;">
+            <div style="display: flex; flex-direction: column; gap: 4px;"><div style="height: 11px; border-radius: 3px; background: #e8eef3;"></div><div style="height: 11px; border-radius: 3px; background: #e8eef3;"></div><div style="height: 11px; border-radius: 3px; background: #e8eef3;"></div></div>
+            <div style="height: 82px; border-radius: 4px; background: #fff; border: 1px solid #dce5ec;"></div>
+            <div style="display: flex; flex-direction: column; gap: 4px;"><div style="height: 11px; border-radius: 3px; background: #ece0f4;"></div><div style="height: 11px; border-radius: 3px; background: #e8eef3;"></div></div>
+          </div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 26px; align-items: center;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8ea5b8;">E</span><h3 style="margin: 0; font-size: 18px; font-weight: 700;">Kerangka Hasil</h3></div>
+            <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: #52697d;">Penyaring + empat grafik + tabel per siswa + tindakan ekspor. Dipakai: Penilaian, Rekap TP, Leaderboard, Laporan siswa.</p>
+          </div>
+          <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 10px; background: #f8fafc; display: flex; flex-direction: column; gap: 6px;">
+            <div style="display: flex; gap: 5px;"><div style="width: 34px; height: 11px; border-radius: 3px; background: #dce5ec;"></div><div style="width: 34px; height: 11px; border-radius: 3px; background: #dce5ec;"></div></div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;"><div style="height: 30px; border-radius: 4px; background: #e8eef3;"></div><div style="height: 30px; border-radius: 4px; background: #e8eef3;"></div><div style="height: 30px; border-radius: 4px; background: #e8eef3;"></div><div style="height: 30px; border-radius: 4px; background: #e8eef3;"></div></div>
+            <div style="height: 42px; border-radius: 4px; background: #eef2f6;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" style="padding: 46px 54px 0; scroll-margin-top: 20px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #8ea5b8;">05</span>
+        <h2 style="margin: 0; font-size: 27px; font-weight: 700; letter-spacing: -0.02em;">Wireframe dashboard final</h2>
+      </div>
+      <p style="margin: 6px 0 24px; font-size: 15.5px; line-height: 1.65; color: #46596b; max-width: 80ch;">Arah A sebagai dasar, dengan satu perubahan penting: kartu sesi berikutnya mengambil bobot visual dari Arah B, karena membuka pelajaran adalah tindakan pertama guru setiap pagi.</p>
+
+      <div style="background: #fff; border: 1px solid #dde4ea; border-radius: 12px; overflow-x: auto;">
+        <div style="display: grid; grid-template-columns: 186px minmax(0, 1fr); min-width: 1000px;">
+          <div style="background: #103a56; padding: 18px 0; display: flex; flex-direction: column; gap: 18px; min-height: 560px;">
+            <div style="padding: 0 16px; font-size: 12.5px; font-weight: 700; color: #fff;">Papan Interaktif SD</div>
+            <div style="display: flex; flex-direction: column; gap: 1px;">
+              <div style="padding: 6px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.08em; color: #6f9ab5;">MENGAJAR</div>
+              <div style="padding: 8px 16px; font-size: 12px; background: #1b5e8c; color: #fff; border-left: 3px solid #6cc0f0; font-weight: 600;">Dasbor</div>
+              <div style="padding: 8px 16px; font-size: 12px; color: #b9d2e0;">Kelas &amp; Mapel</div>
+              <div style="padding: 8px 16px; font-size: 12px; color: #b9d2e0;">Papan Interaktif</div>
+              <div style="padding: 8px 16px; font-size: 12px; color: #b9d2e0;">Game Edukasi</div>
+              <div style="padding: 14px 16px 6px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.08em; color: #6f9ab5;">BUAT DENGAN AI</div>
+              <div style="padding: 8px 16px; font-size: 12px; color: #b9d2e0;">Pembuat LKPD</div>
+              <div style="padding: 8px 16px; font-size: 12px; color: #b9d2e0;">Pembuat Soal</div>
+              <div style="padding: 8px 16px; font-size: 12px; color: #b9d2e0;">Game Generator</div>
+              <div style="padding: 14px 16px 6px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.08em; color: #6f9ab5;">KELAS &amp; DATA</div>
+              <div style="padding: 8px 16px; font-size: 12px; color: #b9d2e0;">Data Siswa</div>
+              <div style="padding: 8px 16px; font-size: 12px; color: #b9d2e0;">Penilaian</div>
+              <div style="padding: 8px 16px; font-size: 12px; color: #b9d2e0;">Leaderboard</div>
+              <div style="padding: 14px 16px 6px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.08em; color: #6f9ab5;">LAINNYA</div>
+              <div style="padding: 8px 16px; font-size: 12px; color: #b9d2e0;">Perpustakaan</div>
+              <div style="padding: 8px 16px; font-size: 12px; color: #b9d2e0;">Pengaturan</div>
+            </div>
+            <div style="margin-top: auto; padding: 12px 16px 0; border-top: 1px solid #1d4d6d; font-size: 11px; color: #8fb4cc; line-height: 1.5;">Offline aktif<br />Backup 20 Agu 21.14</div>
+          </div>
+
+          <div style="padding: 22px 26px 30px; background: #f4f6f8; display: flex; flex-direction: column; gap: 18px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+              <div>
+                <div style="font-size: 11.5px; color: #6b8296;">Jumat, 21 Agustus 2026 &middot; Semester 1 &middot; SD kelas 4</div>
+                <div style="font-size: 20px; font-weight: 700; margin-top: 3px; letter-spacing: -0.015em;">Selamat pagi, Bu Sri</div>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <div style="font-size: 12px; padding: 9px 14px; border-radius: 8px; border: 1px solid #cad7e1; background: #fff; color: #46596b;">Cari seluruh materi</div>
+                <div style="font-size: 12px; font-weight: 600; padding: 9px 14px; border-radius: 8px; background: #1b5e8c; color: #fff;">Buka Papan</div>
+              </div>
+            </div>
+
+            <div style="background: #123f31; border-radius: 13px; padding: 22px 24px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: center; color: #fff;">
+              <div>
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: #f2b230;">SESI BERIKUTNYA &middot; 07.30 &middot; 35 MENIT</div>
+                <div style="font-size: 24px; font-weight: 800; font-family: 'Nunito', sans-serif; margin-top: 8px; letter-spacing: -0.02em;">Matematika &middot; Kelas 4</div>
+                <div style="font-size: 13.5px; color: #c3ddd2; margin-top: 6px;">TP 4.2 Membandingkan pecahan senilai &middot; materi siap, LKPD siap, 6 game tersedia</div>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="font-size: 13.5px; font-weight: 800; padding: 13px 22px; border-radius: 10px; background: #f2b230; color: #123f31; text-align: center; font-family: 'Nunito', sans-serif;">Mulai Mengajar</div>
+                <div style="font-size: 12.5px; font-weight: 600; padding: 10px 22px; border-radius: 10px; border: 1.5px solid #3d6d5c; text-align: center; color: #dcece5;">Lihat rencana</div>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px;">
+              <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 10px; padding: 13px 15px;"><div style="font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b8296;">TP tuntas</div><div style="font-size: 21px; font-weight: 700; margin-top: 3px;">48<span style="font-size: 12px; color: #8598a8;">/72</span></div></div>
+              <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 10px; padding: 13px 15px;"><div style="font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b8296;">Perlu dinilai</div><div style="font-size: 21px; font-weight: 700; margin-top: 3px; color: #b14a2c;">12</div></div>
+              <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 10px; padding: 13px 15px;"><div style="font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b8296;">LKPD dibuat</div><div style="font-size: 21px; font-weight: 700; margin-top: 3px;">24</div></div>
+              <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 10px; padding: 13px 15px;"><div style="font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b8296;">Game dimainkan</div><div style="font-size: 21px; font-weight: 700; margin-top: 3px;">137</div></div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; align-items: start;">
+              <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 11px; padding: 16px 18px;">
+                <div style="font-size: 14px; font-weight: 700;">Pilih kelas</div>
+                <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 12px;">
+                  <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 12px; background: #f8fafc;"><div style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; color: #8a6410;">FASE A</div><div style="font-size: 15px; font-weight: 700; margin-top: 3px;">Kelas 1</div><div style="font-size: 10.5px; color: #6b8296;">6 mapel</div></div>
+                  <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 12px; background: #f8fafc;"><div style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; color: #8a6410;">FASE A</div><div style="font-size: 15px; font-weight: 700; margin-top: 3px;">Kelas 2</div><div style="font-size: 10.5px; color: #6b8296;">6 mapel</div></div>
+                  <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 12px; background: #f8fafc;"><div style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; color: #0f6b4f;">FASE B</div><div style="font-size: 15px; font-weight: 700; margin-top: 3px;">Kelas 3</div><div style="font-size: 10.5px; color: #6b8296;">8 mapel</div></div>
+                  <div style="border: 2px solid #1b5e8c; border-radius: 8px; padding: 10px 11px; background: #eef5fa;"><div style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; color: #0f6b4f;">FASE B</div><div style="font-size: 15px; font-weight: 700; margin-top: 3px;">Kelas 4</div><div style="font-size: 10.5px; color: #1b5e8c; font-weight: 600;">Kelas Anda</div></div>
+                  <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 12px; background: #f8fafc;"><div style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; color: #6b3590;">FASE C</div><div style="font-size: 15px; font-weight: 700; margin-top: 3px;">Kelas 5</div><div style="font-size: 10.5px; color: #6b8296;">9 mapel</div></div>
+                  <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 12px; background: #f8fafc;"><div style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; color: #6b3590;">FASE C</div><div style="font-size: 15px; font-weight: 700; margin-top: 3px;">Kelas 6</div><div style="font-size: 10.5px; color: #6b8296;">9 mapel</div></div>
+                </div>
+                <div style="font-size: 14px; font-weight: 700; margin-top: 18px;">Jadwal hari ini</div>
+                <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 10px;">
+                  <div style="display: grid; grid-template-columns: 46px 1fr auto; gap: 10px; align-items: center; padding: 9px 11px; border: 1px solid #dce5ec; border-left: 3px solid #1b5e8c; border-radius: 7px;"><div style="font-size: 11.5px; font-weight: 600;">07.30</div><div style="font-size: 12.5px; font-weight: 600;">Matematika &middot; TP 4.2</div><div style="font-size: 11px; color: #0f6b4f; font-weight: 600;">Siap</div></div>
+                  <div style="display: grid; grid-template-columns: 46px 1fr auto; gap: 10px; align-items: center; padding: 9px 11px; border: 1px solid #e6edf2; border-left: 3px solid #cdd8e0; border-radius: 7px;"><div style="font-size: 11.5px; font-weight: 600; color: #6b8296;">09.15</div><div style="font-size: 12.5px; color: #33475a;">Bahasa Indonesia &middot; TP 4.5</div><div style="font-size: 11px; color: #0f6b4f; font-weight: 600;">Siap</div></div>
+                  <div style="display: grid; grid-template-columns: 46px 1fr auto; gap: 10px; align-items: center; padding: 9px 11px; border: 1px solid #e6edf2; border-left: 3px solid #cdd8e0; border-radius: 7px;"><div style="font-size: 11.5px; font-weight: 600; color: #6b8296;">11.00</div><div style="font-size: 12.5px; color: #33475a;">Seni dan Budaya &middot; Seni Rupa</div><div style="font-size: 11px; color: #b14a2c; font-weight: 600;">Belum</div></div>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 11px; padding: 16px 18px;">
+                  <div style="font-size: 14px; font-weight: 700;">Buat dengan AI</div>
+                  <div style="font-size: 11px; color: #6b8296; margin-top: 3px;">Terikat CP resmi &amp; TP Rekomendasi</div>
+                  <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 11px;">
+                    <div style="font-size: 12.5px; font-weight: 600; padding: 10px 12px; border-radius: 8px; background: #eef5fa; color: #14405e;">LKPD dari prompt bebas</div>
+                    <div style="font-size: 12.5px; padding: 10px 12px; border-radius: 8px; background: #f8fafc; color: #33475a;">Pembuat soal</div>
+                    <div style="font-size: 12.5px; padding: 10px 12px; border-radius: 8px; background: #f8fafc; color: #33475a;">Game generator</div>
+                  </div>
+                </div>
+                <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 11px; padding: 16px 18px;">
+                  <div style="font-size: 14px; font-weight: 700;">Peringkat Kelas 4</div>
+                  <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 11px;">
+                    <div style="display: grid; grid-template-columns: 18px 1fr auto; gap: 9px; align-items: center;"><span style="font-size: 11px; font-weight: 700; color: #f2b230;">1</span><span style="font-size: 12.5px;">Aisyah P.</span><span style="font-size: 12px; font-weight: 600;">1.240</span></div>
+                    <div style="display: grid; grid-template-columns: 18px 1fr auto; gap: 9px; align-items: center;"><span style="font-size: 11px; font-weight: 700; color: #8ea5b8;">2</span><span style="font-size: 12.5px;">Bagas N.</span><span style="font-size: 12px; font-weight: 600;">1.185</span></div>
+                    <div style="display: grid; grid-template-columns: 18px 1fr auto; gap: 9px; align-items: center;"><span style="font-size: 11px; font-weight: 700; color: #8ea5b8;">3</span><span style="font-size: 12.5px;">Citra L.</span><span style="font-size: 12px; font-weight: 600;">1.102</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 14px;">
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 10px; padding: 15px 17px;"><div style="font-size: 14px; font-weight: 700;">Yang diambil dari Arah B</div><div style="font-size: 13.5px; color: #52697d; margin-top: 6px; line-height: 1.6;">Kartu sesi hijau gelap dengan tombol amber, huruf Nunito, dan bobot 800 untuk judul mengajar.</div></div>
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 10px; padding: 15px 17px;"><div style="font-size: 14px; font-weight: 700;">Yang dipertahankan dari Arah A</div><div style="font-size: 13.5px; color: #52697d; margin-top: 6px; line-height: 1.6;">Sidebar berkelompok, kartu putih bertepi tipis, kepadatan informasi, dan nada resmi.</div></div>
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 10px; padding: 15px 17px;"><div style="font-size: 14px; font-weight: 700;">12 kartu, 4 kelompok menu</div><div style="font-size: 13.5px; color: #52697d; margin-top: 6px; line-height: 1.6;">Sesuai kesepakatan. Kartu ke-13 dan seterusnya harus menggantikan yang ada, bukan menambah.</div></div>
+      </div>
+    </section>
+
+    <section id="flow-guru" style="padding: 46px 54px 0; scroll-margin-top: 20px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #8ea5b8;">06</span>
+        <h2 style="margin: 0; font-size: 27px; font-weight: 700; letter-spacing: -0.02em;">User flow guru</h2>
+      </div>
+      <p style="margin: 6px 0 24px; font-size: 15.5px; line-height: 1.65; color: #46596b; max-width: 80ch;">Dari membuka aplikasi sampai nilai tersimpan. Jalur utama lima layar; sisanya cabang opsional.</p>
+
+      <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 26px 24px;">
+        <div style="display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px;">
+          <div style="flex: 1 1 150px; border: 1px solid #dce5ec; border-radius: 10px; padding: 15px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8ea5b8;">01</div><div style="font-size: 14.5px; font-weight: 700; margin-top: 5px;">Buka aplikasi</div><div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.5;">Dasbor menampilkan sesi berikutnya</div></div>
+          <div style="display: grid; place-items: center; color: #8ea5b8; font-size: 18px;">&rarr;</div>
+          <div style="flex: 1 1 150px; border: 2px solid #1b5e8c; border-radius: 10px; padding: 14px; background: #eef5fa;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #1b5e8c;">02</div><div style="font-size: 14.5px; font-weight: 700; margin-top: 5px;">Mulai Mengajar</div><div style="font-size: 12.5px; color: #14405e; margin-top: 5px; line-height: 1.5;">Satu ketukan, konteks TP terbawa</div></div>
+          <div style="display: grid; place-items: center; color: #8ea5b8; font-size: 18px;">&rarr;</div>
+          <div style="flex: 1 1 150px; border: 1px solid #dce5ec; border-radius: 10px; padding: 15px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8ea5b8;">03</div><div style="font-size: 14.5px; font-weight: 700; margin-top: 5px;">Materi + Papan</div><div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.5;">Mode Kelas, papan berlapis di atas materi</div></div>
+          <div style="display: grid; place-items: center; color: #8ea5b8; font-size: 18px;">&rarr;</div>
+          <div style="flex: 1 1 150px; border: 1px solid #dce5ec; border-radius: 10px; padding: 15px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8ea5b8;">04</div><div style="font-size: 14.5px; font-weight: 700; margin-top: 5px;">Jalankan game</div><div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.5;">Individu, kelompok, battle, atau kelas</div></div>
+          <div style="display: grid; place-items: center; color: #8ea5b8; font-size: 18px;">&rarr;</div>
+          <div style="flex: 1 1 150px; border: 1px solid #dce5ec; border-radius: 10px; padding: 15px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8ea5b8;">05</div><div style="font-size: 14.5px; font-weight: 700; margin-top: 5px;">Tutup sesi</div><div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.5;">Hasil, poin, dan ketuntasan TP tersimpan</div></div>
+        </div>
+
+        <div style="margin-top: 22px; padding-top: 20px; border-top: 1px solid #eef2f6;">
+          <div style="font-size: 13px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em; color: #6b8296; text-transform: uppercase;">Cabang dari langkah 02</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 12px;">
+            <div style="border: 1px dashed #c7d4de; border-radius: 9px; padding: 13px 15px;"><div style="font-size: 13.5px; font-weight: 700;">Materi belum ada</div><div style="font-size: 12.5px; color: #52697d; margin-top: 4px; line-height: 1.55;">&rarr; Studio AI &rarr; Pembuat Materi &rarr; setujui &rarr; kembali ke TP</div></div>
+            <div style="border: 1px dashed #c7d4de; border-radius: 9px; padding: 13px 15px;"><div style="font-size: 13.5px; font-weight: 700;">Butuh LKPD</div><div style="font-size: 12.5px; color: #52697d; margin-top: 4px; line-height: 1.55;">&rarr; AI LKPD &rarr; Editor &rarr; cetak &rarr; bagikan ke sesi</div></div>
+            <div style="border: 1px dashed #c7d4de; border-radius: 9px; padding: 13px 15px;"><div style="font-size: 13.5px; font-weight: 700;">Butuh soal asesmen</div><div style="font-size: 12.5px; color: #52697d; margin-top: 4px; line-height: 1.55;">&rarr; Pembuat Soal &rarr; tinjau &rarr; simpan ke bank soal</div></div>
+            <div style="border: 1px dashed #c7d4de; border-radius: 9px; padding: 13px 15px;"><div style="font-size: 13.5px; font-weight: 700;">Game belum cocok</div><div style="font-size: 12.5px; color: #52697d; margin-top: 4px; line-height: 1.55;">&rarr; AI Game Generator &rarr; uji coba &rarr; simpan ke katalog TP</div></div>
+          </div>
+          <div style="font-size: 13px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em; color: #6b8296; text-transform: uppercase; margin-top: 22px;">Setelah langkah 05</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 12px;">
+            <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 13px 15px; background: #f8fafc;"><div style="font-size: 13.5px; font-weight: 700;">Penilaian</div><div style="font-size: 12.5px; color: #52697d; margin-top: 4px; line-height: 1.55;">Rekap per TP, per siswa, per kelompok</div></div>
+            <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 13px 15px; background: #f8fafc;"><div style="font-size: 13.5px; font-weight: 700;">Ekspor laporan</div><div style="font-size: 12.5px; color: #52697d; margin-top: 4px; line-height: 1.55;">PDF per siswa, atau rekap kelas</div></div>
+            <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 13px 15px; background: #f8fafc;"><div style="font-size: 13.5px; font-weight: 700;">Backup</div><div style="font-size: 12.5px; color: #52697d; margin-top: 4px; line-height: 1.55;">Otomatis harian, manual kapan saja</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="flow-siswa" style="padding: 46px 54px 0; scroll-margin-top: 20px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #8ea5b8;">07</span>
+        <h2 style="margin: 0; font-size: 27px; font-weight: 700; letter-spacing: -0.02em;">User flow siswa</h2>
+      </div>
+      <p style="margin: 6px 0 24px; font-size: 15.5px; line-height: 1.65; color: #46596b; max-width: 80ch;">Dua jalur, karena tidak semua sekolah punya perangkat siswa. Keduanya tanpa kata sandi &mdash; siswa SD tidak mengelola akun.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px;">
+        <div style="background: #123f31; border-radius: 12px; padding: 24px; color: #fff;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; color: #9dc4b4; text-transform: uppercase;">Jalur 1 &middot; bawaan</div>
+          <h3 style="margin: 8px 0 16px; font-size: 19px; font-weight: 800; font-family: 'Nunito', sans-serif;">Satu papan bersama</h3>
+          <div style="display: flex; flex-direction: column; gap: 9px;">
+            <div style="padding: 13px 15px; border-radius: 10px; background: #1c5442;"><div style="font-size: 14.5px; font-weight: 700;">Guru buka game di papan</div></div>
+            <div style="padding: 13px 15px; border-radius: 10px; background: #1c5442;"><div style="font-size: 14.5px; font-weight: 700;">Aplikasi mengundi nama siswa</div><div style="font-size: 12.5px; color: #a8c9bb; margin-top: 3px;">atau guru memilih kelompok</div></div>
+            <div style="padding: 13px 15px; border-radius: 10px; background: #1c5442;"><div style="font-size: 14.5px; font-weight: 700;">Siswa maju, menyentuh papan</div><div style="font-size: 12.5px; color: #a8c9bb; margin-top: 3px;">Fase A: 2 pilihan besar. Fase C: 4 pilihan.</div></div>
+            <div style="padding: 13px 15px; border-radius: 10px; background: #0f6b4f;"><div style="font-size: 14.5px; font-weight: 700;">Poin masuk ke namanya</div></div>
+            <div style="padding: 13px 15px; border-radius: 10px; background: #1c5442;"><div style="font-size: 14.5px; font-weight: 700;">Papan peringkat kelas tampil</div></div>
+          </div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; color: #6b8296; text-transform: uppercase;">Jalur 2 &middot; bila ada perangkat</div>
+          <h3 style="margin: 8px 0 16px; font-size: 19px; font-weight: 700;">Gabung dengan kode</h3>
+          <div style="display: flex; flex-direction: column; gap: 9px;">
+            <div style="padding: 13px 15px; border-radius: 10px; background: #f8fafc; border: 1px solid #e6edf2;"><div style="font-size: 14.5px; font-weight: 700;">Guru membuka sesi</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">Kode 4 angka tampil besar di papan</div></div>
+            <div style="padding: 13px 15px; border-radius: 10px; background: #f8fafc; border: 1px solid #e6edf2;"><div style="font-size: 14.5px; font-weight: 700;">Siswa masukkan kode</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">Lalu pilih namanya dari daftar kelas &mdash; tanpa mengetik</div></div>
+            <div style="padding: 13px 15px; border-radius: 10px; background: #f8fafc; border: 1px solid #e6edf2;"><div style="font-size: 14.5px; font-weight: 700;">Layar tunggu</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">Guru melihat siapa sudah masuk, 28 slot</div></div>
+            <div style="padding: 13px 15px; border-radius: 10px; background: #eef5fa; border: 1px solid #d3e3ee;"><div style="font-size: 14.5px; font-weight: 700; color: #14405e;">Bermain / mengerjakan LKPD digital</div><div style="font-size: 12.5px; color: #14405e; margin-top: 3px;">20 detik per butir, 8 menit per game</div></div>
+            <div style="padding: 13px 15px; border-radius: 10px; background: #f8fafc; border: 1px solid #e6edf2;"><div style="font-size: 14.5px; font-weight: 700;">Hasil pribadi + badge</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">Progres sendiri selalu ditampilkan, peringkat hanya di papan kelas</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="background: #fdf5e6; border: 1px solid #f0e0bd; border-radius: 11px; padding: 17px 19px; margin-top: 14px;">
+        <div style="font-size: 14.5px; font-weight: 700; color: #7a5a10;">Aturan desain untuk siswa</div>
+        <div style="font-size: 14px; color: #7a5a10; margin-top: 6px; line-height: 1.65;">Fase A memakai ikon dengan teks pendek dan instruksi yang bisa dibacakan guru. Tidak ada layar yang menampilkan peringkat pribadi seorang siswa kepada seluruh kelas kecuali tiga teratas. Setiap siswa selalu melihat kemajuan dirinya sendiri.</div>
+      </div>
+    </section>
+
+    <section id="flow-lkpd" style="padding: 46px 54px 0; scroll-margin-top: 20px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #8ea5b8;">08</span>
+        <h2 style="margin: 0; font-size: 27px; font-weight: 700; letter-spacing: -0.02em;">Flow AI LKPD</h2>
+      </div>
+      <p style="margin: 6px 0 24px; font-size: 15.5px; line-height: 1.65; color: #46596b; max-width: 80ch;">Tiga langkah. Prompt guru adalah instruksi, bukan saran &mdash; dan CP/TP diambil dari basis data, tidak pernah dikarang AI.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px;">
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px;">
+          <div style="display: flex; align-items: center; gap: 10px;"><span style="width: 26px; height: 26px; border-radius: 7px; background: #103a56; color: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 700;">1</span><h3 style="margin: 0; font-size: 17.5px; font-weight: 700;">Konteks terkunci</h3></div>
+          <p style="margin: 12px 0 14px; font-size: 14px; line-height: 1.6; color: #52697d;">Terisi otomatis dari halaman asal. Guru boleh mengubah, tetapi tidak boleh mengosongkan.</p>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <div style="display: grid; grid-template-columns: 78px 1fr; gap: 10px; font-size: 13.5px; padding: 8px 11px; border-radius: 7px; background: #f8fafc;"><span style="color: #6b8296;">Kelas</span><span style="font-weight: 600;">4 &middot; Fase B</span></div>
+            <div style="display: grid; grid-template-columns: 78px 1fr; gap: 10px; font-size: 13.5px; padding: 8px 11px; border-radius: 7px; background: #f8fafc;"><span style="color: #6b8296;">Mapel</span><span style="font-weight: 600;">Matematika</span></div>
+            <div style="display: grid; grid-template-columns: 78px 1fr; gap: 10px; font-size: 13.5px; padding: 8px 11px; border-radius: 7px; background: #eef5fa;"><span style="color: #14405e;">CP</span><span style="font-weight: 600; color: #14405e;">Bilangan &mdash; dari basis data</span></div>
+            <div style="display: grid; grid-template-columns: 78px 1fr; gap: 10px; font-size: 13.5px; padding: 8px 11px; border-radius: 7px; background: #eef5fa;"><span style="color: #14405e;">TP</span><span style="font-weight: 600; color: #14405e;">4.2 &mdash; dari basis data</span></div>
+            <div style="display: grid; grid-template-columns: 78px 1fr; gap: 10px; font-size: 13.5px; padding: 8px 11px; border-radius: 7px; background: #f8fafc;"><span style="color: #6b8296;">Materi</span><span style="font-weight: 600;">Pecahan senilai</span></div>
+          </div>
+          <div style="margin-top: 14px; padding: 11px 13px; border-radius: 8px; background: #fdf0ec; border: 1px solid #f2d8cf; font-size: 13px; line-height: 1.55; color: #8f3a1f;">Bila CP resmi dan TP Rekomendasi sudah ada, AI dilarang menuliskan versinya sendiri. Ia hanya boleh mengutip.</div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px;">
+          <div style="display: flex; align-items: center; gap: 10px;"><span style="width: 26px; height: 26px; border-radius: 7px; background: #103a56; color: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 700;">2</span><h3 style="margin: 0; font-size: 17.5px; font-weight: 700;">Prompt bebas guru</h3></div>
+          <p style="margin: 12px 0 14px; font-size: 14px; line-height: 1.6; color: #52697d;">Kolom besar, tanpa batas kata. Di bawahnya kendali opsional yang mengisi prompt, bukan menggantikannya.</p>
+          <div style="border: 1.5px solid #cad7e1; border-radius: 9px; padding: 13px 14px; background: #fcfdfe; font-size: 13.5px; line-height: 1.65; color: #33475a; min-height: 96px;">Buatkan LKPD 2 halaman untuk kegiatan kelompok berempat. Gunakan konteks pasar tradisional dan nama anak dari daerah kami. Halaman pertama pengamatan, halaman kedua 6 pertanyaan bertingkat dari mudah ke sulit. Sertakan tabel pengamatan dan ruang menggambar. Bahasa sederhana untuk kelas 4.</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;">
+            <span style="font-size: 12.5px; padding: 6px 11px; border-radius: 17px; background: #eef2f6; color: #46596b;">2 halaman</span>
+            <span style="font-size: 12.5px; padding: 6px 11px; border-radius: 17px; background: #eef2f6; color: #46596b;">kelompok 4</span>
+            <span style="font-size: 12.5px; padding: 6px 11px; border-radius: 17px; background: #eef2f6; color: #46596b;">LOTS &rarr; HOTS</span>
+            <span style="font-size: 12.5px; padding: 6px 11px; border-radius: 17px; background: #eef2f6; color: #46596b;">konteks lokal</span>
+            <span style="font-size: 12.5px; padding: 6px 11px; border-radius: 17px; background: #eef2f6; color: #46596b;">A4 potret</span>
+          </div>
+          <div style="margin-top: 14px; padding: 11px 13px; border-radius: 8px; background: #f4f0f8; border: 1px solid #e0d3ea; font-size: 13px; line-height: 1.55; color: #5c2d7d;">Instruksi guru disimpan utuh bersama hasilnya. Saat guru minta perbaikan, instruksi lama tetap berlaku kecuali dibatalkan sendiri.</div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px;">
+          <div style="display: flex; align-items: center; gap: 10px;"><span style="width: 26px; height: 26px; border-radius: 7px; background: #7a3e9d; color: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 700;">3</span><h3 style="margin: 0; font-size: 17.5px; font-weight: 700;">Tinjau &amp; setujui</h3></div>
+          <p style="margin: 12px 0 14px; font-size: 14px; line-height: 1.6; color: #52697d;">Hasil AI berlabel ungu sampai guru menyetujuinya. Sebelum disetujui, LKPD tidak bisa dibagikan atau dicetak.</p>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 13px; border-radius: 8px; border: 1px solid #e0d3ea; background: #faf7fc;"><span style="font-size: 13.5px; color: #5c2d7d;">Daftar periksa kesesuaian TP</span><span style="font-size: 12px; font-weight: 600; color: #0f6b4f;">6/6 sesuai</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 13px; border-radius: 8px; border: 1px solid #e0d3ea; background: #faf7fc;"><span style="font-size: 13.5px; color: #5c2d7d;">Instruksi guru dipatuhi</span><span style="font-size: 12px; font-weight: 600; color: #0f6b4f;">5/5</span></div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 13px; border-radius: 8px; border: 1px solid #e0d3ea; background: #faf7fc;"><span style="font-size: 13.5px; color: #5c2d7d;">Tingkat bahasa kelas 4</span><span style="font-size: 12px; font-weight: 600; color: #0f6b4f;">sesuai</span></div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 14px;">
+            <div style="font-size: 13.5px; font-weight: 600; padding: 11px 14px; border-radius: 8px; background: #1b5e8c; color: #fff; text-align: center;">Setujui &amp; buka Editor LKPD</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 7px;">
+              <div style="font-size: 13px; padding: 10px 12px; border-radius: 8px; border: 1px solid #cad7e1; text-align: center; color: #33475a;">Minta perbaikan</div>
+              <div style="font-size: 13px; padding: 10px 12px; border-radius: 8px; border: 1px solid #cad7e1; text-align: center; color: #33475a;">Buat ulang</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px; margin-top: 14px;">
+        <h3 style="margin: 0 0 4px; font-size: 18px; font-weight: 700;">Lanjutan: Editor &rarr; Cetak</h3>
+        <p style="margin: 0 0 16px; font-size: 14.5px; color: #52697d;">Empat panel. Hasil AI masuk sebagai blok yang bisa dipindah, dihapus, dan diketik ulang &mdash; bukan teks mati.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 9px; align-items: center;">
+          <div style="flex: 1 1 130px; border: 1px solid #dce5ec; border-radius: 9px; padding: 13px 14px; background: #f8fafc;"><div style="font-size: 13.5px; font-weight: 700;">Panel blok</div><div style="font-size: 12.5px; color: #52697d; margin-top: 4px;">Identitas, tujuan, langkah, tabel, pertanyaan, rubrik, refleksi</div></div>
+          <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+          <div style="flex: 1 1 130px; border: 1px solid #dce5ec; border-radius: 9px; padding: 13px 14px; background: #f8fafc;"><div style="font-size: 13.5px; font-weight: 700;">Kanvas A4</div><div style="font-size: 12.5px; color: #52697d; margin-top: 4px;">Ukuran cetak nyata, 2 halaman</div></div>
+          <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+          <div style="flex: 1 1 130px; border: 1px solid #dce5ec; border-radius: 9px; padding: 13px 14px; background: #f8fafc;"><div style="font-size: 13.5px; font-weight: 700;">Properti blok</div><div style="font-size: 12.5px; color: #52697d; margin-top: 4px;">Judul, tinggi, garis bantu tulis</div></div>
+          <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+          <div style="flex: 1 1 130px; border: 1px solid #dce5ec; border-radius: 9px; padding: 13px 14px; background: #f8fafc;"><div style="font-size: 13.5px; font-weight: 700;">Pratinjau cetak</div><div style="font-size: 12.5px; color: #52697d; margin-top: 4px;">Hemat tinta / berwarna, kop sekolah</div></div>
+          <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+          <div style="flex: 1 1 130px; border: 1px solid #d3e3ee; border-radius: 9px; padding: 13px 14px; background: #eef5fa;"><div style="font-size: 13.5px; font-weight: 700; color: #14405e;">Export PDF / cetak</div><div style="font-size: 12.5px; color: #14405e; margin-top: 4px;">Sekaligus tersimpan ke bank LKPD</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="flow-game" style="padding: 46px 54px 0; scroll-margin-top: 20px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #8ea5b8;">09</span>
+        <h2 style="margin: 0; font-size: 27px; font-weight: 700; letter-spacing: -0.02em;">Flow AI Game</h2>
+      </div>
+      <p style="margin: 6px 0 24px; font-size: 15.5px; line-height: 1.65; color: #46596b; max-width: 80ch;">AI tidak menciptakan jenis permainan baru. Ia mengisi kerangka permainan yang sudah ada dengan butir soal yang terikat TP &mdash; sehingga hasilnya selalu bisa dijalankan dan dinilai.</p>
+
+      <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 24px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch;">
+          <div style="flex: 1 1 170px; border: 1px solid #dce5ec; border-radius: 10px; padding: 15px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8ea5b8;">01</div><div style="font-size: 14.5px; font-weight: 700; margin-top: 5px;">Konteks TP</div><div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">Terkunci sama seperti LKPD</div></div>
+          <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+          <div style="flex: 1 1 170px; border: 1px solid #dce5ec; border-radius: 10px; padding: 15px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8ea5b8;">02</div><div style="font-size: 14.5px; font-weight: 700; margin-top: 5px;">Pilih engine game</div><div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">Hanya engine yang cocok dengan CP/TP yang ditawarkan. Guru juga boleh menyerahkan pilihan ke AI.</div></div>
+          <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+          <div style="flex: 1 1 170px; border: 1px solid #dce5ec; border-radius: 10px; padding: 15px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8ea5b8;">03</div><div style="font-size: 14.5px; font-weight: 700; margin-top: 5px;">Prompt bebas</div><div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">Tema, konteks lokal, tingkat kesulitan, mode main</div></div>
+          <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+          <div style="flex: 1 1 170px; border: 1px solid #e0d3ea; border-radius: 10px; padding: 15px; background: #faf7fc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #7a3e9d;">04</div><div style="font-size: 14.5px; font-weight: 700; margin-top: 5px; color: #5c2d7d;">Uji coba guru</div><div style="font-size: 12.5px; color: #5c2d7d; margin-top: 5px; line-height: 1.55;">Guru memainkan sendiri sebelum menyetujui</div></div>
+          <div style="display: grid; place-items: center; color: #8ea5b8;">&rarr;</div>
+          <div style="flex: 1 1 170px; border: 1px solid #d3e3ee; border-radius: 10px; padding: 15px; background: #eef5fa;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #1b5e8c;">05</div><div style="font-size: 14.5px; font-weight: 700; margin-top: 5px; color: #14405e;">Masuk katalog</div><div style="font-size: 12.5px; color: #14405e; margin-top: 5px; line-height: 1.55;">Tersimpan di bawah TP-nya, siap dipakai ulang</div></div>
+        </div>
+
+        <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid #eef2f6;">
+          <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 700;">Penyaring katalog game</h3>
+          <p style="margin: 0 0 14px; font-size: 14px; color: #52697d;">Berantai dan searah. Satu game tidak pernah muncul tanpa TP yang menaunginya.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 7px; align-items: center;">
+            <span style="font-size: 13.5px; font-weight: 600; padding: 9px 14px; border-radius: 8px; background: #103a56; color: #fff;">Kelas</span>
+            <span style="color: #8ea5b8;">&rarr;</span>
+            <span style="font-size: 13.5px; font-weight: 600; padding: 9px 14px; border-radius: 8px; background: #1b5e8c; color: #fff;">Mapel</span>
+            <span style="color: #8ea5b8;">&rarr;</span>
+            <span style="font-size: 13.5px; font-weight: 600; padding: 9px 14px; border-radius: 8px; background: #2f7fb0; color: #fff;">CP</span>
+            <span style="color: #8ea5b8;">&rarr;</span>
+            <span style="font-size: 13.5px; font-weight: 600; padding: 9px 14px; border-radius: 8px; background: #4d9bc9; color: #fff;">TP</span>
+            <span style="color: #8ea5b8;">&rarr;</span>
+            <span style="font-size: 13.5px; font-weight: 600; padding: 9px 14px; border-radius: 8px; background: #f2b230; color: #123f31;">Game</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 16px;">
+            <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 13px 15px; background: #f8fafc;"><div style="font-size: 13.5px; font-weight: 700;">Penyaring tambahan</div><div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">Mode main, tingkat kesulitan, durasi, jenis kerangka</div></div>
+            <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 13px 15px; background: #f8fafc;"><div style="font-size: 13.5px; font-weight: 700;">Target kepadatan</div><div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">Minimal 6 game relevan per TP, 3 tingkat kesulitan. Katalog terus bertambah tanpa batas atas.</div></div>
+            <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 13px 15px; background: #f8fafc;"><div style="font-size: 13.5px; font-weight: 700;">Empat mode main</div><div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">Individu, kelompok berempat, battle, seluruh kelas</div></div>
+            <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 13px 15px; background: #f8fafc;"><div style="font-size: 13.5px; font-weight: 700;">Kepatuhan fase</div><div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">Fase A 2 pilihan, Fase C 4 pilihan, 20 detik per butir</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px; margin-top: 14px;">
+        <h3 style="margin: 0 0 4px; font-size: 18px; font-weight: 700;">Pustaka engine game</h3>
+        <p style="margin: 0 0 16px; font-size: 14.5px; line-height: 1.6; color: #52697d; max-width: 82ch;">Setiap engine adalah kerangka permainan yang bisa diisi butir apa pun. Yang ditawarkan ke guru disaring lebih dulu: engine yang tidak cocok dengan tujuan pembelajaran tidak ditampilkan sama sekali.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 7px;">
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #fdf0d6; color: #8a6410; font-weight: 600;">kuis cepat</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #fdf0d6; color: #8a6410; font-weight: 600;">benar/salah</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #fdf0d6; color: #8a6410; font-weight: 600;">pilihan ganda</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #fdf0d6; color: #8a6410; font-weight: 600;">jodohkan</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #fdf0d6; color: #8a6410; font-weight: 600;">drag &amp; drop</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #fdf0d6; color: #8a6410; font-weight: 600;">memory card</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #fdf0d6; color: #8a6410; font-weight: 600;">tebak gambar</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #fdf0d6; color: #8a6410; font-weight: 600;">tebak kata</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #fdf0d6; color: #8a6410; font-weight: 600;">eksplorasi gambar</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #dff0e7; color: #0f6b4f; font-weight: 600;">susun urutan</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #dff0e7; color: #0f6b4f; font-weight: 600;">isi rumpang</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #dff0e7; color: #0f6b4f; font-weight: 600;">susun kata</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #dff0e7; color: #0f6b4f; font-weight: 600;">puzzle</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #dff0e7; color: #0f6b4f; font-weight: 600;">maze / labirin</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #dff0e7; color: #0f6b4f; font-weight: 600;">roda tantangan</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #dff0e7; color: #0f6b4f; font-weight: 600;">bingo edukasi</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #dff0e7; color: #0f6b4f; font-weight: 600;">balap soal</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #dff0e7; color: #0f6b4f; font-weight: 600;">siapa cepat</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #dff0e7; color: #0f6b4f; font-weight: 600;">battle kelompok</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #dff0e7; color: #0f6b4f; font-weight: 600;">matematika cepat</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #ece0f4; color: #6b3590; font-weight: 600;">klasifikasi</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #ece0f4; color: #6b3590; font-weight: 600;">sorting</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #ece0f4; color: #6b3590; font-weight: 600;">simulasi</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #ece0f4; color: #6b3590; font-weight: 600;">timeline</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #ece0f4; color: #6b3590; font-weight: 600;">soal cerita interaktif</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #ece0f4; color: #6b3590; font-weight: 600;">pattern recognition</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #ece0f4; color: #6b3590; font-weight: 600;">coding blocks</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 18px; background: #ece0f4; color: #6b3590; font-weight: 600;">debugging challenge</span>
+        </div>
+        <div style="font-size: 13px; color: #6b8296; margin-top: 12px;">Warna label menunjukkan fase terendah yang biasanya cocok: kuning Fase A, hijau Fase B, ungu Fase C. Pustaka ini terbuka &mdash; engine baru bisa ditambahkan tanpa mengubah arsitektur.</div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 11px; margin-top: 20px;">
+          <div style="border: 1px solid #f0e0bd; border-radius: 10px; padding: 15px 17px; background: #fdfaf3;">
+            <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; color: #8a6410;">FASE A &middot; KELAS 1&ndash;2</div>
+            <div style="font-size: 14.5px; font-weight: 700; margin-top: 7px; color: #7a5a10;">Visual dan sangat sederhana</div>
+            <div style="font-size: 13px; color: #7a5a10; margin-top: 5px; line-height: 1.6;">Gambar lebih banyak daripada kata. Instruksi satu baris. Target sentuh minimal 96px. Dua pilihan jawaban. Tanpa batas waktu ketat.</div>
+          </div>
+          <div style="border: 1px solid #cfe6da; border-radius: 10px; padding: 15px 17px; background: #f5fbf8;">
+            <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; color: #0f6b4f;">FASE B &middot; KELAS 3&ndash;4</div>
+            <div style="font-size: 14.5px; font-weight: 700; margin-top: 7px; color: #0b5340;">Mulai memecahkan masalah</div>
+            <div style="font-size: 13px; color: #0b5340; margin-top: 5px; line-height: 1.6;">Beberapa langkah per soal, urutan dan pengelompokan, kerja kelompok berempat, tantangan berwaktu yang ringan.</div>
+          </div>
+          <div style="border: 1px solid #e0d3ea; border-radius: 10px; padding: 15px 17px; background: #faf7fc;">
+            <div style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; color: #6b3590;">FASE C &middot; KELAS 5&ndash;6</div>
+            <div style="font-size: 14.5px; font-weight: 700; margin-top: 7px; color: #5c2d7d;">Analisis dan strategi</div>
+            <div style="font-size: 13px; color: #5c2d7d; margin-top: 5px; line-height: 1.6;">Simulasi, klasifikasi bertingkat, soal cerita bertahap, strategi kelompok, serta engine koding untuk mapel pilihan Koding dan KA.</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; padding-top: 18px; border-top: 1px solid #eef2f6;">
+          <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 700;">&ldquo;Buat game yang cocok untuk TP ini&rdquo;</h3>
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #52697d; max-width: 82ch;">Prompt sesingkat itu harus cukup. AI merekomendasikan beberapa engine lebih dulu, dengan alasannya, dan guru memilih sebelum ada yang dibuat.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <div style="flex: 1 1 220px; border: 1px solid #e0d3ea; border-radius: 10px; padding: 14px 16px; background: #faf7fc;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;"><span style="font-size: 14.5px; font-weight: 700; color: #5c2d7d;">Jodohkan pasangan</span><span style="font-size: 12px; font-weight: 700; color: #0f6b4f;">paling cocok</span></div><div style="font-size: 12.5px; color: #5c2d7d; margin-top: 5px; line-height: 1.55;">TP menuntut mengenali kesenilaian, bukan menghitung. Cocok untuk 28 siswa berkelompok.</div></div>
+            <div style="flex: 1 1 220px; border: 1px solid #e0d3ea; border-radius: 10px; padding: 14px 16px; background: #faf7fc;"><div style="font-size: 14.5px; font-weight: 700; color: #5c2d7d;">Susun urutan</div><div style="font-size: 12.5px; color: #5c2d7d; margin-top: 5px; line-height: 1.55;">Menguji kemampuan mengurutkan pecahan, langsung terukur.</div></div>
+            <div style="flex: 1 1 220px; border: 1px solid #e0d3ea; border-radius: 10px; padding: 14px 16px; background: #faf7fc;"><div style="font-size: 14.5px; font-weight: 700; color: #5c2d7d;">Balap soal</div><div style="font-size: 12.5px; color: #5c2d7d; margin-top: 5px; line-height: 1.55;">Untuk latihan kelancaran setelah konsep dipahami, bukan untuk pengenalan.</div></div>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; padding-top: 18px; border-top: 1px solid #eef2f6;">
+          <h3 style="margin: 0 0 12px; font-size: 17px; font-weight: 700;">Yang wajib disimpan setiap game</h3>
+          <div style="display: flex; flex-wrap: wrap; gap: 7px;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; padding: 7px 12px; border-radius: 7px; background: #eef5fa; color: #14405e;">kelas</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; padding: 7px 12px; border-radius: 7px; background: #eef5fa; color: #14405e;">fase</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; padding: 7px 12px; border-radius: 7px; background: #eef5fa; color: #14405e;">mapel</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; padding: 7px 12px; border-radius: 7px; background: #eef5fa; color: #14405e;">cp</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; padding: 7px 12px; border-radius: 7px; background: #eef5fa; color: #14405e;">tp</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; padding: 7px 12px; border-radius: 7px; background: #eef5fa; color: #14405e;">materi</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; padding: 7px 12px; border-radius: 7px; background: #eef5fa; color: #14405e;">tingkat_kesulitan</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; padding: 7px 12px; border-radius: 7px; background: #eef5fa; color: #14405e;">mode_permainan</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; padding: 7px 12px; border-radius: 7px; background: #eef5fa; color: #14405e;">durasi</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; padding: 7px 12px; border-radius: 7px; background: #eef5fa; color: #14405e;">skor</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; padding: 7px 12px; border-radius: 7px; background: #eef5fa; color: #14405e;">hasil_siswa</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; padding: 7px 12px; border-radius: 7px; background: #f4f0f8; color: #5c2d7d;">engine</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="flow-cp" style="padding: 46px 54px 0; scroll-margin-top: 20px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #8ea5b8;">10</span>
+        <h2 style="margin: 0; font-size: 27px; font-weight: 700; letter-spacing: -0.02em;">CP &rarr; TP &rarr; Materi &rarr; Game / LKPD / Asesmen</h2>
+      </div>
+      <p style="margin: 6px 0 24px; font-size: 15.5px; line-height: 1.65; color: #46596b; max-width: 80ch;">Ini rantai yang menyatukan seluruh aplikasi. Tidak ada isi yang boleh berdiri tanpa TP. Hasil aktivitas selalu kembali ke TP yang sama untuk menentukan ketuntasan.</p>
+
+      <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 26px 24px;">
+        <div style="display: flex; flex-direction: column; gap: 0;">
+          <div style="display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 18px; align-items: start; padding-bottom: 18px;">
+            <div style="font-size: 14px; font-weight: 700; color: #14405e;">CP &amp; Elemen</div>
+            <div style="border: 1px solid #d3e3ee; border-left: 4px solid #1b5e8c; border-radius: 9px; padding: 14px 16px; background: #f7fbfd;"><div style="font-size: 14.5px; font-weight: 600;">Matematika Fase B &middot; Elemen Bilangan</div><div style="font-size: 13px; color: #52697d; margin-top: 5px; line-height: 1.6;">Dikunci dari basis data resmi. Hanya bisa dibaca; tidak dapat diedit guru maupun AI.</div></div>
+          </div>
+          <div style="height: 20px; margin-left: 64px; border-left: 2px dashed #cad7e1;"></div>
+          <div style="display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 18px; align-items: start; padding-bottom: 18px;">
+            <div style="font-size: 14px; font-weight: 700; color: #14405e;">TP</div>
+            <div style="border: 1px solid #d3e3ee; border-left: 4px solid #2f7fb0; border-radius: 9px; padding: 14px 16px; background: #f7fbfd;"><div style="font-size: 14.5px; font-weight: 600;">TP 4.2 &middot; Membandingkan dan mengurutkan pecahan senilai</div><div style="font-size: 13px; color: #52697d; margin-top: 5px; line-height: 1.6;">TP Rekomendasi bawaan aplikasi. Guru boleh menambah TP sendiri, ditandai jelas sebagai TP Sekolah/Guru &mdash; AI tetap tidak boleh mengarang.</div></div>
+          </div>
+          <div style="height: 20px; margin-left: 64px; border-left: 2px dashed #cad7e1;"></div>
+          <div style="display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 18px; align-items: start; padding-bottom: 18px;">
+            <div style="font-size: 14px; font-weight: 700; color: #14405e;">Materi</div>
+            <div style="border: 1px solid #dce5ec; border-left: 4px solid #4d9bc9; border-radius: 9px; padding: 14px 16px; background: #f8fafc;"><div style="font-size: 14.5px; font-weight: 600;">Materi interaktif + media</div><div style="font-size: 13px; color: #52697d; margin-top: 5px; line-height: 1.6;">Gambar, audio, video, PDF, tautan, kartu teks. Dua kolom: materi di kanan, daftar TP di kiri.</div></div>
+          </div>
+          <div style="height: 20px; margin-left: 64px; border-left: 2px dashed #cad7e1;"></div>
+          <div style="display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 18px; align-items: start;">
+            <div style="font-size: 14px; font-weight: 700; color: #14405e;">Tiga keluaran</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px;">
+              <div style="border: 1px solid #f0e0bd; border-radius: 9px; padding: 14px 16px; background: #fdfaf3;"><div style="font-size: 14.5px; font-weight: 700; color: #7a5a10;">Game / Aktivitas</div><div style="font-size: 12.5px; color: #7a5a10; margin-top: 5px; line-height: 1.55;">6 game &times; 3 tingkat. Skor per butir.</div></div>
+              <div style="border: 1px solid #dce5ec; border-radius: 9px; padding: 14px 16px; background: #f8fafc;"><div style="font-size: 14.5px; font-weight: 700;">LKPD</div><div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">2 halaman A4. Cetak atau digital.</div></div>
+              <div style="border: 1px solid #dce5ec; border-radius: 9px; padding: 14px 16px; background: #f8fafc;"><div style="font-size: 14.5px; font-weight: 700;">Asesmen</div><div style="font-size: 12.5px; color: #52697d; margin-top: 5px; line-height: 1.55;">10 butir. Formatif atau sumatif.</div></div>
+            </div>
+          </div>
+          <div style="margin: 22px 0 0; padding: 16px 18px; border-radius: 10px; background: #103a56; color: #fff; display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 18px; align-items: center;">
+            <div style="font-size: 14px; font-weight: 700; color: #9dc0d4;">Umpan balik</div>
+            <div><div style="font-size: 14.5px; font-weight: 600;">Hasil ketiganya kembali ke TP 4.2</div><div style="font-size: 13px; color: #b9d2e0; margin-top: 5px; line-height: 1.6;">Ketuntasan TP dihitung dari gabungan skor game, LKPD, dan asesmen &mdash; per siswa, per kelompok, dan per kelas. Angka &ldquo;48/72 TP tuntas&rdquo; di dasbor lahir dari sini.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="kurikulum" style="padding: 46px 54px 0; scroll-margin-top: 20px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #8ea5b8;">11</span>
+        <h2 style="margin: 0; font-size: 27px; font-weight: 700; letter-spacing: -0.02em;">Struktur mata pelajaran</h2>
+      </div>
+      <p style="margin: 6px 0 24px; font-size: 15.5px; line-height: 1.65; color: #46596b; max-width: 80ch;">Struktur ini dibaca aplikasi dari tabel kurikulum, bukan ditulis di kode. Mapel pilihan hanya muncul bila sekolah mengaktifkannya di Pengaturan Kurikulum Sekolah.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px;">
+          <span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; padding: 5px 11px; border-radius: 20px; background: #fdf0d6; color: #8a6410;">FASE A &middot; KELAS 1&ndash;2</span>
+          <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 15px;">
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Pendidikan Agama dan Budi Pekerti</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Pendidikan Pancasila</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Bahasa Indonesia</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Matematika</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Seni dan Budaya <span style="color: #6b8296; font-size: 12.5px;">&middot; cabang: {{ cabangSeni }}</span></div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Pendidikan Jasmani, Olahraga, dan Kesehatan</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #fdfaf3; border: 1px dashed #f0e0bd; color: #7a5a10;">Bahasa Inggris <span style="font-size: 12.5px;">&middot; pilihan</span></div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #fdfaf3; border: 1px dashed #f0e0bd; color: #7a5a10;">Muatan Lokal <span style="font-size: 12.5px;">&middot; pilihan</span></div>
+          </div>
+          <div style="font-size: 13px; color: #6b8296; margin-top: 14px; line-height: 1.6;">IPAS belum berdiri sendiri di Fase A. Muatannya menyatu dalam Bahasa Indonesia dan Pancasila.</div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px;">
+          <span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; padding: 5px 11px; border-radius: 20px; background: #dff0e7; color: #0f6b4f;">FASE B &middot; KELAS 3&ndash;4</span>
+          <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 15px;">
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Pendidikan Agama dan Budi Pekerti</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Pendidikan Pancasila</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Bahasa Indonesia</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Matematika</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #eef5fa; color: #14405e; font-weight: 600;">Ilmu Pengetahuan Alam dan Sosial (IPAS)</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Seni dan Budaya <span style="color: #6b8296; font-size: 12.5px;">&middot; cabang: {{ cabangSeni }}</span></div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Pendidikan Jasmani, Olahraga, dan Kesehatan</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #fdfaf3; border: 1px dashed #f0e0bd; color: #7a5a10;">Bahasa Inggris <span style="font-size: 12.5px;">&middot; pilihan</span></div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #fdfaf3; border: 1px dashed #f0e0bd; color: #7a5a10;">Muatan Lokal <span style="font-size: 12.5px;">&middot; pilihan</span></div>
+          </div>
+          <div style="font-size: 13px; color: #6b8296; margin-top: 14px; line-height: 1.6;">IPAS mulai berdiri sebagai mapel tersendiri di kelas 3.</div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px;">
+          <span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em; padding: 5px 11px; border-radius: 20px; background: #ece0f4; color: #6b3590;">FASE C &middot; KELAS 5&ndash;6</span>
+          <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 15px;">
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Pendidikan Agama dan Budi Pekerti</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Pendidikan Pancasila</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Bahasa Indonesia</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Matematika</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Ilmu Pengetahuan Alam dan Sosial (IPAS)</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Seni dan Budaya <span style="color: #6b8296; font-size: 12.5px;">&middot; cabang: {{ cabangSeni }}</span></div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f8fafc;">Pendidikan Jasmani, Olahraga, dan Kesehatan</div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #f4f0f8; border: 1px dashed #e0d3ea; color: #5c2d7d; font-weight: 600;">Koding dan Kecerdasan Artifisial <span style="font-size: 12.5px; font-weight: 400;">&middot; pilihan &middot; {{ statusKodingKa }}</span></div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #fdfaf3; border: 1px dashed #f0e0bd; color: #7a5a10;">Bahasa Inggris <span style="font-size: 12.5px;">&middot; pilihan</span></div>
+            <div style="font-size: 14px; padding: 9px 12px; border-radius: 7px; background: #fdfaf3; border: 1px dashed #f0e0bd; color: #7a5a10;">Muatan Lokal <span style="font-size: 12.5px;">&middot; pilihan</span></div>
+          </div>
+          <div style="font-size: 13px; color: #6b8296; margin-top: 14px; line-height: 1.6;">Koding dan KA adalah mapel pilihan sesuai Permendikdasmen 13/2025, diperkenalkan pada kelas 5 dan 6 SD. Tidak muncul di Fase A dan B.</div>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px; margin-top: 16px;">
+        <h3 style="margin: 0 0 4px; font-size: 18px; font-weight: 700;">Pengaturan Kurikulum Sekolah</h3>
+        <p style="margin: 0 0 16px; font-size: 14.5px; line-height: 1.6; color: #52697d; max-width: 80ch;">Satu halaman yang mengatur seluruh struktur di atas. Diisi sekali oleh operator atau kepala sekolah, lalu dipatuhi seluruh aplikasi &mdash; termasuk AI.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 11px;">
+          <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 14px 16px; background: #f8fafc;"><div style="font-size: 14px; font-weight: 700;">Cabang Seni dan Budaya</div><div style="font-size: 13px; color: #52697d; margin-top: 5px; line-height: 1.55;">Seni Rupa, Seni Musik, Seni Tari, atau Seni Teater. Boleh berbeda antar kelas.</div></div>
+          <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 14px 16px; background: #f8fafc;"><div style="font-size: 14px; font-weight: 700;">Koding dan KA</div><div style="font-size: 13px; color: #52697d; margin-top: 5px; line-height: 1.55;">Aktif atau tidak, hanya untuk kelas 5 dan 6.</div></div>
+          <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 14px 16px; background: #f8fafc;"><div style="font-size: 14px; font-weight: 700;">Bahasa Inggris &amp; Muatan Lokal</div><div style="font-size: 13px; color: #52697d; margin-top: 5px; line-height: 1.55;">Aktif per kelas, dengan nama mulok yang bisa diisi sendiri.</div></div>
+          <div style="border: 1px solid #e6edf2; border-radius: 9px; padding: 14px 16px; background: #f8fafc;"><div style="font-size: 14px; font-weight: 700;">Agama</div><div style="font-size: 13px; color: #52697d; margin-top: 5px; line-height: 1.55;">Agama yang diajarkan di sekolah, agar CP yang dimuat tepat.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="data" style="padding: 46px 54px 0; scroll-margin-top: 20px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #8ea5b8;">12</span>
+        <h2 style="margin: 0; font-size: 27px; font-weight: 700; letter-spacing: -0.02em;">Struktur data / konten</h2>
+      </div>
+      <p style="margin: 6px 0 24px; font-size: 15.5px; line-height: 1.65; color: #46596b; max-width: 80ch;">Lima belas tabel, tiga lapis. Lapis kurikulum hanya-baca; lapis guru bebas diedit; lapis kegiatan tumbuh sendiri dari pemakaian.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; color: #6b8296; text-transform: uppercase;">Lapis 1 &middot; hanya-baca</div>
+          <h3 style="margin: 8px 0 14px; font-size: 18px; font-weight: 700;">Kurikulum resmi</h3>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="border: 1px solid #d3e3ee; border-radius: 8px; padding: 11px 13px; background: #f7fbfd;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: #14405e;">fase</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">kode, nama, rentang kelas</div></div>
+            <div style="border: 1px solid #d3e3ee; border-radius: 8px; padding: 11px 13px; background: #f7fbfd;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: #14405e;">mata_pelajaran</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">nama, fase, wajib/pilihan, cabang</div></div>
+            <div style="border: 1px solid #d3e3ee; border-radius: 8px; padding: 11px 13px; background: #f7fbfd;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: #14405e;">cp</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">mapel, fase, teks capaian</div></div>
+            <div style="border: 1px solid #d3e3ee; border-radius: 8px; padding: 11px 13px; background: #f7fbfd;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: #14405e;">elemen</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">cp, nama elemen, urutan</div></div>
+            <div style="border: 1px solid #d3e3ee; border-radius: 8px; padding: 11px 13px; background: #f7fbfd;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: #14405e;">tp</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">elemen, kode, teks, sumber: resmi / sekolah</div></div>
+          </div>
+          <div style="margin-top: 14px; padding: 11px 13px; border-radius: 8px; background: #fdf0ec; border: 1px solid #f2d8cf; font-size: 13px; line-height: 1.55; color: #8f3a1f;">AI membaca lapis ini, tidak pernah menulis ke dalamnya.</div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; color: #6b8296; text-transform: uppercase;">Lapis 2 &middot; milik guru</div>
+          <h3 style="margin: 8px 0 14px; font-size: 18px; font-weight: 700;">Isi pembelajaran</h3>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 13px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;">materi</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">tp, judul, blok isi, sumber: bawaan / guru / AI</div></div>
+            <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 13px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;">media</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">jenis, berkas, ukuran, tersedia offline</div></div>
+            <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 13px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;">lkpd</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">tp, blok, jumlah halaman, prompt asal, status setujui</div></div>
+            <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 13px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;">soal</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">tp, bentuk, level kognitif, kunci, pembahasan</div></div>
+            <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 13px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;">game</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">tp, kerangka, tingkat, mode main, butir</div></div>
+            <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 13px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;">prompt_ai</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">teks utuh guru, konteks, keluaran, riwayat revisi</div></div>
+          </div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 22px 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; color: #6b8296; text-transform: uppercase;">Lapis 3 &middot; kegiatan</div>
+          <h3 style="margin: 8px 0 14px; font-size: 18px; font-weight: 700;">Sekolah, kelas, hasil</h3>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 13px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;">sekolah</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">profil, kop cetak, konfigurasi kurikulum</div></div>
+            <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 13px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;">guru</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">nama, peran, kelas yang diampu</div></div>
+            <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 13px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;">kelas</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">tingkat, fase, tahun ajaran, wali</div></div>
+            <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 13px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;">siswa</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">nama, absen, kelompok, catatan &mdash; sederhana</div></div>
+            <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 13px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;">sesi</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">tp, kode gabung, waktu, halaman papan</div></div>
+            <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 13px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;">hasil</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">siswa, tp, jenis aktivitas, skor, ketuntasan</div></div>
+            <div style="border: 1px solid #dce5ec; border-radius: 8px; padding: 11px 13px; background: #f8fafc;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500;">poin_badge</div><div style="font-size: 12.5px; color: #52697d; margin-top: 3px;">siswa, poin, 5 badge, riwayat perolehan</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #103a56; color: #fff; border-radius: 12px; padding: 24px; margin-top: 16px;">
+        <h3 style="margin: 0 0 6px; font-size: 18px; font-weight: 700;">Empat aturan yang tidak boleh dilanggar implementasi</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 16px;">
+          <div style="border: 1px solid #1d4d6d; border-radius: 9px; padding: 14px 16px;"><div style="font-size: 14px; font-weight: 700;">1. Tidak ada isi tanpa TP</div><div style="font-size: 13px; color: #b9d2e0; margin-top: 5px; line-height: 1.55;">Materi, game, LKPD, dan soal selalu menggantung pada satu TP.</div></div>
+          <div style="border: 1px solid #1d4d6d; border-radius: 9px; padding: 14px 16px;"><div style="font-size: 14px; font-weight: 700;">2. AI tidak mengarang CP/TP</div><div style="font-size: 13px; color: #b9d2e0; margin-top: 5px; line-height: 1.55;">Bila data resmi ada, AI hanya mengutip. TP Sekolah/Guru ditandai terpisah.</div></div>
+          <div style="border: 1px solid #1d4d6d; border-radius: 9px; padding: 14px 16px;"><div style="font-size: 14px; font-weight: 700;">3. Prompt guru disimpan utuh</div><div style="font-size: 13px; color: #b9d2e0; margin-top: 5px; line-height: 1.55;">Termasuk saat revisi. Instruksi lama tetap berlaku sampai dibatalkan guru.</div></div>
+          <div style="border: 1px solid #1d4d6d; border-radius: 9px; padding: 14px 16px;"><div style="font-size: 14px; font-weight: 700;">4. Semuanya jalan offline</div><div style="font-size: 13px; color: #b9d2e0; margin-top: 5px; line-height: 1.55;">Kecuali pemanggilan AI. Materi, game, LKPD tersimpan, nilai, dan papan tetap berfungsi.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 46px 54px 0;">
+      <div style="background: #fff; border: 1px solid #e2e9ef; border-radius: 12px; padding: 26px;">
+        <h3 style="margin: 0 0 6px; font-size: 19px; font-weight: 700;">Keputusan yang sudah ditetapkan</h3>
+        <p style="margin: 0 0 16px; font-size: 14.5px; color: #52697d;">Blueprint disetujui 21 Agustus 2026 dengan tiga ketetapan berikut.</p>
+        <div style="display: flex; flex-direction: column; gap: 9px;">
+          <div style="display: grid; grid-template-columns: 26px 1fr; gap: 12px; padding: 13px 15px; border: 1px solid #cfe6da; border-radius: 9px; background: #f5fbf8;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #0f6b4f;">01</span><div><div style="font-size: 14.5px; font-weight: 600; color: #0b5340;">Cabang seni: Seni Rupa sebagai bawaan</div><div style="font-size: 13px; color: #0b5340; margin-top: 3px;">Pengaturan Kurikulum Sekolah tetap menyediakan keempat cabang: Rupa, Musik, Tari, Teater.</div></div></div>
+          <div style="display: grid; grid-template-columns: 26px 1fr; gap: 12px; padding: 13px 15px; border: 1px solid #cfe6da; border-radius: 9px; background: #f5fbf8;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #0f6b4f;">02</span><div><div style="font-size: 14.5px; font-weight: 600; color: #0b5340;">Identitas mockup: SDN Satria Jaya 01</div><div style="font-size: 13px; color: #0b5340; margin-top: 3px;">Pada aplikasi final, identitas sekolah dan guru wajib dapat diedit melalui Pengaturan &mdash; tidak boleh ditulis di kode.</div></div></div>
+          <div style="display: grid; grid-template-columns: 26px 1fr; gap: 12px; padding: 13px 15px; border: 1px solid #cfe6da; border-radius: 9px; background: #f5fbf8;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #0f6b4f;">03</span><div><div style="font-size: 14.5px; font-weight: 600; color: #0b5340;">CP/TP: basis data disiapkan untuk data resmi</div><div style="font-size: 13px; color: #0b5340; margin-top: 3px;">Semua CP yang tampil di mockup adalah pengisi tempat berlabel <strong>contoh</strong>, bukan data final. TP Rekomendasi dan TP Sekolah/Guru dibedakan dengan penanda tetap.</div></div></div>
+        </div>
+        <div style="margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 11px;">
+          <div style="border: 1px solid #d3e3ee; border-radius: 9px; padding: 14px 16px; background: #f7fbfd;"><div style="display: flex; align-items: center; gap: 8px;"><span style="width: 9px; height: 9px; border-radius: 2px; background: #1b5e8c;"></span><span style="font-size: 14px; font-weight: 700; color: #14405e;">TP Rekomendasi</span></div><div style="font-size: 13px; color: #52697d; margin-top: 6px; line-height: 1.6;">Bawaan aplikasi, diturunkan dari CP resmi. Hanya-baca bagi guru dan AI.</div></div>
+          <div style="border: 1px solid #f0e0bd; border-radius: 9px; padding: 14px 16px; background: #fdfaf3;"><div style="display: flex; align-items: center; gap: 8px;"><span style="width: 9px; height: 9px; border-radius: 2px; background: #f2b230;"></span><span style="font-size: 14px; font-weight: 700; color: #7a5a10;">TP Sekolah/Guru</span></div><div style="font-size: 13px; color: #7a5a10; margin-top: 6px; line-height: 1.6;">Bertanda pensil. Dibuat guru, dapat diedit dan dihapus. Selalu tampil di bawah TP Rekomendasi, tidak pernah bercampur.</div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;cabangSeni&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Seni Rupa&quot;,&quot;Seni Musik&quot;,&quot;Seni Tari&quot;,&quot;Seni Teater&quot;],&quot;default&quot;:&quot;Seni Rupa&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Kurikulum sekolah&quot;},&quot;kodingKaAktif&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Kurikulum sekolah&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const aktif = this.props.kodingKaAktif ?? true;
+    return {
+      cabangSeni: this.props.cabangSeni ?? "Seni Rupa",
+      statusKodingKa: aktif ? "aktif di sekolah ini" : "belum diaktifkan"
+    };
+  }
+}
+</script>
+</body>
+</html>

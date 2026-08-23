@@ -1,0 +1,41 @@
+{
+  "versi_impor": "1.0",
+  "dokumen": [
+    {
+      "kode": "046/H/KR/2025",
+      "judul": "Keputusan Kepala BSKAP Nomor 046/H/KR/2025 tentang Capaian Pembelajaran",
+      "tanggal": "2025-07-16",
+      "versi": "2025.1",
+      "url_sumber": "https://kurikulum.kemendikdasmen.go.id/file/1753929861_manage_file.pdf",
+      "jumlah_halaman": 1691,
+      "status_verifikasi": "resmi-terverifikasi"
+    },
+    {
+      "kode": "020/2026",
+      "judul": "Keputusan Kepala BKPDM Nomor 020 Tahun 2026 (perubahan CP Agama dan Budi Pekerti)",
+      "tanggal": "2026-06-11",
+      "versi": "2026.1",
+      "url_sumber": "https://www.kemendikdasmen.go.id/en/press-release/15636-capaian-pembelajaran-baru-telah-terbit-yang-berubah-hanya-mata-pelajaran-agama-dan-budi-pekerti",
+      "jumlah_halaman": null,
+      "status_verifikasi": "keberadaan-dan-ruang-lingkup-terverifikasi; teks-keputusan-langsung-belum-tersedia-di-url-resmi-yang-ditemukan"
+    },
+    {
+      "kode": "PANDUAN-MAPEL-2025",
+      "judul": "Panduan Mata Pelajaran Kemendikdasmen",
+      "tanggal": "2025-01-01",
+      "versi": "2025",
+      "url_sumber": "https://kurikulum.kemendikdasmen.go.id/panduan-mapel",
+      "jumlah_halaman": null,
+      "status_verifikasi": "resmi"
+    },
+    {
+      "kode": "SIBI",
+      "judul": "Sistem Informasi Perbukuan Indonesia (SIBI) - Katalog Buku",
+      "tanggal": null,
+      "versi": "live",
+      "url_sumber": "https://buku.kemendikdasmen.go.id/katalog/",
+      "jumlah_halaman": null,
+      "status_verifikasi": "resmi"
+    }
+  ]
+}
