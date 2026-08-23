@@ -3,10 +3,22 @@
   "short_name": "Papan SD",
   "description": "Platform pembelajaran interaktif SD kelas 1–6 berbasis Kurikulum Merdeka.",
   "lang": "id",
+  "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
   "orientation": "any",
   "background_color": "#071A2E",
-  "theme_color": "#071A2E"
+  "theme_color": "#071A2E",
+  "categories": ["education", "productivity"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/assets/logo-bekasi.png",
+      "sizes": "950x950",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }

@@ -5,6 +5,7 @@ import {
   adaAdmin,
   akunLewatId,
   akunLewatUsername,
+  semuaAkun,
   normalkanUsername,
   simpanAkun,
 } from '../storage/akunRepo';
@@ -41,6 +42,8 @@ export interface DataMasuk {
   password: string;
   peran: Peran;
 }
+
+export type DataAkunGuru = DataSetupAdmin;
 
 function penyimpananLokal(): Storage | null {
   try {
@@ -216,6 +219,62 @@ export async function keluar(): Promise<void> {
   }
 }
 
+function pastikanAdmin(akun: Akun): void {
+  if (akun.peran !== 'admin') {
+    throw new AppError('PERAN_TIDAK_SESUAI', 'Hanya Admin yang dapat mengelola akun Guru.');
+  }
+}
+
+/** Membuat akun Guru lokal tanpa mengubah akun Admin pertama. */
+export async function buatAkunGuru(akunAdmin: Akun, data: DataAkunGuru): Promise<Akun> {
+  pastikanAdmin(akunAdmin);
+  const nama = validasiNama(data.nama);
+  const username = validasiUsername(data.username);
+  const sandi = validasiSandi(data.password);
+  validasiKonfirmasi(sandi, data.konfirmasi);
+  if (await akunLewatUsername(username)) {
+    throw new AppError('USERNAME_DIPAKAI', 'Username itu sudah dipakai di perangkat ini.', {
+      field: 'username',
+    });
+  }
+  const turunan = await hashSandi(sandi);
+  const guru: Akun = {
+    id: crypto.randomUUID(),
+    nama,
+    username,
+    hash_sandi: turunan.hash,
+    imbuhan: turunan.imbuhan,
+    kdf_algoritma: turunan.algoritma,
+    kdf_iterasi: turunan.iterasi,
+    peran: 'guru',
+    aktif: true,
+    dibuat: new Date().toISOString(),
+    terakhir_masuk: null,
+    gagal_berurutan: 0,
+    terkunci_sampai: null,
+  };
+  await simpanAkun(guru);
+  return guru;
+}
+
+export async function daftarAkunLokal(akunAdmin: Akun): Promise<Akun[]> {
+  pastikanAdmin(akunAdmin);
+  return (await semuaAkun()).sort((a, b) => a.nama.localeCompare(b.nama, 'id'));
+}
+
+export async function ubahStatusAkunGuru(
+  akunAdmin: Akun,
+  akunGuruId: string,
+  aktif: boolean,
+): Promise<void> {
+  pastikanAdmin(akunAdmin);
+  const guru = await akunLewatId(akunGuruId);
+  if (!guru || guru.peran !== 'guru') {
+    throw new AppError('VALIDASI', 'Akun Guru tidak ditemukan.', { field: 'akun' });
+  }
+  await simpanAkun({ ...guru, aktif });
+}
+
 /** Sesi yang masih sah untuk perangkat ini, atau null. */
 export async function sesiSekarang(): Promise<SesiAktif | null> {
   const token = bacaTokenTersimpan();
@@ -252,11 +311,9 @@ export async function aturUlangSandiGuru(
   akunGuruId: string,
   sandiBaru: string,
 ): Promise<void> {
-  if (akunAdmin.peran !== 'admin') {
-    throw new AppError('PERAN_TIDAK_SESUAI', 'Hanya Admin yang dapat mengatur ulang sandi Guru.');
-  }
+  pastikanAdmin(akunAdmin);
   const guru = await akunLewatId(akunGuruId);
-  if (!guru) {
+  if (!guru || guru.peran !== 'guru') {
     throw new AppError('VALIDASI', 'Akun guru tidak ditemukan.', { field: 'akun' });
   }
   const sandi = validasiSandi(sandiBaru);

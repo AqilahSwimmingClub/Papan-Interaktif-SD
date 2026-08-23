@@ -488,6 +488,8 @@ export interface Cadangan {
   tujuan: 'berkas' | 'awan';
   cakupan: string[];
   otomatis: boolean;
+  /** Paket lokal hanya disimpan untuk cadangan otomatis dan pra-restore. */
+  paket?: unknown;
 }
 
 export interface IndeksPencarian {

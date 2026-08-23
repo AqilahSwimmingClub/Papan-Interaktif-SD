@@ -137,22 +137,43 @@ export async function bacaStatusOffline(): Promise<{
   antreanAi: number;
   mediaByte: number;
   materi: number;
+  game: number;
+  lembarDanSoal: number;
+  hasil: number;
   indeks: number;
 }> {
   return jalankanTransaksi(
-    [TOKO.antreanAi, TOKO.media, TOKO.materi, TOKO.indeksPencarian],
+    [
+      TOKO.antreanAi,
+      TOKO.media,
+      TOKO.materi,
+      TOKO.game,
+      TOKO.lkpd,
+      TOKO.soal,
+      TOKO.asesmen,
+      TOKO.hasil,
+      TOKO.indeksPencarian,
+    ],
     'readonly',
     async (toko) => {
-      const [antrean, media, materi, indeks] = await Promise.all([
+      const [antrean, media, materi, game, lkpd, soal, asesmen, hasil, indeks] = await Promise.all([
         kueri.semua<AntreanAi>(toko(TOKO.antreanAi)),
         kueri.semua<MediaPembelajaran>(toko(TOKO.media)),
         kueri.jumlah(toko(TOKO.materi)),
+        kueri.jumlah(toko(TOKO.game)),
+        kueri.jumlah(toko(TOKO.lkpd)),
+        kueri.jumlah(toko(TOKO.soal)),
+        kueri.jumlah(toko(TOKO.asesmen)),
+        kueri.jumlah(toko(TOKO.hasil)),
         kueri.jumlah(toko(TOKO.indeksPencarian)),
       ]);
       return {
         antreanAi: antrean.filter((baris) => baris.status === 'menunggu').length,
         mediaByte: media.reduce((jumlah, baris) => jumlah + baris.ukuran_byte, 0),
         materi,
+        game,
+        lembarDanSoal: lkpd + soal + asesmen,
+        hasil,
         indeks,
       };
     },
@@ -245,8 +266,36 @@ export async function buatCadangan(otomatis = false): Promise<PaketCadangan> {
     cakupan: Object.keys(data),
     otomatis,
   };
-  await jalankanTransaksi(TOKO.cadangan, 'readwrite', (toko) => kueri.simpan(toko(TOKO.cadangan), meta));
+  await jalankanTransaksi(TOKO.cadangan, 'readwrite', (toko) =>
+    kueri.simpan(toko(TOKO.cadangan), otomatis ? { ...meta, paket } : meta),
+  );
   return paket;
+}
+
+export const JEDA_CADANGAN_HARIAN_MS = 24 * 60 * 60 * 1000;
+let cadanganHarianBerjalan: Promise<boolean> | null = null;
+
+/**
+ * Membuat cadangan lokal paling banyak sekali dalam 24 jam. Paket lengkapnya
+ * disimpan di IndexedDB; cadangan manual tetap diunduh sebagai berkas.
+ */
+async function jalankanCadanganHarian(sekarang: number): Promise<boolean> {
+  const riwayat = await daftarCadangan();
+  const terakhir = riwayat.find((baris) => baris.otomatis && baris.paket);
+  if (terakhir && sekarang - new Date(terakhir.waktu).getTime() < JEDA_CADANGAN_HARIAN_MS) {
+    return false;
+  }
+  await buatCadangan(true);
+  return true;
+}
+
+export function pastikanCadanganHarian(sekarang = Date.now()): Promise<boolean> {
+  if (!cadanganHarianBerjalan) {
+    cadanganHarianBerjalan = jalankanCadanganHarian(sekarang).finally(() => {
+      cadanganHarianBerjalan = null;
+    });
+  }
+  return cadanganHarianBerjalan;
 }
 
 function dataUrlKeBlob(dataUrl: string): Blob {

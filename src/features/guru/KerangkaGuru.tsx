@@ -5,12 +5,14 @@ import { bacaSekolah } from '../../lib/storage/sekolahRepo';
 import type { Sekolah } from '../../lib/types';
 import { log } from '../../lib/errors/logger';
 import { RUTE } from '../../routes/paths';
+import { akhiriSesiAktifGuru, daftarSesiAktifGuru } from '../../lib/storage/kelasRepo';
 import './kerangka-guru.css';
 
 interface ItemNavigasi {
   label: string;
   ikon: string;
   tujuan: string;
+  hanyaAdmin?: boolean;
 }
 
 const KELOMPOK_NAVIGASI: Array<{ judul: string; item: ItemNavigasi[] }> = [
@@ -49,8 +51,10 @@ const KELOMPOK_NAVIGASI: Array<{ judul: string; item: ItemNavigasi[] }> = [
       { label: 'Pencarian', ikon: '⌕', tujuan: RUTE.pencarian },
       { label: 'Basis Data CP & TP', ikon: '⌘', tujuan: RUTE.basisData },
       { label: 'Profil Sekolah/Guru', ikon: '⚙', tujuan: RUTE.profil },
+      { label: 'Kelola Akun', ikon: '♙', tujuan: RUTE.kelolaAkun, hanyaAdmin: true },
       { label: 'Backup & Restore', ikon: '⇩', tujuan: RUTE.backup },
       { label: 'Offline / PWA', ikon: '●', tujuan: RUTE.offline },
+      { label: 'Tentang Aplikasi', ikon: 'i', tujuan: RUTE.tentang },
     ],
   },
 ];
@@ -82,6 +86,18 @@ export function KerangkaGuru() {
   async function tanganiKeluar() {
     setSedangKeluar(true);
     try {
+      if (akun) {
+        const sesiAktif = await daftarSesiAktifGuru(akun.id);
+        if (
+          sesiAktif.length > 0 &&
+          !window.confirm(
+            'Sesi mengajar masih berjalan. Keluar akan menyimpan keadaan terakhir dan menutup sesi. Lanjutkan?',
+          )
+        ) {
+          return;
+        }
+        if (sesiAktif.length > 0) await akhiriSesiAktifGuru(akun.id);
+      }
       await keluar();
     } catch (galat) {
       log.galat('Logout gagal diselesaikan.', galat);
@@ -107,21 +123,23 @@ export function KerangkaGuru() {
           {KELOMPOK_NAVIGASI.map((kelompok) => (
             <section className="guru-sidebar__kelompok" key={kelompok.judul}>
               <h2>{kelompok.judul}</h2>
-              {kelompok.item.map((item) => (
-                <NavLink
-                  className={({ isActive }) =>
-                    `guru-sidebar__tautan${isActive ? ' guru-sidebar__tautan--aktif' : ''}`
-                  }
-                  key={item.label}
-                  to={item.tujuan}
-                  title={item.label}
-                >
-                  <span className="guru-sidebar__ikon" aria-hidden="true">
-                    {item.ikon}
-                  </span>
-                  <span className="guru-sidebar__label">{item.label}</span>
-                </NavLink>
-              ))}
+              {kelompok.item
+                .filter((item) => !item.hanyaAdmin || peran === 'admin')
+                .map((item) => (
+                  <NavLink
+                    className={({ isActive }) =>
+                      `guru-sidebar__tautan${isActive ? ' guru-sidebar__tautan--aktif' : ''}`
+                    }
+                    key={item.label}
+                    to={item.tujuan}
+                    title={item.label}
+                  >
+                    <span className="guru-sidebar__ikon" aria-hidden="true">
+                      {item.ikon}
+                    </span>
+                    <span className="guru-sidebar__label">{item.label}</span>
+                  </NavLink>
+                ))}
             </section>
           ))}
         </nav>

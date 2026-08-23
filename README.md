@@ -13,7 +13,7 @@ daftar fitur memerlukan persetujuan pemilik proyek terlebih dahulu.
 
 ---
 
-## Status: Tahap 10 — Game, CP/TP, Multi-Referensi, dan Impor Data
+## Status: Tahap 11 — Final
 
 Yang sudah berdiri sampai tahap ini:
 
@@ -34,13 +34,17 @@ Yang sudah berdiri sampai tahap ini:
 | State lokal | Konteks kurikulum per akun, kelas/siswa/kelompok, materi/media, hasil, pencarian, dan cadangan tersimpan lokal |
 | Responsive | HP 6″ portrait/landscape, tablet 11″ portrait/landscape, desktop 14″, Full HD, dan penskalaan 4K |
 | Offline/PWA | Manifest, service worker produksi, cache shell/runtime, status penyimpanan, serta antrean AI lokal |
+| Finalisasi PWA | Manifest installable berikon final, precache seluruh bundle produksi, fallback navigasi, dukungan range video Opening, pembaruan cache aman, dan tombol pemasangan saat tersedia |
+| Finalisasi lokal | Cadangan otomatis harian tersimpan di IndexedDB, antrean AI siap berjalan saat reconnect setelah pemroses Studio AI dipasang, serta pemantauan penyimpanan per jenis isi |
+| Akun lokal | Admin dapat membuat, mengaktifkan/nonaktifkan, dan mengatur ulang sandi Guru; rute Kelola Akun dijaga pada lapisan rute |
+| Identitas final | Halaman Tentang Aplikasi memakai komponen identitas pembuat tiga baris yang sama dengan Login dan Setup Admin |
 | Pustaka game | 30 engine reusable, profil Fase A/B/C, empat penyaring, katalog minimal enam game per TP, runner layar penuh, dan penyimpanan hasil Mode Siswa |
 | Kontrak isi aktif | Materi, game, LKPD, soal, dan asesmen memakai satu pembaca rantai kelas → fase → mapel → elemen → CP → TP |
 | Multi-referensi | Referensi utama/pendamping, metadata bab/unit, relasi banyak-ke-banyak Bab → TP, dan pembatasan sumber metadata-saja |
 | Impor kurikulum | Parser JSON/CSV 01–09, preview per baris, verifikasi operator, sepuluh aturan penolakan, versioning, dan transaksi rollback atomik |
 
-Belum dikerjakan dan **memang tidak termasuk Tahap 7–10**: Studio AI/AI live,
-generator final LKPD/soal/asesmen, pelaporan lanjutan, serta finalisasi Tahap 11.
+Belum dikerjakan dan **memang tidak termasuk Tahap 11**: Studio AI/AI live,
+generator final LKPD/soal/asesmen, dan pelaporan lanjutan.
 Data yang belum diverifikasi operator dapat ditampilkan untuk pemeriksaan, tetapi
 tidak dapat dipakai sebagai konteks atau sitasi AI.
 
@@ -180,12 +184,12 @@ tangan terangkat beserta api birunya tetap terlihat penuh.
 
 ---
 
-## Tahap berikutnya
+## Status handoff
 
-Tahap 11 dapat menyelesaikan Studio AI, generator final, pelaporan, dan audit
-final di atas kontrak game, CP/TP, referensi, dan impor yang sudah stabil. Jangan
-membongkar migrasi versi 1–4 dan jangan mengganti seed kurikulum dengan data di
-luar dataset final repository.
+Tahap 11 berhenti pada finalisasi PWA/offline, lapisan masuk, autentikasi lokal,
+dan theme final. Studio AI/AI live serta pelaporan lanjutan tetap pekerjaan
+terpisah dan tidak dikerjakan pada tahap ini. Migrasi versi 1–4, seed kurikulum,
+CP/TP, multi-referensi, dan 30 game engine tetap dipertahankan.
 
 ---
 

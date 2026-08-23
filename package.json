@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Papan Interaktif SD — platform local-first kelas 1–6 dengan game reusable, kurikulum final, multi-referensi, dan impor atomik (Tahap 10)",
+  "description": "Papan Interaktif SD — PWA local-first kelas 1–6 dengan autentikasi lokal, kurikulum final, dan 30 game engine reusable (Tahap 11)",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

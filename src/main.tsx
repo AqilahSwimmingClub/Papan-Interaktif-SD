@@ -2,6 +2,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { App } from './App';
+import { log } from './lib/errors/logger';
+import { mulaiPemantauanPwa } from './lib/pwa';
 import './styles/base.css';
 
 const wadah = document.getElementById('root');
@@ -21,6 +23,11 @@ createRoot(wadah).render(
 // tertahan service worker. Seluruh data aplikasi tetap berada di IndexedDB.
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
-    void navigator.serviceWorker.register('/sw.js');
+    void navigator.serviceWorker
+      .register('/sw.js', { scope: '/' })
+      .then((registrasi) => registrasi.update())
+      .catch((galat: unknown) => log.galat('Service worker PWA gagal didaftarkan.', galat));
   });
 }
+
+mulaiPemantauanPwa();

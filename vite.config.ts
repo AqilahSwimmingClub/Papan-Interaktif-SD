@@ -17,6 +17,18 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     assetsInlineLimit: 4096,
+    // Manifest bundle dibaca service worker untuk precache seluruh aset ber-hash.
+    manifest: 'pwa-assets.json',
+    rollupOptions: {
+      output: {
+        assetFileNames(aset) {
+          // Manifest web app membutuhkan nama ikon stabil. Aset final tetap
+          // berasal dari import Tentang Aplikasi dan tidak diubah gambarnya.
+          if (aset.names.includes('logo-bekasi.png')) return 'assets/logo-bekasi.png';
+          return 'assets/[name]-[hash][extname]';
+        },
+      },
+    },
   },
   test: {
     globals: true,

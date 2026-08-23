@@ -260,3 +260,21 @@ export async function sesiLewatKode(kode: string): Promise<SesiPembelajaran | un
     kueri.ambilLewatIndeks<SesiPembelajaran>(toko(TOKO.sesi), 'kode_gabung', kode),
   );
 }
+
+export async function daftarSesiAktifGuru(guruId: string): Promise<SesiPembelajaran[]> {
+  return jalankanTransaksi(TOKO.sesi, 'readonly', async (toko) => {
+    const semua = await kueri.semua<SesiPembelajaran>(toko(TOKO.sesi));
+    return semua.filter((sesi) => sesi.guru_id === guruId && !sesi.waktu_selesai);
+  });
+}
+
+/** Menutup sesi setelah keadaan papan/skor terakhir sudah tersimpan di baris sesi. */
+export async function akhiriSesiAktifGuru(guruId: string): Promise<number> {
+  return jalankanTransaksi(TOKO.sesi, 'readwrite', async (toko) => {
+    const semua = await kueri.semua<SesiPembelajaran>(toko(TOKO.sesi));
+    const aktif = semua.filter((sesi) => sesi.guru_id === guruId && !sesi.waktu_selesai);
+    const selesai = new Date().toISOString();
+    for (const sesi of aktif) await kueri.simpan(toko(TOKO.sesi), { ...sesi, waktu_selesai: selesai });
+    return aktif.length;
+  });
+}

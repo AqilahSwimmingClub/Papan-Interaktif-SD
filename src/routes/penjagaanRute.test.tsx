@@ -5,7 +5,7 @@ import { AppRoutes } from './AppRoutes';
 import { AuthProvider } from '../state/AuthProvider';
 import { RUTE, ruteTerbuka } from './paths';
 import { resetPenyimpanan } from '../test/bantuan';
-import { buatAdminPertama, masuk } from '../lib/auth/authService';
+import { buatAdminPertama, buatAkunGuru, masuk } from '../lib/auth/authService';
 import { tandaiOpeningSelesai } from '../lib/opening/pemutaranOpening';
 
 const ADMIN = {
@@ -72,6 +72,30 @@ describe('penjagaan rute', () => {
 
     pasang(RUTE.dasbor);
     expect(await screen.findByTestId('beranda-terlindungi')).toBeInTheDocument();
+  });
+
+  it('menampilkan Tentang Aplikasi dengan identitas pembuat hidup', async () => {
+    await buatAdminPertama(ADMIN);
+    await masuk({ username: ADMIN.username, password: ADMIN.password, peran: 'admin' });
+    pasang(RUTE.tentang);
+
+    expect(await screen.findByTestId('layar-tentang')).toBeInTheDocument();
+    expect(screen.getByText('FAHMI DJAWAS, S.Pd.')).toBeInTheDocument();
+  });
+
+  it('Kelola Akun hanya dapat dibuka Admin, sedangkan Guru ditolak di lapisan rute', async () => {
+    const admin = await buatAdminPertama(ADMIN);
+    const guru = await buatAkunGuru(admin, {
+      nama: 'Sri Rahayu, S.Pd.',
+      username: 'bu.sri',
+      password: 'SandiGuru#2026',
+      konfirmasi: 'SandiGuru#2026',
+    });
+    await masuk({ username: guru.username, password: 'SandiGuru#2026', peran: 'guru' });
+    pasang(RUTE.kelolaAkun);
+
+    expect(await screen.findByText('Halaman ini hanya untuk Admin perangkat')).toBeInTheDocument();
+    expect(screen.queryByTestId('layar-kelola-akun')).not.toBeInTheDocument();
   });
 
   it('menolak rute pemilihan kelas tanpa sesi sah', async () => {

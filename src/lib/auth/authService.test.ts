@@ -6,12 +6,15 @@ import {
   JEDA_MAKSIMUM_DETIK,
   aturUlangSandiGuru,
   bacaTokenTersimpan,
+  buatAkunGuru,
   buatAdminPertama,
+  daftarAkunLokal,
   jedaDetik,
   keluar,
   masuk,
   perangkatSudahPunyaAdmin,
   sesiSekarang,
+  ubahStatusAkunGuru,
 } from './authService';
 import { akunLewatUsername, semuaAkun, simpanAkun } from '../storage/akunRepo';
 import { bacaSekolah, sekolahKosong, simpanSekolah } from '../storage/sekolahRepo';
@@ -75,6 +78,28 @@ describe('setup admin pertama', () => {
     expect(tersimpan?.imbuhan).toBeTruthy();
     expect(tersimpan?.kdf_algoritma).toBe('PBKDF2-SHA256');
     expect(Object.keys(tersimpan ?? {})).not.toContain('password');
+  });
+
+  it('Admin dapat membuat, menonaktifkan, dan memulihkan akun Guru', async () => {
+    const admin = await buatAdminPertama(ADMIN);
+    const guru = await buatAkunGuru(admin, {
+      nama: 'Sri Rahayu, S.Pd.',
+      username: 'bu.sri',
+      password: 'SandiGuru#2026',
+      konfirmasi: 'SandiGuru#2026',
+    });
+    expect((await daftarAkunLokal(admin)).map((akun) => akun.peran)).toEqual(['admin', 'guru']);
+
+    await ubahStatusAkunGuru(admin, guru.id, false);
+    await expect(
+      masuk({ username: guru.username, password: 'SandiGuru#2026', peran: 'guru' }),
+    ).rejects.toMatchObject({ kode: 'AKUN_NONAKTIF' });
+
+    await ubahStatusAkunGuru(admin, guru.id, true);
+    await aturUlangSandiGuru(admin, guru.id, 'SandiBaru#2026');
+    await expect(
+      masuk({ username: guru.username, password: 'SandiBaru#2026', peran: 'guru' }),
+    ).resolves.toMatchObject({ akun: { id: guru.id, peran: 'guru' } });
   });
 
   it('menolak konfirmasi yang tidak sama dan sandi terlalu pendek', async () => {
