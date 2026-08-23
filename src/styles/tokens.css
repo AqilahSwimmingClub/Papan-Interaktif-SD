@@ -69,7 +69,9 @@
    * Spesifikasi menulis 100vh; dvh dipakai agar bilah peramban seluler tidak
    * membuat panel meluap, dengan 100vh sebagai cadangan.
    */
-  --tinggi-layar: 100dvh;
+  --tinggi-layar: calc(
+    100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)
+  );
 
   /* Penskalaan piksel logis: 1 pada semua perangkat, 1,5 pada 4K (§11). */
   --skala: 1;
@@ -80,7 +82,9 @@
 
 @supports not (height: 100dvh) {
   :root {
-    --tinggi-layar: 100vh;
+    --tinggi-layar: calc(
+      100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)
+    );
   }
 }
 

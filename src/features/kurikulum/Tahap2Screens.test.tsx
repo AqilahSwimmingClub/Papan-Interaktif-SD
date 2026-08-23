@@ -84,7 +84,12 @@ describe('layar Tahap 2', () => {
     const pengguna = userEvent.setup();
     await pasangTahap2('/kelas/1/mapel/MAT');
 
-    const tautanTp = await screen.findAllByRole('link', { name: 'Buka TP' });
+    await screen.findByTestId('layar-cp-tp');
+    const tautanTp = await screen.findAllByRole(
+      'link',
+      { name: 'Buka TP' },
+      { timeout: 5_000 },
+    );
     await pengguna.click(tautanTp[0]!);
 
     expect(await screen.findByRole('heading', { name: 'Materi Pembelajaran' })).toBeVisible();

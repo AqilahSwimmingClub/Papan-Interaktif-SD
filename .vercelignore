@@ -1,0 +1,6 @@
+android
+release
+resources
+scripts
+*.dc.html
+coverage
