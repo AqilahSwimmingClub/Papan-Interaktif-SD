@@ -16,6 +16,21 @@ import { PilihMapelScreen } from '../features/kurikulum/PilihMapelScreen';
 import { CpTpScreen } from '../features/kurikulum/CpTpScreen';
 import { FiturPembelajaranScreen } from '../features/pembelajaran/FiturPembelajaranScreen';
 import { FiturMenyusulScreen } from '../features/guru/FiturMenyusulScreen';
+import { MateriScreen } from '../features/pembelajaran/MateriScreen';
+import { PapanInteraktifScreen } from '../features/papan/PapanInteraktifScreen';
+import { KelompokSiswaScreen } from '../features/pelengkap/KelompokSiswaScreen';
+import { RekapCpTpScreen } from '../features/pelengkap/RekapCpTpScreen';
+import { MediaScreen } from '../features/pelengkap/MediaScreen';
+import { PencarianScreen } from '../features/pelengkap/PencarianScreen';
+import { ProfilScreen } from '../features/pelengkap/ProfilScreen';
+import { BackupScreen } from '../features/pelengkap/BackupScreen';
+import { OfflineScreen } from '../features/pelengkap/OfflineScreen';
+import { ModeSiswaScreen } from '../features/pelengkap/ModeSiswaScreen';
+import { ModeKelasScreen } from '../features/pelengkap/ModeKelasScreen';
+import { BasisDataScreen } from '../features/kurikulum/BasisDataScreen';
+import { KelolaTpSekolahScreen } from '../features/kurikulum/KelolaTpSekolahScreen';
+import { MuatCpScreen } from '../features/kurikulum/MuatCpScreen';
+import { MenuLainnyaScreen } from '../features/guru/MenuLainnyaScreen';
 
 /**
  * Peta rute aplikasi sampai Tahap 2.
@@ -69,11 +84,41 @@ export function AppRoutes() {
       >
         <Route path={RUTE.dasbor} element={<BerandaTerlindungi />} />
         <Route path={RUTE.kelas} element={<PilihKelasScreen />} />
+        <Route path={RUTE.kelompok} element={<KelompokSiswaScreen />} />
+        <Route path={RUTE.rekap} element={<RekapCpTpScreen />} />
         <Route path={`${RUTE.kelas}/:tingkat/mapel`} element={<PilihMapelScreen />} />
         <Route path={`${RUTE.kelas}/:tingkat/mapel/:mapelKode`} element={<CpTpScreen />} />
+        <Route path={RUTE.materi} element={<MateriScreen />} />
+        <Route path={RUTE.papan} element={<PapanInteraktifScreen />} />
+        <Route path={RUTE.media} element={<MediaScreen />} />
+        <Route path={RUTE.pencarian} element={<PencarianScreen />} />
+        <Route path={RUTE.profil} element={<ProfilScreen />} />
+        <Route path={RUTE.backup} element={<BackupScreen />} />
+        <Route path={RUTE.offline} element={<OfflineScreen />} />
+        <Route path={RUTE.basisData} element={<BasisDataScreen />} />
+        <Route path={RUTE.kelolaTp} element={<KelolaTpSekolahScreen />} />
+        <Route path={RUTE.muatCp} element={<MuatCpScreen />} />
+        <Route path={RUTE.lainnya} element={<MenuLainnyaScreen />} />
         <Route path="/pembelajaran/:jenis" element={<FiturPembelajaranScreen />} />
         <Route path="/fitur/:fitur" element={<FiturMenyusulScreen />} />
       </Route>
+
+      <Route
+        path={RUTE.modeSiswa}
+        element={
+          <RuteTerlindungi>
+            <KurikulumProvider><ModeSiswaScreen /></KurikulumProvider>
+          </RuteTerlindungi>
+        }
+      />
+      <Route
+        path={RUTE.modeKelas}
+        element={
+          <RuteTerlindungi>
+            <KurikulumProvider><ModeKelasScreen /></KurikulumProvider>
+          </RuteTerlindungi>
+        }
+      />
 
       <Route path="*" element={<LayarTidakDitemukan />} />
     </Routes>

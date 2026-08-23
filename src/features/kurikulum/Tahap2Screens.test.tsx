@@ -88,7 +88,9 @@ describe('layar Tahap 2', () => {
     await pengguna.click(tautanTp[0]!);
 
     expect(await screen.findByRole('heading', { name: 'Materi Pembelajaran' })).toBeVisible();
-    expect(screen.getByText('Konteks kurikulum siap')).toBeVisible();
+    expect(
+      screen.getByText('Semua materi wajib tertaut TP dan dapat dibuka kembali tanpa internet.'),
+    ).toBeVisible();
     expect(screen.getByText(/^TP-MAT-/)).toBeVisible();
   });
 });

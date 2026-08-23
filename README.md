@@ -13,7 +13,7 @@ daftar fitur memerlukan persetujuan pemilik proyek terlebih dahulu.
 
 ---
 
-## Status: Tahap 2 — Dashboard dan Navigasi Kurikulum
+## Status: Tahap 6 — Kurikulum, Layar Pelengkap, dan Papan Responsif
 
 Yang sudah berdiri sampai tahap ini:
 
@@ -25,15 +25,21 @@ Yang sudah berdiri sampai tahap ini:
 | Layar 29 Login | Admin/Guru, sesi lokal, Logout, Lupa Password tanpa surel |
 | Dashboard Guru | Kerangka kerja Guru adaptif, keadaan jadwal kosong, ringkasan kurikulum nyata, pilihan kelas |
 | Navigasi kurikulum | Dashboard → Kelas → Mapel → Elemen/CP → TP → tujuan fitur pembelajaran |
-| Database kurikulum | Migrasi IndexedDB v2 dan seed offline final: 47 CP, 221 elemen, 212 TP Rekomendasi |
+| Database kurikulum | IndexedDB v3: 38 tabel domain dalam enam zona + penanda perangkat; seed offline final 47 CP, 221 elemen, 212 TP Rekomendasi |
 | CP Agama | 18 CP enam agama × tiga fase dari dataset final Nomor 020 Tahun 2026; tanpa TP rekaan |
-| State lokal | Satu objek konteks kurikulum per akun, tersimpan lokal dan dibawa ke rute pembelajaran |
-| Responsive | HP, tablet, desktop, papan Full HD, dan penskalaan 4K sesuai handoff |
+| Integritas data | Audit relasi kelas → fase → mapel → elemen → CP → TP → materi/referensi, deteksi relasi putus dan duplikat teknis |
+| Konten lokal | Editor materi tujuh blok, kaitan TP, metadata tujuh referensi final repository, dan indeks pencarian offline |
+| Layar pelengkap | Kelompok siswa, rekap CP/TP, media, pencarian, profil, backup/restore, status offline/PWA, Mode Siswa, dan Mode Kelas |
+| Papan interaktif | 8 alat utama + 16 alat tambahan, halaman, undo/redo, skor kelompok, timer, undi nama, dan penyimpanan sesi lokal |
+| State lokal | Konteks kurikulum per akun, kelas/siswa/kelompok, materi/media, hasil, pencarian, dan cadangan tersimpan lokal |
+| Responsive | HP 6″ portrait/landscape, tablet 11″ portrait/landscape, desktop 14″, Full HD, dan penskalaan 4K |
+| Offline/PWA | Manifest, service worker produksi, cache shell/runtime, status penyimpanan, serta antrean AI lokal |
 
-Belum dikerjakan dan **memang tidak termasuk Tahap 2**:
-isi Materi/LKPD/Asesmen, papan interaktif lengkap, game engine, Studio AI,
-data siswa dan penilaian, editor, referensi buku, impor operator, dan backup.
-Rutenya sudah stabil sebagai titik sambung, tetapi modulnya belum dibangun.
+Belum dikerjakan dan **memang tidak termasuk Tahap 3–6**:
+30 game engine, Studio AI/AI live, generator final LKPD/soal/asesmen, pelaporan
+lanjutan, serta parser impor operator untuk paket kurikulum baru. Layar Muat CP
+menyediakan alur staging dan validasi cakupan; seed resmi aplikasi tetap hanya
+menggunakan dataset final yang sudah tersedia di repository.
 
 ---
 
@@ -62,7 +68,7 @@ src/
   main.tsx                     titik masuk, BrowserRouter
   App.tsx                      ErrorBoundary + AuthProvider + rute
   styles/
-    tokens.css                 design token §12 + Tahap 11 §05 — terkunci
+    tokens.css                 design token §12 + skala perangkat — terkunci
     base.css                   reset, fokus, target sentuh
   routes/
     paths.ts                   peta rute + daftar rute terbuka
@@ -76,10 +82,14 @@ src/
     KurikulumProvider.tsx      seed + konteks kurikulum persisten per akun
     useAuth.ts useKurikulum.ts
   lib/
-    types.ts                   tabel akun, sesi_login, sekolah
+    types.ts                   kontrak 38 tabel domain dan tipe aplikasi
     storage/
-      db.ts                    IndexedDB + migrasi bernomor (v1 autentikasi, v2 kurikulum)
-      akunRepo.ts sesiRepo.ts sekolahRepo.ts perangkatRepo.ts kurikulumRepo.ts
+      db.ts                    IndexedDB + migrasi bernomor v1–v3
+      kurikulumRepo.ts         seed dataset final
+      kurikulumAdminRepo.ts    audit relasi, TP sekolah, materi/referensi
+      kelasRepo.ts             kelas, siswa, kelompok, hasil, sesi papan
+      pelengkapRepo.ts         profil, media, cari, backup/restore, offline
+      akunRepo.ts sesiRepo.ts sekolahRepo.ts perangkatRepo.ts
     auth/
       sandi.ts                 PBKDF2-SHA256 210.000 iterasi + imbuhan acak
       validasi.ts              aturan formulir + kekuatan sandi
@@ -92,9 +102,11 @@ src/
     opening/                   layar 28
     auth/                      layar 29, 30, Lupa Password
     dashboard/                 Dashboard Guru
-    guru/                      kerangka sidebar/topbar/bilah bawah
-    kurikulum/                 Pilih Kelas, Pilih Mapel, CP & TP
-    pembelajaran/              titik sambung fitur tahap berikutnya
+    guru/                      kerangka adaptif dan menu lengkap
+    kurikulum/                 pilih Kelas/Mapel, CP/TP, basis data, TP sekolah, muat CP
+    pembelajaran/              editor Materi tujuh blok
+    pelengkap/                 sembilan layar pelengkap Tahap 5
+    papan/                     papan interaktif 24 alat Tahap 6
 ```
 
 ---
@@ -160,9 +172,10 @@ tangan terangkat beserta api birunya tetap terlihat penuh.
 
 ## Tahap berikutnya
 
-Tahap 3 dimulai dari titik sambung fitur pembelajaran yang sudah menerima
-konteks Kelas/Fase/Mapel/CP/Elemen/TP. Jangan membongkar migrasi versi 1 atau 2,
-dan jangan mengganti seed kurikulum dengan data di luar dataset final repository.
+Tahap 7 dapat membangun engine pembelajaran di atas kontrak konteks, materi,
+kelas, siswa, kelompok, dan hasil yang sudah stabil. Jangan membongkar migrasi
+versi 1–3 dan jangan mengganti seed kurikulum dengan data di luar dataset final
+repository.
 
 ---
 

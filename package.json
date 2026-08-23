@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Papan Interaktif SD — platform pembelajaran interaktif SD kelas 1-6 berbasis Kurikulum Merdeka (Tahap 2: Dashboard dan Kurikulum)",
+  "description": "Papan Interaktif SD — platform lokal-first kelas 1–6 dengan basis data kurikulum final dan papan responsif (Tahap 6)",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

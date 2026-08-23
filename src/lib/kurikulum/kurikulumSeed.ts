@@ -1,5 +1,6 @@
 import masterJson from '../../../uploads/PAPAN_INTERAKTIF_SD_MASTER_DATA_KURIKULUM.json';
 import agama020Json from '../../../uploads/PAPAN_INTERAKTIF_SD_UPDATE_SEMUA_PADB_020_2026_FINAL.json';
+import paketImporJson from '../../../uploads/Papan_Interaktif_SD_Data_Kurikulum_Import_v1/kurikulum_sd_import.json';
 import type {
   Agama,
   CabangSeni,
@@ -10,6 +11,7 @@ import type {
   JenjangKelas,
   KodeFase,
   MataPelajaran,
+  ReferensiPembelajaran,
   StatusMataPelajaran,
   TujuanPembelajaran,
 } from '../types';
@@ -76,10 +78,30 @@ interface DataAgama020 {
   subjects: SubjekAgama020[];
 }
 
+interface ReferensiImpor {
+  id: string;
+  jenis: ReferensiPembelajaran['jenis'];
+  judul: string;
+  mapel_kode: string;
+  kelas: string;
+  fase: string;
+  penerbit: string;
+  tahun: string;
+  versi: string;
+  isbn: string;
+  url: string;
+  lingkup_izin: string;
+}
+
+interface PaketImpor {
+  referensi: ReferensiImpor[];
+}
+
 const master = masterJson as unknown as MasterData;
 const agama020 = agama020Json as unknown as DataAgama020;
+const paketImpor = paketImporJson as unknown as PaketImpor;
 
-export const VERSI_SEED_KURIKULUM = '2025.1+2026.1|47-221-212';
+export const VERSI_SEED_KURIKULUM = '2025.1+2026.1|47-221-212|ref-7';
 
 const FASE: Fase[] = [
   {
@@ -261,6 +283,32 @@ const TP_REKOMENDASI: TujuanPembelajaran[] = master.tp_rekomendasi.map((baris) =
   halaman_lampiran: baris.halaman_lampiran,
 }));
 
+function rentangKelas(teks: string): number[] {
+  const [awal, akhir] = teks.split('-').map(Number);
+  if (!Number.isInteger(awal)) return [];
+  if (!Number.isInteger(akhir)) return [awal];
+  return Array.from({ length: akhir - awal + 1 }, (_, indeks) => awal + indeks);
+}
+
+const REFERENSI: ReferensiPembelajaran[] = paketImpor.referensi.map((baris) => ({
+  id: baris.id,
+  jenis: baris.jenis,
+  judul: baris.judul,
+  mapel_kode: baris.mapel_kode || null,
+  fase_kode: /^[ABC]$/.test(baris.fase) ? (baris.fase as KodeFase) : null,
+  kelas_relevan: rentangKelas(baris.kelas),
+  penerbit: baris.penerbit,
+  tahun: baris.tahun,
+  versi: baris.versi,
+  url_sumber: baris.url,
+  isbn: baris.isbn,
+  status: 'aktif',
+  tanggal_diperbarui: '2026-08-23',
+  lingkup_izin:
+    baris.lingkup_izin === 'isi_boleh_disimpan' ? 'isi_boleh_disimpan' : 'metadata_saja',
+  ditambahkan_oleh: null,
+}));
+
 export const DATA_KURIKULUM_FINAL = {
   fase: FASE,
   jenjangKelas: JENJANG,
@@ -271,4 +319,5 @@ export const DATA_KURIKULUM_FINAL = {
   cp: [...CP_NON_AGAMA, ...CP_AGAMA],
   elemen: [...ELEMEN_NON_AGAMA, ...ELEMEN_AGAMA],
   tp: TP_REKOMENDASI,
+  referensi: REFERENSI,
 } as const;

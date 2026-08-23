@@ -9,6 +9,20 @@ export const RUTE = {
   kelas: '/kelas',
   papan: '/pembelajaran/papan',
   game: '/pembelajaran/game',
+  materi: '/pembelajaran/materi',
+  kelompok: '/kelas/kelompok',
+  rekap: '/kelas/rekap',
+  media: '/perpustakaan/media',
+  pencarian: '/pencarian',
+  profil: '/pengaturan/profil',
+  backup: '/pengaturan/backup',
+  offline: '/pengaturan/offline',
+  basisData: '/kurikulum/basis-data',
+  kelolaTp: '/kurikulum/kelola-tp',
+  muatCp: '/kurikulum/muat-cp',
+  modeSiswa: '/mode-siswa',
+  modeKelas: '/mode-kelas',
+  lainnya: '/lainnya',
 } as const;
 
 export function ruteMapel(tingkat: number): string {

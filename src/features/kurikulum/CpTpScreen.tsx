@@ -208,7 +208,7 @@ export function CpTpScreen() {
                   <p className="label-data">Elemen {elemenAktif.nama}</p>
                   <h2>Tujuan Pembelajaran</h2>
                 </div>
-                <Link to="/fitur/kelola-tp-sekolah">Tambah TP Sekolah/Guru</Link>
+                <Link to={RUTE.kelolaTp}>Tambah TP Sekolah/Guru</Link>
               </div>
 
               <section className="kelompok-tp" aria-labelledby="tp-rekomendasi">
@@ -255,7 +255,7 @@ export function CpTpScreen() {
                         ? 'Nomor 020 Tahun 2026 menetapkan CP dan tidak memuat daftar TP nasional. Gunakan TP Sekolah/Guru atau impor TP Rekomendasi terpisah.'
                         : 'Dataset final belum memuat TP untuk kelas dan elemen ini. Data tidak dilengkapi dengan perkiraan.'}
                     </p>
-                    <Link to="/fitur/kelola-tp-sekolah">Kelola TP Sekolah/Guru</Link>
+                    <Link to={RUTE.kelolaTp}>Kelola TP Sekolah/Guru</Link>
                   </div>
                 )}
               </section>

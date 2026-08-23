@@ -35,15 +35,21 @@ const KELOMPOK_NAVIGASI: Array<{ judul: string; item: ItemNavigasi[] }> = [
     judul: 'Kelas & Data',
     item: [
       { label: 'Data Siswa', ikon: '♙', tujuan: '/fitur/data-siswa' },
+      { label: 'Kelompok Siswa', ikon: '♟', tujuan: RUTE.kelompok },
       { label: 'Penilaian', ikon: '✓', tujuan: '/fitur/penilaian' },
-      { label: 'Leaderboard', ikon: '★', tujuan: '/fitur/leaderboard' },
+      { label: 'Rekap CP/TP', ikon: '▥', tujuan: RUTE.rekap },
     ],
   },
   {
-    judul: 'Lainnya',
+    judul: 'Perpustakaan & Pengaturan',
     item: [
       { label: 'Perpustakaan', ikon: '▤', tujuan: '/fitur/perpustakaan' },
-      { label: 'Pengaturan', ikon: '⚙', tujuan: '/fitur/pengaturan' },
+      { label: 'Media', ikon: '▧', tujuan: RUTE.media },
+      { label: 'Pencarian', ikon: '⌕', tujuan: RUTE.pencarian },
+      { label: 'Basis Data CP & TP', ikon: '⌘', tujuan: RUTE.basisData },
+      { label: 'Profil Sekolah/Guru', ikon: '⚙', tujuan: RUTE.profil },
+      { label: 'Backup & Restore', ikon: '⇩', tujuan: RUTE.backup },
+      { label: 'Offline / PWA', ikon: '●', tujuan: RUTE.offline },
     ],
   },
 ];
@@ -151,7 +157,7 @@ export function KerangkaGuru() {
             <span>PI</span>
             <strong>Papan Interaktif SD</strong>
           </Link>
-          <Link className="guru-topbar__cari" to="/fitur/pencarian">
+          <Link className="guru-topbar__cari" to={RUTE.pencarian}>
             <span aria-hidden="true">⌕</span>
             Cari materi, LKPD, soal, game, media, siswa…
           </Link>
@@ -178,7 +184,7 @@ export function KerangkaGuru() {
           { label: 'Kelas', ikon: '▦', tujuan: RUTE.kelas },
           { label: 'Papan', ikon: '□', tujuan: RUTE.papan },
           { label: 'AI', ikon: '✦', tujuan: '/fitur/studio-ai' },
-          { label: 'Lainnya', ikon: '•••', tujuan: '/fitur/lainnya' },
+          { label: 'Lainnya', ikon: '•••', tujuan: RUTE.lainnya },
         ].map((item) => (
           <NavLink
             key={item.label}

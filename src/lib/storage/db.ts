@@ -8,7 +8,7 @@ import { AppError } from '../errors/AppError';
  * kurikulum sebagai migrasi baru tanpa membongkar penyimpanan autentikasi.
  */
 export const NAMA_BASIS_DATA = 'papan-interaktif-sd';
-export const VERSI_BASIS_DATA = 2;
+export const VERSI_BASIS_DATA = 3;
 
 export const TOKO = {
   akun: 'akun',
@@ -25,9 +25,57 @@ export const TOKO = {
   elemen: 'elemen',
   tp: 'tp',
   konfigurasiKurikulumSekolah: 'konfigurasi_kurikulum_sekolah',
+  guru: 'guru',
+  tahunAjaran: 'tahun_ajaran',
+  materi: 'materi',
+  media: 'media',
+  lkpd: 'lkpd',
+  soal: 'soal',
+  asesmen: 'asesmen',
+  game: 'game',
+  gameEngine: 'game_engine',
+  tautanTp: 'tautan_tp',
+  promptAi: 'prompt_ai',
+  kelas: 'kelas',
+  siswa: 'siswa',
+  kelompok: 'kelompok',
+  kehadiran: 'kehadiran',
+  sesi: 'sesi',
+  hasil: 'hasil',
+  poinBadge: 'poin_badge',
+  antreanAi: 'antrean_ai',
+  cadangan: 'cadangan',
+  indeksPencarian: 'indeks_pencarian',
+  referensi: 'referensi',
+  referensiBab: 'referensi_bab',
+  pemetaanBabTp: 'pemetaan_bab_tp',
+  referensiSekolah: 'referensi_sekolah',
 } as const;
 
 export type NamaToko = (typeof TOKO)[keyof typeof TOKO];
+
+/** 38 tabel domain yang dikunci MASTER SPECIFICATION FINAL §4. */
+export const TOKO_PER_ZONA = {
+  kurikulumResmi: [
+    TOKO.fase, TOKO.jenjangKelas, TOKO.mataPelajaran, TOKO.cabangSeni,
+    TOKO.agama, TOKO.cp, TOKO.elemen, TOKO.dokumenKurikulum,
+  ],
+  konfigurasiSekolah: [
+    TOKO.sekolah, TOKO.guru, TOKO.konfigurasiKurikulumSekolah, TOKO.tahunAjaran,
+  ],
+  isiPembelajaran: [
+    TOKO.tp, TOKO.materi, TOKO.media, TOKO.lkpd, TOKO.soal, TOKO.asesmen,
+    TOKO.game, TOKO.gameEngine, TOKO.tautanTp, TOKO.promptAi,
+  ],
+  kelasDanHasil: [
+    TOKO.kelas, TOKO.siswa, TOKO.kelompok, TOKO.kehadiran, TOKO.sesi,
+    TOKO.hasil, TOKO.poinBadge, TOKO.antreanAi, TOKO.cadangan, TOKO.indeksPencarian,
+  ],
+  referensiPembelajaran: [
+    TOKO.referensi, TOKO.referensiBab, TOKO.pemetaanBabTp, TOKO.referensiSekolah,
+  ],
+  akunDanSesi: [TOKO.akun, TOKO.sesiLogin],
+} as const satisfies Record<string, readonly NamaToko[]>;
 
 type Migrasi = (db: IDBDatabase, transaksi: IDBTransaction) => void;
 
@@ -77,6 +125,103 @@ const MIGRASI: Record<number, Migrasi> = {
     });
     konfigurasi.createIndex('sekolah_id', 'sekolah_id', { unique: false });
     konfigurasi.createIndex('tingkat_kelas', 'tingkat_kelas', { unique: false });
+  },
+  3: (db) => {
+    const guru = db.createObjectStore(TOKO.guru, { keyPath: 'id' });
+    guru.createIndex('sekolah_id', 'sekolah_id', { unique: false });
+
+    const tahun = db.createObjectStore(TOKO.tahunAjaran, { keyPath: 'id' });
+    tahun.createIndex('aktif', 'aktif', { unique: false });
+
+    const materi = db.createObjectStore(TOKO.materi, { keyPath: 'id' });
+    materi.createIndex('tp_id', 'tp_id', { unique: false });
+    materi.createIndex('judul', 'judul', { unique: false });
+
+    const media = db.createObjectStore(TOKO.media, { keyPath: 'id' });
+    media.createIndex('tp_id', 'tp_id', { unique: false });
+    media.createIndex('jenis', 'jenis', { unique: false });
+
+    const lkpd = db.createObjectStore(TOKO.lkpd, { keyPath: 'id' });
+    lkpd.createIndex('tp_id', 'tp_id', { unique: false });
+
+    const soal = db.createObjectStore(TOKO.soal, { keyPath: 'id' });
+    soal.createIndex('tp_id', 'tp_id', { unique: false });
+
+    const asesmen = db.createObjectStore(TOKO.asesmen, { keyPath: 'id' });
+    asesmen.createIndex('tp_id', 'tp_id', { unique: false });
+
+    const game = db.createObjectStore(TOKO.game, { keyPath: 'id' });
+    game.createIndex('tp_id', 'tp_id', { unique: false });
+    game.createIndex('engine_kode', 'engine_kode', { unique: false });
+
+    db.createObjectStore(TOKO.gameEngine, { keyPath: 'kode' });
+
+    const tautan = db.createObjectStore(TOKO.tautanTp, {
+      keyPath: ['tp_id', 'jenis_isi', 'isi_id'],
+    });
+    tautan.createIndex('tp_id', 'tp_id', { unique: false });
+    tautan.createIndex('isi', ['jenis_isi', 'isi_id'], { unique: false });
+
+    db.createObjectStore(TOKO.promptAi, { keyPath: 'id' });
+
+    const kelas = db.createObjectStore(TOKO.kelas, { keyPath: 'id' });
+    kelas.createIndex('tingkat', 'tingkat', { unique: false });
+    kelas.createIndex('fase_kode', 'fase_kode', { unique: false });
+    kelas.createIndex('tahun_ajaran_id', 'tahun_ajaran_id', { unique: false });
+
+    const siswa = db.createObjectStore(TOKO.siswa, { keyPath: 'id' });
+    siswa.createIndex('kelas_id', 'kelas_id', { unique: false });
+    siswa.createIndex('nama', 'nama', { unique: false });
+
+    const kelompok = db.createObjectStore(TOKO.kelompok, { keyPath: 'id' });
+    kelompok.createIndex('kelas_id', 'kelas_id', { unique: false });
+
+    const kehadiran = db.createObjectStore(TOKO.kehadiran, {
+      keyPath: ['siswa_id', 'tanggal'],
+    });
+    kehadiran.createIndex('tanggal', 'tanggal', { unique: false });
+
+    const sesi = db.createObjectStore(TOKO.sesi, { keyPath: 'id' });
+    sesi.createIndex('tp_id', 'tp_id', { unique: false });
+    sesi.createIndex('kelas_id', 'kelas_id', { unique: false });
+    sesi.createIndex('kode_gabung', 'kode_gabung', { unique: false });
+
+    const hasil = db.createObjectStore(TOKO.hasil, { keyPath: 'id' });
+    hasil.createIndex('siswa_id', 'siswa_id', { unique: false });
+    hasil.createIndex('tp_id', 'tp_id', { unique: false });
+    hasil.createIndex('sesi_id', 'sesi_id', { unique: false });
+
+    db.createObjectStore(TOKO.poinBadge, { keyPath: 'siswa_id' });
+
+    const antrean = db.createObjectStore(TOKO.antreanAi, { keyPath: 'id' });
+    antrean.createIndex('status', 'status', { unique: false });
+
+    const cadangan = db.createObjectStore(TOKO.cadangan, { keyPath: 'id' });
+    cadangan.createIndex('waktu', 'waktu', { unique: false });
+
+    const indeks = db.createObjectStore(TOKO.indeksPencarian, {
+      keyPath: ['jenis_isi', 'isi_id'],
+    });
+    indeks.createIndex('tp_id', 'tp_id', { unique: false });
+    indeks.createIndex('kelas', 'kelas', { unique: false });
+
+    const referensi = db.createObjectStore(TOKO.referensi, { keyPath: 'id' });
+    referensi.createIndex('mapel_kode', 'mapel_kode', { unique: false });
+    referensi.createIndex('fase_kode', 'fase_kode', { unique: false });
+    referensi.createIndex('status', 'status', { unique: false });
+
+    const bab = db.createObjectStore(TOKO.referensiBab, { keyPath: 'id' });
+    bab.createIndex('referensi_id', 'referensi_id', { unique: false });
+
+    const pemetaan = db.createObjectStore(TOKO.pemetaanBabTp, {
+      keyPath: ['referensi_bab_id', 'tp_id'],
+    });
+    pemetaan.createIndex('tp_id', 'tp_id', { unique: false });
+
+    const referensiSekolah = db.createObjectStore(TOKO.referensiSekolah, {
+      keyPath: ['sekolah_id', 'referensi_id', 'tingkat_kelas'],
+    });
+    referensiSekolah.createIndex('sekolah_id', 'sekolah_id', { unique: false });
   },
 };
 

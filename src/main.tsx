@@ -16,3 +16,11 @@ createRoot(wadah).render(
     </BrowserRouter>
   </StrictMode>,
 );
+
+// Runtime shell dicache hanya pada build produksi agar HMR pengembangan tidak
+// tertahan service worker. Seluruh data aplikasi tetap berada di IndexedDB.
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  window.addEventListener('load', () => {
+    void navigator.serviceWorker.register('/sw.js');
+  });
+}

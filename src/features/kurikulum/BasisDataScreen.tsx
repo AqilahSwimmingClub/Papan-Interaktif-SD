@@ -1,0 +1,12 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { auditIntegritasKurikulum, type LaporanIntegritasKurikulum } from '../../lib/storage/kurikulumAdminRepo';
+import { daftarKelas, type RingkasanKelas } from '../../lib/storage/kurikulumRepo';
+import './kurikulum-admin.css';
+
+export function BasisDataScreen() {
+  const [audit, setAudit] = useState<LaporanIntegritasKurikulum | null>(null);
+  const [kelas, setKelas] = useState<RingkasanKelas[]>([]);
+  useEffect(() => { void Promise.all([auditIntegritasKurikulum(), daftarKelas()]).then(([laporan, daftar]) => { setAudit(laporan); setKelas(daftar); }); }, []);
+  return <main className="halaman-kurikulum halaman-basis-data" data-testid="basis-data-kurikulum"><header className="kop-kurikulum"><div><p className="label-data">Pengaturan · hanya-baca</p><h1>Basis Data CP & TP</h1><p>Penjelajah data final dan hasil audit relasi lokal.</p></div><Link className="tombol-guru tombol-guru--utama" to="/kurikulum/muat-cp">Muat CP Resmi</Link></header>{audit ? <><section className={`banner-integritas ${audit.masalah.length?'bermasalah':''}`}><span>{audit.masalah.length?'!':'✓'}</span><div><h2>{audit.masalah.length?'Ditemukan masalah integritas':'Semua relasi kurikulum sehat'}</h2><p>{audit.masalah.length?audit.masalah.join(' '):'Tidak ada relasi putus atau duplikat teknis pada seed final.'}</p></div></section><section className="statistik-basis"><article><span>CP final</span><strong>{audit.jumlah.cp}</strong><small>29 non-agama + 18 agama</small></article><article><span>Elemen</span><strong>{audit.jumlah.elemen}</strong><small>Seluruhnya bertaut CP</small></article><article><span>TP Rekomendasi</span><strong>{audit.jumlah.tp}</strong><small>Hanya-baca</small></article><article><span>Referensi repo</span><strong>{audit.jumlah.referensi}</strong><small>Metadata & tautan</small></article></section></>:<div className="kerangka-memuat"><span/><span/><span/></div>}<section className="daftar-basis-kelas"><header><div><p className="label-data">Rantai kelas → fase</p><h2>Kelas dan cakupan TP</h2></div></header><div>{kelas.map((item)=><article key={item.tingkat}><span className={`fase-mini fase-${item.fase_kode.toLowerCase()}`}>Fase {item.fase_kode}</span><h3>Kelas {item.tingkat}</h3><p>{item.jumlahTp} TP Rekomendasi pada dataset</p><Link to={`/kelas/${item.tingkat}/mapel`}>Jelajahi mapel →</Link></article>)}</div></section></main>;
+}

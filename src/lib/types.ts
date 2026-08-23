@@ -179,3 +179,317 @@ export interface KonteksKurikulum {
   referensi_id: string | null;
   referensi_bab_id: string | null;
 }
+
+/** Zona 2 — konfigurasi sekolah. */
+export interface Guru {
+  id: string;
+  sekolah_id: string;
+  nama: string;
+  peran: 'kepala_sekolah' | 'operator' | 'guru';
+  kelas_diampu: number[];
+  mapel_diampu: string[];
+}
+
+export interface TahunAjaran {
+  id: string;
+  label: string;
+  semester_aktif: 1 | 2;
+  tanggal_mulai: string;
+  tanggal_selesai: string;
+  aktif: boolean;
+}
+
+export interface KonfigurasiKurikulumSekolah {
+  id: string;
+  sekolah_id: string;
+  tingkat_kelas: number;
+  mapel_kode: string;
+  aktif: boolean;
+  cabang_kode: string | null;
+  nama_kustom: string;
+  agama_kode: string | null;
+}
+
+/** Zona 3 — isi pembelajaran. */
+export type JenisBlokMateri =
+  | 'judul'
+  | 'teks'
+  | 'gambar'
+  | 'video'
+  | 'audio'
+  | 'dokumen'
+  | 'aktivitas';
+
+export interface BlokMateri {
+  id: string;
+  jenis: JenisBlokMateri;
+  isi: string;
+  urutan: number;
+}
+
+export interface Materi {
+  id: string;
+  tp_id: string;
+  judul: string;
+  blok: BlokMateri[];
+  sumber: 'bawaan' | 'guru' | 'ai';
+  perkiraan_menit: number;
+  diperbarui: string;
+  referensi_bab_id: string | null;
+}
+
+export interface MediaPembelajaran {
+  id: string;
+  jenis: 'gambar' | 'video' | 'audio' | 'pdf' | 'tautan' | 'dokumen';
+  nama_berkas: string;
+  ukuran_byte: number;
+  durasi: number | null;
+  tersedia_offline: boolean;
+  diunggah_oleh: string;
+  tp_id: string | null;
+  data_berkas: Blob | null;
+}
+
+export type StatusPersetujuan = 'belum_disetujui' | 'disetujui' | 'ditolak';
+
+export interface Lkpd {
+  id: string;
+  tp_id: string;
+  judul: string;
+  blok: BlokMateri[];
+  jumlah_halaman: number;
+  kertas: 'A4' | 'F4';
+  mode_cetak: 'hemat_tinta' | 'berwarna';
+  prompt_ai_id: string | null;
+  status_persetujuan: StatusPersetujuan;
+  versi_siswa: string;
+  versi_kunci: string;
+  referensi_bab_id: string | null;
+}
+
+export interface Soal {
+  id: string;
+  tp_id: string;
+  bentuk: string;
+  level_kognitif: 'LOTS' | 'MOTS' | 'HOTS';
+  teks: string;
+  pilihan: string[];
+  kunci: string;
+  pembahasan: string;
+  rubrik: string;
+  prompt_ai_id: string | null;
+  status_persetujuan: StatusPersetujuan;
+  referensi_bab_id: string | null;
+}
+
+export interface Asesmen {
+  id: string;
+  tp_id: string;
+  jenis: 'formatif' | 'sumatif';
+  soal_id: string[];
+  jumlah_butir: number;
+  bobot: number;
+  referensi_bab_id: string | null;
+}
+
+export interface GamePembelajaran {
+  id: string;
+  tp_id: string;
+  engine_kode: string;
+  judul: string;
+  tingkat_kesulitan: 'mudah' | 'sedang' | 'sulit';
+  mode_permainan: 'individu' | 'kelompok' | 'battle' | 'seluruh_kelas';
+  durasi_menit: number;
+  jumlah_butir: number;
+  detik_per_butir: number | null;
+  butir: unknown[];
+  prompt_ai_id: string | null;
+  status_persetujuan: StatusPersetujuan;
+  jumlah_dimainkan: number;
+  referensi_bab_id: string | null;
+}
+
+export interface GameEngine {
+  kode: string;
+  nama: string;
+  yang_diukur: string;
+  mode_didukung: string[];
+  fase_didukung: KodeFase[];
+  mapel_cocok: string[];
+  kata_kerja_tp: string[];
+}
+
+export interface TautanTp {
+  tp_id: string;
+  jenis_isi: 'materi' | 'game' | 'lkpd' | 'soal' | 'asesmen';
+  isi_id: string;
+  peran: 'utama' | 'pengayaan' | 'remedial';
+  dibuat_oleh_ai: boolean;
+}
+
+export interface PromptAi {
+  id: string;
+  teks_guru_utuh: string;
+  konteks_json: KonteksKurikulum;
+  jenis_keluaran: string;
+  kendali_json: Record<string, unknown>;
+  riwayat_revisi: string[];
+  dibuat_oleh: string;
+  waktu: string;
+}
+
+/** Zona 4 — kelas, kegiatan, dan hasil. */
+export interface Kelas {
+  id: string;
+  tingkat: number;
+  fase_kode: KodeFase;
+  tahun_ajaran_id: string;
+  rombel: string;
+  wali_guru_id: string;
+  jumlah_siswa: number;
+}
+
+export interface Siswa {
+  id: string;
+  kelas_id: string;
+  nama: string;
+  nomor_absen: number;
+  kelompok_id: string | null;
+  catatan_guru: string;
+  perlu_pendampingan: boolean;
+}
+
+export interface Kelompok {
+  id: string;
+  kelas_id: string;
+  nama: string;
+  semester: 1 | 2;
+  poin_total: number;
+}
+
+export interface Kehadiran {
+  siswa_id: string;
+  tanggal: string;
+  status: 'hadir' | 'izin' | 'sakit' | 'alpa';
+}
+
+export interface ObjekPapan {
+  id: string;
+  jenis: 'goresan' | 'teks' | 'bentuk';
+  data: string;
+  warna: string;
+  ukuran: number;
+}
+
+export interface HalamanPapan {
+  id: string;
+  latar: 'kosong' | 'petak' | 'garis' | 'titik';
+  objek: ObjekPapan[];
+}
+
+export interface SesiPembelajaran {
+  id: string;
+  tp_id: string;
+  kelas_id: string;
+  guru_id: string;
+  kode_gabung: string;
+  waktu_mulai: string;
+  waktu_selesai: string | null;
+  halaman_papan: HalamanPapan[];
+  skor_kelompok: Array<{ kelompok_id: string; skor: number }>;
+}
+
+export type StatusKetuntasan = 'tuntas' | 'berkembang' | 'perlu_bimbingan';
+
+export interface HasilBelajar {
+  id: string;
+  siswa_id: string;
+  tp_id: string;
+  sesi_id: string;
+  jenis_aktivitas: 'game' | 'lkpd' | 'asesmen';
+  isi_id: string;
+  skor: number;
+  skor_maksimal: number;
+  ketuntasan: StatusKetuntasan;
+  waktu: string;
+  dinilai_oleh: string;
+}
+
+export interface PoinBadge {
+  siswa_id: string;
+  poin_total: number;
+  badge_diraih: string[];
+  riwayat: Array<{ waktu: string; poin: number; alasan: string }>;
+}
+
+export interface AntreanAi {
+  id: string;
+  prompt_ai_id: string;
+  status: 'menunggu' | 'jalan' | 'selesai' | 'gagal';
+  waktu_dibuat: string;
+  percobaan: number;
+}
+
+export interface Cadangan {
+  id: string;
+  waktu: string;
+  ukuran_byte: number;
+  tujuan: 'berkas' | 'awan';
+  cakupan: string[];
+  otomatis: boolean;
+}
+
+export interface IndeksPencarian {
+  jenis_isi: string;
+  isi_id: string;
+  teks_terindeks: string;
+  tp_id: string | null;
+  kelas: number | null;
+  diperbarui: string;
+}
+
+/** Zona 5 — referensi pembelajaran. */
+export interface ReferensiPembelajaran {
+  id: string;
+  jenis: 'panduan_resmi' | 'buku_guru' | 'buku_siswa' | 'buku_lain' | 'materi_guru' | 'katalog_resmi';
+  judul: string;
+  mapel_kode: string | null;
+  fase_kode: KodeFase | null;
+  kelas_relevan: number[];
+  penerbit: string;
+  tahun: string;
+  versi: string;
+  url_sumber: string;
+  isbn: string;
+  status: 'aktif' | 'arsip';
+  tanggal_diperbarui: string;
+  lingkup_izin: 'metadata_saja' | 'isi_boleh_disimpan';
+  ditambahkan_oleh: string | null;
+}
+
+export interface ReferensiBab {
+  id: string;
+  referensi_id: string;
+  nomor_tampil: string;
+  judul_bab: string;
+  halaman_awal: number | null;
+  urutan: number;
+  ruang_lingkup: string;
+}
+
+export interface PemetaanBabTp {
+  referensi_bab_id: string;
+  tp_id: string;
+  kesesuaian: 'penuh' | 'sebagian' | 'pengayaan';
+  dipetakan_oleh: string;
+  catatan: string;
+}
+
+export interface ReferensiSekolah {
+  sekolah_id: string;
+  referensi_id: string;
+  tingkat_kelas: number;
+  utama: boolean;
+  aktif: boolean;
+  dipilih_oleh: string;
+}

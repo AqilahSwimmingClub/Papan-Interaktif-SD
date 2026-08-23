@@ -90,7 +90,7 @@
   }
 }
 
-@media (min-width: 600px) and (max-width: 1023px) {
+@media (min-width: 600px) and (max-width: 1199px) {
   :root {
     --target-sentuh: 56px;
   }

@@ -21,6 +21,7 @@ const TOKO_KURIKULUM: NamaToko[] = [
   TOKO.cp,
   TOKO.elemen,
   TOKO.tp,
+  TOKO.referensi,
 ];
 
 export interface RingkasanKurikulum {
@@ -102,6 +103,7 @@ async function semaiBilaPerlu(): Promise<void> {
       [TOKO.cp, DATA_KURIKULUM_FINAL.cp],
       [TOKO.elemen, DATA_KURIKULUM_FINAL.elemen],
       [TOKO.tp, DATA_KURIKULUM_FINAL.tp],
+      [TOKO.referensi, DATA_KURIKULUM_FINAL.referensi],
     ];
 
     for (const [namaToko, baris] of pasangan) {
