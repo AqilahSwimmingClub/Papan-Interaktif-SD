@@ -43,6 +43,10 @@ import { PenilaianScreen } from '../features/pelengkap/PenilaianScreen';
 import { KonfigurasiAiScreen } from '../features/ai/KonfigurasiAiScreen';
 import { IpasKelas5Screen } from '../features/ipas/IpasKelas5Screen';
 import { VirtualLabScreen } from '../features/ipas/VirtualLabScreen';
+import { AlatMatematikaScreen, KuisLangsungScreen, PoinKelompokScreen, TimerKelasScreen, UndianNamaScreen } from '../features/kelas/AlatKelasScreens';
+import { DualWindowScreen } from '../features/game/DualWindowScreen';
+import { VlabHubScreen } from '../features/vlab/VlabHubScreen';
+import { GantiPasswordScreen, GantiProfilScreen, ProfilSekolahScreen } from '../features/pelengkap/ProfilRoleScreens';
 
 /**
  * Peta rute aplikasi sampai Tahap 11.
@@ -95,6 +99,13 @@ export function AppRoutes() {
         }
       >
         <Route path={RUTE.dasbor} element={<BerandaTerlindungi />} />
+        <Route path={RUTE.kuisLangsung} element={<RuteTerlindungi peranDiizinkan={['guru']}><KuisLangsungScreen /></RuteTerlindungi>} />
+        <Route path={RUTE.alatMatematika} element={<RuteTerlindungi peranDiizinkan={['guru']}><AlatMatematikaScreen /></RuteTerlindungi>} />
+        <Route path={RUTE.undianNama} element={<RuteTerlindungi peranDiizinkan={['guru']}><UndianNamaScreen /></RuteTerlindungi>} />
+        <Route path={RUTE.timerKelas} element={<RuteTerlindungi peranDiizinkan={['guru']}><TimerKelasScreen /></RuteTerlindungi>} />
+        <Route path={RUTE.poinKelompok} element={<RuteTerlindungi peranDiizinkan={['guru']}><PoinKelompokScreen /></RuteTerlindungi>} />
+        <Route path={RUTE.vlab} element={<RuteTerlindungi peranDiizinkan={['guru']}><VlabHubScreen /></RuteTerlindungi>} />
+        <Route path={RUTE.dualWindow} element={<RuteTerlindungi peranDiizinkan={['guru']}><DualWindowScreen /></RuteTerlindungi>} />
         <Route path={RUTE.kelas} element={<PilihKelasScreen />} />
         <Route path={RUTE.kelompok} element={<KelompokSiswaScreen />} />
         <Route path={RUTE.dataSiswa} element={<DataSiswaScreen />} />
@@ -107,6 +118,10 @@ export function AppRoutes() {
         <Route path={RUTE.media} element={<MediaScreen />} />
         <Route path={RUTE.pencarian} element={<PencarianScreen />} />
         <Route path={RUTE.profil} element={<ProfilScreen />} />
+        <Route path={RUTE.profilGuru} element={<RuteTerlindungi peranDiizinkan={['guru']}><GantiProfilScreen /></RuteTerlindungi>} />
+        <Route path={RUTE.gantiPassword} element={<RuteTerlindungi peranDiizinkan={['guru']}><GantiPasswordScreen /></RuteTerlindungi>} />
+        <Route path={RUTE.profilSekolah} element={<RuteTerlindungi peranDiizinkan={['admin']}><ProfilSekolahScreen /></RuteTerlindungi>} />
+        <Route path={RUTE.profilAdmin} element={<RuteTerlindungi peranDiizinkan={['admin']}><GantiProfilScreen admin /></RuteTerlindungi>} />
         <Route
           path={RUTE.kelolaAkun}
           element={
@@ -115,6 +130,8 @@ export function AppRoutes() {
             </RuteTerlindungi>
           }
         />
+        <Route path={RUTE.dataGuru} element={<RuteTerlindungi peranDiizinkan={['admin']}><KelolaAkunScreen /></RuteTerlindungi>} />
+        <Route path={RUTE.resetPasswordGuru} element={<RuteTerlindungi peranDiizinkan={['admin']}><KelolaAkunScreen /></RuteTerlindungi>} />
         <Route path={RUTE.konfigurasiAi} element={<RuteTerlindungi peranDiizinkan={['admin']}><KonfigurasiAiScreen /></RuteTerlindungi>} />
         <Route path={RUTE.backup} element={<BackupScreen />} />
         <Route path={RUTE.offline} element={<OfflineScreen />} />
@@ -130,6 +147,8 @@ export function AppRoutes() {
         <Route path={RUTE.ipas5} element={<IpasKelas5Screen />} />
         <Route path="/pembelajaran/:jenis" element={<FiturPembelajaranScreen />} />
         <Route path="/fitur/pembuat-lkpd" element={<AiStudioScreen />} />
+        <Route path={RUTE.generateLkpd} element={<RuteTerlindungi peranDiizinkan={['guru']}><AiStudioScreen /></RuteTerlindungi>} />
+        <Route path={RUTE.bankSoal} element={<RuteTerlindungi peranDiizinkan={['guru']}><AiStudioScreen /></RuteTerlindungi>} />
         <Route path="/fitur/pembuat-soal" element={<AiStudioScreen />} />
         <Route path="/fitur/pembuat-materi" element={<AiStudioScreen />} />
         <Route path="/fitur/game-generator" element={<AiStudioScreen />} />

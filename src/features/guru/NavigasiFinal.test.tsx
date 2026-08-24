@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
-import { buatAdminPertama, masuk } from '../../lib/auth/authService';
+import { buatAdminPertama, buatAkunGuru, masuk } from '../../lib/auth/authService';
 import { tandaiOpeningSelesai } from '../../lib/opening/pemutaranOpening';
 import { bacaKonteksKurikulum, pastikanKurikulumTersedia, simpanKonteksKurikulum } from '../../lib/storage/kurikulumRepo';
 import { AppRoutes } from '../../routes/AppRoutes';
@@ -15,7 +15,9 @@ describe('navigasi besar, drawer HP, dan Back', () => {
   beforeEach(async () => { await resetPenyimpanan(); tandaiOpeningSelesai(); vi.restoreAllMocks(); });
 
   async function siapkan() {
-    const akun = await buatAdminPertama(ADMIN); await masuk({ username: ADMIN.username, password: ADMIN.password, peran: 'admin' });
+    const admin = await buatAdminPertama(ADMIN);
+    const akun = await buatAkunGuru(admin, { nama: 'Guru Navigasi', username: 'guru.nav', password: 'SandiGuru#2026', konfirmasi: 'SandiGuru#2026' });
+    await masuk({ username: akun.username, password: 'SandiGuru#2026', peran: 'guru' });
     await pastikanKurikulumTersedia();
     await simpanKonteksKurikulum(akun.id, { tingkat_kelas: 1, fase_kode: 'A', mapel_kode: 'MAT', cabang_kode: null, agama_kode: null, cp_id: 'CP-MAT-A', elemen_id: 'ELM-MAT-A-01', tp_id: 'TP-MAT-1-1.1', materi_id: null, referensi_id: null, referensi_bab_id: null });
     return akun;
@@ -24,9 +26,9 @@ describe('navigasi besar, drawer HP, dan Back', () => {
   it('sidebar memuat ikon dan label lengkap, sedangkan hamburger membuka drawer HP', async () => {
     await siapkan(); const pengguna = userEvent.setup();
     render(<MemoryRouter initialEntries={['/kelas/data-siswa']}><AuthProvider><AppRoutes/></AuthProvider></MemoryRouter>);
-    expect(await screen.findByTitle('Game Edukasi')).toHaveTextContent('Game Edukasi');
-    expect(screen.getByTitle('Pembuat LKPD')).toHaveTextContent('Pembuat LKPD');
-    expect(screen.getByTitle('Profil & Ganti Password')).toBeVisible();
+    expect(await screen.findByRole('link', { name: /Game Edukasi/ })).toHaveTextContent('Game Edukasi');
+    expect(screen.getByRole('link', { name: /Generate LKPD/ })).toHaveTextContent('Generate LKPD');
+    expect(screen.getByRole('link', { name: /Ganti Password/ })).toBeVisible();
     const hamburger = screen.getByRole('button', { name: 'Buka menu navigasi' });
     await pengguna.click(hamburger);
     expect(screen.getByRole('complementary', { name: 'Navigasi utama' })).toHaveClass('guru-sidebar--terbuka');

@@ -90,6 +90,7 @@ export function KatalogGameScreen() {
         <span>{rantai?.mapel.nama ?? konteks.mapel_kode}</span><b>›</b>
         <span>{rantai?.tp.kode_tampil ?? konteks.tp_id}</span>
       </nav>
+      <aside className="game-dual-banner"><div><strong>Dual Window</strong><span>Dua pemain atau kelompok bermain bersamaan dengan skor, timer, dan sentuhan independen.</span></div><Link to={RUTE.dualWindow}>Buka Dual Window</Link></aside>
 
       <section className="game-filter" aria-label="Filter game">
         <label>Jenis gameplay<select value={jenis} onChange={(e) => setJenis(e.target.value as typeof jenis)}>

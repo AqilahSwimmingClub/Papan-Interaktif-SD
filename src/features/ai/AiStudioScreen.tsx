@@ -25,8 +25,8 @@ const CONTOH: Record<JenisKeluaranAi, string> = {
 
 function jenisDariFitur(fitur: string): JenisKeluaranAi {
   if (fitur === 'game-generator') return 'game';
-  if (fitur === 'pembuat-lkpd') return 'lkpd';
-  if (fitur === 'pembuat-soal') return 'soal';
+  if (fitur === 'pembuat-lkpd' || fitur === 'generate-lkpd') return 'lkpd';
+  if (fitur === 'pembuat-soal' || fitur === 'generate-bank-soal') return 'soal';
   return 'materi';
 }
 
@@ -44,7 +44,7 @@ export function AiStudioScreen() {
   const [rantai, setRantai] = useState<RantaiTpAktif | null>(null);
   const [konteksAi, setKonteksAi] = useState<KonteksAiTerpercaya | null>(null);
   const [prompt, setPrompt] = useState('');
-  const [jumlah, setJumlah] = useState(8);
+  const [jumlah, setJumlah] = useState(() => fitur === 'generate-bank-soal' ? 25 : 8);
   const [format, setFormat] = useState('pilihan ganda');
   const [engineKode, setEngineKode] = useState('');
   const [hasil, setHasil] = useState<HasilGenerasiAi | null>(null);
@@ -54,8 +54,11 @@ export function AiStudioScreen() {
   const [sudahUji, setSudahUji] = useState(false);
   const [gameTersimpanId, setGameTersimpanId] = useState('');
   const [aiBelumDikonfigurasi, setAiBelumDikonfigurasi] = useState(false);
+  const bankSoal = fitur === 'generate-bank-soal';
+  const lkpdReferensi = fitur === 'generate-lkpd';
+  const judulFitur = bankSoal ? 'Generate Bank Soal' : lkpdReferensi ? 'Generate LKPD' : LABEL[jenis];
 
-  useEffect(() => { setJenis(jenisDariFitur(fitur)); setHasil(null); setPesan(''); }, [fitur]);
+  useEffect(() => { setJenis(jenisDariFitur(fitur)); setJumlah(bankSoal ? 25 : 8); if (bankSoal) setFormat('10 pilihan ganda + 10 menjodohkan + 5 uraian'); setHasil(null); setPesan(''); }, [bankSoal, fitur]);
   useEffect(() => {
     if (!konteks.tp_id) { setRantai(null); setKonteksAi(null); return; }
     let hidup = true;
@@ -171,7 +174,7 @@ export function AiStudioScreen() {
       } else {
         for (const [indeks, item] of hasil.butir.entries()) {
           const soal: Soal = {
-            id: `SOAL-AI-${crypto.randomUUID()}`, tp_id: rantai.tp.id, bentuk: format,
+            id: `SOAL-AI-${crypto.randomUUID()}`, tp_id: rantai.tp.id, bentuk: bankSoal ? (indeks < 10 ? 'pilihan ganda' : indeks < 20 ? 'menjodohkan' : 'uraian') : format,
             level_kognitif: indeks % 3 === 2 ? 'HOTS' : indeks % 3 === 1 ? 'MOTS' : 'LOTS',
             teks: item.pertanyaan, pilihan: item.pilihan, kunci: item.jawaban,
             pembahasan: item.pembahasan, rubrik: item.rubrik, prompt_ai_id: promptAktifId,
@@ -185,16 +188,17 @@ export function AiStudioScreen() {
     finally { setMemuat(false); }
   }
 
-  if (!konteks.tp_id || !konteks.tingkat_kelas) return <main className="halaman-ai"><p className="label-data">Studio AI</p><h1>{LABEL[jenis]}</h1><section className="ai-kosong"><h2>Pilih CP dan TP lebih dulu</h2><p>AI hanya bekerja dengan konteks kurikulum terverifikasi dan tidak mengubah data CP/TP.</p><Link to={RUTE.kelas}>Pilih Kelas</Link></section></main>;
+  if (!konteks.tp_id || !konteks.tingkat_kelas) return <main className="halaman-ai"><p className="label-data">Studio AI</p><h1>{judulFitur}</h1><section className="ai-kosong"><h2>Pilih CP dan TP lebih dulu</h2><p>AI hanya bekerja dengan konteks kurikulum terverifikasi dan tidak mengubah data CP/TP.</p><Link to={RUTE.kelas}>Pilih Kelas</Link></section></main>;
+  if ((bankSoal || lkpdReferensi) && !konteks.referensi_bab_id) return <main className="halaman-ai"><p className="label-data">ReferenceBook wajib</p><h1>{judulFitur}</h1><section className="ai-kosong"><h2>Pilih buku, Bab, dan Topik lebih dulu</h2><p>Generator tidak akan mengarang isi tanpa sumber. Model Buku → Bab → Topik → TP sudah siap menerima referensi final.</p><Link to={RUTE.kelas}>Pilih konteks referensi</Link></section></main>;
 
   return <main className="halaman-ai" data-testid="studio-ai">
-    <header className="ai-kop"><div><p className="label-data">Konteks terkunci · hasil wajib ditinjau</p><h1>{LABEL[jenis]}</h1><p>{rantai?.tp.teks_tujuan ?? 'Memuat konteks TP…'}</p></div><span className="ai-lencana">✦ AI</span></header>
+    <header className="ai-kop"><div><p className="label-data">Konteks terkunci · hasil wajib ditinjau</p><h1>{judulFitur}</h1><p>{bankSoal ? 'Paket tetap: 10 pilihan ganda, 10 menjodohkan, dan 5 uraian dengan tingkat kesulitan bertahap.' : rantai?.tp.teks_tujuan ?? 'Memuat konteks TP…'}</p></div><span className="ai-lencana">✦ AI</span></header>
     <nav className="ai-konteks" aria-label="Konteks AI"><span>Kelas {konteks.tingkat_kelas}</span><span>Fase {konteks.fase_kode}</span><span>{rantai?.mapel.nama ?? konteks.mapel_kode}</span><span>{rantai?.tp.kode_tampil ?? konteks.tp_id}</span><b>CP/TP read-only</b></nav>
     <div className="ai-tata">
       <section className="ai-panel">
         {fitur === 'studio-ai' ? <label>Jenis keluaran<select value={jenis} onChange={(e) => { setJenis(e.target.value as JenisKeluaranAi); setHasil(null); }}><option value="materi">Materi</option><option value="lkpd">LKPD</option><option value="soal">Soal</option><option value="game">Game</option></select></label> : null}
         {jenis === 'game' ? <fieldset><legend>Rekomendasi engine</legend><div className="ai-engine">{rekomendasi.map((engine) => <button type="button" className={engineKode === engine.kode ? 'aktif' : ''} key={engine.kode} onClick={() => setEngineKode(engine.kode)}><strong>{engine.nama}</strong><small>{rantai ? alasanEngineGame(engine, rantai.tp.teks_tujuan) : engine.yang_diukur}</small></button>)}</div></fieldset> : null}
-        <div className="ai-kendali"><label>Jumlah butir<input type="number" min="1" max="20" value={jumlah} onChange={(e) => setJumlah(Math.max(1, Math.min(20, Number(e.target.value))))}/></label>{jenis === 'soal' ? <label>Bentuk<select value={format} onChange={(e) => setFormat(e.target.value)}><option>pilihan ganda</option><option>benar/salah</option><option>isian singkat</option><option>uraian</option><option>soal cerita</option></select></label> : null}</div>
+        <div className="ai-kendali"><label>Jumlah butir<input type="number" min="1" max={bankSoal ? 25 : 20} readOnly={bankSoal} value={jumlah} onChange={(e) => setJumlah(Math.max(1, Math.min(20, Number(e.target.value))))}/></label>{jenis === 'soal' ? <label>Bentuk<select value={format} disabled={bankSoal} onChange={(e) => setFormat(e.target.value)}>{bankSoal ? <option>10 pilihan ganda + 10 menjodohkan + 5 uraian</option> : null}<option>pilihan ganda</option><option>benar/salah</option><option>isian singkat</option><option>uraian</option><option>soal cerita</option></select></label> : null}</div>
         <label>Instruksi guru<textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} placeholder={CONTOH[jenis]} rows={7}/><small>Prompt disimpan utuh. Jangan masukkan data pribadi siswa.</small></label>
         <button className="ai-buat" type="button" disabled={memuat || !konteksAi || (jenis === 'game' && !engineKode)} onClick={() => void generasikan()}>{memuat ? 'Menyiapkan draf…' : `Buat ${LABEL[jenis]}`}</button>
         {pesan ? <p className="ai-pesan" role="status">{pesan}</p> : null}
@@ -208,6 +212,7 @@ export function AiStudioScreen() {
           <div className="ai-butir">{hasil.butir.map((item, indeks) => <article key={indeks}><span>{indeks + 1}</span><label>{jenis === 'game' ? 'Instruksi misi' : 'Pertanyaan'}<textarea rows={3} value={item.pertanyaan} onChange={(e) => setHasil({ ...hasil, butir: hasil.butir.map((baris, posisi) => posisi === indeks ? { ...baris, pertanyaan: e.target.value } : baris) })}/></label><label>{jenis === 'game' ? 'Objek/kunci misi' : 'Jawaban'}<input value={item.jawaban} onChange={(e) => setHasil({ ...hasil, butir: hasil.butir.map((baris, posisi) => posisi === indeks ? { ...baris, jawaban: e.target.value } : baris) })}/></label><small>{item.pembahasan || 'Tambahkan pembahasan bila diperlukan.'}</small></article>)}</div>
           {jenis === 'game' ? <button className="ai-uji" type="button" onClick={() => { setSudahUji(true); setPesan(`Uji butir pertama: ${hasil.butir[0]?.pertanyaan ?? ''}`); }}>Uji butir pertama {sudahUji ? '✓' : ''}</button> : null}
           <button className="ai-setujui" type="button" disabled={memuat || (jenis === 'game' && !sudahUji)} onClick={() => void setujuiDanSimpan()}>Setujui & simpan lokal</button>
+          {(jenis === 'lkpd' || jenis === 'soal') ? <div className="ai-cetak"><button type="button" onClick={() => window.print()}>Cetak</button><button type="button" onClick={() => window.print()}>Simpan PDF</button><button type="button" disabled={memuat} onClick={() => void generasikan()}>Regenerasi</button></div> : null}
           {gameTersimpanId ? <Link className="ai-main" to={ruteMainGame(gameTersimpanId)}>Mainkan game tersimpan</Link> : null}
         </>}
       </section>

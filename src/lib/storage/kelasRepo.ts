@@ -141,6 +141,29 @@ export async function imporSiswaKelas(kelasId: string, masukan: DataSiswaBaru[])
   });
 }
 
+export async function ubahSiswaKelas(kelasId: string, siswaId: string, perubahan: DataSiswaBaru): Promise<Siswa> {
+  return jalankanTransaksi([TOKO.siswa, TOKO.indeksPencarian], 'readwrite', async (toko) => {
+    const lama = await kueri.ambil<Siswa>(toko(TOKO.siswa), siswaId);
+    if (!lama || lama.kelas_id !== kelasId) throw new AppError('VALIDASI', 'Siswa tidak ditemukan pada kelas Guru aktif.');
+    const nama = perubahan.nama.trim();
+    if (nama.length < 2 || nama.length > 80) throw new AppError('VALIDASI', 'Nama siswa wajib 2–80 karakter.');
+    const baru: Siswa = { ...lama, ...perubahan, nama, kelas_id: kelasId, id: siswaId };
+    await kueri.simpan(toko(TOKO.siswa), baru);
+    await kueri.simpan(toko(TOKO.indeksPencarian), { jenis_isi: 'siswa', isi_id: siswaId, teks_terindeks: [baru.nama, baru.nis, baru.nisn].filter(Boolean).join(' ').toLocaleLowerCase('id'), tp_id: null, kelas: null, diperbarui: new Date().toISOString() });
+    return baru;
+  });
+}
+
+export async function hapusSiswaKelas(kelasId: string, siswaId: string): Promise<void> {
+  await jalankanTransaksi([TOKO.kelas, TOKO.siswa, TOKO.indeksPencarian], 'readwrite', async (toko) => {
+    const [kelas, siswa] = await Promise.all([kueri.ambil<Kelas>(toko(TOKO.kelas), kelasId), kueri.ambil<Siswa>(toko(TOKO.siswa), siswaId)]);
+    if (!kelas || !siswa || siswa.kelas_id !== kelasId) throw new AppError('VALIDASI', 'Siswa tidak ditemukan pada kelas Guru aktif.');
+    await kueri.hapus(toko(TOKO.siswa), siswaId);
+    await kueri.hapus(toko(TOKO.indeksPencarian), ['siswa', siswaId]);
+    await kueri.simpan(toko(TOKO.kelas), { ...kelas, jumlah_siswa: Math.max(0, kelas.jumlah_siswa - 1) });
+  });
+}
+
 const NAMA_KELOMPOK = ['Melati', 'Kenanga', 'Anggrek', 'Mawar', 'Cempaka', 'Dahlia', 'Teratai'];
 
 export async function buatKelompokOtomatis(
@@ -205,6 +228,18 @@ export async function daftarKelompokKelas(
           .filter((anak) => (anak.kelompok_ids ?? (anak.kelompok_id ? [anak.kelompok_id] : [])).includes(baris.id))
           .sort((a, b) => a.nomor_absen - b.nomor_absen),
       }));
+  });
+}
+
+/** Memperbarui poin kelompok pada kelas aktif tanpa menyentuh data kelas Guru lain. */
+export async function ubahPoinKelompok(kelompokId: string, perubahan: number): Promise<Kelompok> {
+  if (!Number.isFinite(perubahan)) throw new AppError('VALIDASI', 'Perubahan poin tidak valid.');
+  return jalankanTransaksi(TOKO.kelompok, 'readwrite', async (toko) => {
+    const lama = await kueri.ambil<Kelompok>(toko(TOKO.kelompok), kelompokId);
+    if (!lama) throw new AppError('VALIDASI', 'Kelompok tidak ditemukan.');
+    const baru = { ...lama, poin_total: lama.poin_total + perubahan };
+    await kueri.simpan(toko(TOKO.kelompok), baru);
+    return baru;
   });
 }
 

@@ -6,75 +6,52 @@ import type { Sekolah } from '../../lib/types';
 import { log } from '../../lib/errors/logger';
 import { RUTE } from '../../routes/paths';
 import { akhiriSesiAktifGuru, daftarSesiAktifGuru } from '../../lib/storage/kelasRepo';
+import { bacaPenanda, KUNCI_PERANGKAT, tulisPenanda } from '../../lib/storage/perangkatRepo';
 import './kerangka-guru.css';
 import './kerangka-akun.css';
 
-interface ItemNavigasi {
-  label: string;
-  ikon: string;
-  tujuan: string;
-  hanyaAdmin?: boolean;
-}
+interface ItemNavigasi { label: string; ikon: string; tujuan: string }
+type KelompokNavigasi = Array<{ judul: string; item: ItemNavigasi[] }>;
 
-const KELOMPOK_NAVIGASI: Array<{ judul: string; item: ItemNavigasi[] }> = [
-  {
-    judul: 'Dashboard',
-    item: [{ label: 'Dashboard', ikon: 'D', tujuan: RUTE.dasbor }],
-  },
-  {
-    judul: 'Mengajar',
-    item: [
-      { label: 'Kelas dan Mapel', ikon: '▦', tujuan: RUTE.kelas },
-      { label: 'Papan Interaktif', ikon: '□', tujuan: RUTE.papan },
-      { label: 'Game Edukasi', ikon: '◆', tujuan: RUTE.game },
-    ],
-  },
-  {
-    judul: 'Buat dengan AI',
-    item: [
-      { label: 'Pembuat LKPD', ikon: '✦', tujuan: '/fitur/pembuat-lkpd' },
-      { label: 'Pembuat Soal', ikon: '?', tujuan: '/fitur/pembuat-soal' },
-      { label: 'Game Generator', ikon: '◎', tujuan: '/fitur/game-generator' },
-    ],
-  },
-  {
-    judul: 'Kelas & Data',
-    item: [
-      { label: 'Data Siswa', ikon: '♙', tujuan: RUTE.dataSiswa },
-      { label: 'Kelompok', ikon: '♟', tujuan: RUTE.kelompok },
-      { label: 'Penilaian', ikon: '✓', tujuan: RUTE.penilaian },
-      { label: 'CP dan TP', ikon: '▥', tujuan: RUTE.rekap },
-    ],
-  },
-  {
-    judul: 'Library',
-    item: [
-      { label: 'Perpustakaan', ikon: '▤', tujuan: RUTE.perpustakaan },
-      { label: 'Media', ikon: '▧', tujuan: RUTE.media },
-    ],
-  },
-  {
-    judul: 'Pengaturan',
-    item: [
-      { label: 'Backup dan Restore', ikon: '⇩', tujuan: RUTE.backup },
-      { label: 'Profil & Ganti Password', ikon: '⚙', tujuan: RUTE.profil },
-    ],
-  },
-  {
-    judul: 'Admin',
-    item: [
-      { label: 'Kelola Guru', ikon: '♙', tujuan: RUTE.kelolaAkun, hanyaAdmin: true },
-      { label: 'Konfigurasi AI', ikon: '✦', tujuan: RUTE.konfigurasiAi, hanyaAdmin: true },
-    ],
-  },
+const NAVIGASI_GURU: KelompokNavigasi = [
+  { judul: 'Dashboard', item: [{ label: 'Dashboard', ikon: 'D', tujuan: RUTE.dasbor }] },
+  { judul: 'Kelas', item: [
+    { label: 'Data Siswa', ikon: '👤', tujuan: RUTE.dataSiswa },
+    { label: 'Papan Interaktif', ikon: '▣', tujuan: RUTE.papan },
+    { label: 'Kuis Langsung', ikon: '⚡', tujuan: RUTE.kuisLangsung },
+    { label: 'Alat Matematika', ikon: '∑', tujuan: RUTE.alatMatematika },
+    { label: 'Undian Nama', ikon: '🎯', tujuan: RUTE.undianNama },
+    { label: 'Timer', ikon: '⏱', tujuan: RUTE.timerKelas },
+    { label: 'Poin Kelompok', ikon: '★', tujuan: RUTE.poinKelompok },
+  ] },
+  { judul: 'Game Edukasi & VLAB', item: [
+    { label: 'Game Edukasi', ikon: '◆', tujuan: RUTE.game },
+    { label: 'VLAB/Simulasi', ikon: '⚗', tujuan: RUTE.vlab },
+  ] },
+  { judul: 'LKPD & Bank Soal', item: [
+    { label: 'Generate LKPD', ikon: '✦', tujuan: RUTE.generateLkpd },
+    { label: 'Generate Bank Soal', ikon: '▤', tujuan: RUTE.bankSoal },
+  ] },
+  { judul: 'Settings', item: [
+    { label: 'Backup & Restore', ikon: '⇩', tujuan: RUTE.backup },
+    { label: 'Ganti Password', ikon: '🔑', tujuan: RUTE.gantiPassword },
+    { label: 'Ganti Profil', ikon: '⚙', tujuan: RUTE.profilGuru },
+  ] },
+];
+
+const NAVIGASI_ADMIN: KelompokNavigasi = [
+  { judul: 'Dashboard', item: [{ label: 'Dashboard', ikon: 'D', tujuan: RUTE.dasbor }] },
+  { judul: 'Admin', item: [{ label: 'Data Guru', ikon: '👥', tujuan: RUTE.dataGuru }] },
+  { judul: 'Settings', item: [
+    { label: 'Backup & Restore', ikon: '⇩', tujuan: RUTE.backup },
+    { label: 'Reset Password Guru', ikon: '🔑', tujuan: RUTE.resetPasswordGuru },
+    { label: 'Edit Profil Sekolah', ikon: '🏫', tujuan: RUTE.profilSekolah },
+    { label: 'Ganti Profil Admin', ikon: '⚙', tujuan: RUTE.profilAdmin },
+  ] },
 ];
 
 function inisial(nama: string): string {
-  const bagian = nama.trim().split(/\s+/).filter(Boolean);
-  return bagian
-    .slice(0, 2)
-    .map((kata) => kata[0]?.toUpperCase() ?? '')
-    .join('');
+  return nama.trim().split(/\s+/).filter(Boolean).slice(0, 2).map((kata) => kata[0]?.toUpperCase() ?? '').join('');
 }
 
 export function KerangkaGuru() {
@@ -84,43 +61,37 @@ export function KerangkaGuru() {
   const [menuAkun, setMenuAkun] = useState(false);
   const [drawerTerbuka, setDrawerTerbuka] = useState(false);
   const [formKotor, setFormKotor] = useState(false);
+  const [modePapan, setModePapan] = useState(false);
   const lokasi = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    void bacaSekolah()
-      .then((hasil) => setSekolah(hasil ?? null))
-      .catch((galat: unknown) => log.galat('Identitas sekolah gagal dibaca.', galat));
+    void bacaSekolah().then((hasil) => setSekolah(hasil ?? null)).catch((galat: unknown) => log.galat('Identitas sekolah gagal dibaca.', galat));
+    void bacaPenanda<boolean>(KUNCI_PERANGKAT.modePapanInteraktif).then((aktif) => setModePapan(Boolean(aktif)));
   }, []);
-
   useEffect(() => { setDrawerTerbuka(false); setFormKotor(false); }, [lokasi.pathname]);
+  useEffect(() => {
+    document.documentElement.dataset.modePapan = String(modePapan);
+    return () => { delete document.documentElement.dataset.modePapan; };
+  }, [modePapan]);
 
   const namaSekolah = sekolah?.nama.trim() || 'Identitas sekolah belum dilengkapi';
   const namaAkun = akun?.nama ?? '';
   const labelPeran = peran === 'admin' ? 'Admin perangkat' : 'Guru';
-  const daftarUtama = useMemo(() => KELOMPOK_NAVIGASI.flatMap((grup) => grup.item), []);
+  const kelompokNavigasi = peran === 'admin' ? NAVIGASI_ADMIN : NAVIGASI_GURU;
+  const daftarUtama = useMemo(() => kelompokNavigasi.flatMap((grup) => grup.item), [kelompokNavigasi]);
 
   async function tanganiKeluar() {
     setSedangKeluar(true);
     try {
       if (akun) {
         const sesiAktif = await daftarSesiAktifGuru(akun.id);
-        if (
-          sesiAktif.length > 0 &&
-          !window.confirm(
-            'Sesi mengajar masih berjalan. Keluar akan menyimpan keadaan terakhir dan menutup sesi. Lanjutkan?',
-          )
-        ) {
-          return;
-        }
+        if (sesiAktif.length > 0 && !window.confirm('Sesi mengajar masih berjalan. Keluar akan menyimpan keadaan terakhir dan menutup sesi. Lanjutkan?')) return;
         if (sesiAktif.length > 0) await akhiriSesiAktifGuru(akun.id);
       }
       await keluar();
-    } catch (galat) {
-      log.galat('Logout gagal diselesaikan.', galat);
-    } finally {
-      setSedangKeluar(false);
-    }
+    } catch (galat) { log.galat('Logout gagal diselesaikan.', galat); }
+    finally { setSedangKeluar(false); }
   }
 
   function kembali() {
@@ -130,136 +101,29 @@ export function KerangkaGuru() {
     else navigate(RUTE.dasbor);
   }
 
-  return (
-    <div className="kerangka-guru">
-      <aside className={`guru-sidebar${drawerTerbuka ? ' guru-sidebar--terbuka' : ''}`} aria-label="Navigasi utama">
-        <Link className="guru-sidebar__merek" to={RUTE.dasbor} aria-label="Papan Interaktif SD">
-          <span className="guru-sidebar__logo" aria-hidden="true">
-            PI
-          </span>
-          <span className="guru-sidebar__merek-teks">
-            <strong>Papan Interaktif SD</strong>
-            <small>{namaSekolah}</small>
-          </span>
-        </Link>
+  function ubahModePapan() {
+    const baru = !modePapan;
+    setModePapan(baru);
+    void tulisPenanda(KUNCI_PERANGKAT.modePapanInteraktif, baru);
+  }
 
-        <nav className="guru-sidebar__navigasi">
-          {KELOMPOK_NAVIGASI.filter((kelompok) => kelompok.item.some((item) => !item.hanyaAdmin || peran === 'admin')).map((kelompok) => (
-            <section className="guru-sidebar__kelompok" key={kelompok.judul}>
-              <h2>{kelompok.judul}</h2>
-              {kelompok.item
-                .filter((item) => !item.hanyaAdmin || peran === 'admin')
-                .map((item) => (
-                  <NavLink
-                    className={({ isActive }) =>
-                      `guru-sidebar__tautan${isActive ? ' guru-sidebar__tautan--aktif' : ''}`
-                    }
-                    key={item.label}
-                    to={item.tujuan}
-                    title={item.label}
-                    onClick={() => setDrawerTerbuka(false)}
-                  >
-                    <span className="guru-sidebar__ikon" aria-hidden="true">
-                      {item.ikon}
-                    </span>
-                    <span className="guru-sidebar__label">{item.label}</span>
-                  </NavLink>
-                ))}
-            </section>
-          ))}
-          <button aria-label="Logout dari sidebar" className="guru-sidebar__tautan guru-sidebar__logout" type="button" onClick={() => void tanganiKeluar()} disabled={sedangKeluar}>
-            <span className="guru-sidebar__ikon" aria-hidden="true">↪</span>
-            <span className="guru-sidebar__label">Logout</span>
-          </button>
-        </nav>
-
-        <div className="guru-sidebar__bawah">
-          <p className="guru-sidebar__offline">
-            <span aria-hidden="true" /> Offline siap
-          </p>
-          <div className="guru-sidebar__akun">
-            <span className="guru-sidebar__avatar" aria-hidden="true">
-              {inisial(namaAkun) || 'PI'}
-            </span>
-            <span className="guru-sidebar__akun-teks">
-              <strong>{namaAkun}</strong>
-              <small>{labelPeran}</small>
-            </span>
-            <button
-              type="button"
-              className="guru-sidebar__keluar"
-              onClick={() => setMenuAkun((nilai) => !nilai)}
-              disabled={sedangKeluar}
-              aria-label="Buka menu akun"
-              aria-expanded={menuAkun}
-              title="Menu akun"
-            >
-              {sedangKeluar ? '…' : '↪'}
-            </button>
-          </div>
-        </div>
-      </aside>
-      {drawerTerbuka ? <button type="button" className="guru-drawer-overlay" aria-label="Tutup menu navigasi" onClick={() => setDrawerTerbuka(false)} /> : null}
-
-      <div className="kerangka-guru__kolom">
-        <header className="guru-topbar">
-          <button className="guru-topbar__hamburger" type="button" aria-label="Buka menu navigasi" aria-expanded={drawerTerbuka} onClick={() => setDrawerTerbuka(true)}>☰</button>
-          <Link className="guru-topbar__merek" to={RUTE.dasbor}>
-            <span>PI</span>
-            <strong>Papan Interaktif SD</strong>
-          </Link>
-          <Link className="guru-topbar__cari" to={RUTE.pencarian}>
-            <span aria-hidden="true">⌕</span>
-            Cari materi, LKPD, soal, game, media, siswa…
-          </Link>
-          <nav className="guru-topbar__papan-nav" aria-label="Navigasi papan">
-            {daftarUtama.slice(0, 4).map((item) => (
-              <NavLink key={item.label} to={item.tujuan}>
-                {item.label}
-              </NavLink>
-            ))}
-          </nav>
-          <Link className="guru-topbar__papan" to={RUTE.papan}>
-            Buka Papan
-          </Link>
-          <button className="guru-topbar__akun" type="button" onClick={() => setMenuAkun((nilai) => !nilai)} aria-label="Buka menu akun" aria-expanded={menuAkun}>{inisial(namaAkun) || 'PI'}</button>
-        </header>
-
-        {lokasi.pathname !== RUTE.dasbor ? <div className="guru-kembali-bar"><button type="button" onClick={kembali}>← Kembali</button></div> : null}
-        <div className="kerangka-guru__isi" onInputCapture={(e) => {
-          const target = e.target;
-          if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement) setFormKotor(true);
-        }}>
-          <Outlet />
-        </div>
-      </div>
-
-      {menuAkun ? <aside className="guru-menu-akun" aria-label="Menu akun guru">
-        <header><span className="guru-sidebar__avatar">{inisial(namaAkun) || 'PI'}</span><div><strong>{namaAkun}</strong><small>{labelPeran}</small></div><button type="button" onClick={() => setMenuAkun(false)} aria-label="Tutup menu akun">×</button></header>
-        {peran === 'admin' ? <Link to={RUTE.kelolaAkun} onClick={() => setMenuAkun(false)}>Kelola Akun Guru</Link> : null}
-        <button type="button" onClick={() => void tanganiKeluar()} disabled={sedangKeluar}>Ganti Akun</button>
-        <button className="guru-menu-akun__logout" type="button" onClick={() => void tanganiKeluar()} disabled={sedangKeluar}>Logout</button>
-        <p>Logout hanya menutup sesi. Data kelas dan pembelajaran tetap tersimpan di perangkat.</p>
-      </aside> : null}
-
-      <nav className="guru-nav-bawah" aria-label="Navigasi HP">
-        {[
-          { label: 'Dasbor', ikon: '⌂', tujuan: RUTE.dasbor },
-          { label: 'Kelas', ikon: '▦', tujuan: RUTE.kelas },
-          { label: 'Papan', ikon: '□', tujuan: RUTE.papan },
-          { label: 'AI', ikon: '✦', tujuan: '/fitur/studio-ai' },
-          { label: 'Lainnya', ikon: '•••', tujuan: RUTE.lainnya },
-        ].map((item) => (
-          <NavLink
-            key={item.label}
-            to={item.tujuan}
-            className={({ isActive }) => (isActive ? 'guru-nav-bawah__aktif' : '')}
-          >
-            <span aria-hidden="true">{item.ikon}</span>
-            <small>{item.label}</small>
-          </NavLink>
-        ))}
+  return <div className="kerangka-guru">
+    <aside className={`guru-sidebar${drawerTerbuka ? ' guru-sidebar--terbuka' : ''}`} aria-label="Navigasi utama">
+      <Link className="guru-sidebar__merek" to={RUTE.dasbor} aria-label="Papan Interaktif SD"><span className="guru-sidebar__logo" aria-hidden="true">PI</span><span className="guru-sidebar__merek-teks"><strong>Papan Interaktif SD</strong><small>{namaSekolah}</small></span></Link>
+      <nav className="guru-sidebar__navigasi">
+        {kelompokNavigasi.map((kelompok) => <section className="guru-sidebar__kelompok" key={kelompok.judul}><h2>{kelompok.judul}</h2>{kelompok.item.map((item) => <NavLink className={({ isActive }) => `guru-sidebar__tautan${isActive ? ' guru-sidebar__tautan--aktif' : ''}`} key={item.label} to={item.tujuan} onClick={() => setDrawerTerbuka(false)}><span className="guru-sidebar__ikon" aria-hidden="true">{item.ikon}</span><span className="guru-sidebar__label">{item.label}</span></NavLink>)}</section>)}
+        <button aria-label="Logout dari sidebar" className="guru-sidebar__tautan guru-sidebar__logout" type="button" onClick={() => void tanganiKeluar()} disabled={sedangKeluar}><span className="guru-sidebar__ikon" aria-hidden="true">⇥</span><span className="guru-sidebar__label">Logout</span></button>
       </nav>
+      <div className="guru-sidebar__bawah"><p className="guru-sidebar__offline"><span aria-hidden="true" /> Offline siap</p><div className="guru-sidebar__akun"><span className="guru-sidebar__avatar" aria-hidden="true">{inisial(namaAkun) || 'PI'}</span><span className="guru-sidebar__akun-teks"><strong>{namaAkun}</strong><small>{labelPeran}</small></span><button type="button" className="guru-sidebar__keluar" onClick={() => setMenuAkun((nilai) => !nilai)} aria-label="Buka menu akun">⇥</button></div></div>
+    </aside>
+    {drawerTerbuka ? <button type="button" className="guru-drawer-overlay" aria-label="Tutup menu navigasi" onClick={() => setDrawerTerbuka(false)} /> : null}
+
+    <div className="kerangka-guru__kolom">
+      <header className="guru-topbar"><button className="guru-topbar__hamburger" type="button" aria-label="Buka menu navigasi" aria-expanded={drawerTerbuka} onClick={() => setDrawerTerbuka(true)}>☰</button><Link className="guru-topbar__merek" to={RUTE.dasbor}><span>PI</span><strong>Papan Interaktif SD</strong></Link><nav className="guru-topbar__papan-nav" aria-label="Navigasi cepat">{daftarUtama.slice(0, 4).map((item) => <NavLink key={item.label} to={item.tujuan}>{item.label}</NavLink>)}</nav>{peran === 'guru' ? <button className="guru-topbar__papan" type="button" aria-pressed={modePapan} onClick={ubahModePapan}>{modePapan ? 'Mode Papan Aktif' : 'Mode Papan Interaktif'}</button> : null}<button className="guru-topbar__akun" type="button" onClick={() => setMenuAkun((nilai) => !nilai)} aria-label="Buka menu akun" aria-expanded={menuAkun}>{inisial(namaAkun) || 'PI'}</button></header>
+      {lokasi.pathname !== RUTE.dasbor ? <div className="guru-kembali-bar"><button type="button" onClick={kembali}>← Kembali</button></div> : null}
+      <div className="kerangka-guru__isi" onInputCapture={(e) => { const target = e.target; if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement) setFormKotor(true); }}><Outlet /></div>
     </div>
-  );
+
+    {menuAkun ? <aside className="guru-menu-akun" aria-label="Menu akun"><header><span className="guru-sidebar__avatar">{inisial(namaAkun) || 'PI'}</span><div><strong>{namaAkun}</strong><small>{labelPeran}</small></div><button type="button" onClick={() => setMenuAkun(false)} aria-label="Tutup menu akun">×</button></header>{peran === 'admin' ? <Link to={RUTE.dataGuru} onClick={() => setMenuAkun(false)}>Data Guru</Link> : <Link to={RUTE.profilGuru} onClick={() => setMenuAkun(false)}>Ganti Profil</Link>}<button type="button" onClick={() => void tanganiKeluar()} disabled={sedangKeluar}>Ganti Akun</button><button className="guru-menu-akun__logout" type="button" onClick={() => void tanganiKeluar()} disabled={sedangKeluar}>Logout</button><p>Logout hanya menutup sesi. Data lokal tetap tersimpan di perangkat.</p></aside> : null}
+  </div>;
 }

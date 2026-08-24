@@ -52,8 +52,8 @@ export function RuteTerlindungi({ children, peranDiizinkan }: Props) {
     return (
       <LayarGalat
         kode="HAK_AKSES"
-        judul="Halaman ini hanya untuk Admin perangkat"
-        pesan="Seluruh fitur pembelajaran tetap terbuka untuk Guru. Halaman ini mengatur perangkat, jadi hanya Admin yang dapat membukanya."
+        judul={peranDiizinkan.includes('admin') ? 'Halaman ini hanya untuk Admin perangkat' : 'Halaman ini hanya untuk Guru'}
+        pesan={peranDiizinkan.includes('admin') ? 'Halaman ini mengatur perangkat, jadi hanya Admin yang dapat membukanya.' : 'Ruang kerja pembelajaran terpisah dari dashboard Admin.'}
         aksi={
           <a className="layar-status__tombol" href={RUTE.dasbor}>
             Kembali ke Dasbor

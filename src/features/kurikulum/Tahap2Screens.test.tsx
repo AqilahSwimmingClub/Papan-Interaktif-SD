@@ -41,7 +41,7 @@ describe('layar Tahap 2', () => {
     expect(await screen.findByText('47', { selector: '.kartu-statistik strong' })).toBeVisible();
     expect(screen.getByText('221', { selector: '.kartu-statistik strong' })).toBeVisible();
     expect(screen.getByText('212', { selector: '.kartu-statistik strong' })).toBeVisible();
-    expect(screen.getByText('Belum ada jadwal mengajar')).toBeVisible();
+    expect(screen.getByText(/Kelola akun guru dan identitas perangkat/)).toBeVisible();
   });
 
   it('menyediakan enam kelas dan menyimpan pilihan menuju mata pelajaran', async () => {
@@ -104,7 +104,7 @@ describe('layar Tahap 2', () => {
     await pasangTahap2(RUTE.dasbor);
     const tombol = await screen.findAllByRole('button', { name: 'Buka menu akun' });
     await pengguna.click(tombol[0]!);
-    expect(screen.getByRole('link', { name: 'Kelola Akun Guru' })).toBeVisible();
+    expect(screen.getAllByRole('link', { name: 'Data Guru' }).at(-1)).toBeVisible();
     expect(screen.getByRole('button', { name: 'Ganti Akun' })).toBeVisible();
     expect(screen.getByRole('button', { name: 'Logout' })).toBeVisible();
     expect(screen.getByText(/Logout hanya menutup sesi/)).toBeVisible();

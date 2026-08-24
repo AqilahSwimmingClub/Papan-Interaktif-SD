@@ -13,6 +13,7 @@ export const KUNCI_PERANGKAT = {
   idPerangkat: 'id_perangkat',
   setupSelesai: 'setup_selesai',
   versiSeedKurikulum: 'versi_seed_kurikulum',
+  modePapanInteraktif: 'mode_papan_interaktif',
 } as const;
 
 export async function bacaPenanda<T>(kunci: string): Promise<T | undefined> {
