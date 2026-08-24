@@ -49,11 +49,13 @@ export function GameRunnerScreen() {
     }
     setSelesai(true);
     const siswaId = parameter.get('siswa');
+    const kelompokId = parameter.get('kelompok');
     const sesiId = parameter.get('sesi');
-    if (siswaId && sesiId && akun) {
+    if ((siswaId || kelompokId) && sesiId && akun) {
       try {
         await simpanHasilGame(game.id, {
-          siswaId,
+          siswaId: siswaId ?? undefined,
+          kelompokId: kelompokId ?? undefined,
           sesiId,
           dinilaiOleh: akun.id,
           jawaban: baru,
@@ -96,7 +98,7 @@ export function GameRunnerScreen() {
           <button type="button" onClick={() => bacakan(`${butir.pertanyaan}. ${butir.pilihan.join('. ')}`)} aria-label="Bacakan soal">🔊</button>
           <h1>{butir.pertanyaan}</h1>
         </div>
-        <div className={`game-pilihan game-pilihan--${Math.min(butir.pilihan.length, profil.jumlah_pilihan)}`}>
+        <div data-mechanic={engine?.mekanik} className={`game-pilihan game-pilihan--${Math.min(butir.pilihan.length, profil.jumlah_pilihan)} game-pilihan--mekanik-${engine?.mekanik ?? 'pilihan'}`}>
           {butir.pilihan.slice(0, profil.jumlah_pilihan).map((item, indeks) => (
             <button key={`${butir.id}-${indeks}`} type="button" className={pilihan === item ? 'terpilih' : ''} onClick={() => setPilihan(item)}>
               <span>{String.fromCharCode(65 + indeks)}</span>{item}

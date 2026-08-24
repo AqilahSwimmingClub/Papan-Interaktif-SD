@@ -101,6 +101,7 @@
   color: #fff;
   font-weight: 600;
 }
+.guru-sidebar__logout { width:100%;margin-top:8px;border:0;background:transparent;text-align:left;cursor:pointer; }.guru-sidebar__logout:hover { background:rgb(255 255 255 / 10%); }
 
 .guru-sidebar__ikon {
   width: 20px;

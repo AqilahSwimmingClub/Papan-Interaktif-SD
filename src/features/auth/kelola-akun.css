@@ -8,5 +8,6 @@
 .daftar-akun article header div { display:grid;gap:4px; }.daftar-akun article small { color:#607685; }
 .reset-sandi { display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:end;gap:10px; }
 .tautan-akun { justify-self:start;padding:0;border:0;background:transparent;color:var(--biru);font-weight:700; }
+.aksi-akun-guru { display:flex;flex-wrap:wrap;gap:12px; }.impor-guru,.konfigurasi-ai-admin { margin-top:18px; }.impor-guru>div:first-of-type { display:flex;gap:10px;flex-wrap:wrap; }.konfigurasi-ai-admin label { display:grid;gap:6px;max-width:360px; }.konfigurasi-ai-admin select { min-height:var(--target-sentuh);padding:8px 11px;border:var(--tepi);border-radius:8px;background:#fff; }
 @media (max-width: 799px) { .tata-akun { grid-template-columns:1fr; }.reset-sandi { grid-template-columns:1fr; }.daftar-akun article header { align-items:stretch;flex-direction:column; } }
 @media (min-width: 1920px) { .tata-akun { grid-template-columns:minmax(480px,620px) minmax(0,1fr);gap:calc(28px * var(--skala)); }.form-akun,.daftar-akun { padding:calc(28px * var(--skala)); }.form-akun h2,.daftar-akun h2 { font-size:calc(32px * var(--skala)); }.form-akun label,.reset-sandi label,.daftar-akun article { font-size:calc(20px * var(--skala)); } }

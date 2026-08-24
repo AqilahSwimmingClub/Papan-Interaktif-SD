@@ -1,17 +1,21 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useAuth } from '../../state/useAuth';
 import type { Akun } from '../../lib/types';
 import {
   aturUlangSandiGuru,
   buatAkunGuru,
   daftarAkunLokal,
+  ubahAkunGuru,
   ubahStatusAkunGuru,
 } from '../../lib/auth/authService';
 import { keAppError } from '../../lib/errors/AppError';
 import '../pelengkap/pelengkap.css';
 import './kelola-akun.css';
+import { bacaProviderAi, simpanProviderAi, type ProviderAi } from '../../lib/ai/aiService';
+import { simpanPenugasanGuru } from '../../lib/storage/pelengkapRepo';
+import { bacaExcelGuru, unduhTemplateGuru, type BarisGuruImpor } from '../../lib/guruImport';
 
-const FORM_AWAL = { nama: '', username: '', password: '', konfirmasi: '' };
+const FORM_AWAL = { nama: '', username: '', password: '', konfirmasi: '', kelas: '', mapel: '' };
 
 export function KelolaAkunScreen() {
   const { akun } = useAuth();
@@ -20,6 +24,9 @@ export function KelolaAkunScreen() {
   const [resetId, setResetId] = useState<string | null>(null);
   const [sandiBaru, setSandiBaru] = useState('');
   const [pesan, setPesan] = useState('');
+  const [providerAi, setProviderAi] = useState<ProviderAi>(() => bacaProviderAi());
+  const [imporGuru, setImporGuru] = useState<BarisGuruImpor[]>([]);
+  const inputGuruRef = useRef<HTMLInputElement>(null);
 
   async function muat() {
     if (akun) setDaftar(await daftarAkunLokal(akun));
@@ -35,13 +42,55 @@ export function KelolaAkunScreen() {
     peristiwa.preventDefault();
     if (!akun) return;
     try {
-      await buatAkunGuru(akun, form);
+      const guru = await buatAkunGuru(akun, form);
+      await simpanPenugasanGuru(guru, form.kelas.split(',').map(Number), form.mapel.split(','));
       setForm(FORM_AWAL);
       setPesan('Akun Guru tersimpan di perangkat ini.');
       await muat();
     } catch (galat) {
       setPesan(keAppError(galat).message);
     }
+  }
+
+  async function editGuru(guru: Akun) {
+    if (!akun) return;
+    const nama = window.prompt('Nama Guru', guru.nama);
+    if (nama === null) return;
+    const username = window.prompt('Username Guru', guru.username);
+    if (username === null) return;
+    try { await ubahAkunGuru(akun, guru.id, { nama, username }); setPesan('Identitas akun Guru diperbarui tanpa menyentuh data kelasnya.'); await muat(); }
+    catch (galat) { setPesan(keAppError(galat).message); }
+  }
+
+  async function aturPenugasan(guru: Akun) {
+    const kelas = window.prompt('Kelas diampu, pisahkan koma (contoh: 1,2,3)', '');
+    if (kelas === null) return;
+    const mapel = window.prompt('Kode mapel diampu, pisahkan koma (contoh: MAT,BI,IPAS)', '');
+    if (mapel === null) return;
+    try { await simpanPenugasanGuru(guru, kelas.split(',').map(Number), mapel.split(',')); setPesan(`Penugasan ${guru.nama} tersimpan.`); }
+    catch (galat) { setPesan(keAppError(galat).message); }
+  }
+
+  async function bacaImporGuru(file: File | undefined) {
+    if (!file) return;
+    try { const baris = await bacaExcelGuru(await file.arrayBuffer()); setImporGuru(baris); setPesan(`${baris.filter((item) => item.valid).length} akun Guru siap diimpor.`); }
+    catch (galat) { setPesan(keAppError(galat).message); }
+    if (inputGuruRef.current) inputGuruRef.current.value = '';
+  }
+
+  async function jalankanImporGuru() {
+    if (!akun) return;
+    try {
+      let jumlah = 0;
+      for (const baris of imporGuru.filter((item) => item.valid)) {
+        const sandiSementara = crypto.randomUUID();
+        const guru = await buatAkunGuru(akun, { nama: baris.nama, username: baris.username, password: sandiSementara, konfirmasi: sandiSementara });
+        await simpanPenugasanGuru(guru, baris.kelas, baris.mapel);
+        await ubahStatusAkunGuru(akun, guru.id, false);
+        jumlah += 1;
+      }
+      setImporGuru([]); setPesan(`${jumlah} akun diimpor dalam status nonaktif. Atur ulang password lalu aktifkan akun.`); await muat();
+    } catch (galat) { setPesan(keAppError(galat).message); await muat(); }
   }
 
   async function ubahAktif(guru: Akun) {
@@ -113,6 +162,8 @@ export function KelolaAkunScreen() {
               onChange={(e) => setForm({ ...form, konfirmasi: e.target.value })}
             />
           </label>
+          <label>Kelas diampu<input value={form.kelas} placeholder="1,2,3" onChange={(e) => setForm({ ...form, kelas: e.target.value })}/></label>
+          <label>Mapel diampu<input value={form.mapel} placeholder="MAT,BI,IPAS" onChange={(e) => setForm({ ...form, mapel: e.target.value })}/></label>
           <button className="tombol-guru tombol-guru--utama" type="submit">
             Simpan Akun Guru
           </button>
@@ -155,9 +206,7 @@ export function KelolaAkunScreen() {
                     </button>
                   </div>
                 ) : (
-                  <button className="tautan-akun" type="button" onClick={() => setResetId(item.id)}>
-                    Atur ulang sandi
-                  </button>
+                  <div className="aksi-akun-guru"><button className="tautan-akun" type="button" onClick={() => setResetId(item.id)}>Atur ulang sandi</button><button className="tautan-akun" type="button" onClick={() => void editGuru(item)}>Edit identitas</button><button className="tautan-akun" type="button" onClick={() => void aturPenugasan(item)}>Atur kelas/mapel</button></div>
                 )}
               </article>
             ))
@@ -166,6 +215,12 @@ export function KelolaAkunScreen() {
           )}
         </section>
       </div>
+      <section className="kartu-backup impor-guru"><p className="label-data">Impor Guru</p><h2>Template dan pratinjau Excel</h2><p>Kolom: Nama, Username, Kelas, Peran, Mapel. Akun hasil impor dinonaktifkan sampai Admin menetapkan password awal.</p><div><button type="button" onClick={() => void unduhTemplateGuru()}>Unduh Template</button><button className="tombol-guru tombol-guru--utama" type="button" onClick={() => inputGuruRef.current?.click()}>Pilih Excel</button><input className="sr-only" ref={inputGuruRef} type="file" accept=".xlsx,.xls" onChange={(e) => void bacaImporGuru(e.target.files?.[0])}/></div>{imporGuru.length ? <><div className="tabel-data-wrap"><table><thead><tr><th>Baris</th><th>Nama</th><th>Username</th><th>Kelas/Mapel</th><th>Status</th></tr></thead><tbody>{imporGuru.map((item) => <tr key={item.baris}><td>{item.baris}</td><td>{item.nama}</td><td>{item.username}</td><td>{item.kelas.join(', ') || '-'} / {item.mapel.join(', ') || '-'}</td><td>{item.valid ? 'Siap' : item.masalah.join(' ')}</td></tr>)}</tbody></table></div><button className="tombol-guru tombol-guru--utama" type="button" onClick={() => void jalankanImporGuru()}>Impor akun valid</button></> : null}</section>
+      <section className="kartu-backup konfigurasi-ai-admin">
+        <p className="label-data">Konfigurasi AI</p><h2>Provider resmi</h2>
+        <p>Kunci API tetap berada pada environment server dan tidak disimpan di browser maupun Android.</p>
+        <label>Provider<select value={providerAi} onChange={(e) => { const nilai = e.target.value as ProviderAi; setProviderAi(nilai); simpanProviderAi(nilai); setPesan(`Provider AI ${nilai === 'gemini' ? 'Gemini' : 'OpenAI'} dipilih. Pastikan secret server tersedia.`); }}><option value="openai">OpenAI</option><option value="gemini">Google Gemini</option></select></label>
+      </section>
       {pesan ? <p className="pelengkap-pesan" role="status">{pesan}</p> : null}
     </main>
   );

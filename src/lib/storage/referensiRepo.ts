@@ -19,11 +19,46 @@ export interface ReferensiDenganStatus extends ReferensiPembelajaran {
   pilihan: ReferensiSekolah | null;
 }
 
+const PANDUAN_RESMI: ReferensiPembelajaran[] = [
+  {
+    id: 'REF-KATALOG-PANDUAN-RESMI-2025', jenis: 'katalog_resmi',
+    judul: 'Katalog Panduan Mata Pelajaran Kemendikdasmen', mapel_kode: null, fase_kode: null,
+    kelas_relevan: [1, 2, 3, 4, 5, 6], penerbit: 'Kementerian Pendidikan Dasar dan Menengah',
+    tahun: '2025', versi: 'Katalog resmi', url_sumber: 'https://kurikulum.kemendikdasmen.go.id/panduan-mapel',
+    isbn: '', status: 'aktif', tanggal_diperbarui: '2025-10-03', lingkup_izin: 'metadata_saja', ditambahkan_oleh: null,
+  },
+  {
+    id: 'REF-PANDUAN-BI-2025', jenis: 'panduan_resmi', judul: 'Panduan Mata Pelajaran Bahasa Indonesia',
+    mapel_kode: 'BI', fase_kode: null, kelas_relevan: [1,2,3,4,5,6], penerbit: 'Kementerian Pendidikan Dasar dan Menengah',
+    tahun: '2025', versi: 'Revisi 3', url_sumber: 'https://kurikulum.kemendikdasmen.go.id/file/panduan/dokumen/4.%20Panduan%20Mata%20Pelajaran%20Bahasa%20Indonesia_16_09_2025_Revisi%203.pdf',
+    isbn: '', status: 'aktif', tanggal_diperbarui: '2025-09-16', lingkup_izin: 'metadata_saja', ditambahkan_oleh: null,
+  },
+  {
+    id: 'REF-PANDUAN-IPAS-2025', jenis: 'panduan_resmi', judul: 'Panduan Mata Pelajaran IPAS',
+    mapel_kode: 'IPAS', fase_kode: null, kelas_relevan: [3,4,5,6], penerbit: 'Kementerian Pendidikan Dasar dan Menengah',
+    tahun: '2025', versi: 'Revisi 4', url_sumber: 'https://kurikulum.kemendikdasmen.go.id/file/panduan/dokumen/7.%20Final%20Panduan%20Mata%20Pelajaran%20IPAS_03_10_2025_Revisi%204.pdf',
+    isbn: '', status: 'aktif', tanggal_diperbarui: '2025-10-03', lingkup_izin: 'metadata_saja', ditambahkan_oleh: null,
+  },
+  {
+    id: 'REF-PANDUAN-KKA-2025', jenis: 'panduan_resmi', judul: 'Panduan Mata Pelajaran Koding dan Kecerdasan Artifisial',
+    mapel_kode: 'KKA', fase_kode: null, kelas_relevan: [5,6], penerbit: 'Kementerian Pendidikan Dasar dan Menengah',
+    tahun: '2025', versi: 'Revisi 3', url_sumber: 'https://kurikulum.kemendikdasmen.go.id/file/panduan/dokumen/33.%20Final%20Panduan%20Mata%20Pelajaran%20Panduan%20Mata%20Pelajaran%20Koding%20dan%20Kecerdasan%20Artifisial_12_Sep_2025_revisi%203.pdf',
+    isbn: '', status: 'aktif', tanggal_diperbarui: '2025-09-12', lingkup_izin: 'metadata_saja', ditambahkan_oleh: null,
+  },
+];
+
+export async function pastikanPanduanResmi(): Promise<void> {
+  await pastikanKurikulumTersedia();
+  await jalankanTransaksi(TOKO.referensi, 'readwrite', async (toko) => {
+    for (const item of PANDUAN_RESMI) if (!await kueri.ambil<ReferensiPembelajaran>(toko(TOKO.referensi), item.id)) await kueri.simpan(toko(TOKO.referensi), item);
+  });
+}
+
 export async function daftarReferensiLengkap(
   tingkat: number,
   mapelKode: string,
 ): Promise<ReferensiDenganStatus[]> {
-  await pastikanKurikulumTersedia();
+  await pastikanPanduanResmi();
   return jalankanTransaksi(
     [TOKO.referensi, TOKO.referensiBab, TOKO.pemetaanBabTp, TOKO.referensiSekolah],
     'readonly',

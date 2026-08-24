@@ -18,10 +18,13 @@ interface ItemNavigasi {
 
 const KELOMPOK_NAVIGASI: Array<{ judul: string; item: ItemNavigasi[] }> = [
   {
+    judul: 'Dashboard',
+    item: [{ label: 'Dashboard', ikon: 'D', tujuan: RUTE.dasbor }],
+  },
+  {
     judul: 'Mengajar',
     item: [
-      { label: 'Dasbor', ikon: '⌂', tujuan: RUTE.dasbor },
-      { label: 'Kelas & Mapel', ikon: '▦', tujuan: RUTE.kelas },
+      { label: 'Kelas dan Mapel', ikon: '▦', tujuan: RUTE.kelas },
       { label: 'Papan Interaktif', ikon: '□', tujuan: RUTE.papan },
       { label: 'Game Edukasi', ikon: '◆', tujuan: RUTE.game },
     ],
@@ -37,26 +40,29 @@ const KELOMPOK_NAVIGASI: Array<{ judul: string; item: ItemNavigasi[] }> = [
   {
     judul: 'Kelas & Data',
     item: [
-      { label: 'Data Siswa', ikon: '♙', tujuan: '/fitur/data-siswa' },
-      { label: 'Kelompok Siswa', ikon: '♟', tujuan: RUTE.kelompok },
-      { label: 'Penilaian', ikon: '✓', tujuan: '/fitur/penilaian' },
-      { label: 'Rekap CP/TP', ikon: '▥', tujuan: RUTE.rekap },
+      { label: 'Data Siswa', ikon: '♙', tujuan: RUTE.dataSiswa },
+      { label: 'Kelompok', ikon: '♟', tujuan: RUTE.kelompok },
+      { label: 'Penilaian', ikon: '✓', tujuan: RUTE.penilaian },
+      { label: 'CP dan TP', ikon: '▥', tujuan: RUTE.rekap },
     ],
   },
   {
-    judul: 'Perpustakaan & Pengaturan',
+    judul: 'Library',
     item: [
-      { label: 'Perpustakaan', ikon: '▤', tujuan: '/fitur/perpustakaan' },
+      { label: 'Perpustakaan', ikon: '▤', tujuan: RUTE.perpustakaan },
       { label: 'Media', ikon: '▧', tujuan: RUTE.media },
-      { label: 'Referensi Pembelajaran', ikon: '↗', tujuan: RUTE.referensi },
-      { label: 'Pencarian', ikon: '⌕', tujuan: RUTE.pencarian },
-      { label: 'Basis Data CP & TP', ikon: '⌘', tujuan: RUTE.basisData },
-      { label: 'Profil Sekolah/Guru', ikon: '⚙', tujuan: RUTE.profil },
-      { label: 'Kelola Akun', ikon: '♙', tujuan: RUTE.kelolaAkun, hanyaAdmin: true },
-      { label: 'Backup & Restore', ikon: '⇩', tujuan: RUTE.backup },
-      { label: 'Offline / PWA', ikon: '●', tujuan: RUTE.offline },
-      { label: 'Tentang Aplikasi', ikon: 'i', tujuan: RUTE.tentang },
     ],
+  },
+  {
+    judul: 'Pengaturan',
+    item: [
+      { label: 'Backup dan Restore', ikon: '⇩', tujuan: RUTE.backup },
+      { label: 'Profil & Ganti Password', ikon: '⚙', tujuan: RUTE.profil },
+    ],
+  },
+  {
+    judul: 'Admin',
+    item: [{ label: 'Kelola Guru', ikon: '♙', tujuan: RUTE.kelolaAkun, hanyaAdmin: true }],
   },
 ];
 
@@ -122,7 +128,7 @@ export function KerangkaGuru() {
         </Link>
 
         <nav className="guru-sidebar__navigasi">
-          {KELOMPOK_NAVIGASI.map((kelompok) => (
+          {KELOMPOK_NAVIGASI.filter((kelompok) => kelompok.item.some((item) => !item.hanyaAdmin || peran === 'admin')).map((kelompok) => (
             <section className="guru-sidebar__kelompok" key={kelompok.judul}>
               <h2>{kelompok.judul}</h2>
               {kelompok.item
@@ -144,6 +150,10 @@ export function KerangkaGuru() {
                 ))}
             </section>
           ))}
+          <button aria-label="Logout dari sidebar" className="guru-sidebar__tautan guru-sidebar__logout" type="button" onClick={() => void tanganiKeluar()} disabled={sedangKeluar}>
+            <span className="guru-sidebar__ikon" aria-hidden="true">↪</span>
+            <span className="guru-sidebar__label">Logout</span>
+          </button>
         </nav>
 
         <div className="guru-sidebar__bawah">

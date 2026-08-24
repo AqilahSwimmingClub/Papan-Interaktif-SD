@@ -188,6 +188,8 @@ export interface Guru {
   peran: 'kepala_sekolah' | 'operator' | 'guru';
   kelas_diampu: number[];
   mapel_diampu: string[];
+  /** Foto profil lokal; tidak pernah dikirim ke layanan AI. */
+  foto_data_url?: string | null;
 }
 
 export interface TahunAjaran {
@@ -406,8 +408,17 @@ export interface Siswa {
   nama: string;
   nomor_absen: number;
   kelompok_id: string | null;
+  kelompok_ids?: string[];
   catatan_guru: string;
   perlu_pendampingan: boolean;
+  nis?: string;
+  nisn?: string;
+  jk?: 'L' | 'P' | '';
+  agama?: string;
+  tempat_tanggal_lahir?: string;
+  orang_tua?: string;
+  telepon?: string;
+  alamat?: string;
 }
 
 export interface Kelompok {
@@ -416,6 +427,8 @@ export interface Kelompok {
   nama: string;
   semester: 1 | 2;
   poin_total: number;
+  jenis?: 'tetap' | 'pembelajaran' | 'game_battle';
+  dapat_digunakan_ulang?: boolean;
 }
 
 export interface Kehadiran {
@@ -457,13 +470,15 @@ export interface HasilBelajar {
   siswa_id: string;
   tp_id: string;
   sesi_id: string;
-  jenis_aktivitas: 'game' | 'lkpd' | 'asesmen';
+  jenis_aktivitas: 'game' | 'battle' | 'pembelajaran' | 'lkpd' | 'asesmen';
   isi_id: string;
   skor: number;
   skor_maksimal: number;
   ketuntasan: StatusKetuntasan;
   waktu: string;
   dinilai_oleh: string;
+  kelompok_id?: string | null;
+  tanggal_kegiatan?: string;
 }
 
 export interface PoinBadge {

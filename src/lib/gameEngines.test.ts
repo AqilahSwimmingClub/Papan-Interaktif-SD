@@ -4,15 +4,15 @@ import { GAME_ENGINE_FINAL, nilaiJawabanGame, PROFIL_FASE_GAME, ringkasPermainan
 import { bacaDetailMapelKelas } from './storage/kurikulumRepo';
 import { buatKatalogGameUntukTp, daftarEngineGame, hitungRelasiGame } from './storage/gameRepo';
 
-describe('pustaka 30 game engine Tahap 7', () => {
+describe('pustaka 60 game engine lintas mapel', () => {
   beforeEach(async () => resetPenyimpanan());
 
-  it('mengunci 30 engine dan matriks fase A=22, B=27, C=30', () => {
-    expect(GAME_ENGINE_FINAL).toHaveLength(30);
-    expect(new Set(GAME_ENGINE_FINAL.map((item) => item.kode)).size).toBe(30);
-    expect(GAME_ENGINE_FINAL.filter((item) => item.dukungan_fase.A !== 'tidak')).toHaveLength(22);
-    expect(GAME_ENGINE_FINAL.filter((item) => item.dukungan_fase.B !== 'tidak')).toHaveLength(27);
-    expect(GAME_ENGINE_FINAL.filter((item) => item.dukungan_fase.C !== 'tidak')).toHaveLength(30);
+  it('mengunci 60 engine unik dan cakupan setiap fase', () => {
+    expect(GAME_ENGINE_FINAL).toHaveLength(60);
+    expect(new Set(GAME_ENGINE_FINAL.map((item) => item.kode)).size).toBe(60);
+    expect(GAME_ENGINE_FINAL.filter((item) => item.dukungan_fase.A !== 'tidak').length).toBeGreaterThanOrEqual(30);
+    expect(GAME_ENGINE_FINAL.filter((item) => item.dukungan_fase.B !== 'tidak').length).toBeGreaterThanOrEqual(45);
+    expect(GAME_ENGINE_FINAL.filter((item) => item.dukungan_fase.C !== 'tidak')).toHaveLength(60);
     expect(PROFIL_FASE_GAME.A).toMatchObject({ jumlah_pilihan: 2, bacakan_wajib: true, peringkat: 'tidak_ada' });
   });
 
@@ -31,7 +31,7 @@ describe('pustaka 30 game engine Tahap 7', () => {
     const katalog = await buatKatalogGameUntukTp(tp!.id);
     expect(katalog.length).toBeGreaterThanOrEqual(6);
     expect(katalog.every((item) => item.tp_id === tp!.id && item.cp_id === detail!.cp.id && item.mapel_kode === 'MAT')).toBe(true);
-    expect(await daftarEngineGame()).toHaveLength(30);
+    expect(await daftarEngineGame()).toHaveLength(60);
     expect((await hitungRelasiGame(tp!.id)).jumlahGame).toBeGreaterThanOrEqual(6);
 
     const butir = katalog[0]!.butir[0]!;

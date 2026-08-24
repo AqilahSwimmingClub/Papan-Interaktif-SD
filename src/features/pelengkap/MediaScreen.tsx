@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+import { Link } from 'react-router-dom';
 import { keAppError } from '../../lib/errors/AppError';
 import { daftarMedia, hapusMedia, simpanMedia } from '../../lib/storage/pelengkapRepo';
 import type { MediaPembelajaran } from '../../lib/types';
 import { useAuth } from '../../state/useAuth';
 import { useKurikulum } from '../../state/useKurikulum';
+import { RUTE } from '../../routes/paths';
 import './pelengkap.css';
 
 function jenisBerkas(file: File): MediaPembelajaran['jenis'] {
@@ -63,7 +65,7 @@ export function MediaScreen() {
 
   const urlAktif = terpilih ? urls.get(terpilih.id) ?? '' : '';
   return <main className="halaman-pelengkap" data-testid="layar-media">
-    <header className="pelengkap-kop"><div><p className="label-data">Perpustakaan lokal</p><h1>Media Pembelajaran</h1><p>{media.length} berkas · {ukuran(totalByte)} tersimpan pada perangkat ini.</p></div><button className="tombol-guru tombol-guru--utama" type="button" onClick={() => inputRef.current?.click()}>Unggah Media</button><input className="sr-only" ref={inputRef} type="file" accept="image/*,video/*,audio/*,.pdf,.doc,.docx" onChange={(e) => void tanganiBerkas(e.target.files?.[0])}/></header>
+    <header className="pelengkap-kop"><div><p className="label-data">Perpustakaan lokal</p><h1>Media Pembelajaran</h1><p>{media.length} berkas · {ukuran(totalByte)} tersimpan pada perangkat ini.</p></div><button className="tombol-guru tombol-guru--utama" type="button" onClick={() => inputRef.current?.click()}>Unggah Media</button><input className="sr-only" ref={inputRef} type="file" accept="image/*,video/*,audio/*,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx" onChange={(e) => void tanganiBerkas(e.target.files?.[0])}/></header>
     <nav className="filter-media" aria-label="Filter jenis media">{(['semua','gambar','video','audio','pdf','dokumen'] as const).map((jenis) => <button type="button" key={jenis} className={filter === jenis ? 'aktif' : ''} onClick={() => setFilter(jenis)}>{jenis === 'semua' ? `Semua ${media.length}` : jenis}</button>)}</nav>
     {pesan ? <p className="pelengkap-pesan" role="status">{pesan}</p> : null}
     {tampil.length ? <section className="kisi-media">{tampil.map((item) => {
@@ -79,7 +81,7 @@ export function MediaScreen() {
       <div className="pemutar-media" style={{ '--zoom-media': `${zoom}%` } as CSSProperties}>
         {!urlAktif ? <p>Berkas tidak tersedia pada perangkat ini.</p> : terpilih.jenis === 'gambar' ? <img src={urlAktif} alt={terpilih.nama_berkas}/> : terpilih.jenis === 'video' ? <video src={urlAktif} controls playsInline/> : terpilih.jenis === 'audio' ? <audio src={urlAktif} controls/> : terpilih.jenis === 'pdf' ? <iframe title={terpilih.nama_berkas} src={`${urlAktif}#page=${halamanPdf}&zoom=${zoom}`}/> : <a href={urlAktif} download={terpilih.nama_berkas}>Unduh dokumen</a>}
       </div>
-      <footer>{terpilih.jenis === 'pdf' ? <><button type="button" disabled={halamanPdf <= 1} onClick={() => setHalamanPdf((x) => Math.max(1, x - 1))}>Halaman sebelumnya</button><strong>Halaman {halamanPdf}</strong><button type="button" onClick={() => setHalamanPdf((x) => x + 1)}>Halaman berikutnya</button></> : null}<button type="button" onClick={() => setZoom((x) => Math.max(50, x - 25))}>− Zoom</button><span>{zoom}%</span><button type="button" onClick={() => setZoom((x) => Math.min(200, x + 25))}>+ Zoom</button><button className="hapus-media" type="button" onClick={() => void hapus(terpilih)}>Hapus</button></footer>
+      <footer>{terpilih.jenis === 'pdf' ? <><button type="button" disabled={halamanPdf <= 1} onClick={() => setHalamanPdf((x) => Math.max(1, x - 1))}>Halaman sebelumnya</button><strong>Halaman {halamanPdf}</strong><button type="button" onClick={() => setHalamanPdf((x) => x + 1)}>Halaman berikutnya</button></> : null}<button type="button" onClick={() => setZoom((x) => Math.max(50, x - 25))}>− Zoom</button><span>{zoom}%</span><button type="button" onClick={() => setZoom((x) => Math.min(200, x + 25))}>+ Zoom</button><Link className="tombol-guru tombol-guru--utama" to={RUTE.papan} onClick={() => localStorage.setItem('papan-interaktif-sd:media-papan', terpilih.id)}>Kirim ke Papan</Link><button className="hapus-media" type="button" onClick={() => void hapus(terpilih)}>Hapus</button></footer>
     </section></div> : null}
   </main>;
 }

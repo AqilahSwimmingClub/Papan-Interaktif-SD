@@ -70,7 +70,7 @@ export function KatalogGameScreen() {
     <main className="halaman-kurikulum game-katalog" data-testid="katalog-game">
       <header className="kop-kurikulum game-katalog__kop">
         <div>
-          <p className="label-data">30 engine · local-first</p>
+          <p className="label-data">60 engine · local-first</p>
           <h1>Katalog Game Edukasi</h1>
           <p>{rantai?.tp.teks_tujuan ?? 'Menyiapkan TP aktif…'}</p>
         </div>

@@ -10,6 +10,8 @@ import type {
   JawabanButirGame,
   PoinBadge,
   RingkasanPermainan,
+  Kelompok,
+  Siswa,
   TautanTp,
   TujuanPembelajaran,
 } from '../types';
@@ -102,7 +104,7 @@ export async function buatKatalogGameUntukTp(tpId: string): Promise<GamePembelaj
     fase_kode: rantai.cp.fase_kode,
     mapel_kode: rantai.cp.mapel_kode,
     teks_tp: rantai.tp.teks_tujuan,
-  }).slice(0, Math.max(6, 6 - ada.length));
+  }).slice(0, 12);
   const perEngine = new Map(ada.map((baris) => [baris.engine_kode, baris]));
   const tambahan: GamePembelajaran[] = [];
   for (const item of engine) {
@@ -146,7 +148,7 @@ export async function buatKatalogGameUntukTp(tpId: string): Promise<GamePembelaj
 export async function simpanGame(game: GamePembelajaran): Promise<void> {
   const rantai = await bacaRantaiTpAktif(game.tp_id);
   const engine = GAME_ENGINE_FINAL.find((item) => item.kode === game.engine_kode);
-  if (!engine) throw new AppError('VALIDASI', 'Engine game tidak terdaftar pada pustaka 30 engine.');
+  if (!engine) throw new AppError('VALIDASI', 'Engine game tidak terdaftar pada pustaka engine.');
   if (engine.dukungan_fase[rantai.cp.fase_kode] === 'tidak') {
     throw new AppError('VALIDASI', 'Engine ini tidak tersedia untuk fase aktif.');
   }
@@ -190,7 +192,8 @@ export async function bacaGame(id: string): Promise<GamePembelajaran | undefined
 }
 
 export interface SimpanHasilGame {
-  siswaId: string;
+  siswaId?: string;
+  kelompokId?: string;
   sesiId: string;
   dinilaiOleh: string;
   jawaban: JawabanButirGame[];
@@ -212,32 +215,43 @@ export async function simpanHasilGame(
     masukan.jawaban.length !== game.butir.length
   ) throw new AppError('VALIDASI', 'Ringkasan hasil game tidak konsisten.');
   const rasio = maksimal ? masukan.ringkasan.skor / maksimal : 0;
-  const hasil: HasilBelajar = {
-    id: `HASIL-GAME-${crypto.randomUUID()}`,
-    siswa_id: masukan.siswaId,
-    tp_id: game.tp_id,
-    sesi_id: masukan.sesiId,
-    jenis_aktivitas: 'game',
-    isi_id: game.id,
-    skor: masukan.ringkasan.skor,
-    skor_maksimal: maksimal,
-    ketuntasan: rasio >= 0.75 ? 'tuntas' : rasio >= 0.5 ? 'berkembang' : 'perlu_bimbingan',
-    waktu: new Date().toISOString(),
-    dinilai_oleh: masukan.dinilaiOleh,
-  };
-  await jalankanTransaksi([TOKO.game, TOKO.hasil, TOKO.poinBadge], 'readwrite', async (toko) => {
-    const badge = await kueri.ambil<PoinBadge>(toko(TOKO.poinBadge), masukan.siswaId);
-    await kueri.simpan(toko(TOKO.hasil), hasil);
+  const waktu = new Date().toISOString();
+  const hasil = await jalankanTransaksi([TOKO.game, TOKO.hasil, TOKO.poinBadge, TOKO.siswa, TOKO.kelompok], 'readwrite', async (toko) => {
+    let sasaran: Siswa[] = [];
+    if (masukan.kelompokId) {
+      const semua = await kueri.semua<Siswa>(toko(TOKO.siswa));
+      sasaran = semua.filter((item) => (item.kelompok_ids ?? (item.kelompok_id ? [item.kelompok_id] : [])).includes(masukan.kelompokId!));
+    } else if (masukan.siswaId) {
+      const siswa = await kueri.ambil<Siswa>(toko(TOKO.siswa), masukan.siswaId);
+      if (siswa) sasaran = [siswa];
+    }
+    if (!sasaran.length) throw new AppError('VALIDASI', 'Pilih siswa atau kelompok yang mengikuti game.');
+    const daftarHasil: HasilBelajar[] = sasaran.map((siswa) => ({
+      id: `HASIL-GAME-${crypto.randomUUID()}`, siswa_id: siswa.id, tp_id: game.tp_id,
+      sesi_id: masukan.sesiId, jenis_aktivitas: game.mode_permainan === 'battle' ? 'battle' : 'game',
+      isi_id: game.id, skor: masukan.ringkasan.skor, skor_maksimal: maksimal,
+      ketuntasan: rasio >= 0.75 ? 'tuntas' : rasio >= 0.5 ? 'berkembang' : 'perlu_bimbingan',
+      waktu, tanggal_kegiatan: waktu.slice(0, 10), dinilai_oleh: masukan.dinilaiOleh,
+      kelompok_id: masukan.kelompokId ?? null,
+    }));
+    for (const baris of daftarHasil) await kueri.simpan(toko(TOKO.hasil), baris);
     await kueri.simpan(toko(TOKO.game), { ...game, jumlah_dimainkan: game.jumlah_dimainkan + 1 });
     const poin = Math.round(masukan.ringkasan.skor / 10);
-    await kueri.simpan(toko(TOKO.poinBadge), {
-      siswa_id: masukan.siswaId,
-      poin_total: (badge?.poin_total ?? 0) + poin,
-      badge_diraih: badge?.badge_diraih ?? [],
-      riwayat: [...(badge?.riwayat ?? []), { waktu: hasil.waktu, poin, alasan: game.judul }],
-    } satisfies PoinBadge);
+    for (const siswa of sasaran) {
+      const badge = await kueri.ambil<PoinBadge>(toko(TOKO.poinBadge), siswa.id);
+      await kueri.simpan(toko(TOKO.poinBadge), {
+        siswa_id: siswa.id, poin_total: (badge?.poin_total ?? 0) + poin,
+        badge_diraih: badge?.badge_diraih ?? [],
+        riwayat: [...(badge?.riwayat ?? []), { waktu, poin, alasan: game.judul }],
+      } satisfies PoinBadge);
+    }
+    if (masukan.kelompokId) {
+      const kelompok = await kueri.ambil<Kelompok>(toko(TOKO.kelompok), masukan.kelompokId);
+      if (kelompok) await kueri.simpan(toko(TOKO.kelompok), { ...kelompok, poin_total: kelompok.poin_total + poin });
+    }
+    return daftarHasil;
   });
-  return hasil;
+  return hasil[0]!;
 }
 
 export async function hitungRelasiGame(tpId: string): Promise<{

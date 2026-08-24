@@ -76,6 +76,20 @@ export async function daftarMedia(): Promise<MediaPembelajaran[]> {
   });
 }
 
+export async function simpanPenugasanGuru(akunGuru: Akun, kelas: number[], mapel: string[]): Promise<Guru> {
+  if (akunGuru.peran !== 'guru') throw new AppError('VALIDASI', 'Penugasan hanya berlaku untuk akun Guru.');
+  const tingkat = [...new Set(kelas)].filter((item) => Number.isInteger(item) && item >= 1 && item <= 6).sort();
+  const guru = await bacaGuru(akunGuru.id, akunGuru);
+  if (!guru) throw new AppError('VALIDASI', 'Profil Guru tidak ditemukan.');
+  const hasil: Guru = { ...guru, nama: akunGuru.nama, kelas_diampu: tingkat, mapel_diampu: [...new Set(mapel.map((item) => item.trim()).filter(Boolean))] };
+  await jalankanTransaksi(TOKO.guru, 'readwrite', (toko) => kueri.simpan(toko(TOKO.guru), hasil));
+  return hasil;
+}
+
+export async function bacaMedia(id: string): Promise<MediaPembelajaran | undefined> {
+  return jalankanTransaksi(TOKO.media, 'readonly', (toko) => kueri.ambil<MediaPembelajaran>(toko(TOKO.media), id));
+}
+
 export async function hapusMedia(id: string): Promise<void> {
   await jalankanTransaksi([TOKO.media, TOKO.indeksPencarian], 'readwrite', async (toko) => {
     await kueri.hapus(toko(TOKO.media), id);
@@ -313,6 +327,32 @@ function dataUrlKeBlob(dataUrl: string): Blob {
   return new Blob([byte], { type: tipe });
 }
 
+function validasiRelasiCadangan(paket: PaketCadangan): void {
+  if (!paket.data || typeof paket.data !== 'object') throw new AppError('VALIDASI', 'Data cadangan tidak berbentuk objek.');
+  for (const nama of TOKO_CADANGAN) {
+    if (paket.data[nama] !== undefined && !Array.isArray(paket.data[nama])) throw new AppError('VALIDASI', `Tabel cadangan ${nama} tidak valid.`);
+  }
+  const baris = (nama: NamaToko) => (paket.data[nama] ?? []) as Array<Record<string, unknown>>;
+  const unik = (nilai: unknown[], label: string) => {
+    const bersih = nilai.filter((item): item is string => typeof item === 'string' && Boolean(item));
+    if (bersih.length !== nilai.length || new Set(bersih).size !== bersih.length) throw new AppError('VALIDASI', `${label} cadangan kosong atau duplikat.`);
+    return new Set(bersih);
+  };
+  const akunId = unik(baris(TOKO.akun).map((item) => item.id), 'ID akun');
+  unik(baris(TOKO.akun).map((item) => item.username), 'Username akun');
+  const kelasId = unik(baris(TOKO.kelas).map((item) => item.id), 'ID kelas');
+  const siswaId = unik(baris(TOKO.siswa).map((item) => item.id), 'ID siswa');
+  const kelompokId = unik(baris(TOKO.kelompok).map((item) => item.id), 'ID kelompok');
+  for (const guru of baris(TOKO.guru)) if (!akunId.has(String(guru.id))) throw new AppError('VALIDASI', 'Profil Guru cadangan tidak memiliki akun yang sesuai.');
+  for (const kelas of baris(TOKO.kelas)) if (!akunId.has(String(kelas.wali_guru_id))) throw new AppError('VALIDASI', 'Kelas cadangan tidak memiliki Guru pemilik.');
+  for (const siswa of baris(TOKO.siswa)) if (!kelasId.has(String(siswa.kelas_id))) throw new AppError('VALIDASI', 'Siswa cadangan memiliki relasi kelas putus.');
+  for (const kelompok of baris(TOKO.kelompok)) if (!kelasId.has(String(kelompok.kelas_id))) throw new AppError('VALIDASI', 'Kelompok cadangan memiliki relasi kelas putus.');
+  for (const hasil of baris(TOKO.hasil)) {
+    if (!siswaId.has(String(hasil.siswa_id))) throw new AppError('VALIDASI', 'Hasil belajar cadangan memiliki relasi siswa putus.');
+    if (hasil.kelompok_id && !kelompokId.has(String(hasil.kelompok_id))) throw new AppError('VALIDASI', 'Hasil belajar cadangan memiliki relasi kelompok putus.');
+  }
+}
+
 export async function pulihkanCadangan(
   paket: PaketCadangan,
   konfirmasiNamaSekolah: string,
@@ -323,6 +363,7 @@ export async function pulihkanCadangan(
   if (!paket.nama_sekolah || paket.nama_sekolah !== konfirmasiNamaSekolah.trim()) {
     throw new AppError('VALIDASI', 'Nama sekolah tidak sama dengan isi cadangan.');
   }
+  validasiRelasiCadangan(paket);
   const sebelum = await dataCadangan();
   const metadataSebelum: Cadangan = {
     id: `CADANGAN-PRA-RESTORE-${crypto.randomUUID()}`,

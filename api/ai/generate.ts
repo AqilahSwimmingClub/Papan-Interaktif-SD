@@ -20,7 +20,7 @@ function ambilJson(teks: string): unknown {
   return JSON.parse(bersih.slice(awal, akhir + 1));
 }
 
-async function panggilProvider(url: string, kunci: string, model: string, body: Record<string, unknown>): Promise<unknown> {
+async function panggilOpenAi(url: string, kunci: string, model: string, body: Record<string, unknown>): Promise<unknown> {
   let galatTerakhir: unknown;
   for (let percobaan = 0; percobaan < 2; percobaan += 1) {
     const pengendali = new AbortController();
@@ -52,6 +52,31 @@ async function panggilProvider(url: string, kunci: string, model: string, body: 
   throw galatTerakhir;
 }
 
+async function panggilGemini(kunci: string, model: string, body: Record<string, unknown>): Promise<unknown> {
+  let galatTerakhir: unknown;
+  const instruksi = 'Anda membantu guru SD Indonesia. Gunakan hanya CP, TP, materi, dan metadata referensi yang diberikan. Jangan mengarang kutipan kurikulum. Kembalikan JSON: {"judul":string,"ringkasan":string,"butir":[{"pertanyaan":string,"jawaban":string,"pilihan":string[],"pembahasan":string,"rubrik":string}]}.\n\nDATA GURU:\n';
+  for (let percobaan = 0; percobaan < 2; percobaan += 1) {
+    const pengendali = new AbortController();
+    const batas = setTimeout(() => pengendali.abort(), 25_000);
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(kunci)}`;
+      const respons = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: pengendali.signal,
+        body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: `${instruksi}${JSON.stringify(body)}` }] }], generationConfig: { temperature: 0.35, responseMimeType: 'application/json' } }) });
+      if (!respons.ok) {
+        const teks = await respons.text();
+        if (respons.status < 500 && respons.status !== 429) throw new Error(`Gemini menolak permintaan (${respons.status}): ${teks.slice(0, 180)}`);
+        throw new Error(`Gemini sementara bermasalah (${respons.status}).`);
+      }
+      const data = await respons.json() as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> };
+      return ambilJson(data.candidates?.[0]?.content?.parts?.[0]?.text ?? '');
+    } catch (galat) {
+      galatTerakhir = galat;
+      if (percobaan === 0) await new Promise((selesai) => setTimeout(selesai, 500));
+    } finally { clearTimeout(batas); }
+  }
+  throw galatTerakhir;
+}
+
 export default async function handler(permintaan: PermintaanVercel, respons: ResponsVercel): Promise<void> {
   const asal = typeof permintaan.headers.origin === 'string' ? permintaan.headers.origin : '';
   const diizinkan = /^https:\/\/(localhost|papan-interaktif-sd(?:-[a-z0-9-]+)?\.vercel\.app)$/.test(asal);
@@ -68,12 +93,7 @@ export default async function handler(permintaan: PermintaanVercel, respons: Res
   if (aktif.length >= 10) return kirim(respons, 429, { ok: false, kode: 'AI_RATE_LIMIT', pesan: 'Batas permintaan AI tercapai. Tunggu satu menit lalu coba lagi.' });
   riwayat.set(ip, [...aktif, sekarang]);
 
-  const url = process.env.AI_API_URL?.trim() || 'https://api.openai.com/v1/chat/completions';
-  const kunci = process.env.AI_API_KEY?.trim();
-  const model = process.env.AI_MODEL?.trim() || 'gpt-4.1-mini';
-  if (!kunci) return kirim(respons, 503, { ok: false, kode: 'AI_NOT_CONFIGURED', pesan: 'Layanan AI belum dikonfigurasi oleh administrator.' });
-
-  const body = permintaan.body as { prompt?: unknown; jenis?: unknown; jumlah?: unknown; konteks?: { cp?: unknown; tp?: unknown; terverifikasi?: unknown } } | null;
+  const body = permintaan.body as { prompt?: unknown; jenis?: unknown; jumlah?: unknown; provider?: unknown; konteks?: { cp?: unknown; tp?: unknown; terverifikasi?: unknown } } | null;
   if (!body || typeof body.prompt !== 'string' || !body.prompt.trim() || body.prompt.length > 12_000 || typeof body.jenis !== 'string') {
     return kirim(respons, 400, { ok: false, kode: 'AI_SERVICE_ERROR', pesan: 'Permintaan AI tidak valid.' });
   }
@@ -81,8 +101,16 @@ export default async function handler(permintaan: PermintaanVercel, respons: Res
     return kirim(respons, 400, { ok: false, kode: 'AI_SERVICE_ERROR', pesan: 'CP/TP terverifikasi wajib tersedia.' });
   }
 
+  const provider = body.provider === 'gemini' ? 'gemini' : body.provider === 'openai' ? 'openai' : process.env.AI_PROVIDER === 'gemini' ? 'gemini' : 'openai';
+  const konfigurasi = provider === 'gemini'
+    ? { kunci: process.env.GEMINI_API_KEY?.trim(), model: process.env.GEMINI_MODEL?.trim() || 'gemini-2.5-flash' }
+    : { kunci: process.env.OPENAI_API_KEY?.trim() || process.env.AI_API_KEY?.trim(), model: process.env.OPENAI_MODEL?.trim() || process.env.AI_MODEL?.trim() || 'gpt-4.1-mini', url: process.env.OPENAI_API_URL?.trim() || process.env.AI_API_URL?.trim() || 'https://api.openai.com/v1/chat/completions' };
+  if (!konfigurasi.kunci) return kirim(respons, 503, { ok: false, kode: 'AI_NOT_CONFIGURED', pesan: 'Layanan AI belum dikonfigurasi oleh administrator.' });
+
   try {
-    const hasil = await panggilProvider(url, kunci, model, body as unknown as Record<string, unknown>);
+    const hasil = provider === 'gemini'
+      ? await panggilGemini(konfigurasi.kunci, konfigurasi.model, body as unknown as Record<string, unknown>)
+      : await panggilOpenAi(konfigurasi.url!, konfigurasi.kunci, konfigurasi.model, body as unknown as Record<string, unknown>);
     kirim(respons, 200, { ok: true, hasil });
   } catch (galat) {
     const timeout = galat instanceof Error && galat.name === 'AbortError';

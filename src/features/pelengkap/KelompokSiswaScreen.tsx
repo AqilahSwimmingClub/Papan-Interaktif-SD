@@ -23,6 +23,7 @@ export function KelompokSiswaScreen() {
   const [kelompok, setKelompok] = useState<KelompokBeranggota[]>([]);
   const [namaBaru, setNamaBaru] = useState('');
   const [ukuran, setUkuran] = useState(4);
+  const [jenis, setJenis] = useState<NonNullable<Kelompok['jenis']>>('tetap');
   const [pesan, setPesan] = useState('');
 
   const muat = useCallback(async (tingkatAktif = tingkat) => {
@@ -58,8 +59,8 @@ export function KelompokSiswaScreen() {
   async function tanganiAcak() {
     if (!kelas) return;
     try {
-      await buatKelompokOtomatis(kelas.id, ukuran);
-      setPesan('Kelompok diperbarui dan disimpan untuk semester aktif.');
+      await buatKelompokOtomatis(kelas.id, ukuran, 1, jenis);
+      setPesan('Kelompok dapat digunakan ulang untuk pembelajaran, game, battle, dan penilaian.');
       await muat();
     } catch (galat) {
       setPesan(keAppError(galat).message);
@@ -80,6 +81,7 @@ export function KelompokSiswaScreen() {
           <button className="tombol-guru tombol-guru--utama" type="submit">Tambah</button>
         </form>
         <div className="kontrol-kelompok">
+          <label>Jenis<select value={jenis} onChange={(e) => setJenis(e.target.value as NonNullable<Kelompok['jenis']>)}><option value="tetap">Tetap</option><option value="pembelajaran">Pembelajaran</option><option value="game_battle">Game / Battle</option></select></label>
           <label>Anggota<select value={ukuran} onChange={(e) => setUkuran(Number(e.target.value))}>{[2, 3, 4, 5, 6].map((nilai) => <option key={nilai} value={nilai}>{nilai} per kelompok</option>)}</select></label>
           <button type="button" onClick={() => void tanganiAcak()}>Acak ulang & simpan</button>
         </div>
@@ -91,7 +93,7 @@ export function KelompokSiswaScreen() {
           <section className="kisi-kelompok" aria-label={`${kelompok.length} kelompok`}>
             {kelompok.map((grup, indeks) => (
               <article key={grup.id}>
-                <header><span>{indeks + 1}</span><div><h2>{grup.nama}</h2><small>{grup.poin_total.toLocaleString('id-ID')} poin</small></div><b>{grup.anggota.length}</b></header>
+                <header><span>{indeks + 1}</span><div><h2>{grup.nama}</h2><small>{(grup.jenis ?? 'tetap').replace('_', ' ')} Â· {grup.poin_total.toLocaleString('id-ID')} poin</small></div><b>{grup.anggota.length}</b></header>
                 <ul>{grup.anggota.map((anak) => <li key={anak.id}><span>{String(anak.nomor_absen).padStart(2, '0')}</span>{anak.nama}</li>)}</ul>
               </article>
             ))}
@@ -100,7 +102,7 @@ export function KelompokSiswaScreen() {
           <section className="keadaan-kosong keadaan-kosong--fitur"><h2>{siswa.length} siswa belum dikelompokkan</h2><p>Pilih jumlah anggota, lalu tekan “Acak ulang & simpan”.</p><button className="tombol-guru tombol-guru--utama" type="button" onClick={() => void tanganiAcak()}>Buat Kelompok</button></section>
         )
       ) : (
-        <section className="keadaan-kosong keadaan-kosong--fitur"><h2>Belum ada siswa di Kelas {tingkat}</h2><p>Tambahkan nama dan nomor absen akan dibuat otomatis. Tidak ada NISN, foto, alamat, atau data orang tua.</p></section>
+        <section className="keadaan-kosong keadaan-kosong--fitur"><h2>Belum ada siswa di Kelas {tingkat}</h2><p>Tambahkan siswa satu per satu atau impor Excel dari menu Data Siswa.</p></section>
       )}
     </main>
   );

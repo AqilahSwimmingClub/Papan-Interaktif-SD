@@ -33,6 +33,18 @@ export interface PermintaanGenerasiAi {
     referensi: Array<{ judul: string; bab: string; lingkupIzin: string }>;
     terverifikasi: true;
   };
+  provider?: ProviderAi;
+}
+
+export type ProviderAi = 'openai' | 'gemini';
+export const KUNCI_PROVIDER_AI = 'papan-interaktif-sd:provider-ai';
+
+export function bacaProviderAi(): ProviderAi {
+  return localStorage.getItem(KUNCI_PROVIDER_AI) === 'gemini' ? 'gemini' : 'openai';
+}
+
+export function simpanProviderAi(provider: ProviderAi): void {
+  localStorage.setItem(KUNCI_PROVIDER_AI, provider);
 }
 
 export type KodeGalatAi = 'AI_OFFLINE' | 'AI_NOT_CONFIGURED' | 'AI_TIMEOUT' | 'AI_RATE_LIMIT' | 'AI_INVALID_RESPONSE' | 'AI_SERVICE_ERROR';
@@ -79,7 +91,7 @@ async function sekali(permintaan: PermintaanGenerasiAi, batasMs: number): Promis
   try {
     const respons = await fetch(endpointAi(), {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(permintaan), signal: pengendali.signal,
+      body: JSON.stringify({ ...permintaan, provider: permintaan.provider ?? bacaProviderAi() }), signal: pengendali.signal,
     });
     const data = await respons.json().catch(() => null) as { ok?: boolean; hasil?: unknown; kode?: KodeGalatAi; pesan?: string } | null;
     if (!respons.ok || !data?.ok) {

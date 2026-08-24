@@ -38,6 +38,8 @@ import { PemetaanReferensiScreen } from '../features/referensi/PemetaanReferensi
 import { KelolaAkunScreen } from '../features/auth/KelolaAkunScreen';
 import { TentangAplikasiScreen } from '../features/pelengkap/TentangAplikasiScreen';
 import { AiStudioScreen } from '../features/ai/AiStudioScreen';
+import { DataSiswaScreen } from '../features/pelengkap/DataSiswaScreen';
+import { PenilaianScreen } from '../features/pelengkap/PenilaianScreen';
 
 /**
  * Peta rute aplikasi sampai Tahap 11.
@@ -92,6 +94,8 @@ export function AppRoutes() {
         <Route path={RUTE.dasbor} element={<BerandaTerlindungi />} />
         <Route path={RUTE.kelas} element={<PilihKelasScreen />} />
         <Route path={RUTE.kelompok} element={<KelompokSiswaScreen />} />
+        <Route path={RUTE.dataSiswa} element={<DataSiswaScreen />} />
+        <Route path={RUTE.penilaian} element={<PenilaianScreen />} />
         <Route path={RUTE.rekap} element={<RekapCpTpScreen />} />
         <Route path={`${RUTE.kelas}/:tingkat/mapel`} element={<PilihMapelScreen />} />
         <Route path={`${RUTE.kelas}/:tingkat/mapel/:mapelKode`} element={<CpTpScreen />} />
@@ -115,6 +119,7 @@ export function AppRoutes() {
         <Route path={RUTE.kelolaTp} element={<KelolaTpSekolahScreen />} />
         <Route path={RUTE.muatCp} element={<MuatCpScreen />} />
         <Route path={RUTE.referensi} element={<ReferensiScreen />} />
+        <Route path={RUTE.perpustakaan} element={<ReferensiScreen />} />
         <Route path={RUTE.pemetaanReferensi} element={<PemetaanReferensiScreen />} />
         <Route path={RUTE.lainnya} element={<MenuLainnyaScreen />} />
         <Route path={RUTE.game} element={<KatalogGameScreen />} />

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { daftarKelompokKelas, daftarSiswaKelas, pastikanKelasKerja, simpanSesiPapan } from '../../lib/storage/kelasRepo';
-import { simpanMedia } from '../../lib/storage/pelengkapRepo';
+import { bacaMedia, simpanMedia } from '../../lib/storage/pelengkapRepo';
 import type { HalamanPapan, Kelompok, MediaPembelajaran, ObjekPapan, Siswa } from '../../lib/types';
 import { RUTE, rutePembelajaran } from '../../routes/paths';
 import { useAuth } from '../../state/useAuth';
@@ -65,6 +65,21 @@ export function PapanInteraktifScreen() {
       setSiswa(daftarSiswa); setKelompok(daftarKelompok); setSkor(Object.fromEntries(daftarKelompok.map((item) => [item.id,item.poin_total])));
     });
   }, [akun, konteks.tingkat_kelas]);
+
+  useEffect(() => {
+    const id = localStorage.getItem('papan-interaktif-sd:media-papan');
+    if (!id) return;
+    localStorage.removeItem('papan-interaktif-sd:media-papan');
+    void bacaMedia(id).then((media) => {
+      if (!media?.data_berkas) { setPesan('Media pilihan tidak lagi tersedia di perangkat.'); return; }
+      const url = URL.createObjectURL(media.data_berkas);
+      setUrlMedia((lama) => ({ ...lama, [media.id]: url }));
+      const data: DataVisual = { jenis: 'media', x: 600, y: 350, lebar: media.jenis === 'audio' ? 420 : 480, tinggi: media.jenis === 'audio' ? 100 : 300, rotasi: 0, mediaId: media.id, mediaJenis: media.jenis, nama: media.nama_berkas };
+      const objek: ObjekPapan = { id: crypto.randomUUID(), jenis: 'media', data: JSON.stringify(data), warna: '#efb534', ukuran: 1 };
+      setHalaman((lama) => lama.map((item, indeks) => indeks === 0 ? { ...item, objek: [...item.objek, objek] } : item));
+      setPesan(`${media.nama_berkas} dikirim dari Media dan tampil di papan.`);
+    });
+  }, []);
 
   useEffect(() => { urlMediaRef.current = urlMedia; }, [urlMedia]);
   useEffect(() => () => {

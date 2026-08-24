@@ -35,8 +35,13 @@ export async function pastikanKelasKerja(tingkat: number, guruId: string): Promi
     throw new AppError('VALIDASI', 'Tingkat kelas harus berada pada rentang 1–6.');
   }
   const tahun = tahunAjaranSekarang();
-  const id = `KELAS-${tingkat}-A-${tahun.id}`;
+  const idLama = `KELAS-${tingkat}-A-${tahun.id}`;
+  const id = `KELAS-${guruId}-${tingkat}-A-${tahun.id}`;
   return jalankanTransaksi([TOKO.tahunAjaran, TOKO.kelas], 'readwrite', async (toko) => {
+    const kelasLama = await kueri.ambil<Kelas>(toko(TOKO.kelas), idLama);
+    // Pertahankan kelas Tahap 1-11 bila memang milik guru yang sedang masuk.
+    // Guru lain selalu memperoleh ruang kerja sendiri agar data tidak bercampur.
+    if (kelasLama?.wali_guru_id === guruId) return kelasLama;
     const tersimpan = await kueri.ambil<Kelas>(toko(TOKO.kelas), id);
     if (tersimpan) return tersimpan;
     await kueri.simpan(toko(TOKO.tahunAjaran), tahun);
@@ -96,12 +101,53 @@ export async function tambahSiswa(kelasId: string, namaMentah: string): Promise<
   });
 }
 
+export type DataSiswaBaru = Pick<Siswa, 'nama'> &
+  Partial<Pick<Siswa, 'nis' | 'nisn' | 'jk' | 'agama' | 'tempat_tanggal_lahir' | 'orang_tua' | 'telepon' | 'alamat'>>;
+
+/** Menyimpan hasil form/impor dalam satu transaksi; kolom opsional boleh kosong. */
+export async function imporSiswaKelas(kelasId: string, masukan: DataSiswaBaru[]): Promise<Siswa[]> {
+  if (!masukan.length) throw new AppError('VALIDASI', 'Tidak ada baris siswa yang dapat diimpor.');
+  return jalankanTransaksi([TOKO.kelas, TOKO.siswa, TOKO.indeksPencarian], 'readwrite', async (toko) => {
+    const kelas = await kueri.ambil<Kelas>(toko(TOKO.kelas), kelasId);
+    if (!kelas) throw new AppError('VALIDASI', 'Kelas kerja tidak ditemukan.');
+    const lama = await kueri.semuaLewatIndeks<Siswa>(toko(TOKO.siswa), 'kelas_id', kelasId);
+    const hasil: Siswa[] = [];
+    const identitas = new Set(lama.map((item) => `${item.nisn ?? ''}|${item.nis ?? ''}|${item.nama.toLocaleLowerCase('id')}`));
+    let nomor = Math.max(0, ...lama.map((item) => item.nomor_absen));
+    for (const baris of masukan) {
+      const nama = baris.nama.trim();
+      if (nama.length < 2 || nama.length > 80) throw new AppError('VALIDASI', `Nama siswa â€œ${nama || '(kosong)'}â€ tidak valid.`);
+      const kunci = `${baris.nisn?.trim() ?? ''}|${baris.nis?.trim() ?? ''}|${nama.toLocaleLowerCase('id')}`;
+      if (identitas.has(kunci)) throw new AppError('VALIDASI', `Siswa â€œ${nama}â€ terdeteksi duplikat.`);
+      identitas.add(kunci);
+      nomor += 1;
+      const siswa: Siswa = {
+        id: `SISWA-${crypto.randomUUID()}`, kelas_id: kelasId, nama, nomor_absen: nomor,
+        kelompok_id: null, catatan_guru: '', perlu_pendampingan: false,
+        nis: baris.nis?.trim() ?? '', nisn: baris.nisn?.trim() ?? '', jk: baris.jk ?? '',
+        agama: baris.agama?.trim() ?? '', tempat_tanggal_lahir: baris.tempat_tanggal_lahir?.trim() ?? '',
+        orang_tua: baris.orang_tua?.trim() ?? '', telepon: baris.telepon?.trim() ?? '', alamat: baris.alamat?.trim() ?? '',
+      };
+      await kueri.simpan(toko(TOKO.siswa), siswa);
+      await kueri.simpan(toko(TOKO.indeksPencarian), {
+        jenis_isi: 'siswa', isi_id: siswa.id,
+        teks_terindeks: [nama, siswa.nis, siswa.nisn].filter(Boolean).join(' ').toLocaleLowerCase('id'),
+        tp_id: null, kelas: kelas.tingkat, diperbarui: new Date().toISOString(),
+      });
+      hasil.push(siswa);
+    }
+    await kueri.simpan(toko(TOKO.kelas), { ...kelas, jumlah_siswa: lama.length + hasil.length });
+    return hasil;
+  });
+}
+
 const NAMA_KELOMPOK = ['Melati', 'Kenanga', 'Anggrek', 'Mawar', 'Cempaka', 'Dahlia', 'Teratai'];
 
 export async function buatKelompokOtomatis(
   kelasId: string,
   ukuran: number,
   semester: 1 | 2 = 1,
+  jenis: NonNullable<Kelompok['jenis']> = 'tetap',
 ): Promise<Kelompok[]> {
   if (!Number.isInteger(ukuran) || ukuran < 2 || ukuran > 8) {
     throw new AppError('VALIDASI', 'Ukuran kelompok harus 2–8 siswa.');
@@ -112,15 +158,18 @@ export async function buatKelompokOtomatis(
     ).sort((a, b) => a.nomor_absen - b.nomor_absen);
     if (!siswa.length) throw new AppError('VALIDASI', 'Tambahkan siswa sebelum membuat kelompok.');
     const lama = await kueri.semuaLewatIndeks<Kelompok>(toko(TOKO.kelompok), 'kelas_id', kelasId);
-    await Promise.all(lama.map((baris) => kueri.hapus(toko(TOKO.kelompok), baris.id)));
+    const diganti = lama.filter((baris) => (baris.jenis ?? 'tetap') === jenis);
+    await Promise.all(diganti.map((baris) => kueri.hapus(toko(TOKO.kelompok), baris.id)));
 
     const jumlah = Math.ceil(siswa.length / ukuran);
     const kelompok = Array.from({ length: jumlah }, (_, indeks): Kelompok => ({
-      id: `KELOMPOK-${kelasId}-${indeks + 1}`,
+      id: `KELOMPOK-${kelasId}-${jenis}-${indeks + 1}`,
       kelas_id: kelasId,
       nama: NAMA_KELOMPOK[indeks] ?? `Kelompok ${indeks + 1}`,
       semester,
-      poin_total: lama.find((baris) => baris.id === `KELOMPOK-${kelasId}-${indeks + 1}`)?.poin_total ?? 0,
+      poin_total: diganti[indeks]?.poin_total ?? 0,
+      jenis,
+      dapat_digunakan_ulang: true,
     }));
     await Promise.all(kelompok.map((baris) => kueri.simpan(toko(TOKO.kelompok), baris)));
     await Promise.all(
@@ -128,6 +177,11 @@ export async function buatKelompokOtomatis(
         kueri.simpan(toko(TOKO.siswa), {
           ...baris,
           kelompok_id: kelompok[indeks % jumlah]?.id ?? null,
+          kelompok_ids: [
+            ...(baris.kelompok_ids ?? (baris.kelompok_id ? [baris.kelompok_id] : []))
+              .filter((idKelompok) => !diganti.some((lama) => lama.id === idKelompok)),
+            ...(kelompok[indeks % jumlah]?.id ? [kelompok[indeks % jumlah]!.id] : []),
+          ],
         }),
       ),
     );
@@ -148,7 +202,7 @@ export async function daftarKelompokKelas(
       .map((baris) => ({
         ...baris,
         anggota: siswa
-          .filter((anak) => anak.kelompok_id === baris.id)
+          .filter((anak) => (anak.kelompok_ids ?? (anak.kelompok_id ? [anak.kelompok_id] : [])).includes(baris.id))
           .sort((a, b) => a.nomor_absen - b.nomor_absen),
       }));
   });

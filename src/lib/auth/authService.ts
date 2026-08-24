@@ -328,3 +328,39 @@ export async function aturUlangSandiGuru(
     terkunci_sampai: null,
   });
 }
+
+export async function ubahAkunGuru(
+  akunAdmin: Akun,
+  akunGuruId: string,
+  perubahan: { nama: string; username: string },
+): Promise<Akun> {
+  pastikanAdmin(akunAdmin);
+  const guru = await akunLewatId(akunGuruId);
+  if (!guru || guru.peran !== 'guru') throw new AppError('VALIDASI', 'Akun Guru tidak ditemukan.');
+  const nama = validasiNama(perubahan.nama);
+  const username = validasiUsername(perubahan.username);
+  const pemilik = await akunLewatUsername(username);
+  if (pemilik && pemilik.id !== guru.id) throw new AppError('USERNAME_DIPAKAI', 'Username itu sudah dipakai di perangkat ini.');
+  const hasil = { ...guru, nama, username };
+  await simpanAkun(hasil);
+  return hasil;
+}
+
+/** Ganti sandi akun aktif; sandi lama diverifikasi dan tidak pernah disimpan terbuka. */
+export async function gantiSandiAkun(
+  akunAktif: Akun,
+  sandiLama: string,
+  sandiBaru: string,
+  konfirmasi: string,
+): Promise<void> {
+  const terbaru = await akunLewatId(akunAktif.id);
+  if (!terbaru || !(await periksaSandi(sandiLama, terbaru.hash_sandi, terbaru.imbuhan, terbaru.kdf_iterasi))) {
+    throw new AppError('KREDENSIAL_SALAH', 'Password lama tidak sesuai.');
+  }
+  const sandi = validasiSandi(sandiBaru);
+  validasiKonfirmasi(sandi, konfirmasi);
+  const turunan = await hashSandi(sandi);
+  await simpanAkun({ ...terbaru, hash_sandi: turunan.hash, imbuhan: turunan.imbuhan,
+    kdf_algoritma: turunan.algoritma, kdf_iterasi: turunan.iterasi,
+    gagal_berurutan: 0, terkunci_sampai: null });
+}

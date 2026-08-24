@@ -38,7 +38,7 @@ Yang sudah berdiri sampai tahap ini:
 | Finalisasi lokal | Cadangan otomatis harian tersimpan di IndexedDB, antrean AI siap berjalan saat reconnect setelah pemroses Studio AI dipasang, serta pemantauan penyimpanan per jenis isi |
 | Akun lokal | Admin dapat membuat, mengaktifkan/nonaktifkan, dan mengatur ulang sandi Guru; rute Kelola Akun dijaga pada lapisan rute |
 | Identitas final | Halaman Tentang Aplikasi memakai komponen identitas pembuat tiga baris yang sama dengan Login dan Setup Admin |
-| Pustaka game | 30 engine reusable, profil Fase A/B/C, empat penyaring, katalog minimal enam game per TP, runner layar penuh, dan penyimpanan hasil Mode Siswa |
+| Pustaka game | 60 engine reusable lintas mapel/agama, profil Fase A/B/C, penyaring TP, katalog dinamis, runner layar penuh, serta sinkron hasil individu/kelompok |
 | Kontrak isi aktif | Materi, game, LKPD, soal, dan asesmen memakai satu pembaca rantai kelas → fase → mapel → elemen → CP → TP |
 | Multi-referensi | Referensi utama/pendamping, metadata bab/unit, relasi banyak-ke-banyak Bab → TP, dan pembatasan sumber metadata-saja |
 | Impor kurikulum | Parser JSON/CSV 01–09, preview per baris, verifikasi operator, sepuluh aturan penolakan, versioning, dan transaksi rollback atomik |
@@ -106,7 +106,7 @@ src/
       authService.ts           setup, masuk, keluar, jeda coba-coba
       keadaanSesi.ts           lima keadaan sesi
     opening/pemutaranOpening.ts  penanda sekali per pembukaan aplikasi
-    gameEngines.ts             registry dan profil 30 engine reusable
+    gameEngines.ts             registry dan profil 60 engine reusable
     kurikulumImport.ts         parser, preview, validasi, impor atomik
     errors/                    AppError, logger lokal, ErrorBoundary
   components/                  IdentitasPembuat, LayarMemuat, LayarGalat
@@ -189,7 +189,7 @@ tangan terangkat beserta api birunya tetap terlihat penuh.
 Tahap 11 berhenti pada finalisasi PWA/offline, lapisan masuk, autentikasi lokal,
 dan theme final. Studio AI/AI live serta pelaporan lanjutan tetap pekerjaan
 terpisah dan tidak dikerjakan pada tahap ini. Migrasi versi 1–4, seed kurikulum,
-CP/TP, multi-referensi, dan 30 game engine tetap dipertahankan.
+CP/TP final tetap read-only. Pustaka game berkembang menjadi 60 engine reusable tanpa mengubah sumber kurikulum.
 
 ---
 
