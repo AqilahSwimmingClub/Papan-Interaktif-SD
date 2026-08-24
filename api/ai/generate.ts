@@ -4,7 +4,7 @@ interface ResponsVercel {
   json: (nilai: unknown) => void;
 }
 
-interface PermintaanVercel { method?: string; body?: unknown; headers: Record<string, string | string[] | undefined>; socket?: { remoteAddress?: string } }
+interface PermintaanVercel { method?: string; body?: unknown; query?: Record<string, string | string[] | undefined>; headers: Record<string, string | string[] | undefined>; socket?: { remoteAddress?: string } }
 
 const riwayat = new Map<string, number[]>();
 
@@ -32,7 +32,7 @@ async function panggilOpenAi(url: string, kunci: string, model: string, body: Re
         body: JSON.stringify({
           model, temperature: 0.35, response_format: { type: 'json_object' },
           messages: [
-            { role: 'system', content: 'Anda membantu guru SD Indonesia. Gunakan hanya CP, TP, materi, dan metadata referensi yang diberikan. Jangan mengarang kutipan kurikulum. Kembalikan JSON: {"judul":string,"ringkasan":string,"butir":[{"pertanyaan":string,"jawaban":string,"pilihan":string[],"pembahasan":string,"rubrik":string}]}.' },
+            { role: 'system', content: `${instruksiSistem(body.jenis)} Kembalikan JSON: {"judul":string,"ringkasan":string,"butir":[{"pertanyaan":string,"jawaban":string,"pilihan":string[],"pembahasan":string,"rubrik":string}]}.` },
             { role: 'user', content: JSON.stringify(body) },
           ],
         }),
@@ -52,9 +52,15 @@ async function panggilOpenAi(url: string, kunci: string, model: string, body: Re
   throw galatTerakhir;
 }
 
+function instruksiSistem(jenis: unknown): string {
+  const dasar = 'Anda membantu guru SD Indonesia. Gunakan CP dan TP hanya sebagai acuan kompetensi. Jangan mengarang atau mengutip ulang teks kurikulum sebagai pertanyaan. Gunakan materi dan metadata referensi yang diberikan.';
+  if (jenis === 'game') return `${dasar} Buat misi game visual dan interaktif sesuai engine: objek yang dapat diseret, dipasangkan, disusun, ditangkap, atau dimanipulasi. Jangan membuat kuis A-E dan jangan menanyakan CP/TP. Kembalikan JSON terstruktur seperti keluaran lain; setiap pertanyaan adalah instruksi aksi singkat dan pilihan adalah objek atau kartu permainan.`;
+  return dasar;
+}
+
 async function panggilGemini(kunci: string, model: string, body: Record<string, unknown>): Promise<unknown> {
   let galatTerakhir: unknown;
-  const instruksi = 'Anda membantu guru SD Indonesia. Gunakan hanya CP, TP, materi, dan metadata referensi yang diberikan. Jangan mengarang kutipan kurikulum. Kembalikan JSON: {"judul":string,"ringkasan":string,"butir":[{"pertanyaan":string,"jawaban":string,"pilihan":string[],"pembahasan":string,"rubrik":string}]}.\n\nDATA GURU:\n';
+  const instruksi = `${instruksiSistem(body.jenis)} Kembalikan JSON: {"judul":string,"ringkasan":string,"butir":[{"pertanyaan":string,"jawaban":string,"pilihan":string[],"pembahasan":string,"rubrik":string}]}.\n\nDATA GURU:\n`;
   for (let percobaan = 0; percobaan < 2; percobaan += 1) {
     const pengendali = new AbortController();
     const batas = setTimeout(() => pengendali.abort(), 25_000);
@@ -79,12 +85,23 @@ async function panggilGemini(kunci: string, model: string, body: Record<string, 
 
 export default async function handler(permintaan: PermintaanVercel, respons: ResponsVercel): Promise<void> {
   const asal = typeof permintaan.headers.origin === 'string' ? permintaan.headers.origin : '';
-  const diizinkan = /^https:\/\/(localhost|papan-interaktif-sd(?:-[a-z0-9-]+)?\.vercel\.app)$/.test(asal);
+  const diizinkan = /^(capacitor:\/\/localhost|https?:\/\/localhost(?::\d+)?|https:\/\/papan-interaktif-sd(?:-[a-z0-9-]+)?\.vercel\.app)$/.test(asal);
   if (diizinkan) respons.setHeader('Access-Control-Allow-Origin', asal);
   respons.setHeader('Vary', 'Origin');
   respons.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  respons.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  respons.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   if (permintaan.method === 'OPTIONS') return kirim(respons, 204, null);
+  const dariQuery = Array.isArray(permintaan.query?.provider) ? permintaan.query?.provider[0] : permintaan.query?.provider;
+  const dariBody = (permintaan.body as { provider?: unknown } | null)?.provider;
+  const providerDiminta = dariQuery === 'gemini' || dariBody === 'gemini' ? 'gemini' : dariQuery === 'openai' || dariBody === 'openai' ? 'openai' : process.env.AI_PROVIDER === 'gemini' ? 'gemini' : 'openai';
+  if (permintaan.method === 'GET') return kirim(respons, 200, { ok: true, status: {
+    providerAktif: providerDiminta,
+    provider: {
+      openai: { tersedia: Boolean((process.env.OPENAI_API_KEY || process.env.AI_API_KEY)?.trim()), model: process.env.OPENAI_MODEL?.trim() || process.env.AI_MODEL?.trim() || 'gpt-4.1-mini' },
+      gemini: { tersedia: Boolean(process.env.GEMINI_API_KEY?.trim()), model: process.env.GEMINI_MODEL?.trim() || 'gemini-2.5-flash' },
+    },
+    endpoint: '/api/ai/generate',
+  } });
   if (permintaan.method !== 'POST') return kirim(respons, 405, { ok: false, kode: 'AI_SERVICE_ERROR', pesan: 'Metode tidak diizinkan.' });
 
   const ip = (typeof permintaan.headers['x-forwarded-for'] === 'string' ? permintaan.headers['x-forwarded-for'].split(',')[0] : permintaan.socket?.remoteAddress) ?? 'lokal';
@@ -101,7 +118,7 @@ export default async function handler(permintaan: PermintaanVercel, respons: Res
     return kirim(respons, 400, { ok: false, kode: 'AI_SERVICE_ERROR', pesan: 'CP/TP terverifikasi wajib tersedia.' });
   }
 
-  const provider = body.provider === 'gemini' ? 'gemini' : body.provider === 'openai' ? 'openai' : process.env.AI_PROVIDER === 'gemini' ? 'gemini' : 'openai';
+  const provider = body.provider === 'gemini' ? 'gemini' : body.provider === 'openai' ? 'openai' : providerDiminta;
   const konfigurasi = provider === 'gemini'
     ? { kunci: process.env.GEMINI_API_KEY?.trim(), model: process.env.GEMINI_MODEL?.trim() || 'gemini-2.5-flash' }
     : { kunci: process.env.OPENAI_API_KEY?.trim() || process.env.AI_API_KEY?.trim(), model: process.env.OPENAI_MODEL?.trim() || process.env.AI_MODEL?.trim() || 'gpt-4.1-mini', url: process.env.OPENAI_API_URL?.trim() || process.env.AI_API_URL?.trim() || 'https://api.openai.com/v1/chat/completions' };
@@ -114,6 +131,7 @@ export default async function handler(permintaan: PermintaanVercel, respons: Res
     kirim(respons, 200, { ok: true, hasil });
   } catch (galat) {
     const timeout = galat instanceof Error && galat.name === 'AbortError';
-    kirim(respons, timeout ? 504 : 502, { ok: false, kode: timeout ? 'AI_TIMEOUT' : 'AI_SERVICE_ERROR', pesan: timeout ? 'Provider AI melewati batas waktu.' : 'Provider AI sedang tidak dapat digunakan.' });
+    const rateLimit = galat instanceof Error && galat.message.includes('(429)');
+    kirim(respons, timeout ? 504 : rateLimit ? 429 : 502, { ok: false, kode: timeout ? 'AI_TIMEOUT' : rateLimit ? 'AI_RATE_LIMIT' : 'AI_SERVICE_ERROR', pesan: timeout ? 'Provider AI melewati batas waktu.' : rateLimit ? 'Batas permintaan provider AI tercapai. Coba lagi sesaat lagi.' : 'Provider AI sedang tidak dapat digunakan.' });
   }
 }

@@ -327,6 +327,37 @@ export type MekanikGame =
   | 'papan'
   | 'simulasi';
 
+/** Bentuk interaksi visual yang benar-benar dimainkan oleh runner. */
+export type TipeGameplay =
+  | 'kuis'
+  | 'drag_drop'
+  | 'matching'
+  | 'puzzle'
+  | 'sorting'
+  | 'maze'
+  | 'word_search'
+  | 'crossword'
+  | 'sentence_builder'
+  | 'memory'
+  | 'wheel'
+  | 'board'
+  | 'chase'
+  | 'catch'
+  | 'target'
+  | 'race'
+  | 'battle'
+  | 'image_guess'
+  | 'image_puzzle'
+  | 'classification'
+  | 'simulation'
+  | 'timeline'
+  | 'map'
+  | 'experiment'
+  | 'manipulative'
+  | 'coding'
+  | 'movement'
+  | 'rhythm';
+
 export interface ProfilFaseGame {
   fase_kode: KodeFase;
   jumlah_pilihan: number;

@@ -1,5 +1,6 @@
 import { AppError } from '../errors/AppError';
 import { buatButirGameKontekstual } from '../gameContent';
+import { engineAdalahKuis } from '../gameplay';
 import { GAME_ENGINE_FINAL, PROFIL_FASE_GAME, saringEngineGame } from '../gameEngines';
 import type {
   ButirGame,
@@ -18,11 +19,6 @@ import type {
 import { TOKO, jalankanTransaksi, kueri } from './db';
 import { bacaRantaiTpAktif } from './isiRepo';
 import { pastikanKurikulumTersedia } from './kurikulumRepo';
-
-function ringkas(teks: string, maksimum = 180): string {
-  const bersih = teks.replace(/\s+/g, ' ').trim();
-  return bersih.length > maksimum ? `${bersih.slice(0, maksimum - 1).trimEnd()}…` : bersih;
-}
 
 export async function pastikanPustakaGameTersedia(): Promise<void> {
   await pastikanKurikulumTersedia();
@@ -61,38 +57,8 @@ async function buatButir(
       .filter((tujuan) => tujuan.id !== rantai.tp.id && tujuan.status === 'aktif')
       .map((tujuan) => tujuan.teks_tujuan),
   }, jumlah, pilihanMaks);
-  if (kontekstual.length) return kontekstual;
-  const sumber = [
-    { teks: rantai.tp.teks_tujuan, jenis: 'tp' as const },
-    { teks: rantai.elemen.teks_elemen, jenis: 'elemen' as const },
-    { teks: rantai.cp.teks_capaian, jenis: 'cp' as const },
-    ...rantai.materi.flatMap((materi) =>
-      materi.blok.map((blok) => ({ teks: blok.isi, jenis: 'materi' as const })),
-    ),
-  ].filter((baris) => baris.teks.trim());
-  const pengecoh = tujuanSerumpun
-    .filter((tujuan) => tujuan.id !== rantai.tp.id && tujuan.status === 'aktif')
-    .map((tujuan) => ringkas(tujuan.teks_tujuan));
-
-  return Array.from({ length: jumlah }, (_, indeks) => {
-    const baris = sumber[indeks % sumber.length]!;
-    const jawaban = ringkas(baris.teks);
-    const alternatif = [
-      ...pengecoh,
-      ringkas(rantai.elemen.nama),
-      ringkas(rantai.mapel.nama),
-      `Kelas ${rantai.tp.tingkat_kelas} · Fase ${rantai.cp.fase_kode}`,
-    ].filter((nilai, posisi, semua) => nilai !== jawaban && semua.indexOf(nilai) === posisi);
-    const pilihan = [jawaban, ...alternatif].slice(0, Math.max(2, pilihanMaks));
-    return {
-      id: `BUTIR-${tpId}-${indeks + 1}`,
-      pertanyaan: `Pilih pernyataan yang sesuai dengan ${baris.jenis.toUpperCase()} aktif.`,
-      pilihan,
-      jawaban,
-      penjelasan: `Bersumber langsung dari ${baris.jenis.toUpperCase()} aktif; teks kurikulum tidak diubah.`,
-      sumber: baris.jenis,
-    };
-  });
+  if (!kontekstual.length) throw new AppError('VALIDASI', 'Konten interaktif untuk TP aktif tidak dapat dibentuk.');
+  return kontekstual;
 }
 
 export async function buatKatalogGameUntukTp(tpId: string): Promise<GamePembelajaran[]> {
@@ -100,19 +66,23 @@ export async function buatKatalogGameUntukTp(tpId: string): Promise<GamePembelaj
   const ada = await daftarGameUntukTp(tpId);
   const rantai = await bacaRantaiTpAktif(tpId);
   const profil = PROFIL_FASE_GAME[rantai.cp.fase_kode];
-  const engine = saringEngineGame({
+  const tersaring = saringEngineGame({
     fase_kode: rantai.cp.fase_kode,
     mapel_kode: rantai.cp.mapel_kode,
     teks_tp: rantai.tp.teks_tujuan,
-  }).slice(0, 12);
+  });
+  const engine = [
+    ...tersaring.filter((item) => !engineAdalahKuis(item)).slice(0, 12),
+    ...tersaring.filter(engineAdalahKuis).slice(0, 3),
+  ];
   const perEngine = new Map(ada.map((baris) => [baris.engine_kode, baris]));
   const tambahan: GamePembelajaran[] = [];
   for (const item of engine) {
     const tersimpan = perEngine.get(item.kode);
-    const masihGenerik = tersimpan?.butir.some((butir) =>
-      butir.pertanyaan.startsWith('Pilih pernyataan yang sesuai dengan'),
+    const gameplayBaru = tersimpan?.butir.every((butir) =>
+      butir.penjelasan.includes('tanpa menampilkan teks CP/TP'),
     );
-    if (tersimpan && !masihGenerik) continue;
+    if (tersimpan?.prompt_ai_id || (tersimpan && gameplayBaru)) continue;
     const butir = await buatButir(
       tpId,
       item,

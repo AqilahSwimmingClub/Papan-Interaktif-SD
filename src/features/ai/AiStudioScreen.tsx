@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { alasanEngineGame } from '../../lib/gameContent';
 import { GAME_ENGINE_FINAL, PROFIL_FASE_GAME, saringEngineGame } from '../../lib/gameEngines';
+import { engineAdalahKuis, ikonGameplay, tipeGameplayEngine } from '../../lib/gameplay';
 import { GalatAi, mintaGenerasiAi, type HasilGenerasiAi, type JenisKeluaranAi } from '../../lib/ai/aiService';
 import { antrekanPermintaanAi } from '../../lib/offline/antreanAi';
 import { simpanPromptAi } from '../../lib/storage/aiRepo';
@@ -52,6 +53,7 @@ export function AiStudioScreen() {
   const [pesan, setPesan] = useState('');
   const [sudahUji, setSudahUji] = useState(false);
   const [gameTersimpanId, setGameTersimpanId] = useState('');
+  const [aiBelumDikonfigurasi, setAiBelumDikonfigurasi] = useState(false);
 
   useEffect(() => { setJenis(jenisDariFitur(fitur)); setHasil(null); setPesan(''); }, [fitur]);
   useEffect(() => {
@@ -102,8 +104,10 @@ export function AiStudioScreen() {
         },
       });
       setHasil(keluaran);
+      setAiBelumDikonfigurasi(false);
       setPesan('Draf AI siap. Tinjau dan edit setiap butir sebelum disetujui.');
     } catch (galat) {
+      if (galat instanceof GalatAi) setAiBelumDikonfigurasi(galat.kode === 'AI_NOT_CONFIGURED');
       setPesan(galat instanceof GalatAi ? galat.message : 'Layanan AI sedang tidak dapat digunakan.');
     } finally { setMemuat(false); }
   }
@@ -118,9 +122,19 @@ export function AiStudioScreen() {
         if (!engine) throw new Error('Engine game belum dipilih.');
         const profil = PROFIL_FASE_GAME[rantai.cp.fase_kode];
         const butir: ButirGame[] = hasil.butir.map((item, indeks) => {
-          const pilihan = pilihanGame(item.pilihan, item.jawaban, profil.jumlah_pilihan);
+          const tipe = tipeGameplayEngine(engine);
+          let pilihan = pilihanGame(item.pilihan, item.jawaban, Math.max(4, profil.jumlah_pilihan));
           if (pilihan.length < 2) throw new Error(`Butir ${indeks + 1} belum memiliki sedikitnya dua pilihan.`);
-          return { id: `BUTIR-AI-${crypto.randomUUID()}`, pertanyaan: item.pertanyaan, pilihan, jawaban: item.jawaban, penjelasan: item.pembahasan, sumber: 'tp' };
+          let jawaban = item.jawaban;
+          if (['sorting', 'timeline', 'sentence_builder', 'coding', 'rhythm', 'movement', 'puzzle', 'image_puzzle'].includes(tipe)) {
+            jawaban = pilihan.join(' → '); pilihan = [...pilihan].reverse();
+          } else if (tipe === 'word_search' || tipe === 'crossword') {
+            jawaban = item.jawaban.replace(/[^a-z0-9]/gi, '').toLocaleUpperCase('id').slice(0, 12) || 'KATA'; pilihan = [...jawaban];
+          }
+          const instruksi = engineAdalahKuis(engine)
+            ? item.pertanyaan
+            : `${ikonGameplay(rantai.cp.mapel_kode, indeks)} ${engine.petunjuk} Tema misi: ${item.jawaban}.`;
+          return { id: `BUTIR-AI-${crypto.randomUUID()}`, pertanyaan: instruksi, pilihan, jawaban, penjelasan: `${item.pembahasan} Aktivitas AI memakai CP/TP hanya sebagai acuan kompetensi tanpa menjadikannya soal.`, sumber: 'materi' };
         });
         const game: GamePembelajaran = {
           id: `GAME-AI-${crypto.randomUUID()}`, tp_id: rantai.tp.id,
@@ -184,13 +198,14 @@ export function AiStudioScreen() {
         <label>Instruksi guru<textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} placeholder={CONTOH[jenis]} rows={7}/><small>Prompt disimpan utuh. Jangan masukkan data pribadi siswa.</small></label>
         <button className="ai-buat" type="button" disabled={memuat || !konteksAi || (jenis === 'game' && !engineKode)} onClick={() => void generasikan()}>{memuat ? 'Menyiapkan draf…' : `Buat ${LABEL[jenis]}`}</button>
         {pesan ? <p className="ai-pesan" role="status">{pesan}</p> : null}
+        {aiBelumDikonfigurasi ? <Link className="ai-konfigurasi-link" to={RUTE.konfigurasiAi}>Konfigurasi AI</Link> : null}
       </section>
       <section className="ai-hasil" aria-live="polite">
         <header><div><span>Pratinjau guru</span><h2>{hasil?.judul ?? 'Hasil akan muncul di sini'}</h2></div>{hasil ? <em>Belum dibagikan</em> : null}</header>
         {!hasil ? <div className="ai-hasil-kosong"><span>✦</span><p>{memuat ? 'AI sedang menyusun hasil terstruktur. Guru dapat membatalkan dengan berpindah halaman.' : 'Pilih kendali, tulis instruksi, lalu buat draf. Jika layanan belum dikonfigurasi, aplikasi akan memberi status yang jelas.'}</p></div> : <>
           <label>Judul<input value={hasil.judul} onChange={(e) => setHasil({ ...hasil, judul: e.target.value })}/></label>
           <label>Ringkasan<textarea rows={3} value={hasil.ringkasan} onChange={(e) => setHasil({ ...hasil, ringkasan: e.target.value })}/></label>
-          <div className="ai-butir">{hasil.butir.map((item, indeks) => <article key={indeks}><span>{indeks + 1}</span><label>Pertanyaan<textarea rows={3} value={item.pertanyaan} onChange={(e) => setHasil({ ...hasil, butir: hasil.butir.map((baris, posisi) => posisi === indeks ? { ...baris, pertanyaan: e.target.value } : baris) })}/></label><label>Jawaban<input value={item.jawaban} onChange={(e) => setHasil({ ...hasil, butir: hasil.butir.map((baris, posisi) => posisi === indeks ? { ...baris, jawaban: e.target.value } : baris) })}/></label><small>{item.pembahasan || 'Tambahkan pembahasan bila diperlukan.'}</small></article>)}</div>
+          <div className="ai-butir">{hasil.butir.map((item, indeks) => <article key={indeks}><span>{indeks + 1}</span><label>{jenis === 'game' ? 'Instruksi misi' : 'Pertanyaan'}<textarea rows={3} value={item.pertanyaan} onChange={(e) => setHasil({ ...hasil, butir: hasil.butir.map((baris, posisi) => posisi === indeks ? { ...baris, pertanyaan: e.target.value } : baris) })}/></label><label>{jenis === 'game' ? 'Objek/kunci misi' : 'Jawaban'}<input value={item.jawaban} onChange={(e) => setHasil({ ...hasil, butir: hasil.butir.map((baris, posisi) => posisi === indeks ? { ...baris, jawaban: e.target.value } : baris) })}/></label><small>{item.pembahasan || 'Tambahkan pembahasan bila diperlukan.'}</small></article>)}</div>
           {jenis === 'game' ? <button className="ai-uji" type="button" onClick={() => { setSudahUji(true); setPesan(`Uji butir pertama: ${hasil.butir[0]?.pertanyaan ?? ''}`); }}>Uji butir pertama {sudahUji ? '✓' : ''}</button> : null}
           <button className="ai-setujui" type="button" disabled={memuat || (jenis === 'game' && !sudahUji)} onClick={() => void setujuiDanSimpan()}>Setujui & simpan lokal</button>
           {gameTersimpanId ? <Link className="ai-main" to={ruteMainGame(gameTersimpanId)}>Mainkan game tersimpan</Link> : null}

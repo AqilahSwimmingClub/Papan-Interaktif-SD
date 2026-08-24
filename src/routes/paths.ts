@@ -21,6 +21,7 @@ export const RUTE = {
   pencarian: '/pencarian',
   profil: '/pengaturan/profil',
   kelolaAkun: '/pengaturan/akun',
+  konfigurasiAi: '/pengaturan/ai',
   backup: '/pengaturan/backup',
   offline: '/pengaturan/offline',
   tentang: '/tentang-aplikasi',

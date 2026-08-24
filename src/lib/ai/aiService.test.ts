@@ -54,4 +54,21 @@ describe('layanan AI client', () => {
     await expect(mintaGenerasiAi(permintaan)).rejects.toEqual(expect.objectContaining<Partial<GalatAi>>({ kode: 'AI_OFFLINE' }));
     expect(fetchMock).not.toHaveBeenCalled();
   });
+
+  it('menerjemahkan rate limit tanpa retry', async () => {
+    jaringan(true);
+    const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue({ ok: false, status: 429, json: async () => ({ ok: false, kode: 'AI_RATE_LIMIT', pesan: 'Terlalu banyak permintaan.' }) } as Response);
+    await expect(mintaGenerasiAi(permintaan)).rejects.toMatchObject({ kode: 'AI_RATE_LIMIT' });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('melaporkan timeout setelah satu retry aman', async () => {
+    jaringan(true); vi.useFakeTimers();
+    vi.spyOn(globalThis, 'fetch').mockRejectedValue(new DOMException('Batas waktu', 'AbortError'));
+    const proses = mintaGenerasiAi(permintaan);
+    const penolakan = expect(proses).rejects.toMatchObject({ kode: 'AI_TIMEOUT' });
+    await vi.advanceTimersByTimeAsync(700);
+    await penolakan;
+    vi.useRealTimers();
+  });
 });

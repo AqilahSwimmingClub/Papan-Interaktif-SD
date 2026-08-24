@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { DATA_KURIKULUM_FINAL } from './kurikulum/kurikulumSeed';
 import { GAME_ENGINE_FINAL, saringEngineGame } from './gameEngines';
 import { buatButirGameKontekstual } from './gameContent';
+import { engineAdalahKuis, tipeGameplayEngine } from './gameplay';
 
 const engine = GAME_ENGINE_FINAL.find((item) => item.kode === 'pilihan-ganda')!;
 const MAPEL = [
@@ -32,6 +33,7 @@ describe('konten game dinamis lintas mapel', () => {
   });
 
   it('menghasilkan konten valid bagi seluruh TP rekomendasi final yang memiliki engine relevan', () => {
+    expect(DATA_KURIKULUM_FINAL.tp).toHaveLength(212);
     const elemen = new Map(DATA_KURIKULUM_FINAL.elemen.map((item) => [item.id, item]));
     const cp = new Map(DATA_KURIKULUM_FINAL.cp.map((item) => [item.id, item]));
     const mapel = new Map(DATA_KURIKULUM_FINAL.mataPelajaran.map((item) => [item.kode, item]));
@@ -45,6 +47,13 @@ describe('konten game dinamis lintas mapel', () => {
         mapel_kode: cpAktif.mapel_kode,
         teks_tp: tp.teks_tujuan,
       })[0];
+      const seluruhEngine = saringEngineGame({
+        fase_kode: cpAktif.fase_kode,
+        mapel_kode: cpAktif.mapel_kode,
+        teks_tp: tp.teks_tujuan,
+      });
+      const variasiInteraktif = new Set(seluruhEngine.filter((item) => !engineAdalahKuis(item)).map(tipeGameplayEngine));
+      expect(variasiInteraktif.size, `variasi gameplay untuk ${tp.id}`).toBeGreaterThanOrEqual(3);
       expect(engineAktif, `engine untuk ${tp.id}`).toBeDefined();
       const hasil = buatButirGameKontekstual(engineAktif!, {
         tpId: tp.id,
@@ -58,7 +67,15 @@ describe('konten game dinamis lintas mapel', () => {
         tpSerumpun: [],
       }, 3, 4);
       expect(hasil, tp.id).toHaveLength(3);
-      expect(hasil.every((butir) => butir.pilihan.includes(butir.jawaban)), tp.id).toBe(true);
+      const tipe = tipeGameplayEngine(engineAktif!);
+      expect(hasil.every((butir) => butir.pertanyaan !== tp.teks_tujuan && !butir.pertanyaan.includes(tp.teks_tujuan)), tp.id).toBe(true);
+      expect(hasil.every((butir) => {
+        if (['sorting', 'timeline', 'sentence_builder', 'coding', 'rhythm', 'movement', 'puzzle', 'image_puzzle'].includes(tipe)) {
+          return butir.jawaban.split(' → ').every((bagian) => butir.pilihan.includes(bagian));
+        }
+        if (tipe === 'word_search' || tipe === 'crossword') return butir.jawaban.length > 0;
+        return butir.pilihan.includes(butir.jawaban);
+      }), tp.id).toBe(true);
     }
   });
 });

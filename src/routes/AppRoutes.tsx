@@ -40,6 +40,7 @@ import { TentangAplikasiScreen } from '../features/pelengkap/TentangAplikasiScre
 import { AiStudioScreen } from '../features/ai/AiStudioScreen';
 import { DataSiswaScreen } from '../features/pelengkap/DataSiswaScreen';
 import { PenilaianScreen } from '../features/pelengkap/PenilaianScreen';
+import { KonfigurasiAiScreen } from '../features/ai/KonfigurasiAiScreen';
 
 /**
  * Peta rute aplikasi sampai Tahap 11.
@@ -112,6 +113,7 @@ export function AppRoutes() {
             </RuteTerlindungi>
           }
         />
+        <Route path={RUTE.konfigurasiAi} element={<RuteTerlindungi peranDiizinkan={['admin']}><KonfigurasiAiScreen /></RuteTerlindungi>} />
         <Route path={RUTE.backup} element={<BackupScreen />} />
         <Route path={RUTE.offline} element={<OfflineScreen />} />
         <Route path={RUTE.tentang} element={<TentangAplikasiScreen />} />

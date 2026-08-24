@@ -58,12 +58,39 @@ export class GalatAi extends Error {
   }
 }
 
-function endpointAi(): string {
+export function endpointAi(): string {
   const konfigurasi = import.meta.env.VITE_AI_ENDPOINT?.trim();
-  if (konfigurasi) return konfigurasi;
+  if (konfigurasi) {
+    if (Capacitor.isNativePlatform() && konfigurasi.startsWith('/')) return `https://papan-interaktif-sd.vercel.app${konfigurasi}`;
+    return konfigurasi;
+  }
   return Capacitor.isNativePlatform()
     ? 'https://papan-interaktif-sd.vercel.app/api/ai/generate'
     : '/api/ai/generate';
+}
+
+export interface StatusKonfigurasiAi {
+  providerAktif: ProviderAi;
+  provider: Record<ProviderAi, { tersedia: boolean; model: string }>;
+  endpoint: string;
+}
+
+export async function bacaStatusKonfigurasiAi(provider: ProviderAi = bacaProviderAi()): Promise<StatusKonfigurasiAi> {
+  if (typeof navigator !== 'undefined' && !navigator.onLine) {
+    throw new GalatAi('AI_OFFLINE', 'Status AI tidak dapat diperiksa saat perangkat offline.');
+  }
+  const pengendali = new AbortController();
+  const batas = window.setTimeout(() => pengendali.abort(), 10_000);
+  try {
+    const respons = await fetch(`${endpointAi()}?provider=${provider}`, { method: 'GET', signal: pengendali.signal });
+    const data = await respons.json().catch(() => null) as { ok?: boolean; status?: StatusKonfigurasiAi } | null;
+    if (!respons.ok || !data?.ok || !data.status) throw new GalatAi('AI_SERVICE_ERROR', 'Status konfigurasi AI tidak dapat dibaca dari server.');
+    return data.status;
+  } catch (galat) {
+    if (galat instanceof GalatAi) throw galat;
+    if (galat instanceof DOMException && galat.name === 'AbortError') throw new GalatAi('AI_TIMEOUT', 'Pemeriksaan status AI melewati batas waktu.');
+    throw new GalatAi('AI_SERVICE_ERROR', 'Endpoint AI tidak dapat dijangkau.');
+  } finally { window.clearTimeout(batas); }
 }
 
 function validasiHasil(nilai: unknown): HasilGenerasiAi {

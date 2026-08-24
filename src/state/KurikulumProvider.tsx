@@ -14,6 +14,7 @@ import { KurikulumContext, type NilaiKurikulum, type PilihanMapel } from './Kuri
 export function KurikulumProvider({ children }: { children: ReactNode }) {
   const { akun } = useAuth();
   const [memuat, setMemuat] = useState(true);
+  const [siap, setSiap] = useState(false);
   const [galat, setGalat] = useState<AppError | null>(null);
   const [konteks, setKonteks] = useState<KonteksKurikulum>({
     ...KONTEKS_KURIKULUM_KOSONG,
@@ -32,6 +33,7 @@ export function KurikulumProvider({ children }: { children: ReactNode }) {
       setGalat(kesalahan);
     } finally {
       setMemuat(false);
+      setSiap(true);
     }
   }, [akun]);
 
@@ -125,5 +127,7 @@ export function KurikulumProvider({ children }: { children: ReactNode }) {
     [memuat, galat, konteks, pilihKelas, pilihMapel, pilihElemen, pilihTp, pilihReferensi, segarkan],
   );
 
-  return <KurikulumContext.Provider value={nilai}>{children}</KurikulumContext.Provider>;
+  return <KurikulumContext.Provider value={nilai}>
+    {siap ? children : <div className="layar-memuat" role="status">Menyiapkan konteks kelas…</div>}
+  </KurikulumContext.Provider>;
 }

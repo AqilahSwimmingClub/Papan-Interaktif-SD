@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../state/useAuth';
 import { bacaSekolah } from '../../lib/storage/sekolahRepo';
 import type { Sekolah } from '../../lib/types';
@@ -62,7 +62,10 @@ const KELOMPOK_NAVIGASI: Array<{ judul: string; item: ItemNavigasi[] }> = [
   },
   {
     judul: 'Admin',
-    item: [{ label: 'Kelola Guru', ikon: '♙', tujuan: RUTE.kelolaAkun, hanyaAdmin: true }],
+    item: [
+      { label: 'Kelola Guru', ikon: '♙', tujuan: RUTE.kelolaAkun, hanyaAdmin: true },
+      { label: 'Konfigurasi AI', ikon: '✦', tujuan: RUTE.konfigurasiAi, hanyaAdmin: true },
+    ],
   },
 ];
 
@@ -79,12 +82,18 @@ export function KerangkaGuru() {
   const [sekolah, setSekolah] = useState<Sekolah | null>(null);
   const [sedangKeluar, setSedangKeluar] = useState(false);
   const [menuAkun, setMenuAkun] = useState(false);
+  const [drawerTerbuka, setDrawerTerbuka] = useState(false);
+  const [formKotor, setFormKotor] = useState(false);
+  const lokasi = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     void bacaSekolah()
       .then((hasil) => setSekolah(hasil ?? null))
       .catch((galat: unknown) => log.galat('Identitas sekolah gagal dibaca.', galat));
   }, []);
+
+  useEffect(() => { setDrawerTerbuka(false); setFormKotor(false); }, [lokasi.pathname]);
 
   const namaSekolah = sekolah?.nama.trim() || 'Identitas sekolah belum dilengkapi';
   const namaAkun = akun?.nama ?? '';
@@ -114,9 +123,16 @@ export function KerangkaGuru() {
     }
   }
 
+  function kembali() {
+    if (formKotor && !window.confirm('Ada perubahan formulir yang belum disimpan. Tetap kembali?')) return;
+    const indeksRiwayat = (window.history.state as { idx?: number } | null)?.idx ?? 0;
+    if (indeksRiwayat > 0 || lokasi.key !== 'default') navigate(-1);
+    else navigate(RUTE.dasbor);
+  }
+
   return (
     <div className="kerangka-guru">
-      <aside className="guru-sidebar" aria-label="Navigasi utama">
+      <aside className={`guru-sidebar${drawerTerbuka ? ' guru-sidebar--terbuka' : ''}`} aria-label="Navigasi utama">
         <Link className="guru-sidebar__merek" to={RUTE.dasbor} aria-label="Papan Interaktif SD">
           <span className="guru-sidebar__logo" aria-hidden="true">
             PI
@@ -141,6 +157,7 @@ export function KerangkaGuru() {
                     key={item.label}
                     to={item.tujuan}
                     title={item.label}
+                    onClick={() => setDrawerTerbuka(false)}
                   >
                     <span className="guru-sidebar__ikon" aria-hidden="true">
                       {item.ikon}
@@ -182,9 +199,11 @@ export function KerangkaGuru() {
           </div>
         </div>
       </aside>
+      {drawerTerbuka ? <button type="button" className="guru-drawer-overlay" aria-label="Tutup menu navigasi" onClick={() => setDrawerTerbuka(false)} /> : null}
 
       <div className="kerangka-guru__kolom">
         <header className="guru-topbar">
+          <button className="guru-topbar__hamburger" type="button" aria-label="Buka menu navigasi" aria-expanded={drawerTerbuka} onClick={() => setDrawerTerbuka(true)}>☰</button>
           <Link className="guru-topbar__merek" to={RUTE.dasbor}>
             <span>PI</span>
             <strong>Papan Interaktif SD</strong>
@@ -206,7 +225,11 @@ export function KerangkaGuru() {
           <button className="guru-topbar__akun" type="button" onClick={() => setMenuAkun((nilai) => !nilai)} aria-label="Buka menu akun" aria-expanded={menuAkun}>{inisial(namaAkun) || 'PI'}</button>
         </header>
 
-        <div className="kerangka-guru__isi">
+        {lokasi.pathname !== RUTE.dasbor ? <div className="guru-kembali-bar"><button type="button" onClick={kembali}>← Kembali</button></div> : null}
+        <div className="kerangka-guru__isi" onInputCapture={(e) => {
+          const target = e.target;
+          if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement) setFormKotor(true);
+        }}>
           <Outlet />
         </div>
       </div>

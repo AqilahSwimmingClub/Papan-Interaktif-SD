@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { keAppError } from '../../lib/errors/AppError';
 import { alasanEngineGame } from '../../lib/gameContent';
 import { GAME_ENGINE_FINAL } from '../../lib/gameEngines';
+import { engineAdalahKuis, tipeGameplayEngine } from '../../lib/gameplay';
 import { buatKatalogGameUntukTp } from '../../lib/storage/gameRepo';
 import { bacaRantaiTpAktif, type RantaiTpAktif } from '../../lib/storage/isiRepo';
 import type { GamePembelajaran, ModePermainanGame } from '../../lib/types';
@@ -25,6 +26,7 @@ export function KatalogGameScreen() {
   const [pesan, setPesan] = useState('');
   const [mode, setMode] = useState<'semua' | ModePermainanGame>('semua');
   const [kesulitan, setKesulitan] = useState('semua');
+  const [jenis, setJenis] = useState<'interaktif' | 'kuis' | 'semua'>('interaktif');
 
   useEffect(() => {
     if (!konteks.tp_id) return;
@@ -46,9 +48,10 @@ export function KatalogGameScreen() {
     () => game.filter(
       (item) =>
         (mode === 'semua' || item.mode_permainan === mode) &&
-        (kesulitan === 'semua' || item.tingkat_kesulitan === kesulitan),
+        (kesulitan === 'semua' || item.tingkat_kesulitan === kesulitan) &&
+        (jenis === 'semua' || (jenis === 'kuis') === engineAdalahKuis({ kode: item.engine_kode })),
     ),
-    [game, mode, kesulitan],
+    [game, mode, kesulitan, jenis],
   );
 
   if (!konteks.tp_id || !konteks.tingkat_kelas || !konteks.mapel_kode) {
@@ -88,6 +91,9 @@ export function KatalogGameScreen() {
       </nav>
 
       <section className="game-filter" aria-label="Filter game">
+        <label>Jenis gameplay<select value={jenis} onChange={(e) => setJenis(e.target.value as typeof jenis)}>
+          <option value="interaktif">Game interaktif</option><option value="kuis">Mode Kuis</option><option value="semua">Semua jenis</option>
+        </select></label>
         <label>Mode<select value={mode} onChange={(e) => setMode(e.target.value as typeof mode)}>
           <option value="semua">Semua mode</option>
           {Object.entries(LABEL_MODE).map(([nilai, label]) => <option key={nilai} value={nilai}>{label}</option>)}
@@ -112,7 +118,7 @@ export function KatalogGameScreen() {
                 <div className="game-card__isi">
                   <p>{engine?.yang_diukur ?? 'Aktivitas TP'}</p><h2>{item.judul}</h2>
                   {engine && rantai ? <small>{alasanEngineGame(engine, rantai.tp.teks_tujuan)}</small> : null}
-                  <div><span>{LABEL_MODE[item.mode_permainan]}</span><span>{item.durasi_menit} menit</span><span>{item.jumlah_butir} butir</span></div>
+                  <div><span>{engineAdalahKuis({ kode: item.engine_kode }) ? 'Mode Kuis' : tipeGameplayEngine({ kode: item.engine_kode }).replaceAll('_', ' ')}</span><span>{LABEL_MODE[item.mode_permainan]}</span><span>{item.durasi_menit} menit</span><span>{item.jumlah_butir} misi</span></div>
                 </div>
                 <Link to={ruteMainGame(item.id)}>Mainkan <span aria-hidden="true">→</span></Link>
               </article>
