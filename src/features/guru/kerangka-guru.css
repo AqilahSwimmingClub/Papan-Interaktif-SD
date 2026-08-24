@@ -234,7 +234,7 @@
   }
 
   .guru-sidebar {
-    overflow: visible;
+    overflow-y: auto;
     padding-top: 14px;
   }
 
@@ -261,9 +261,8 @@
     font-size: 20px;
   }
 
-  .guru-sidebar__tautan:focus .guru-sidebar__label,
-  .guru-sidebar__tautan--aktif .guru-sidebar__label {
-    position: absolute;
+  .guru-sidebar__tautan:focus-visible .guru-sidebar__label {
+    position: fixed;
     left: 68px;
     z-index: 5;
     min-width: max-content;
@@ -321,12 +320,15 @@
 
   .guru-topbar__cari {
     width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
     min-height: 48px;
     justify-content: center;
     margin-left: auto;
     padding: 0;
     overflow: hidden;
     color: transparent;
+    font-size: 0;
   }
 
   .guru-topbar__cari span {

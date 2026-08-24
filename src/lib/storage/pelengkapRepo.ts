@@ -76,6 +76,13 @@ export async function daftarMedia(): Promise<MediaPembelajaran[]> {
   });
 }
 
+export async function hapusMedia(id: string): Promise<void> {
+  await jalankanTransaksi([TOKO.media, TOKO.indeksPencarian], 'readwrite', async (toko) => {
+    await kueri.hapus(toko(TOKO.media), id);
+    await kueri.hapus(toko(TOKO.indeksPencarian), ['media', id]);
+  });
+}
+
 export interface HasilPencarian {
   jenis: 'kurikulum' | 'materi' | 'media' | 'siswa';
   id: string;

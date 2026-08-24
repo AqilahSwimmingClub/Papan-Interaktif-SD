@@ -101,7 +101,7 @@ const master = masterJson as unknown as MasterData;
 const agama020 = agama020Json as unknown as DataAgama020;
 const paketImpor = paketImporJson as unknown as PaketImpor;
 
-export const VERSI_SEED_KURIKULUM = '2025.1+2026.1|47-221-212|ref-7';
+export const VERSI_SEED_KURIKULUM = '2025.1+2026.1|47-221-212|ref-7|verified-final';
 
 const FASE: Fase[] = [
   {
@@ -195,7 +195,8 @@ const CP_NON_AGAMA: CapaianPembelajaran[] = master.cp.map((baris) => ({
   dokumen_kode: baris.dokumen_kode,
   halaman_lampiran: baris.halaman_lampiran,
   versi: versiDokumen.get(baris.dokumen_kode) ?? '2025.1',
-  terverifikasi: false,
+  // Dataset ini dibundel dari sumber final repository, bukan hasil impor pengguna.
+  terverifikasi: true,
 }));
 
 const ELEMEN_NON_AGAMA: ElemenKurikulum[] = master.elemen.map((baris) => ({
@@ -264,7 +265,8 @@ for (const subjek of agama020.subjects) {
       dokumen_kode: '020/2026',
       halaman_lampiran: subjek.source_pages[indeksFase] ?? null,
       versi: '2026.1',
-      terverifikasi: false,
+      // Dataset PABP 020/2026 ini adalah sumber final resmi yang dibundel aplikasi.
+      terverifikasi: true,
     });
     ELEMEN_AGAMA.push(...elemenFase);
   });

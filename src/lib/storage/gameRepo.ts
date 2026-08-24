@@ -1,4 +1,5 @@
 import { AppError } from '../errors/AppError';
+import { buatButirGameKontekstual } from '../gameContent';
 import { GAME_ENGINE_FINAL, PROFIL_FASE_GAME, saringEngineGame } from '../gameEngines';
 import type {
   ButirGame,
@@ -35,11 +36,30 @@ export async function daftarEngineGame(): Promise<GameEngine[]> {
   );
 }
 
-async function buatButir(tpId: string, jumlah: number, pilihanMaks: number): Promise<ButirGame[]> {
+async function buatButir(
+  tpId: string,
+  engine: GameEngine,
+  jumlah: number,
+  pilihanMaks: number,
+): Promise<ButirGame[]> {
   const rantai = await bacaRantaiTpAktif(tpId);
   const tujuanSerumpun = await jalankanTransaksi(TOKO.tp, 'readonly', (toko) =>
     kueri.semuaLewatIndeks<TujuanPembelajaran>(toko(TOKO.tp), 'elemen_id', rantai.elemen.id),
   );
+  const kontekstual = buatButirGameKontekstual(engine, {
+    tpId,
+    tingkatKelas: rantai.tp.tingkat_kelas,
+    mapelKode: rantai.cp.mapel_kode,
+    mapelNama: rantai.mapel.nama,
+    teksCp: rantai.cp.teks_capaian,
+    teksElemen: rantai.elemen.teks_elemen,
+    teksTp: rantai.tp.teks_tujuan,
+    materi: rantai.materi.flatMap((materi) => materi.blok.map((blok) => blok.isi)),
+    tpSerumpun: tujuanSerumpun
+      .filter((tujuan) => tujuan.id !== rantai.tp.id && tujuan.status === 'aktif')
+      .map((tujuan) => tujuan.teks_tujuan),
+  }, jumlah, pilihanMaks);
+  if (kontekstual.length) return kontekstual;
   const sumber = [
     { teks: rantai.tp.teks_tujuan, jenis: 'tp' as const },
     { teks: rantai.elemen.teks_elemen, jenis: 'elemen' as const },
@@ -76,7 +96,6 @@ async function buatButir(tpId: string, jumlah: number, pilihanMaks: number): Pro
 export async function buatKatalogGameUntukTp(tpId: string): Promise<GamePembelajaran[]> {
   await pastikanPustakaGameTersedia();
   const ada = await daftarGameUntukTp(tpId);
-  if (ada.length >= 6) return ada;
   const rantai = await bacaRantaiTpAktif(tpId);
   const profil = PROFIL_FASE_GAME[rantai.cp.fase_kode];
   const engine = saringEngineGame({
@@ -84,11 +103,20 @@ export async function buatKatalogGameUntukTp(tpId: string): Promise<GamePembelaj
     mapel_kode: rantai.cp.mapel_kode,
     teks_tp: rantai.tp.teks_tujuan,
   }).slice(0, Math.max(6, 6 - ada.length));
-  const sudah = new Set(ada.map((baris) => baris.engine_kode));
+  const perEngine = new Map(ada.map((baris) => [baris.engine_kode, baris]));
   const tambahan: GamePembelajaran[] = [];
   for (const item of engine) {
-    if (sudah.has(item.kode)) continue;
-    const butir = await buatButir(tpId, Math.min(profil.jumlah_butir_maks, 8), profil.jumlah_pilihan);
+    const tersimpan = perEngine.get(item.kode);
+    const masihGenerik = tersimpan?.butir.some((butir) =>
+      butir.pertanyaan.startsWith('Pilih pernyataan yang sesuai dengan'),
+    );
+    if (tersimpan && !masihGenerik) continue;
+    const butir = await buatButir(
+      tpId,
+      item,
+      Math.min(profil.jumlah_butir_maks, 8),
+      profil.jumlah_pilihan,
+    );
     tambahan.push({
       id: `GAME-${tpId}-${item.kode}`,
       tp_id: rantai.tp.id,

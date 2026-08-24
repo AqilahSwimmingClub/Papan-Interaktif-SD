@@ -79,7 +79,7 @@ describe('layar Tahap 3–6', () => {
     expect((await screen.findAllByText(/pecahan/i)).length).toBeGreaterThan(0);
   });
 
-  it('menyediakan delapan alat utama dan enam belas alat lain pada papan', async () => {
+  it('menyediakan alat utama serta alat ukur interaktif pada papan', async () => {
     const pengguna = userEvent.setup();
     const akun = await siapkanAkun();
     await simpanKonteksKurikulum(akun.id, {
@@ -95,8 +95,12 @@ describe('layar Tahap 3–6', () => {
     const laci = await screen.findByRole('heading', { name: 'Alat lainnya' });
     const aside = laci.closest('aside')!;
     expect(within(aside).getByRole('button', { name: 'Penggaris' })).toBeVisible();
+    expect(within(aside).getByRole('button', { name: 'Segitiga siku-siku' })).toBeVisible();
     expect(within(aside).getByRole('button', { name: 'Simpan sesi' })).toBeVisible();
-    expect(within(aside).getAllByRole('button')).toHaveLength(17);
+    expect(within(aside).getAllByRole('button')).toHaveLength(18);
+    await pengguna.click(within(aside).getByRole('button', { name: 'Penggaris' }));
+    expect(document.querySelector('.objek-visual--penggaris')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Reset' })).toBeVisible();
   });
 
   it('Mode Siswa dan Mode Kelas memakai tata letak tersendiri tanpa sidebar', async () => {

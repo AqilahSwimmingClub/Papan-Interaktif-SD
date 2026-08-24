@@ -176,8 +176,8 @@ export function BerandaTerlindungi() {
             <li>
               <span className="status-titik status-titik--amber" aria-hidden="true" />
               <div>
-                <strong>Menunggu verifikasi operator</strong>
-                <small>Data tampil apa adanya dan tidak diubah oleh aplikasi.</small>
+                <strong>Sumber final terverifikasi</strong>
+                <small>Dataset bawaan resmi siap menjadi konteks CP/TP read-only.</small>
               </div>
             </li>
           </ul>

@@ -1,6 +1,6 @@
 const AWAL_CACHE = 'papan-interaktif-sd-';
-const CACHE_SHELL = `${AWAL_CACHE}shell-v2`;
-const CACHE_RUNTIME = `${AWAL_CACHE}runtime-v2`;
+const CACHE_SHELL = `${AWAL_CACHE}shell-v3`;
+const CACHE_RUNTIME = `${AWAL_CACHE}runtime-v3`;
 const BERKAS_ASET = 'pwa-assets.json';
 
 function dalamScope(jalur) {
@@ -25,7 +25,19 @@ async function perbaruiShell() {
   ]);
   const semuaUrl = [
     ...new Set(
-      ['./', './index.html', './manifest.webmanifest', './assets/logo-bekasi.png', ...keluaran]
+      [
+        './',
+        './index.html',
+        './manifest.webmanifest',
+        './icons/favicon-32.png',
+        './icons/favicon-48.png',
+        './icons/shortcut-96.png',
+        './icons/apple-touch-icon.png',
+        './icons/app-icon-192.png',
+        './icons/app-icon-512.png',
+        './icons/app-icon-maskable-512.png',
+        ...keluaran,
+      ]
         .filter(Boolean)
         .map(dalamScope),
     ),

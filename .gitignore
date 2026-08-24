@@ -6,3 +6,10 @@ coverage
 .vite
 .DS_Store
 *.tsbuildinfo
+.vercel
+android/keystore.properties
+android/local.properties
+*.jks
+*.keystore
+release/
+.env*
