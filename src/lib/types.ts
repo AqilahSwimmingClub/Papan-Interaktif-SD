@@ -544,7 +544,7 @@ export interface HasilBelajar {
   siswa_id: string;
   tp_id: string;
   sesi_id: string;
-  jenis_aktivitas: 'game' | 'battle' | 'pembelajaran' | 'lkpd' | 'asesmen';
+  jenis_aktivitas: 'game' | 'battle' | 'pembelajaran' | 'lkpd' | 'asesmen' | 'vlab';
   isi_id: string;
   skor: number;
   skor_maksimal: number;
@@ -553,6 +553,19 @@ export interface HasilBelajar {
   dinilai_oleh: string;
   kelompok_id?: string | null;
   tanggal_kegiatan?: string;
+  metadata_vlab?: {
+    cp_id: string;
+    bab_id: string;
+    bab_judul: string;
+    topik_id: string;
+    topik_judul: string;
+    vlab_id: string;
+    vlab_nama: string;
+    variabel: Record<string, string | number | boolean>;
+    observasi: string;
+    kesimpulan: string;
+    status: 'selesai';
+  };
 }
 
 export interface PoinBadge {

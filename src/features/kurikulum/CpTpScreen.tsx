@@ -151,6 +151,13 @@ export function CpTpScreen() {
         )}
       </div>
 
+      {detail.kelas.tingkat === 5 && detail.mapel.kode === 'IPAS' && tpAktif ? (
+        <section className="akses-ipas-kelas-lima">
+          <div><span>🔬</span><div><b>Sistem IPAS Kelas V</b><p>8 bab · 25 topik · VLAB manipulatif · GIM EDU playable</p></div></div>
+          <Link to={RUTE.ipas5}>Buka VLAB & GIM EDU →</Link>
+        </section>
+      ) : null}
+
       <div className="tata-cp-tp">
         <aside className="panel-elemen" aria-label="Daftar elemen CP">
           <div className="panel-elemen__kop">

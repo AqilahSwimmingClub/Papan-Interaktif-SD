@@ -9,6 +9,7 @@ export const RUTE = {
   kelas: '/kelas',
   papan: '/pembelajaran/papan',
   game: '/pembelajaran/game',
+  ipas5: '/pembelajaran/ipas-kelas-5',
   dataSiswa: '/kelas/data-siswa',
   penilaian: '/kelas/penilaian',
   perpustakaan: '/perpustakaan',
@@ -43,6 +44,10 @@ export function ruteCpTp(tingkat: number, mapelKode: string): string {
 
 export function ruteMainGame(gameId: string): string {
   return `/pembelajaran/game/${encodeURIComponent(gameId)}/main`;
+}
+
+export function ruteVlabIpas5(vlabId: string): string {
+  return `${RUTE.ipas5}/vlab/${encodeURIComponent(vlabId)}`;
 }
 
 export type JenisPembelajaran = 'materi' | 'game' | 'lkpd' | 'asesmen' | 'papan';

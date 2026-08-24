@@ -41,6 +41,8 @@ import { AiStudioScreen } from '../features/ai/AiStudioScreen';
 import { DataSiswaScreen } from '../features/pelengkap/DataSiswaScreen';
 import { PenilaianScreen } from '../features/pelengkap/PenilaianScreen';
 import { KonfigurasiAiScreen } from '../features/ai/KonfigurasiAiScreen';
+import { IpasKelas5Screen } from '../features/ipas/IpasKelas5Screen';
+import { VirtualLabScreen } from '../features/ipas/VirtualLabScreen';
 
 /**
  * Peta rute aplikasi sampai Tahap 11.
@@ -125,6 +127,7 @@ export function AppRoutes() {
         <Route path={RUTE.pemetaanReferensi} element={<PemetaanReferensiScreen />} />
         <Route path={RUTE.lainnya} element={<MenuLainnyaScreen />} />
         <Route path={RUTE.game} element={<KatalogGameScreen />} />
+        <Route path={RUTE.ipas5} element={<IpasKelas5Screen />} />
         <Route path="/pembelajaran/:jenis" element={<FiturPembelajaranScreen />} />
         <Route path="/fitur/pembuat-lkpd" element={<AiStudioScreen />} />
         <Route path="/fitur/pembuat-soal" element={<AiStudioScreen />} />
@@ -148,6 +151,14 @@ export function AppRoutes() {
         element={
           <RuteTerlindungi>
             <KurikulumProvider><ModeSiswaScreen /></KurikulumProvider>
+          </RuteTerlindungi>
+        }
+      />
+      <Route
+        path={`${RUTE.ipas5}/vlab/:vlabId`}
+        element={
+          <RuteTerlindungi>
+            <KurikulumProvider><VirtualLabScreen /></KurikulumProvider>
           </RuteTerlindungi>
         }
       />

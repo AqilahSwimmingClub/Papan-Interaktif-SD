@@ -9,6 +9,7 @@ import type { GamePembelajaran, JawabanButirGame, ModePermainanGame } from '../.
 import { RUTE } from '../../routes/paths';
 import { useAuth } from '../../state/useAuth';
 import { InteractiveGameStage } from './InteractiveGameStage';
+import { EduGameEngine } from '../ipas/EduGameEngine';
 import './game.css';
 
 function bacakan(teks: string) {
@@ -55,6 +56,7 @@ export function GameRunnerScreen() {
   const [combo, setCombo] = useState(0);
   const [comboMaks, setComboMaks] = useState(0);
   const [koin, setKoin] = useState(0);
+  const ruteKembali = gameId.startsWith('IPAS5-') ? RUTE.ipas5 : RUTE.game;
 
   useEffect(() => {
     void bacaGame(gameId)
@@ -120,7 +122,7 @@ export function GameRunnerScreen() {
   }, [butir, jawab, mengunci, sisaDetik, timerAktif]);
 
   if (!game || !butir || !engine) {
-    return <main className="game-main game-main--status"><p>{pesan || 'Memuat game dari perangkat…'}</p><Link to={RUTE.game}>Kembali ke katalog</Link></main>;
+    return <main className="game-main game-main--status"><p>{pesan || 'Memuat game dari perangkat…'}</p><Link to={ruteKembali}>Kembali ke katalog</Link></main>;
   }
 
   if (selesai) {
@@ -134,14 +136,14 @@ export function GameRunnerScreen() {
       {modeAktif === 'battle' ? <div className="game-hasil-tim">{skorTim.slice(0, jumlahTim).map((skor, indeks) => <span key={indeks}>Tim {indeks + 1}<b>{skor}</b></span>)}</div> : null}
       <p>{jawaban.filter((item) => item.benar).length} dari {jawaban.length} misi berhasil.</p>
       {pesan ? <p role="alert">{pesan}</p> : null}
-      <div className="game-main__aksi"><Link to={RUTE.game}>Kembali ke katalog</Link><button type="button" onClick={() => { setPosisi(0); setJawaban([]); setSelesai(false); setSkorTim([0, 0, 0, 0]); setCombo(0); setComboMaks(0); setKoin(0); }}>Main lagi</button></div>
+      <div className="game-main__aksi"><Link to={ruteKembali}>Kembali ke katalog</Link><button type="button" onClick={() => { setPosisi(0); setJawaban([]); setSelesai(false); setSkorTim([0, 0, 0, 0]); setCombo(0); setComboMaks(0); setKoin(0); }}>Main lagi</button></div>
     </main>;
   }
 
   const mekanik = butir.mekanik_anak ?? mekanikGameAnak(engine);
   return <main className="game-main" data-testid="game-runner" data-gameplay={tipeGameplayEngine(engine)} data-mekanik={mekanik}>
     <header className="game-main__kepala">
-      <Link to={RUTE.game} aria-label="Tutup game">×</Link>
+      <Link to={ruteKembali} aria-label="Tutup game">×</Link>
       <div><span>{engine.nama} · {mekanik.replaceAll('_', ' ')}</span><strong>{game.judul}</strong></div>
       <div className="game-meta-skor"><span>Level <b>{Math.floor(posisi / 3) + 1}</b></span><span>🔥 <b>{combo}</b></span><span>🪙 <b>{koin}</b></span><span>Skor <b>{ringkasan.skor}</b></span></div>
       <div className="game-main__alat">
@@ -159,7 +161,9 @@ export function GameRunnerScreen() {
       </div>
       <p>Misi {posisi + 1} dari {game.butir.length}</p>
       <div className="game-pertanyaan"><h1>{butir.pertanyaan}</h1></div>
-      <InteractiveGameStage key={butir.id} butir={butir} engine={engine} mapelKode={game.mapel_kode} mode={modeAktif} jumlahTim={jumlahTim} onJawab={jawab}/>
+      {game.id.startsWith('IPAS5-')
+        ? <EduGameEngine key={butir.id} content={butir} world={engine} mapelKode={game.mapel_kode} mode={modeAktif} jumlahTim={jumlahTim} onComplete={jawab}/>
+        : <InteractiveGameStage key={butir.id} butir={butir} engine={engine} mapelKode={game.mapel_kode} mode={modeAktif} jumlahTim={jumlahTim} onJawab={jawab}/>}
       {feedback ? <div className={`game-feedback game-feedback--${feedback}`} role="status"><b>{feedback === 'benar' ? '✓ Misi berhasil!' : '↻ Coba strategi berikutnya'}</b><span>{feedback === 'benar' ? '+10 poin' : butir.penjelasan}</span></div> : null}
     </section>
   </main>;
