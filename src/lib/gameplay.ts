@@ -1,4 +1,5 @@
 import type { GameEngine, TipeGameplay } from './types';
+export { mekanikGameAnak } from './gameSemantics';
 
 const TIPE_PER_ENGINE: Record<string, TipeGameplay> = {
   'pilihan-ganda': 'kuis',

@@ -356,7 +356,47 @@ export type TipeGameplay =
   | 'manipulative'
   | 'coding'
   | 'movement'
-  | 'rhythm';
+    | 'rhythm';
+
+  /** Dunia permainan anak yang menentukan aturan panggung, bukan sekadar tampilan kartu. */
+  export type MekanikGameAnak =
+    | 'kuis'
+    | 'maze_adventure'
+    | 'balloon_pop'
+    | 'whack_target'
+    | 'treasure_hunt'
+    | 'racing_game'
+    | 'tower_builder'
+    | 'territory_battle'
+    | 'monster_battle'
+    | 'fishing_catch'
+    | 'platform_jump'
+    | 'sorting_factory'
+    | 'puzzle_builder'
+    | 'memory_world'
+    | 'board_game'
+    | 'bingo_classroom'
+    | 'escape_room'
+    | 'number_adventure'
+    | 'word_adventure'
+    | 'science_lab'
+    | 'coding_quest'
+    | 'music_rhythm'
+    | 'art_stage'
+    | 'pjok_motion'
+    | 'story_adventure';
+
+  export type TagKompetensiGame =
+    | 'mengurutkan'
+    | 'mengklasifikasi'
+    | 'mengidentifikasi'
+    | 'menganalisis'
+    | 'menghitung'
+    | 'mencocokkan'
+    | 'menyusun'
+    | 'mempraktikkan'
+    | 'mengamati'
+    | 'berkomunikasi';
 
 export interface ProfilFaseGame {
   fase_kode: KodeFase;
@@ -374,8 +414,11 @@ export interface ButirGame {
   pilihan: string[];
   jawaban: string;
   penjelasan: string;
-  sumber: 'cp' | 'tp' | 'materi' | 'elemen';
-}
+    sumber: 'cp' | 'tp' | 'materi' | 'elemen';
+    narasi?: string;
+    tag_kompetensi?: TagKompetensiGame;
+    mekanik_anak?: MekanikGameAnak;
+  }
 
 export interface GameEngine {
   kode: string;

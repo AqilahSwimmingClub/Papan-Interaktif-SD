@@ -1,6 +1,7 @@
 import { AppError } from '../errors/AppError';
 import { buatButirGameKontekstual } from '../gameContent';
 import { engineAdalahKuis } from '../gameplay';
+import { pilihEngineSemantik } from '../gameSemantics';
 import { GAME_ENGINE_FINAL, PROFIL_FASE_GAME, saringEngineGame } from '../gameEngines';
 import type {
   ButirGame,
@@ -72,7 +73,11 @@ export async function buatKatalogGameUntukTp(tpId: string): Promise<GamePembelaj
     teks_tp: rantai.tp.teks_tujuan,
   });
   const engine = [
-    ...tersaring.filter((item) => !engineAdalahKuis(item)).slice(0, 12),
+    ...pilihEngineSemantik({
+      faseKode: rantai.cp.fase_kode,
+      mapelKode: rantai.cp.mapel_kode,
+      teksTp: rantai.tp.teks_tujuan,
+    }, 8),
     ...tersaring.filter(engineAdalahKuis).slice(0, 3),
   ];
   const perEngine = new Map(ada.map((baris) => [baris.engine_kode, baris]));
@@ -80,7 +85,7 @@ export async function buatKatalogGameUntukTp(tpId: string): Promise<GamePembelaj
   for (const item of engine) {
     const tersimpan = perEngine.get(item.kode);
     const gameplayBaru = tersimpan?.butir.every((butir) =>
-      butir.penjelasan.includes('tanpa menampilkan teks CP/TP'),
+      Boolean(butir.mekanik_anak) && butir.penjelasan.includes('teks CP/TP tidak ditampilkan'),
     );
     if (tersimpan?.prompt_ai_id || (tersimpan && gameplayBaru)) continue;
     const butir = await buatButir(

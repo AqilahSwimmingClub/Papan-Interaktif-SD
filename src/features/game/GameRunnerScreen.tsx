@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { GAME_ENGINE_FINAL, nilaiJawabanGame, ringkasPermainan } from '../../lib/gameEngines';
 import { tipeGameplayEngine } from '../../lib/gameplay';
+import { mekanikGameAnak } from '../../lib/gameSemantics';
 import { keAppError } from '../../lib/errors/AppError';
 import { bacaGame, simpanHasilGame } from '../../lib/storage/gameRepo';
 import type { GamePembelajaran, JawabanButirGame, ModePermainanGame } from '../../lib/types';
@@ -50,6 +51,10 @@ export function GameRunnerScreen() {
   const [skorTim, setSkorTim] = useState([0, 0, 0, 0]);
   const [timerAktif, setTimerAktif] = useState(false);
   const [sisaDetik, setSisaDetik] = useState<number | null>(null);
+  const [suaraAktif, setSuaraAktif] = useState(true);
+  const [combo, setCombo] = useState(0);
+  const [comboMaks, setComboMaks] = useState(0);
+  const [koin, setKoin] = useState(0);
 
   useEffect(() => {
     void bacaGame(gameId)
@@ -91,7 +96,12 @@ export function GameRunnerScreen() {
     setMengunci(true);
     const nilai = nilaiJawabanGame(butir, nilaiJawaban);
     const baru = [...jawaban, nilai];
-    setJawaban(baru); setFeedback(nilai.benar ? 'benar' : 'salah'); bunyi(nilai.benar);
+    setJawaban(baru); setFeedback(nilai.benar ? 'benar' : 'salah'); if (suaraAktif) bunyi(nilai.benar);
+    if (nilai.benar) {
+      const comboBaru = combo + 1;
+      setCombo(comboBaru); setComboMaks((lama) => Math.max(lama, comboBaru));
+      setKoin((lama) => lama + 5 + Math.min(comboBaru, 5));
+    } else setCombo(0);
     if (modeAktif === 'battle' && nilai.benar) setSkorTim((lama) => lama.map((nilaiTim, indeks) => indeks === tim ? nilaiTim + 10 : nilaiTim));
     window.setTimeout(() => {
       setFeedback(''); setMengunci(false);
@@ -103,7 +113,7 @@ export function GameRunnerScreen() {
       setSelesai(true);
       void simpanHasil(game, baru).catch((galat: unknown) => setPesan(keAppError(galat).message));
     }, 620);
-  }, [butir, game, jawaban, jumlahTim, mengunci, modeAktif, posisi, simpanHasil, timAktif]);
+  }, [butir, combo, game, jawaban, jumlahTim, mengunci, modeAktif, posisi, simpanHasil, suaraAktif, timAktif]);
 
   useEffect(() => {
     if (timerAktif && sisaDetik === 0 && !mengunci && butir) jawab('__WAKTU_HABIS__');
@@ -114,23 +124,29 @@ export function GameRunnerScreen() {
   }
 
   if (selesai) {
+    const rasio = ringkasan.skor_maksimal ? ringkasan.skor / ringkasan.skor_maksimal : 0;
+    const bintang = rasio >= .85 ? 3 : rasio >= .6 ? 2 : 1;
     return <main className="game-main game-main--selesai" data-testid="hasil-game">
-      <span className="game-main__logo">PI</span><p>Permainan selesai</p><h1>{game.judul}</h1>
+      <span className="game-main__logo">🏆</span><p>Victory! Petualangan selesai</p><h1>{game.judul}</h1>
+      <div className="game-bintang" aria-label={`${bintang} bintang`}>{Array.from({ length: 3 }, (_, i) => <span className={i < bintang ? 'aktif' : ''} key={i}>★</span>)}</div>
       <div className="game-skor"><strong>{ringkasan.skor}</strong><span>dari {ringkasan.skor_maksimal} poin</span></div>
+      <div className="game-hadiah"><span>🪙 {koin} koin</span><span>🔥 Combo terbaik {comboMaks}</span><span>🎒 Level {Math.ceil(game.butir.length / 3)}</span></div>
       {modeAktif === 'battle' ? <div className="game-hasil-tim">{skorTim.slice(0, jumlahTim).map((skor, indeks) => <span key={indeks}>Tim {indeks + 1}<b>{skor}</b></span>)}</div> : null}
       <p>{jawaban.filter((item) => item.benar).length} dari {jawaban.length} misi berhasil.</p>
       {pesan ? <p role="alert">{pesan}</p> : null}
-      <div className="game-main__aksi"><Link to={RUTE.game}>Kembali ke katalog</Link><button type="button" onClick={() => { setPosisi(0); setJawaban([]); setSelesai(false); setSkorTim([0, 0, 0, 0]); }}>Main lagi</button></div>
+      <div className="game-main__aksi"><Link to={RUTE.game}>Kembali ke katalog</Link><button type="button" onClick={() => { setPosisi(0); setJawaban([]); setSelesai(false); setSkorTim([0, 0, 0, 0]); setCombo(0); setComboMaks(0); setKoin(0); }}>Main lagi</button></div>
     </main>;
   }
 
-  return <main className="game-main" data-testid="game-runner" data-gameplay={tipeGameplayEngine(engine)}>
+  const mekanik = butir.mekanik_anak ?? mekanikGameAnak(engine);
+  return <main className="game-main" data-testid="game-runner" data-gameplay={tipeGameplayEngine(engine)} data-mekanik={mekanik}>
     <header className="game-main__kepala">
       <Link to={RUTE.game} aria-label="Tutup game">×</Link>
-      <div><span>{engine.nama} · {tipeGameplayEngine(engine).replaceAll('_', ' ')}</span><strong>{game.judul}</strong></div>
-      <p>Skor <b>{ringkasan.skor}</b></p>
+      <div><span>{engine.nama} · {mekanik.replaceAll('_', ' ')}</span><strong>{game.judul}</strong></div>
+      <div className="game-meta-skor"><span>Level <b>{Math.floor(posisi / 3) + 1}</b></span><span>🔥 <b>{combo}</b></span><span>🪙 <b>{koin}</b></span><span>Skor <b>{ringkasan.skor}</b></span></div>
       <div className="game-main__alat">
-        <button type="button" onClick={() => bacakan(butir.pertanyaan)} aria-label="Bacakan misi">🔊</button>
+        <button type="button" className={suaraAktif ? 'aktif' : ''} onClick={() => setSuaraAktif((nilai) => !nilai)} aria-label="Aktifkan atau matikan suara">{suaraAktif ? '🔊' : '🔇'}</button>
+        <button type="button" onClick={() => bacakan(butir.pertanyaan)} aria-label="Bacakan misi">🗣️</button>
         <button type="button" className={timerAktif ? 'aktif' : ''} onClick={() => setTimerAktif((nilai) => !nilai)} aria-label="Aktifkan atau matikan timer">⏱ {sisaDetik ?? '—'}</button>
         <button type="button" onClick={() => void document.documentElement.requestFullscreen?.()} aria-label="Layar penuh">⛶</button>
       </div>

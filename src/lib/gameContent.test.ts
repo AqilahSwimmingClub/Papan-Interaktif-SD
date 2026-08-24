@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { DATA_KURIKULUM_FINAL } from './kurikulum/kurikulumSeed';
-import { GAME_ENGINE_FINAL, saringEngineGame } from './gameEngines';
+import { GAME_ENGINE_FINAL } from './gameEngines';
 import { buatButirGameKontekstual } from './gameContent';
-import { engineAdalahKuis, tipeGameplayEngine } from './gameplay';
+import { mekanikGameAnak, pilihEngineSemantik } from './gameSemantics';
 
-const engine = GAME_ENGINE_FINAL.find((item) => item.kode === 'pilihan-ganda')!;
+const engine = GAME_ENGINE_FINAL.find((item) => item.kode === 'drag-drop')!;
 const MAPEL = [
   ['MAT', 'Matematika'], ['BI', 'Bahasa Indonesia'], ['IPAS', 'IPAS'], ['PP', 'Pendidikan Pancasila'],
   ['PAI', 'Pendidikan Agama'], ['RUPA', 'Seni Rupa'], ['PJOK', 'PJOK'], ['KKA', 'Koding dan KA'],
@@ -42,18 +42,11 @@ describe('konten game dinamis lintas mapel', () => {
       const elemenAktif = elemen.get(tp.elemen_id)!;
       const cpAktif = cp.get(elemenAktif.cp_id)!;
       const mapelAktif = mapel.get(cpAktif.mapel_kode)!;
-      const engineAktif = saringEngineGame({
-        fase_kode: cpAktif.fase_kode,
-        mapel_kode: cpAktif.mapel_kode,
-        teks_tp: tp.teks_tujuan,
-      })[0];
-      const seluruhEngine = saringEngineGame({
-        fase_kode: cpAktif.fase_kode,
-        mapel_kode: cpAktif.mapel_kode,
-        teks_tp: tp.teks_tujuan,
-      });
-      const variasiInteraktif = new Set(seluruhEngine.filter((item) => !engineAdalahKuis(item)).map(tipeGameplayEngine));
-      expect(variasiInteraktif.size, `variasi gameplay untuk ${tp.id}`).toBeGreaterThanOrEqual(3);
+      const seluruhEngine = pilihEngineSemantik({ faseKode: cpAktif.fase_kode, mapelKode: cpAktif.mapel_kode, teksTp: tp.teks_tujuan });
+      const engineAktif = seluruhEngine[0];
+      const variasiInteraktif = new Set(seluruhEngine.map(mekanikGameAnak));
+      expect(seluruhEngine.length, `katalog untuk ${tp.id}`).toBeGreaterThanOrEqual(6);
+      expect(variasiInteraktif.size, `variasi dunia game untuk ${tp.id}`).toBeGreaterThanOrEqual(6);
       expect(engineAktif, `engine untuk ${tp.id}`).toBeDefined();
       const hasil = buatButirGameKontekstual(engineAktif!, {
         tpId: tp.id,
@@ -67,13 +60,13 @@ describe('konten game dinamis lintas mapel', () => {
         tpSerumpun: [],
       }, 3, 4);
       expect(hasil, tp.id).toHaveLength(3);
-      const tipe = tipeGameplayEngine(engineAktif!);
       expect(hasil.every((butir) => butir.pertanyaan !== tp.teks_tujuan && !butir.pertanyaan.includes(tp.teks_tujuan)), tp.id).toBe(true);
       expect(hasil.every((butir) => {
-        if (['sorting', 'timeline', 'sentence_builder', 'coding', 'rhythm', 'movement', 'puzzle', 'image_puzzle'].includes(tipe)) {
+        const mekanik = butir.mekanik_anak;
+        if (['puzzle_builder', 'coding_quest', 'music_rhythm', 'art_stage', 'pjok_motion'].includes(mekanik ?? '')) {
           return butir.jawaban.split(' → ').every((bagian) => butir.pilihan.includes(bagian));
         }
-        if (tipe === 'word_search' || tipe === 'crossword') return butir.jawaban.length > 0;
+        if (mekanik === 'word_adventure') return butir.jawaban.length > 0;
         return butir.pilihan.includes(butir.jawaban);
       }), tp.id).toBe(true);
     }

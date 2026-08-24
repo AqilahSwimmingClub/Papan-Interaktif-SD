@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useMemo, useState, type DragEvent } from 'react';
-import { ikonGameplay, tipeGameplayEngine } from '../../lib/gameplay';
+import { useCallback, useEffect, useMemo, useState, type CSSProperties, type DragEvent } from 'react';
+import { mekanikGameAnak } from '../../lib/gameSemantics';
+import { ikonGameplay } from '../../lib/gameplay';
 import type { ButirGame, GameEngine, ModePermainanGame } from '../../lib/types';
 
 interface Properti {
@@ -11,157 +12,145 @@ interface Properti {
   onJawab: (jawaban: string, tim: number) => void;
 }
 
-function tanpaDuplikat(daftar: string[]): string[] {
+function unik(daftar: string[]): string[] {
   return daftar.filter((item, posisi, semua) => item.trim() && semua.indexOf(item) === posisi);
 }
 
 function acak<T>(daftar: T[], benih: string): T[] {
-  const angka = [...benih].reduce((jumlah, huruf) => jumlah + huruf.charCodeAt(0), 0);
-  return [...daftar].sort((a, b) => `${String(a)}${angka}`.localeCompare(`${String(b)}${angka}`, 'id'));
+  const nilai = (item: T) => [...`${String(item)}-${benih}`].reduce((jumlah, huruf) => jumlah + huruf.charCodeAt(0), 0) % 101;
+  return [...daftar].sort((a, b) => nilai(a) - nilai(b) || String(a).localeCompare(String(b), 'id'));
+}
+
+function namaMekanik(kode: string): string {
+  return kode.replaceAll('_', ' ').replace(/\b\w/g, (huruf) => huruf.toUpperCase());
 }
 
 export function InteractiveGameStage({ butir, engine, mapelKode, mode, jumlahTim, onJawab }: Properti) {
-  const tipe = tipeGameplayEngine(engine);
-  const opsi = useMemo(() => tanpaDuplikat(butir.pilihan).slice(0, 6), [butir.pilihan]);
+  const mekanik = butir.mekanik_anak ?? mekanikGameAnak(engine);
+  const opsi = useMemo(() => unik(butir.pilihan).slice(0, 6), [butir.pilihan]);
+  const urutanBenar = useMemo(() => butir.jawaban.split(' → ').filter(Boolean), [butir.jawaban]);
   const [terpilih, setTerpilih] = useState('');
   const [urutan, setUrutan] = useState<string[]>([]);
   const [kartuTerbuka, setKartuTerbuka] = useState<string[]>([]);
-  const [pasanganSelesai, setPasanganSelesai] = useState<number[]>([]);
-  const [posisiMaze, setPosisiMaze] = useState({ x: 0, y: 0 });
-  const [langkahPapan, setLangkahPapan] = useState(0);
-  const [putaran, setPutaran] = useState(0);
-  const [huruf, setHuruf] = useState('');
+  const [pasangan, setPasangan] = useState<number[]>([]);
+  const [posisi, setPosisi] = useState({ x: 0, y: 0 });
+  const [langkah, setLangkah] = useState(0);
+  const [daya, setDaya] = useState(0);
+  const [kata, setKata] = useState('');
   const [tim, setTim] = useState(0);
-  const [energiTim, setEnergiTim] = useState(() => Array.from({ length: jumlahTim }, () => 0));
-  const [nilaiSimulasi, setNilaiSimulasi] = useState(40);
+  const [wilayah, setWilayah] = useState<Record<number, number>>({});
+  const [petakBingo, setPetakBingo] = useState<number[]>([]);
+  const [nilaiLab, setNilaiLab] = useState(45);
+  const [labSiap, setLabSiap] = useState(false);
   const [sudahMengirim, setSudahMengirim] = useState(false);
 
   useEffect(() => {
-    setTerpilih(''); setUrutan([]); setKartuTerbuka([]); setPasanganSelesai([]);
-    setPosisiMaze({ x: 0, y: 0 }); setLangkahPapan(0); setPutaran(0); setHuruf('');
-    setTim(0); setEnergiTim(Array.from({ length: jumlahTim }, () => 0)); setNilaiSimulasi(40); setSudahMengirim(false);
+    setTerpilih(''); setUrutan([]); setKartuTerbuka([]); setPasangan([]); setPosisi({ x: 0, y: 0 });
+    setLangkah(0); setDaya(0); setKata(''); setTim(0); setWilayah({}); setPetakBingo([]);
+    setNilaiLab(45); setLabSiap(false); setSudahMengirim(false);
   }, [butir.id, jumlahTim]);
 
-  const kirim = useCallback((nilai: string) => {
+  const kirim = useCallback((jawaban: string, timJawab = tim) => {
     if (sudahMengirim) return;
     setSudahMengirim(true);
-    onJawab(nilai, tim);
+    onJawab(jawaban, timJawab);
   }, [onJawab, sudahMengirim, tim]);
 
-  const kartuMemory = useMemo(() => acak(opiPasangan(opsi, mapelKode), butir.id), [butir.id, mapelKode, opsi]);
+  const kartuMemory = useMemo(() => acak(opsi.slice(0, 4).flatMap((item, indeks) => [
+    { id: `kata-${indeks}`, pasangan: indeks, isi: item },
+    { id: `ikon-${indeks}`, pasangan: indeks, isi: ikonGameplay(mapelKode, indeks) },
+  ]), butir.id), [butir.id, mapelKode, opsi]);
 
   useEffect(() => {
     if (kartuTerbuka.length !== 2) return;
-    const [pertama, kedua] = kartuTerbuka;
-    const a = kartuMemory.find((item) => item.id === pertama);
-    const b = kartuMemory.find((item) => item.id === kedua);
-    const waktu = window.setTimeout(() => {
-      if (a && b && a.pasangan === b.pasangan) setPasanganSelesai((lama) => [...lama, a.pasangan]);
+    const [idA, idB] = kartuTerbuka;
+    const a = kartuMemory.find((item) => item.id === idA);
+    const b = kartuMemory.find((item) => item.id === idB);
+    const id = window.setTimeout(() => {
+      if (a && b && a.pasangan === b.pasangan) setPasangan((lama) => [...lama, a.pasangan]);
       setKartuTerbuka([]);
-    }, 480);
-    return () => window.clearTimeout(waktu);
+    }, 420);
+    return () => window.clearTimeout(id);
   }, [kartuMemory, kartuTerbuka]);
 
   useEffect(() => {
-    const jumlahPasangan = Math.min(4, opsi.length);
-    if ((tipe === 'memory' || tipe === 'matching') && jumlahPasangan > 0 && pasanganSelesai.length >= jumlahPasangan) {
-      kirim(butir.jawaban);
-    }
-  }, [butir.jawaban, kirim, opsi.length, pasanganSelesai.length, tipe]);
+    if (mekanik === 'memory_world' && pasangan.length >= Math.min(4, opsi.length) && opsi.length) kirim(butir.jawaban);
+  }, [butir.jawaban, kirim, mekanik, opsi.length, pasangan.length]);
+
+  function aksiDaya(item: string, target = 100) {
+    if (item !== butir.jawaban) { kirim(item); return; }
+    const baru = Math.min(target, daya + 34);
+    setDaya(baru);
+    if (baru >= target) kirim(item);
+  }
+
   function tambahUrutan(item: string) {
-    if (!urutan.includes(item)) setUrutan((lama) => [...lama, item]);
-  }
-  function jatuhkan(peristiwa: DragEvent<HTMLButtonElement>) {
-    peristiwa.preventDefault();
-    const nilai = peristiwa.dataTransfer.getData('text/plain') || terpilih;
-    if (nilai) kirim(nilai);
+    if (urutan.filter((nilai) => nilai === item).length < urutanBenar.filter((nilai) => nilai === item).length) setUrutan((lama) => [...lama, item]);
   }
 
-  if (tipe === 'kuis') {
-    return <section className="gameplay gameplay--kuis" aria-label="Mode kuis">
-      <p className="gameplay__label">Mode Kuis dipilih</p>
-      <div className="gameplay__kartu-visual">{opsi.map((item, indeks) => <button key={item} type="button" onClick={() => kirim(item)}><b>{ikonGameplay(mapelKode, indeks)}</b><span>{item}</span></button>)}</div>
-    </section>;
+  function jatuhkan(e: DragEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    const item = e.dataTransfer.getData('text/plain') || terpilih;
+    if (item) kirim(item);
   }
 
-  if (tipe === 'drag_drop' || tipe === 'classification') {
-    return <section className="gameplay gameplay--drag" aria-label="Permainan drag and drop">
-      <div className="gameplay__objek">{opsi.map((item, indeks) => <button draggable type="button" key={item} className={terpilih === item ? 'aktif' : ''} onClick={() => setTerpilih(item)} onDragStart={(e) => e.dataTransfer.setData('text/plain', item)}><b>{ikonGameplay(mapelKode, indeks)}</b><span>{item}</span></button>)}</div>
-      <button type="button" className="gameplay__zona" onClick={() => terpilih && kirim(terpilih)} onDragOver={(e) => e.preventDefault()} onDrop={jatuhkan}><span>＋</span><strong>{tipe === 'classification' ? 'Zona klasifikasi' : 'Papan bukti'}</strong><small>Seret ke sini atau pilih objek lalu sentuh zona</small></button>
-    </section>;
+  const label = namaMekanik(mekanik);
+  const kepala = <header className="dunia-game__kepala"><span>{ikonGameplay(mapelKode, 0)}</span><div><b>{label}</b><small>{butir.narasi ?? 'Selesaikan misi visual untuk membuka level berikutnya.'}</small></div></header>;
+
+  if (mekanik === 'kuis') return <section className="gameplay dunia-game dunia-game--kuis" aria-label="Mode Kuis">{kepala}<div className="gameplay__kartu-visual">{opsi.map((item, indeks) => <button key={item} type="button" onClick={() => kirim(item)}><b>{ikonGameplay(mapelKode, indeks)}</b><span>{item}</span></button>)}</div></section>;
+
+  if (mekanik === 'maze_adventure') {
+    const rintangan = new Set([6, 8, 13, 16, 18]);
+    const sekarang = posisi.y * 5 + posisi.x;
+    const bergerak = (dx: number, dy: number) => {
+      const berikut = { x: Math.max(0, Math.min(4, posisi.x + dx)), y: Math.max(0, Math.min(4, posisi.y + dy)) };
+      const petak = berikut.y * 5 + berikut.x;
+      if (rintangan.has(petak)) return;
+      setPosisi(berikut); if (petak === 24) kirim(butir.jawaban);
+    };
+    return <section className="gameplay dunia-game dunia-game--maze" aria-label="Maze Adventure">{kepala}<div className="maze-adventure"><div className="maze-adventure__grid">{Array.from({ length: 25 }, (_, i) => <span key={i} className={i === sekarang ? 'pemain' : i === 24 ? 'tujuan' : rintangan.has(i) ? 'rintangan' : ''}>{i === sekarang ? '🧒' : i === 24 ? '🏆' : rintangan.has(i) ? '🌵' : '·'}</span>)}</div><div className="gameplay__arah"><button aria-label="Atas" type="button" onClick={() => bergerak(0, -1)}>↑</button><button aria-label="Kiri" type="button" onClick={() => bergerak(-1, 0)}>←</button><button aria-label="Bawah" type="button" onClick={() => bergerak(0, 1)}>↓</button><button aria-label="Kanan" type="button" onClick={() => bergerak(1, 0)}>→</button></div></div></section>;
   }
 
-  if (tipe === 'memory' || tipe === 'matching') {
-    return <section className="gameplay gameplay--memory" aria-label={tipe === 'memory' ? 'Permainan memory card' : 'Permainan matching'}>
-      {kartuMemory.map((kartu) => {
-        const terbuka = kartuTerbuka.includes(kartu.id) || pasanganSelesai.includes(kartu.pasangan);
-        return <button type="button" key={kartu.id} className={terbuka ? 'terbuka' : ''} disabled={pasanganSelesai.includes(kartu.pasangan) || kartuTerbuka.includes(kartu.id) || kartuTerbuka.length >= 2} onClick={() => setKartuTerbuka((lama) => [...lama, kartu.id])}><span>{terbuka ? kartu.isi : '◆'}</span></button>;
-      })}
-    </section>;
+  if (['balloon_pop', 'whack_target', 'fishing_catch', 'platform_jump'].includes(mekanik)) {
+    const simbol = mekanik === 'balloon_pop' ? '🎈' : mekanik === 'whack_target' ? '🎯' : mekanik === 'fishing_catch' ? '🐟' : '☁️';
+    const aria = mekanik === 'balloon_pop' ? 'Balloon Pop' : mekanik === 'whack_target' ? 'Whack Target' : mekanik === 'fishing_catch' ? 'Fishing Catch' : 'Platform Jump Challenge';
+    return <section className={`gameplay dunia-game dunia-game--${mekanik}`} aria-label={aria}>{kepala}<div className="arena-bergerak">{opsi.map((item, indeks) => <button type="button" key={item} style={{ '--i': indeks } as CSSProperties} onClick={() => kirim(item)}><b>{simbol}</b><span>{item}</span></button>)}<span className="arena-bergerak__tokoh">🧒</span></div></section>;
   }
 
-  if (['sorting', 'timeline', 'sentence_builder', 'coding', 'puzzle', 'image_puzzle'].includes(tipe)) {
-    const label = tipe === 'coding' ? 'Blok program' : tipe === 'timeline' ? 'Jejak waktu' : tipe.includes('puzzle') ? 'Keping puzzle' : 'Kartu susun';
-    return <section className={`gameplay gameplay--susun gameplay--${tipe}`} aria-label={label}>
-      <div className="gameplay__rak">{opsi.filter((item) => !urutan.includes(item)).map((item, indeks) => <button type="button" key={item} onClick={() => tambahUrutan(item)}><b>{tipe === 'coding' ? ['↑', '↻', '→', '★'][indeks % 4] : ikonGameplay(mapelKode, indeks)}</b><span>{item}</span></button>)}</div>
-      <div className="gameplay__alur">{urutan.length ? urutan.map((item, indeks) => <button type="button" key={item} onClick={() => setUrutan((lama) => lama.filter((x) => x !== item))}><b>{indeks + 1}</b>{item}</button>) : <p>Sentuh kartu sesuai urutan. Sentuh lagi untuk membatalkan.</p>}</div>
-      <button className="gameplay__aksi" type="button" disabled={urutan.length !== opsi.length} onClick={() => kirim(urutan.join(' → '))}>Jalankan susunan</button>
-    </section>;
+  if (mekanik === 'treasure_hunt' || mekanik === 'escape_room') {
+    const simbol = mekanik === 'treasure_hunt' ? '🧰' : '🔐';
+    return <section className={`gameplay dunia-game dunia-game--${mekanik}`} aria-label={mekanik === 'treasure_hunt' ? 'Treasure Hunt' : 'Escape Room'}>{kepala}<div className="petualangan-grid">{Array.from({ length: 8 }, (_, indeks) => { const item = opsi[indeks % opsi.length]!; return <button type="button" key={indeks} onClick={() => aksiDaya(item)}><b>{simbol}</b><span>{item}</span><i>{daya >= (indeks % 3 + 1) * 34 ? '✓' : '✦'}</i></button>; })}</div><div className="daya-game"><span style={{ width: `${daya}%` }}/><b>{mekanik === 'treasure_hunt' ? 'Peta harta' : 'Kunci pintu'} {daya}%</b></div></section>;
   }
 
-  if (tipe === 'word_search' || tipe === 'crossword') {
+  if (mekanik === 'racing_game' || mekanik === 'tower_builder' || mekanik === 'monster_battle') {
+    const judul = mekanik === 'racing_game' ? 'Racing Game' : mekanik === 'tower_builder' ? 'Tower Builder' : 'Monster Friend Battle';
+    return <section className={`gameplay dunia-game dunia-game--${mekanik}`} aria-label={judul}>{kepala}<div className="progres-dunia">{mekanik === 'racing_game' ? <div className="lintasan"><span style={{ left: `calc(${daya}% - 24px)` }}>🏎️</span><b>🏁</b></div> : mekanik === 'tower_builder' ? <div className="menara">{Array.from({ length: Math.ceil(daya / 25) }, (_, i) => <span key={i}>🧱</span>)}</div> : <div className="monster-baik"><span>🐲</span><div><i style={{ width: `${daya}%` }}/></div><b>{daya < 100 ? 'Butuh energi persahabatan' : 'Sahabat monster gembira!'}</b></div>}<div className="power-pilihan">{opsi.map((item, indeks) => <button type="button" key={item} onClick={() => aksiDaya(item)}><b>{ikonGameplay(mapelKode, indeks)}</b><span>{item}</span></button>)}</div></div></section>;
+  }
+
+  if (mekanik === 'territory_battle') return <section className="gameplay dunia-game dunia-game--territory" aria-label="Territory Battle">{kepala}<div className="pilih-tim">{Array.from({ length: jumlahTim }, (_, i) => <button type="button" className={tim === i ? 'aktif' : ''} key={i} onClick={() => setTim(i)}>Tim {i + 1}</button>)}</div><div className="wilayah-grid">{Array.from({ length: 16 }, (_, i) => { const item = opsi[i % opsi.length]!; return <button type="button" key={i} className={wilayah[i] !== undefined ? `tim-${wilayah[i]}` : ''} onClick={() => { setWilayah((lama) => ({ ...lama, [i]: tim })); kirim(item, tim); }}><b>{wilayah[i] === undefined ? '◇' : wilayah[i]! + 1}</b><span>{item}</span></button>; })}</div></section>;
+
+  if (mekanik === 'sorting_factory') return <section className="gameplay dunia-game dunia-game--factory" aria-label="Sorting Factory">{kepala}<div className="konveyor">{opsi.map((item, indeks) => <button draggable type="button" key={item} className={terpilih === item ? 'aktif' : ''} onClick={() => setTerpilih(item)} onDragStart={(e) => e.dataTransfer.setData('text/plain', item)}><b>📦</b><span>{item}</span><i style={{ animationDelay: `${indeks * -.2}s` }}/></button>)}</div><button type="button" className="gerbang-factory" onClick={() => terpilih && kirim(terpilih)} onDragOver={(e) => e.preventDefault()} onDrop={jatuhkan}><b>🏭</b><span>Gerbang misi</span><small>Seret paket atau pilih lalu sentuh gerbang</small></button></section>;
+
+  if (mekanik === 'memory_world') return <section className="gameplay dunia-game dunia-game--memory" aria-label="Memory World">{kepala}<div className="memory-world">{kartuMemory.map((kartu) => { const terbuka = kartuTerbuka.includes(kartu.id) || pasangan.includes(kartu.pasangan); return <button type="button" key={kartu.id} className={terbuka ? 'terbuka' : ''} disabled={terbuka || kartuTerbuka.length >= 2} onClick={() => setKartuTerbuka((lama) => [...lama, kartu.id])}><span>{terbuka ? kartu.isi : '❓'}</span></button>; })}</div><p>Combo pasangan: <b>{pasangan.length}</b></p></section>;
+
+  if (['puzzle_builder', 'coding_quest', 'music_rhythm', 'art_stage', 'pjok_motion'].includes(mekanik)) {
+    const simbol = mekanik === 'coding_quest' ? ['⬆️', '↪️', '➡️', '🔁'] : mekanik === 'music_rhythm' ? ['👏', '🥁', '🎵', '✨'] : mekanik === 'pjok_motion' ? ['🙆', '🏃', '🤸', '🧘'] : mekanik === 'art_stage' ? ['🎨', '🔺', '🟦', '🎭'] : ['🧩', '🌟', '🖼️', '🏆'];
+    return <section className={`gameplay dunia-game dunia-game--${mekanik}`} aria-label={label}>{kepala}<div className="keping-game">{opsi.map((item, indeks) => <button type="button" key={`${item}-${indeks}`} disabled={urutan.includes(item)} onClick={() => tambahUrutan(item)}><b>{simbol[indeks % simbol.length]}</b><span>{item}</span></button>)}</div><div className="jalur-keping">{urutan.map((item, indeks) => <button type="button" key={`${item}-${indeks}`} onClick={() => setUrutan((lama) => lama.filter((_, i) => i !== indeks))}><b>{indeks + 1}</b><span>{item}</span></button>)}{!urutan.length ? <p>Sentuh keping sesuai urutan misi.</p> : null}</div><button className="gameplay__aksi" type="button" disabled={urutan.length !== urutanBenar.length} onClick={() => kirim(urutan.join(' → '))}>{mekanik === 'coding_quest' ? 'Jalankan robot' : mekanik === 'music_rhythm' ? 'Mainkan pola' : mekanik === 'pjok_motion' ? 'Selesaikan sirkuit' : 'Pasang keping'}</button></section>;
+  }
+
+  if (mekanik === 'word_adventure') {
     const target = butir.jawaban.toLocaleUpperCase('id');
-    const kotak = [...target, ...'SEKOLAHCERIA'.slice(0, Math.max(0, 16 - target.length))];
-    return <section className={`gameplay gameplay--kata gameplay--${tipe}`} aria-label={tipe === 'crossword' ? 'Teka teki silang' : 'Word search'}>
-      <div className="gameplay__kata-target">{[...target].map((karakter, indeks) => <span key={`${karakter}-${indeks}`}>{huruf[indeks] ?? '·'}</span>)}</div>
-      <div className="gameplay__huruf">{acak(kotak, butir.id).map((karakter, indeks) => <button type="button" key={`${karakter}-${indeks}`} onClick={() => {
-        const berikut = target[huruf.length];
-        if (karakter === berikut) {
-          const baru = `${huruf}${karakter}`; setHuruf(baru); if (baru === target) kirim(butir.jawaban);
-        } else setHuruf('');
-      }}>{karakter}</button>)}</div>
-      <small>Salah sentuh akan mengulang jalur huruf.</small>
-    </section>;
+    const bank = acak([...target, ...'CERIA'.slice(0, Math.max(0, 5 - target.length))], butir.id);
+    return <section className="gameplay dunia-game dunia-game--word" aria-label="Word Adventure">{kepala}<div className="kata-rahasia">{[...target].map((_, i) => <span key={i}>{kata[i] ?? '·'}</span>)}</div><div className="huruf-terbang">{bank.map((huruf, i) => <button type="button" key={`${huruf}-${i}`} onClick={() => { if (huruf !== target[kata.length]) { setKata(''); return; } const baru = kata + huruf; setKata(baru); if (baru === target) kirim(butir.jawaban); }}>{huruf}</button>)}</div><p>Kumpulkan huruf dari kiri ke kanan. Salah pilih mengulang kata.</p></section>;
   }
 
-  if (tipe === 'maze' || tipe === 'map') {
-    const tujuan = tipe === 'maze' ? 24 : Math.abs([...butir.jawaban].reduce((a, x) => a + x.charCodeAt(0), 0)) % 20 + 2;
-    const posisi = posisiMaze.y * 5 + posisiMaze.x;
-    if (tipe === 'map') return <section className="gameplay gameplay--peta" aria-label="Peta interaktif"><div className="gameplay__peta">{Array.from({ length: 25 }, (_, indeks) => <button type="button" key={indeks} className={indeks === tujuan ? 'tujuan' : ''} aria-label={`Titik peta ${indeks + 1}`} onClick={() => kirim(indeks === tujuan ? butir.jawaban : `titik-${indeks}`)}>{indeks === tujuan ? '★' : indeks % 4 === 0 ? '🌳' : '·'}</button>)}</div></section>;
-    return <section className="gameplay gameplay--maze" aria-label="Labirin interaktif"><div className="gameplay__labirin">{Array.from({ length: 25 }, (_, indeks) => <span key={indeks} className={indeks === posisi ? 'pion' : indeks === tujuan ? 'tujuan' : ''}>{indeks === posisi ? '🚀' : indeks === tujuan ? '🏁' : '·'}</span>)}</div><div className="gameplay__arah"><button type="button" aria-label="Atas" onClick={() => setPosisiMaze((p) => ({ ...p, y: Math.max(0, p.y - 1) }))}>↑</button><button type="button" aria-label="Kiri" onClick={() => setPosisiMaze((p) => ({ ...p, x: Math.max(0, p.x - 1) }))}>←</button><button type="button" aria-label="Bawah" onClick={() => setPosisiMaze((p) => { const baru = { ...p, y: Math.min(4, p.y + 1) }; if (baru.x === 4 && baru.y === 4) kirim(butir.jawaban); return baru; })}>↓</button><button type="button" aria-label="Kanan" onClick={() => setPosisiMaze((p) => { const baru = { ...p, x: Math.min(4, p.x + 1) }; if (baru.x === 4 && baru.y === 4) kirim(butir.jawaban); return baru; })}>→</button></div></section>;
-  }
+  if (mekanik === 'number_adventure') return <section className="gameplay dunia-game dunia-game--number" aria-label="Number Adventure">{kepala}<div className="garis-angka">{opsi.map((item, indeks) => <button type="button" key={item} onClick={() => kirim(item)}><b>{item}</b><span>{indeks % 2 ? '🚀' : '⭐'}</span></button>)}</div><div className="manipulatif-angka">{Array.from({ length: Math.min(12, Number(butir.jawaban) || 6) }, (_, i) => <span key={i}>●</span>)}</div></section>;
 
-  if (tipe === 'wheel' || tipe === 'board') {
-    const papan = Array.from({ length: 12 }, (_, indeks) => indeks);
-    return <section className={`gameplay gameplay--papan gameplay--${tipe}`} aria-label={tipe === 'wheel' ? 'Roda tantangan' : 'Board game'}>
-      {tipe === 'wheel' ? <div className="gameplay__roda" style={{ transform: `rotate(${putaran * 137}deg)` }}><span>★</span><span>◆</span><span>●</span><span>▲</span></div> : <div className="gameplay__board">{papan.map((petak) => <span key={petak} className={petak === langkahPapan ? 'pion' : ''}>{petak === langkahPapan ? '🚀' : petak + 1}</span>)}</div>}
-      <button className="gameplay__aksi" type="button" onClick={() => { if (tipe === 'wheel') { const baru = putaran + 1; setPutaran(baru); if (baru >= 3) kirim(butir.jawaban); } else { const baru = Math.min(11, langkahPapan + (langkahPapan % 3) + 1); setLangkahPapan(baru); if (baru >= 11) kirim(butir.jawaban); } }}>{tipe === 'wheel' ? `Putar roda (${Math.min(putaran, 3)}/3)` : 'Lempar dadu'}</button>
-    </section>;
-  }
+  if (mekanik === 'science_lab') return <section className="gameplay dunia-game dunia-game--lab" aria-label="Science Lab">{kepala}<div className="alat-lab"><span className={labSiap ? 'aktif' : ''} style={{ '--cairan': `${nilaiLab}%` } as CSSProperties}>🧪</span><label>Atur bahan<input aria-label="Takaran bahan" type="range" min="10" max="90" value={nilaiLab} onChange={(e) => setNilaiLab(Number(e.target.value))}/></label><button type="button" onClick={() => setLabSiap(true)}>Nyalakan alat</button></div><div className="bahan-lab">{opsi.map((item, indeks) => <button type="button" key={item} disabled={!labSiap} onClick={() => kirim(item)}><b>{['🌱', '💧', '☀️', '🔬'][indeks % 4]}</b><span>{item}</span></button>)}</div></section>;
 
-  if (tipe === 'experiment' || tipe === 'simulation') {
-    return <section className="gameplay gameplay--simulasi" aria-label={tipe === 'experiment' ? 'Eksperimen virtual' : 'Simulasi'}><div className="gameplay__meter"><span style={{ height: `${nilaiSimulasi}%` }} /></div><label>Pengendali virtual<input type="range" min="10" max="100" value={nilaiSimulasi} onChange={(e) => setNilaiSimulasi(Number(e.target.value))}/></label><div className="gameplay__kartu-visual">{opsi.map((item, indeks) => <button type="button" key={item} onClick={() => kirim(item)}><b>{ikonGameplay(mapelKode, indeks)}</b><span>{item}</span></button>)}</div></section>;
-  }
+  if (mekanik === 'board_game') return <section className="gameplay dunia-game dunia-game--board" aria-label="Board Game">{kepala}<div className="papan-petualangan">{Array.from({ length: 12 }, (_, i) => <span key={i} className={i === langkah ? 'pion' : ''}>{i === langkah ? '🧒' : i === 11 ? '🏆' : i + 1}</span>)}</div><div className="power-pilihan">{opsi.map((item, indeks) => <button type="button" key={item} onClick={() => { if (item !== butir.jawaban) { kirim(item); return; } const baru = Math.min(11, langkah + 4); setLangkah(baru); if (baru === 11) kirim(item); }}><b>{ikonGameplay(mapelKode, indeks)}</b><span>{item}</span></button>)}</div></section>;
 
-  if (tipe === 'manipulative') {
-    return <section className="gameplay gameplay--manipulatif" aria-label="Benda hitung manipulatif"><div>{Array.from({ length: Math.max(3, Math.min(12, nilaiSimulasi / 10)) }, (_, indeks) => <button type="button" key={indeks} onClick={() => setNilaiSimulasi((lama) => Math.max(10, lama - 10))}>{ikonGameplay(mapelKode, indeks)}</button>)}</div><input aria-label="Jumlah benda" type="range" min="10" max="100" step="10" value={nilaiSimulasi} onChange={(e) => setNilaiSimulasi(Number(e.target.value))}/><button className="gameplay__aksi" type="button" onClick={() => kirim(butir.jawaban)}>Kunci susunan benda</button></section>;
-  }
+  if (mekanik === 'bingo_classroom') return <section className="gameplay dunia-game dunia-game--bingo" aria-label="Bingo Classroom">{kepala}<div className="kartu-bingo">{Array.from({ length: 9 }, (_, i) => { const item = i % 3 === 0 ? butir.jawaban : opsi[i % opsi.length]!; const aktif = petakBingo.includes(i); return <button type="button" key={i} className={aktif ? 'aktif' : ''} onClick={() => { if (item !== butir.jawaban) { kirim(item); return; } const baru = [...petakBingo, i]; setPetakBingo(baru); if (baru.length >= 3) kirim(item); }}>{aktif ? '⭐' : item}</button>; })}</div><b>{petakBingo.length}/3 petak satu garis</b></section>;
 
-  if (tipe === 'rhythm' || tipe === 'movement') {
-    const target = opsi.slice(0, 4);
-    return <section className={`gameplay gameplay--gerak gameplay--${tipe}`} aria-label={tipe === 'rhythm' ? 'Permainan ritme' : 'Permainan gerak'}><div className="gameplay__urutan-aksi">{target.map((item, indeks) => <button type="button" key={item} className={urutan.length === indeks ? 'aktif' : urutan.includes(item) ? 'selesai' : ''} onClick={() => { if (urutan.length !== indeks) return; const baru = [...urutan, item]; setUrutan(baru); if (baru.length === target.length) kirim(butir.jawaban); }}><b>{tipe === 'rhythm' ? ['👏', '🥁', '🎵', '✨'][indeks] : ['🙆', '🏃', '🤸', '🧘'][indeks]}</b><span>{item}</span></button>)}</div><p>{tipe === 'rhythm' ? 'Ketuk dari kiri ke kanan mengikuti denyut.' : 'Lakukan gerak, lalu sentuh kartu berikutnya.'}</p></section>;
-  }
-
-  if (tipe === 'battle' || tipe === 'race') {
-    return <section className="gameplay gameplay--battle" aria-label="Battle kelompok"><div className="gameplay__tim">{energiTim.map((energi, indeks) => <button type="button" key={indeks} className={tim === indeks ? 'aktif' : ''} onClick={() => setTim(indeks)}><strong>Tim {indeks + 1}</strong><span style={{ width: `${energi}%` }}/></button>)}</div><div className="gameplay__target">{opsi.map((item, indeks) => <button type="button" key={item} onClick={() => { if (item === butir.jawaban) setEnergiTim((lama) => lama.map((nilai, i) => i === tim ? Math.min(100, nilai + 34) : nilai)); kirim(item); }}><b>{ikonGameplay(mapelKode, indeks)}</b><span>{item}</span></button>)}</div></section>;
-  }
-
-  return <section className={`gameplay gameplay--target gameplay--${tipe}`} aria-label="Permainan target visual"><div className="gameplay__arena">{opsi.map((item, indeks) => <button type="button" key={item} style={{ animationDelay: `${indeks * -0.37}s` }} onClick={() => kirim(item)}><b>{ikonGameplay(mapelKode, indeks)}</b><span>{item}</span></button>)}</div>{mode !== 'individu' ? <p>Sentuh target bergiliran bersama kelompok.</p> : null}</section>;
-}
-
-function opiPasangan(opsi: string[], mapelKode: string): Array<{ id: string; pasangan: number; isi: string }> {
-  return opsi.slice(0, 4).flatMap((item, indeks) => [
-    { id: `teks-${indeks}`, pasangan: indeks, isi: item },
-    { id: `ikon-${indeks}`, pasangan: indeks, isi: ikonGameplay(mapelKode, indeks) },
-  ]);
+  return <section className="gameplay dunia-game dunia-game--story" aria-label="Story Adventure">{kepala}<div className="cerita-visual"><div className="cerita-visual__gambar"><span>{ikonGameplay(mapelKode, 1)}</span><b>?</b><span>{ikonGameplay(mapelKode, 2)}</span></div><div className="cerita-visual__pilihan">{opsi.map((item, indeks) => <button type="button" key={item} onClick={() => kirim(item)}><b>{['💡', '🤝', '🧭', '🌟'][indeks % 4]}</b><span>{item}</span></button>)}</div></div><small>{mode === 'individu' ? 'Pilih tindakan untuk tokoh.' : 'Diskusikan pilihan, lalu sentuh keputusan kelompok.'}</small></section>;
 }

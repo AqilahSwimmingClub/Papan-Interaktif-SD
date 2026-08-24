@@ -30,7 +30,7 @@ describe('Studio AI fungsional', () => {
     render(<MemoryRouter initialEntries={['/fitur/game-generator']}><AuthProvider><AppRoutes/></AuthProvider></MemoryRouter>);
     expect(await screen.findByRole('heading', { name: 'Game Generator' })).toBeVisible();
     expect(screen.queryByText(/fitur belum diimplementasikan/i)).not.toBeInTheDocument();
-    expect((await screen.findAllByText(/Gameplay/, {}, { timeout: 5_000 })).length).toBeGreaterThan(0);
+    expect((await screen.findAllByText(/Dunia game/, {}, { timeout: 5_000 })).length).toBeGreaterThan(0);
     const tombolBuat = screen.getByRole('button', { name: 'Buat Game Generator' });
     await waitFor(() => expect(tombolBuat).toBeEnabled());
     await pengguna.click(tombolBuat);

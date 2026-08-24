@@ -3,6 +3,8 @@ import { resetPenyimpanan } from '../test/bantuan';
 import { GAME_ENGINE_FINAL, nilaiJawabanGame, PROFIL_FASE_GAME, ringkasPermainan, saringEngineGame } from './gameEngines';
 import { bacaDetailMapelKelas } from './storage/kurikulumRepo';
 import { buatKatalogGameUntukTp, daftarEngineGame, hitungRelasiGame } from './storage/gameRepo';
+import { engineAdalahKuis } from './gameplay';
+import { mekanikGameAnak } from './gameSemantics';
 
 describe('pustaka 60 game engine lintas mapel', () => {
   beforeEach(async () => resetPenyimpanan());
@@ -30,6 +32,10 @@ describe('pustaka 60 game engine lintas mapel', () => {
     expect(tp).toBeDefined();
     const katalog = await buatKatalogGameUntukTp(tp!.id);
     expect(katalog.length).toBeGreaterThanOrEqual(6);
+    const interaktif = katalog.filter((item) => !engineAdalahKuis({ kode: item.engine_kode }));
+    expect(interaktif.length).toBeGreaterThanOrEqual(6);
+    expect(new Set(interaktif.map((item) => mekanikGameAnak({ kode: item.engine_kode }))).size).toBeGreaterThanOrEqual(6);
+    expect(interaktif.every((item) => item.butir.every((butir) => Boolean(butir.mekanik_anak) && !/CP aktif|TP aktif/i.test(butir.pertanyaan)))).toBe(true);
     expect(katalog.every((item) => item.tp_id === tp!.id && item.cp_id === detail!.cp.id && item.mapel_kode === 'MAT')).toBe(true);
     expect(await daftarEngineGame()).toHaveLength(60);
     expect((await hitungRelasiGame(tp!.id)).jumlahGame).toBeGreaterThanOrEqual(6);

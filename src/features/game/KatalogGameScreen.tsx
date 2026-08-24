@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { keAppError } from '../../lib/errors/AppError';
 import { alasanEngineGame } from '../../lib/gameContent';
 import { GAME_ENGINE_FINAL } from '../../lib/gameEngines';
-import { engineAdalahKuis, tipeGameplayEngine } from '../../lib/gameplay';
+import { engineAdalahKuis } from '../../lib/gameplay';
+import { mekanikGameAnak } from '../../lib/gameSemantics';
 import { buatKatalogGameUntukTp } from '../../lib/storage/gameRepo';
 import { bacaRantaiTpAktif, type RantaiTpAktif } from '../../lib/storage/isiRepo';
 import type { GamePembelajaran, ModePermainanGame } from '../../lib/types';
@@ -118,7 +119,7 @@ export function KatalogGameScreen() {
                 <div className="game-card__isi">
                   <p>{engine?.yang_diukur ?? 'Aktivitas TP'}</p><h2>{item.judul}</h2>
                   {engine && rantai ? <small>{alasanEngineGame(engine, rantai.tp.teks_tujuan)}</small> : null}
-                  <div><span>{engineAdalahKuis({ kode: item.engine_kode }) ? 'Mode Kuis' : tipeGameplayEngine({ kode: item.engine_kode }).replaceAll('_', ' ')}</span><span>{LABEL_MODE[item.mode_permainan]}</span><span>{item.durasi_menit} menit</span><span>{item.jumlah_butir} misi</span></div>
+                  <div><span>{engineAdalahKuis({ kode: item.engine_kode }) ? 'Mode Kuis' : mekanikGameAnak({ kode: item.engine_kode }).replaceAll('_', ' ')}</span><span>{LABEL_MODE[item.mode_permainan]}</span><span>{item.durasi_menit} menit</span><span>{item.jumlah_butir} misi</span></div>
                 </div>
                 <Link to={ruteMainGame(item.id)}>Mainkan <span aria-hidden="true">→</span></Link>
               </article>
