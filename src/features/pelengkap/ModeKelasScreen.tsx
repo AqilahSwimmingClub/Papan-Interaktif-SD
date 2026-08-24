@@ -22,11 +22,14 @@ export function ModeKelasScreen() {
   useEffect(() => { const id = window.setInterval(() => setWaktu(new Date()), 30_000); return () => window.clearInterval(id); }, []);
   useEffect(() => {
     if (!akun || !konteks.tingkat_kelas) return;
+    let hidup = true;
     void pastikanKelasKerja(konteks.tingkat_kelas, akun.id).then(async (kelas) => {
       const [identitas, grup, daftarMateri] = await Promise.all([bacaSekolah(), daftarKelompokKelas(kelas.id), konteks.tp_id ? daftarMateriUntukTp(konteks.tp_id) : []]);
+      if (!hidup) return;
       setSekolah(identitas ?? null); setKelompok(grup); setMateri(daftarMateri);
       setSkor(Object.fromEntries(grup.map((item) => [item.id, item.poin_total])));
     });
+    return () => { hidup = false; };
   }, [akun, konteks.tingkat_kelas, konteks.tp_id]);
   const semuaSiswa = useMemo(() => kelompok.flatMap((grup) => grup.anggota), [kelompok]);
   const siswaAktif = semuaSiswa[giliran % Math.max(1, semuaSiswa.length)];
