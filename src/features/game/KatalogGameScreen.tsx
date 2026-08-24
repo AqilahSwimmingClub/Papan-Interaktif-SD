@@ -5,6 +5,7 @@ import { alasanEngineGame } from '../../lib/gameContent';
 import { GAME_ENGINE_FINAL } from '../../lib/gameEngines';
 import { engineAdalahKuis } from '../../lib/gameplay';
 import { mekanikGameAnak } from '../../lib/gameSemantics';
+import { definisiMekanikV2, MEKANIK_GAME_V2 } from '../../lib/gameMechanicsV2';
 import { buatKatalogGameUntukTp } from '../../lib/storage/gameRepo';
 import { bacaRantaiTpAktif, type RantaiTpAktif } from '../../lib/storage/isiRepo';
 import type { GamePembelajaran, ModePermainanGame } from '../../lib/types';
@@ -74,12 +75,12 @@ export function KatalogGameScreen() {
     <main className="halaman-kurikulum game-katalog" data-testid="katalog-game">
       <header className="kop-kurikulum game-katalog__kop">
         <div>
-          <p className="label-data">60 engine · local-first</p>
+          <p className="label-data">40 mekanik playable · 60 konfigurasi engine · local-first</p>
           <h1>Katalog Game Edukasi</h1>
           <p>{rantai?.tp.teks_tujuan ?? 'Menyiapkan TP aktif…'}</p>
         </div>
         <div className="game-katalog__angka" aria-label="Ringkasan pustaka game">
-          <strong>{GAME_ENGINE_FINAL.length}</strong><span>engine reusable</span>
+          <strong>{MEKANIK_GAME_V2.length}</strong><span>mekanik playable</span>
           <strong>{game.length}</strong><span>game untuk TP ini</span>
         </div>
       </header>
@@ -114,13 +115,14 @@ export function KatalogGameScreen() {
         <section className="game-grid" aria-label="Daftar game">
           {tersaring.map((item, indeks) => {
             const engine = GAME_ENGINE_FINAL.find((baris) => baris.kode === item.engine_kode);
+            const mekanik = definisiMekanikV2(mekanikGameAnak({ kode: item.engine_kode }));
             return (
               <article className="game-card" key={item.id}>
-                <span className={`game-card__ikon game-card__ikon--${indeks % 6}`} aria-hidden="true">{item.engine_kode.replace('GE-', '')}</span>
+                <div className={`game-card__scene game-card__ikon--${indeks % 6}`} aria-hidden="true"><span>{mekanik.ikon}</span><i/><b>{mekanik.nama}</b></div>
                 <div className="game-card__isi">
                   <p>{engine?.yang_diukur ?? 'Aktivitas TP'}</p><h2>{item.judul}</h2>
                   {engine && rantai ? <small>{alasanEngineGame(engine, rantai.tp.teks_tujuan)}</small> : null}
-                  <div><span>{engineAdalahKuis({ kode: item.engine_kode }) ? 'Mode Kuis' : mekanikGameAnak({ kode: item.engine_kode }).replaceAll('_', ' ')}</span><span>{LABEL_MODE[item.mode_permainan]}</span><span>{item.durasi_menit} menit</span><span>{item.jumlah_butir} misi</span></div>
+                  <div><span>{engineAdalahKuis({ kode: item.engine_kode }) ? 'Mode Kuis' : mekanik.nama}</span><span>{LABEL_MODE[item.mode_permainan]}</span><span>{item.tingkat_kesulitan}</span><span>{item.jumlah_butir} misi</span>{mekanik.dualWindow ? <span>Dual Window</span> : null}</div>
                 </div>
                 <Link to={ruteMainGame(item.id)}>Mainkan <span aria-hidden="true">→</span></Link>
               </article>

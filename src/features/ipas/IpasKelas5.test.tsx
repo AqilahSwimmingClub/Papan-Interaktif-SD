@@ -26,9 +26,26 @@ describe('sistem utuh IPAS Kelas V', () => {
     expect(SEMUA_TOPIK_IPAS_5).toHaveLength(25);
     expect(SEMUA_VLAB_IPAS_5).toHaveLength(38);
     expect(SEMUA_GAME_IPAS_5).toHaveLength(159);
+    expect(new Set(SEMUA_VLAB_IPAS_5.map((item) => item.jenis))).toHaveLength(15);
     expect(SEMUA_TOPIK_IPAS_5.every((item) => item.vlab.length >= 1 && item.game.length >= 5)).toBe(true);
     expect(new Set(SEMUA_VLAB_IPAS_5.map((item) => item.id)).size).toBe(SEMUA_VLAB_IPAS_5.length);
     expect(new Set(SEMUA_GAME_IPAS_5.map((item) => item.id)).size).toBe(SEMUA_GAME_IPAS_5.length);
+  });
+
+  it('VLAB V2 mewajibkan perakitan alat, mendukung Start/Pause/Reset, dan memperbarui observasi', async () => {
+    renderLab('Mirror Lab'); const pengguna = userEvent.setup();
+    const start = screen.getByRole('button', { name: '▶ Start' });
+    expect(start).toBeDisabled();
+    await pengguna.click(screen.getByRole('button', { name: /Sumber/ }));
+    await pengguna.click(screen.getByRole('button', { name: /Pemantul/ }));
+    expect(start).toBeEnabled(); await pengguna.click(start);
+    expect(screen.getByTestId('virtual-lab-engine').querySelector('.vlab-engine__arena')).toHaveAttribute('data-running', 'true');
+    expect(screen.getByText(/Proses berlangsung/)).toBeVisible();
+    await pengguna.click(screen.getByRole('button', { name: '⏸ Pause' }));
+    expect(screen.getByTestId('virtual-lab-engine').querySelector('.vlab-engine__arena')).toHaveAttribute('data-running', 'false');
+    await pengguna.click(screen.getByRole('button', { name: '↺ Reset' }));
+    expect(start).toBeDisabled();
+    expect(screen.getByText(/0\/3 alat terpasang/)).toBeVisible();
   });
 
   it('mengikat setiap topik hanya ke empat TP IPAS Kelas V final dan engine yang nyata', () => {

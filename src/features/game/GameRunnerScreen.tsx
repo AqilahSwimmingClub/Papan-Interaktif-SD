@@ -3,6 +3,7 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { GAME_ENGINE_FINAL, nilaiJawabanGame, ringkasPermainan } from '../../lib/gameEngines';
 import { tipeGameplayEngine } from '../../lib/gameplay';
 import { mekanikGameAnak } from '../../lib/gameSemantics';
+import { normalisasiMekanikV2 } from '../../lib/gameMechanicsV2';
 import { keAppError } from '../../lib/errors/AppError';
 import { bacaGame, simpanHasilGame } from '../../lib/storage/gameRepo';
 import type { GamePembelajaran, JawabanButirGame, ModePermainanGame } from '../../lib/types';
@@ -140,7 +141,7 @@ export function GameRunnerScreen() {
     </main>;
   }
 
-  const mekanik = butir.mekanik_anak ?? mekanikGameAnak(engine);
+  const mekanik = normalisasiMekanikV2(butir.mekanik_anak ?? mekanikGameAnak(engine));
   return <main className="game-main" data-testid="game-runner" data-gameplay={tipeGameplayEngine(engine)} data-mekanik={mekanik}>
     <header className="game-main__kepala">
       <Link to={ruteKembali} aria-label="Tutup game">×</Link>

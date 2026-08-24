@@ -24,34 +24,47 @@ function acakDeterministik<T>(daftar: T[], benih: number): T[] {
 }
 
 function labelMisi(mekanik: MekanikGameAnak, tujuan: string, ikon: string): string {
-  const misi: Record<MekanikGameAnak, string> = {
-    kuis: `Selesaikan misi: ${tujuan}.`,
-    maze_adventure: `Jelajahi labirin lalu ${tujuan}.`,
-    balloon_pop: `Pecahkan balon yang tepat untuk ${tujuan}.`,
-    whack_target: `Pukul target yang tepat untuk ${tujuan}.`,
-    treasure_hunt: `Buka peti petunjuk dan ${tujuan}.`,
-    racing_game: `Isi tenaga kendaraan dengan pilihan tepat: ${tujuan}.`,
-    tower_builder: `Bangun menara sambil ${tujuan}.`,
-    territory_battle: `Rebut petak untuk timmu: ${tujuan}.`,
-    monster_battle: `Isi daya sahabat monster untuk ${tujuan}.`,
-    fishing_catch: `Tangkap ikan yang membantu kamu ${tujuan}.`,
-    platform_jump: `Lompat ke platform yang tepat untuk ${tujuan}.`,
-    sorting_factory: `Arahkan paket yang tepat untuk ${tujuan}.`,
-    puzzle_builder: `Susun keping sesuai urutan untuk ${tujuan}.`,
-    memory_world: `Temukan pasangan kartu untuk ${tujuan}.`,
-    board_game: `Bantu pion mencapai tujuan sambil ${tujuan}.`,
-    bingo_classroom: `Tandai tiga petak tepat untuk ${tujuan}.`,
-    escape_room: `Buka tiga kunci untuk ${tujuan}.`,
-    number_adventure: `Gerakkan roket angka dan ${tujuan}.`,
-    word_adventure: `Kumpulkan huruf untuk ${tujuan}.`,
-    science_lab: `Nyalakan alat laboratorium lalu ${tujuan}.`,
-    coding_quest: `Susun blok perintah untuk ${tujuan}.`,
-    music_rhythm: `Ketuk keping nada untuk ${tujuan}.`,
-    art_stage: `Susun keping panggung untuk ${tujuan}.`,
-    pjok_motion: `Selesaikan urutan gerak untuk ${tujuan}.`,
-    story_adventure: `Bantu tokoh dalam cerita untuk ${tujuan}.`,
+  const nama = mekanik.replaceAll('_', ' ');
+  const tindakan: Partial<Record<MekanikGameAnak, string>> = {
+    kuis: 'Selesaikan misi',
+    maze_adventure: 'Jelajahi labirin',
+    debugging_maze: 'Perbaiki rute robot',
+    balloon_pop: 'Pecahkan balon sasaran',
+    whack_target: 'Pukul target bergerak',
+    treasure_hunt: 'Kumpulkan tiga kunci peti',
+    escape_room: 'Buka tiga kunci ruang',
+    object_hunt: 'Temukan tiga objek petunjuk',
+    racing: 'Isi tenaga kendaraan',
+    tower_builder: 'Bangun menara',
+    territory_battle: 'Rebut wilayah untuk timmu',
+    team_battle: 'Isi energi timmu',
+    fishing: 'Tangkap ikan petunjuk',
+    platform_challenge: 'Lompat di platform',
+    sorting_factory: 'Arahkan paket ke gerbang',
+    conveyor_challenge: 'Kendalikan konveyor',
+    classification_challenge: 'Kelompokkan objek',
+    puzzle_builder: 'Susun keping',
+    timeline_adventure: 'Susun garis waktu',
+    coding_quest: 'Susun blok perintah',
+    rhythm_game: 'Ketuk urutan ritme',
+    art_puzzle: 'Susun karya visual',
+    movement_pjok_challenge: 'Selesaikan urutan gerak',
+    memory_world: 'Temukan pasangan kartu',
+    matching_world: 'Hubungkan pasangan',
+    board_game: 'Gerakkan pion ke tujuan',
+    map_exploration: 'Jelajahi titik pada peta',
+    number_adventure: 'Gerakkan roket angka',
+    math_manipulative_game: 'Susun objek berhitung',
+    word_adventure: 'Kumpulkan huruf',
+    reading_detective: 'Kumpulkan bukti bacaan',
+    science_mission: 'Rakit lalu jalankan eksperimen',
+    lab_challenge: 'Atur alat lalu jalankan uji',
+    scenario_adventure: 'Bantu tokoh mengambil tindakan',
+    environment_rescue: 'Pulihkan lingkungan',
+    city_builder_edu: 'Bangun kota seimbang',
+    resource_management_edu: 'Kelola sumber daya',
   };
-  return `${ikon} ${misi[mekanik]}`;
+  return `${ikon} ${tindakan[mekanik] ?? `Mainkan ${nama}`}: ${tujuan}.`;
 }
 
 function butirInteraktif(
@@ -67,14 +80,14 @@ function butirInteraktif(
   let pilihan = acakDeterministik(kandidat, indeks + engine.kode.length);
   let jawaban = skenario.jawaban;
 
-  if (['puzzle_builder', 'coding_quest', 'music_rhythm', 'art_stage', 'pjok_motion'].includes(mekanik)) {
+  if (['puzzle_builder', 'timeline_adventure', 'builder', 'tower_builder', 'coding_quest', 'rhythm_game', 'art_puzzle', 'movement_pjok_challenge', 'music_rhythm', 'art_stage', 'pjok_motion'].includes(mekanik)) {
     const urutan = [...skenario.urutan];
     jawaban = urutan.join(' → ');
     pilihan = acakDeterministik(urutan, indeks + konteks.tpId.length + 3);
   } else if (mekanik === 'word_adventure') {
     jawaban = skenario.kata.replace(/[^a-z0-9]/gi, '').toLocaleUpperCase('id').slice(0, 12) || 'KATA';
     pilihan = [...jawaban];
-  } else if (mekanik === 'number_adventure') {
+  } else if (mekanik === 'number_adventure' || mekanik === 'math_manipulative_game') {
     const sasaran = skenario.angka?.jawaban ?? (konteks.tingkatKelas * 2 + indeks + 2);
     jawaban = String(sasaran);
     pilihan = (skenario.angka?.pilihan ?? [sasaran - 2, sasaran - 1, sasaran, sasaran + 2]).map(String);

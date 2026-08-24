@@ -36,24 +36,41 @@ export function VirtualLabEngine({ topik, vlab, onChange }: Properti) {
   const [berjalan, setBerjalan] = useState(false);
   const [jeda, setJeda] = useState(false);
   const [waktu, setWaktu] = useState(0);
-  useEffect(() => { setVariabel(awal); setBerjalan(false); setJeda(false); setWaktu(0); }, [awal]);
+  const [alatAktif, setAlatAktif] = useState<string[]>([]);
+  const [observasi, setObservasi] = useState('Rakit dua alat digital, ubah variabel, lalu jalankan percobaan.');
+  const alat = useMemo(() => {
+    if (vlab.jenis === 'rangkaian') return ['🔋 Baterai', '〰️ Kabel', '💡 Indikator'];
+    if (vlab.jenis === 'optik') return ['🔦 Sumber', '🪞 Pemantul', '📟 Sensor'];
+    if (vlab.jenis === 'magnet') return ['🧲 Magnet A', '🧲 Magnet B', '📏 Pengukur'];
+    return ['🧪 Wadah', '🧰 Bahan', '📟 Sensor'];
+  }, [vlab.jenis]);
+  useEffect(() => { setVariabel(awal); setBerjalan(false); setJeda(false); setWaktu(0); setAlatAktif([]); setObservasi('Rakit dua alat digital, ubah variabel, lalu jalankan percobaan.'); }, [awal]);
   useEffect(() => { onChange?.(variabel); }, [onChange, variabel]);
   useEffect(() => {
     if (!berjalan || jeda) return;
     const id = window.setInterval(() => setWaktu((lama) => Math.min(100, lama + 2)), 120);
     return () => window.clearInterval(id);
   }, [berjalan, jeda]);
+  useEffect(() => {
+    if (!berjalan || jeda) return;
+    setVariabel((lama) => ({ ...lama, simulasi_waktu: waktu }));
+    setObservasi(waktu < 100 ? `Proses berlangsung: ${waktu}% · keluaran visual mengikuti variabel aktif.` : 'Percobaan selesai. Bandingkan hasil visual dengan kondisi awal.');
+    if (waktu >= 100) setBerjalan(false);
+  }, [berjalan, jeda, waktu]);
   const ubah: Ubah = (kunci, nilai) => setVariabel((lama) => ({ ...lama, [kunci]: nilai }));
-  const reset = () => { setVariabel(awal); setBerjalan(false); setJeda(false); setWaktu(0); };
+  const reset = () => { setVariabel(awal); setBerjalan(false); setJeda(false); setWaktu(0); setAlatAktif([]); setObservasi('Rakit dua alat digital, ubah variabel, lalu jalankan percobaan.'); };
+  const pasangAlat = (nama: string) => setAlatAktif((lama) => nama && !lama.includes(nama) ? [...lama, nama] : lama);
 
   return <section className="vlab-engine" data-testid="virtual-lab-engine" data-jenis={vlab.jenis}>
-    <header className="vlab-engine__status"><div><span>🔬 VirtualLabEngine</span><strong>{vlab.nama}</strong><small>{topik.nama}</small></div><div className="vlab-engine__kontrol">
-      <button type="button" className={berjalan && !jeda ? 'aktif' : ''} onClick={() => { setBerjalan(true); setJeda(false); }}>▶ Start</button>
+    <header className="vlab-engine__status"><div><span>🔬 VirtualLabEngine V2</span><strong>{vlab.nama}</strong><small>{topik.nama}</small></div><div className="vlab-engine__kontrol">
+      <button type="button" disabled={alatAktif.length < 2} className={berjalan && !jeda ? 'aktif' : ''} onClick={() => { setBerjalan(true); setJeda(false); setObservasi('Percobaan dimulai. Amati perubahan pada scene.'); }}>▶ Start</button>
       <button type="button" disabled={!berjalan} onClick={() => setJeda((nilai) => !nilai)}>{jeda ? '▶ Lanjut' : '⏸ Pause'}</button>
       <button type="button" onClick={reset}>↺ Reset</button>
     </div></header>
     <div className="vlab-engine__progres" aria-label="Waktu simulasi"><span style={{ width: `${waktu}%` }}/></div>
-    <div className="vlab-engine__arena">
+    <div className="vlab-engine__prosedur"><div><b>1</b><span>Rakit alat</span></div><div className={alatAktif.length >= 2 ? 'aktif' : ''}><b>2</b><span>Atur variabel</span></div><div className={berjalan || waktu > 0 ? 'aktif' : ''}><b>3</b><span>Jalankan & amati</span></div></div>
+    <div className="vlab-engine__alat"><div>{alat.map((item) => <button draggable type="button" className={alatAktif.includes(item) ? 'aktif' : ''} key={item} onClick={() => pasangAlat(item)} onDragStart={(e) => e.dataTransfer.setData('text/plain', item)}>{item}</button>)}</div><button type="button" aria-label="Meja perakitan" onDragOver={(e) => e.preventDefault()} onDrop={(e) => pasangAlat(e.dataTransfer.getData('text/plain'))}><span>Meja perakitan</span><b>{alatAktif.length}/3 alat terpasang</b></button></div>
+    <div className="vlab-engine__arena" data-running={String(berjalan && !jeda)}>
       {vlab.jenis === 'optik' ? <Optik vlab={vlab} nilai={variabel} ubah={ubah}/> : null}
       {vlab.jenis === 'bunyi' ? <Bunyi nilai={variabel} ubah={ubah}/> : null}
       {vlab.jenis === 'anatomi' ? <Anatomi vlab={vlab} nilai={variabel} ubah={ubah}/> : null}
@@ -70,6 +87,7 @@ export function VirtualLabEngine({ topik, vlab, onChange }: Properti) {
       {vlab.jenis === 'ekonomi' ? <Ekonomi vlab={vlab} nilai={variabel} ubah={ubah}/> : null}
       {vlab.jenis === 'kota_hijau' ? <KotaHijau nilai={variabel} ubah={ubah}/> : null}
     </div>
+    <footer className="vlab-engine__observasi"><span>👁 Observasi real-time</span><strong>{observasi}</strong><small>Tantangan: ubah satu variabel, jalankan ulang, lalu bandingkan hasilnya.</small></footer>
   </section>;
 }
 
@@ -77,7 +95,7 @@ function Optik({ vlab, nilai, ubah }: SceneProps & { vlab: VlabIpas }) {
   const sudut = Number(nilai.sudut_cermin); const jarak = Number(nilai.jarak);
   const pantulY = 82 - Math.sin(sudut * Math.PI / 180) * 58; const bayangan = batas(120 - jarak);
   return <div className="vlab-scene"><div className="vlab-visual vlab-optik" data-testid="visual-cahaya" data-ray-angle={sudut} data-shadow-size={bayangan}>
-    <span className="vlab-senter" draggable style={{ left: `${Number(nilai.posisi_sumber)}%` }}>🔦</span>
+    <button type="button" aria-label="Geser sumber cahaya" className="vlab-senter" draggable style={{ left: `${Number(nilai.posisi_sumber)}%` }} onClick={() => ubah('posisi_sumber', (Number(nilai.posisi_sumber) + 15) % 90)} onDragEnd={(e) => ubah('posisi_sumber', Math.max(5, Math.min(85, Math.round((e.clientX / Math.max(1, window.innerWidth)) * 100))))}>🔦</button>
     <svg viewBox="0 0 500 190" role="img" aria-label="Jalur cahaya real-time"><line x1="70" y1="145" x2="255" y2="95"/><line x1="255" y1="95" x2="455" y2={pantulY}/><circle cx="455" cy={pantulY} r="10"/></svg>
     {vlab.nama.includes('Shadow') ? <span className="vlab-bayangan" style={{ width: `${bayangan}px`, height: `${bayangan * .7}px` }}>bayangan</span> : null}<span className="vlab-cermin" style={{ transform: `rotate(${sudut}deg)` }}>🪞</span>
   </div><div className="vlab-panel"><label>Sudut cermin <b>{sudut}°</b><input aria-label="Sudut cermin" type="range" min="0" max="80" value={sudut} onChange={(e) => ubah('sudut_cermin', Number(e.target.value))}/></label><label>Jarak benda <b>{jarak}</b><input aria-label="Jarak benda" type="range" min="10" max="90" value={jarak} onChange={(e) => ubah('jarak', Number(e.target.value))}/></label><label>Material<select aria-label="Material cahaya" value={String(nilai.material)} onChange={(e) => ubah('material', e.target.value)}><option>transparan</option><option>translusen</option><option>opak</option></select></label><p>Cahaya melalui: <b>{nilai.material === 'transparan' ? 'hampir seluruhnya' : nilai.material === 'translusen' ? 'sebagian' : 'terhalang'}</b></p></div></div>;

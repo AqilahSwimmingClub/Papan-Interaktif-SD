@@ -78,7 +78,7 @@ export interface BabIpas {
 const slug = (nilai: string) => nilai.toLowerCase().normalize('NFKD')
   .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
-const ENGINE: Record<MekanikGameAnak, string> = {
+const ENGINE: Partial<Record<MekanikGameAnak, string>> = {
   kuis: 'kuis-cepat', maze_adventure: 'maze-labirin', balloon_pop: 'siapa-cepat',
   whack_target: 'siapa-cepat', treasure_hunt: 'eksplorasi-gambar', racing_game: 'balap-soal',
   tower_builder: 'puzzle', territory_battle: 'peta-interaktif', monster_battle: 'battle-kelompok',
@@ -121,7 +121,7 @@ function daftarGame(topikId: string, nama: string[]): GameIpas[] {
       id: `${topikId}-game-${slug(judul)}`,
       nama: judul,
       mekanik,
-      engineKode: ENGINE[mekanik],
+      engineKode: ENGINE[mekanik] ?? 'eksplorasi-gambar',
       level: index < 2 ? 'mudah' : index < 5 ? 'sedang' : 'sulit',
       mode: mekanik === 'territory_battle' ? 'battle' : index % 3 === 2 ? 'kelompok' : 'individu',
     };

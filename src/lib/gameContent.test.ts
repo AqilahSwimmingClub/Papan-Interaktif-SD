@@ -78,7 +78,7 @@ describe('konten game dinamis lintas mapel', () => {
       expect(hasil.every((butir) => butir.pertanyaan !== tp.teks_tujuan && !butir.pertanyaan.includes(tp.teks_tujuan)), tp.id).toBe(true);
       expect(hasil.every((butir) => {
         const mekanik = butir.mekanik_anak;
-        if (['puzzle_builder', 'coding_quest', 'music_rhythm', 'art_stage', 'pjok_motion'].includes(mekanik ?? '')) {
+        if (['puzzle_builder', 'timeline_adventure', 'builder', 'tower_builder', 'coding_quest', 'rhythm_game', 'art_puzzle', 'movement_pjok_challenge', 'music_rhythm', 'art_stage', 'pjok_motion'].includes(mekanik ?? '')) {
           return butir.jawaban.split(' → ').every((bagian) => butir.pilihan.includes(bagian));
         }
         if (mekanik === 'word_adventure') return butir.jawaban.length > 0;
