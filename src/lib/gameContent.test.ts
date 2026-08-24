@@ -21,7 +21,22 @@ describe('konten game dinamis lintas mapel', () => {
     }, 4, 4);
     expect(hasil).toHaveLength(4);
     expect(hasil.every((butir) => butir.pilihan.includes(butir.jawaban))).toBe(true);
-    expect(hasil.some((butir) => butir.pertanyaan.toLocaleLowerCase('id').includes('khas'))).toBe(true);
+    expect(hasil.every((butir) => (butir.narasi?.length ?? 0) > 20)).toBe(true);
+    expect(hasil.every((butir) => !butir.pertanyaan.toLocaleLowerCase('id').includes('konsep khas'))).toBe(true);
+  });
+
+  it('mengubah TP menyimak menjadi adegan percakapan konkret, bukan kumpulan kata TP', () => {
+    const detektif = GAME_ENGINE_FINAL.find((item) => item.kode === 'detektif-bacaan')!;
+    const [butir] = buatButirGameKontekstual(detektif, {
+      tpId: 'TP-BI-ADEGAN', tingkatKelas: 1, mapelKode: 'BI', mapelNama: 'Bahasa Indonesia',
+      teksCp: 'Teks CP final.', teksElemen: 'Menyimak',
+      teksTp: 'Murid memahami informasi dari teks aural berupa percakapan di lingkungan keluarga.',
+      materi: [], tpSerumpun: [],
+    }, 1, 4);
+    expect(butir?.narasi).toContain('Ibu berkata kepada Dara');
+    expect(butir?.jawaban).toBe('Letakkan sepatu di rak');
+    expect(butir?.pilihan).toContain('Letakkan sepatu di rak');
+    expect(butir?.pilihan).not.toContain('aural');
   });
 
   it('mengubah pertanyaan dan jawaban saat TP berubah walau engine tetap sama', () => {

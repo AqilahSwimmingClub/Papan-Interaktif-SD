@@ -85,7 +85,10 @@ export async function buatKatalogGameUntukTp(tpId: string): Promise<GamePembelaj
   for (const item of engine) {
     const tersimpan = perEngine.get(item.kode);
     const gameplayBaru = tersimpan?.butir.every((butir) =>
-      Boolean(butir.mekanik_anak) && butir.penjelasan.includes('teks CP/TP tidak ditampilkan'),
+      Boolean(butir.mekanik_anak) &&
+      butir.penjelasan.includes('[adegan-v2]') &&
+      butir.penjelasan.includes('memakai adegan') &&
+      butir.penjelasan.includes('teks CP/TP tidak ditampilkan'),
     );
     if (tersimpan?.prompt_ai_id || (tersimpan && gameplayBaru)) continue;
     const butir = await buatButir(
