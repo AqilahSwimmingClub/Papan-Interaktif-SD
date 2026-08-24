@@ -77,4 +77,14 @@ describe('endpoint server-side AI', () => {
     await handler({ method: 'POST', headers: {}, body: { provider: 'openai', jenis: 'soal', prompt: 'Buat soal.', jumlah: 1, konteks: { cp: 'CP', tp: 'TP', terverifikasi: true } } }, respons);
     expect(status).toBe(429); expect(hasil).toMatchObject({ kode: 'AI_RATE_LIMIT' });
   });
+
+  it('menolak LKPD/Bank Soal reference-gated tanpa sumber sebelum memanggil provider', async () => {
+    process.env.OPENAI_API_KEY = 'secret-uji';
+    const fetchUji = vi.fn(); vi.stubGlobal('fetch', fetchUji);
+    let status = 0; let hasil: unknown;
+    const respons = { status(kode: number) { status = kode; return this; }, setHeader() {}, json(nilai: unknown) { hasil = nilai; } };
+    await handler({ method: 'POST', headers: {}, body: { provider: 'openai', jenis: 'lkpd', prompt: 'Buat LKPD.', jumlah: 8, kendali: { reference_gated: true }, konteks: { cp: 'CP', tp: 'TP', terverifikasi: true, referensi: [] } } }, respons);
+    expect(status).toBe(400); expect(hasil).toMatchObject({ pesan: 'Referensi pembelajaran belum tersedia.' });
+    expect(fetchUji).not.toHaveBeenCalled();
+  });
 });

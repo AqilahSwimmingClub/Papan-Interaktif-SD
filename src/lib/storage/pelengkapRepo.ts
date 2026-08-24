@@ -17,14 +17,17 @@ import type {
 import { ID_SEKOLAH_TUNGGAL, sekolahKosong } from './sekolahRepo';
 import { TOKO, jalankanTransaksi, kueri, type NamaToko } from './db';
 import { pastikanKurikulumTersedia } from './kurikulumRepo';
+import { buatProfilGuru, ubahAkunDanProfilGuru } from './guruRepo';
 
 export async function simpanProfilSekolahGuru(sekolah: Sekolah, guru: Guru): Promise<void> {
   const nama = sekolah.nama.trim();
   if (!nama) throw new AppError('VALIDASI', 'Nama sekolah wajib diisi.');
   if (!guru.nama.trim()) throw new AppError('VALIDASI', 'Nama guru wajib diisi.');
-  await jalankanTransaksi([TOKO.sekolah, TOKO.guru], 'readwrite', async (toko) => {
+  await jalankanTransaksi([TOKO.sekolah, TOKO.guru, TOKO.akun], 'readwrite', async (toko) => {
     await kueri.simpan(toko(TOKO.sekolah), { ...sekolah, id: ID_SEKOLAH_TUNGGAL, nama });
     await kueri.simpan(toko(TOKO.guru), { ...guru, sekolah_id: ID_SEKOLAH_TUNGGAL, nama: guru.nama.trim() });
+    const akun = await kueri.ambil<Akun>(toko(TOKO.akun), guru.id);
+    if (akun) await kueri.simpan(toko(TOKO.akun), { ...akun, nama: guru.nama.trim() });
   });
 }
 
@@ -32,14 +35,7 @@ export async function bacaGuru(id: string, akun?: Akun): Promise<Guru | undefine
   return jalankanTransaksi(TOKO.guru, akun ? 'readwrite' : 'readonly', async (toko) => {
     const tersimpan = await kueri.ambil<Guru>(toko(TOKO.guru), id);
     if (tersimpan || !akun) return tersimpan;
-    const guru: Guru = {
-      id,
-      sekolah_id: ID_SEKOLAH_TUNGGAL,
-      nama: akun.nama,
-      peran: akun.peran === 'admin' ? 'operator' : 'guru',
-      kelas_diampu: [],
-      mapel_diampu: [],
-    };
+    const guru = buatProfilGuru(akun);
     await kueri.simpan(toko(TOKO.guru), guru);
     return guru;
   });
@@ -76,14 +72,9 @@ export async function daftarMedia(): Promise<MediaPembelajaran[]> {
   });
 }
 
-export async function simpanPenugasanGuru(akunGuru: Akun, kelas: number[], mapel: string[]): Promise<Guru> {
+export async function simpanPenugasanGuru(akunGuru: Akun, kelas: number[], _mapel: string[] = [], rombel = 'A'): Promise<Guru> {
   if (akunGuru.peran !== 'guru') throw new AppError('VALIDASI', 'Penugasan hanya berlaku untuk akun Guru.');
-  const tingkat = [...new Set(kelas)].filter((item) => Number.isInteger(item) && item >= 1 && item <= 6).sort();
-  const guru = await bacaGuru(akunGuru.id, akunGuru);
-  if (!guru) throw new AppError('VALIDASI', 'Profil Guru tidak ditemukan.');
-  const hasil: Guru = { ...guru, nama: akunGuru.nama, kelas_diampu: tingkat, mapel_diampu: [...new Set(mapel.map((item) => item.trim()).filter(Boolean))] };
-  await jalankanTransaksi(TOKO.guru, 'readwrite', (toko) => kueri.simpan(toko(TOKO.guru), hasil));
-  return hasil;
+  return ubahAkunDanProfilGuru(akunGuru, { kelas, rombel });
 }
 
 export async function bacaMedia(id: string): Promise<MediaPembelajaran | undefined> {

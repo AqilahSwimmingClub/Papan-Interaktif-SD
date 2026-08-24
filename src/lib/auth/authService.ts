@@ -12,6 +12,7 @@ import {
 import { hapusSesi, hapusSesiKedaluwarsa, sesiLewatToken, simpanSesi } from '../storage/sesiRepo';
 import { idPerangkat } from '../storage/perangkatRepo';
 import { hashSandi, periksaSandi, tokenAcak } from './sandi';
+import { simpanAkunDanProfilGuru, ubahAkunDanProfilGuru } from '../storage/guruRepo';
 import {
   validasiKonfirmasi,
   validasiNama,
@@ -43,7 +44,12 @@ export interface DataMasuk {
   peran: Peran;
 }
 
-export type DataAkunGuru = DataSetupAdmin;
+export interface DataAkunGuru extends DataSetupAdmin {
+  kelas?: number[];
+  rombel?: string;
+  aktif?: boolean;
+  foto_data_url?: string | null;
+}
 
 function penyimpananLokal(): Storage | null {
   try {
@@ -247,13 +253,17 @@ export async function buatAkunGuru(akunAdmin: Akun, data: DataAkunGuru): Promise
     kdf_algoritma: turunan.algoritma,
     kdf_iterasi: turunan.iterasi,
     peran: 'guru',
-    aktif: true,
+    aktif: data.aktif ?? true,
     dibuat: new Date().toISOString(),
     terakhir_masuk: null,
     gagal_berurutan: 0,
     terkunci_sampai: null,
   };
-  await simpanAkun(guru);
+  await simpanAkunDanProfilGuru(guru, {
+    kelas: data.kelas,
+    rombel: data.rombel,
+    foto_data_url: data.foto_data_url,
+  });
   return guru;
 }
 
@@ -332,7 +342,7 @@ export async function aturUlangSandiGuru(
 export async function ubahAkunGuru(
   akunAdmin: Akun,
   akunGuruId: string,
-  perubahan: { nama: string; username: string },
+  perubahan: { nama: string; username: string; kelas?: number[]; rombel?: string; aktif?: boolean; foto_data_url?: string | null },
 ): Promise<Akun> {
   pastikanAdmin(akunAdmin);
   const guru = await akunLewatId(akunGuruId);
@@ -341,8 +351,8 @@ export async function ubahAkunGuru(
   const username = validasiUsername(perubahan.username);
   const pemilik = await akunLewatUsername(username);
   if (pemilik && pemilik.id !== guru.id) throw new AppError('USERNAME_DIPAKAI', 'Username itu sudah dipakai di perangkat ini.');
-  const hasil = { ...guru, nama, username };
-  await simpanAkun(hasil);
+  const hasil = { ...guru, nama, username, aktif: perubahan.aktif ?? guru.aktif };
+  await ubahAkunDanProfilGuru(hasil, perubahan);
   return hasil;
 }
 

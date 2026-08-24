@@ -7,46 +7,48 @@ import { log } from '../../lib/errors/logger';
 import { RUTE } from '../../routes/paths';
 import { akhiriSesiAktifGuru, daftarSesiAktifGuru } from '../../lib/storage/kelasRepo';
 import { bacaPenanda, KUNCI_PERANGKAT, tulisPenanda } from '../../lib/storage/perangkatRepo';
+import { AppIcon, type AppIconName } from '../../components/AppIcon';
 import './kerangka-guru.css';
 import './kerangka-akun.css';
 
-interface ItemNavigasi { label: string; ikon: string; tujuan: string }
+interface ItemNavigasi { label: string; ikon: AppIconName; tujuan: string }
 type KelompokNavigasi = Array<{ judul: string; item: ItemNavigasi[] }>;
 
 const NAVIGASI_GURU: KelompokNavigasi = [
-  { judul: 'Dashboard', item: [{ label: 'Dashboard', ikon: 'D', tujuan: RUTE.dasbor }] },
+  { judul: 'Dashboard', item: [{ label: 'Dashboard', ikon: 'dashboard', tujuan: RUTE.dasbor }] },
   { judul: 'Kelas', item: [
-    { label: 'Data Siswa', ikon: '👤', tujuan: RUTE.dataSiswa },
-    { label: 'Papan Interaktif', ikon: '▣', tujuan: RUTE.papan },
-    { label: 'Kuis Langsung', ikon: '⚡', tujuan: RUTE.kuisLangsung },
-    { label: 'Alat Matematika', ikon: '∑', tujuan: RUTE.alatMatematika },
-    { label: 'Undian Nama', ikon: '🎯', tujuan: RUTE.undianNama },
-    { label: 'Timer', ikon: '⏱', tujuan: RUTE.timerKelas },
-    { label: 'Poin Kelompok', ikon: '★', tujuan: RUTE.poinKelompok },
+    { label: 'Data Siswa', ikon: 'students', tujuan: RUTE.dataSiswa },
+    { label: 'Papan Interaktif', ikon: 'board', tujuan: RUTE.papan },
+    { label: 'Kuis Langsung', ikon: 'quiz', tujuan: RUTE.kuisLangsung },
+    { label: 'Alat Matematika', ikon: 'math', tujuan: RUTE.alatMatematika },
+    { label: 'Undian Nama', ikon: 'draw', tujuan: RUTE.undianNama },
+    { label: 'Timer', ikon: 'timer', tujuan: RUTE.timerKelas },
+    { label: 'Poin Kelompok', ikon: 'points', tujuan: RUTE.poinKelompok },
   ] },
   { judul: 'Game Edukasi & VLAB', item: [
-    { label: 'Game Edukasi', ikon: '◆', tujuan: RUTE.game },
-    { label: 'VLAB/Simulasi', ikon: '⚗', tujuan: RUTE.vlab },
+    { label: 'Game Edukasi', ikon: 'game', tujuan: RUTE.game },
+    { label: 'VLAB/Simulasi', ikon: 'lab', tujuan: RUTE.vlab },
   ] },
   { judul: 'LKPD & Bank Soal', item: [
-    { label: 'Generate LKPD', ikon: '✦', tujuan: RUTE.generateLkpd },
-    { label: 'Generate Bank Soal', ikon: '▤', tujuan: RUTE.bankSoal },
+    { label: 'Generate LKPD', ikon: 'worksheet', tujuan: RUTE.generateLkpd },
+    { label: 'Generate Bank Soal', ikon: 'questions', tujuan: RUTE.bankSoal },
   ] },
   { judul: 'Settings', item: [
-    { label: 'Backup & Restore', ikon: '⇩', tujuan: RUTE.backup },
-    { label: 'Ganti Password', ikon: '🔑', tujuan: RUTE.gantiPassword },
-    { label: 'Ganti Profil', ikon: '⚙', tujuan: RUTE.profilGuru },
+    { label: 'Backup & Restore', ikon: 'backup', tujuan: RUTE.backup },
+    { label: 'Ganti Password', ikon: 'key', tujuan: RUTE.gantiPassword },
+    { label: 'Ganti Profil', ikon: 'profile', tujuan: RUTE.profilGuru },
   ] },
 ];
 
 const NAVIGASI_ADMIN: KelompokNavigasi = [
-  { judul: 'Dashboard', item: [{ label: 'Dashboard', ikon: 'D', tujuan: RUTE.dasbor }] },
-  { judul: 'Admin', item: [{ label: 'Data Guru', ikon: '👥', tujuan: RUTE.dataGuru }] },
+  { judul: 'Dashboard', item: [{ label: 'Dashboard', ikon: 'dashboard', tujuan: RUTE.dasbor }] },
+  { judul: 'Admin', item: [{ label: 'Data Guru', ikon: 'teachers', tujuan: RUTE.dataGuru }] },
   { judul: 'Settings', item: [
-    { label: 'Backup & Restore', ikon: '⇩', tujuan: RUTE.backup },
-    { label: 'Reset Password Guru', ikon: '🔑', tujuan: RUTE.resetPasswordGuru },
-    { label: 'Edit Profil Sekolah', ikon: '🏫', tujuan: RUTE.profilSekolah },
-    { label: 'Ganti Profil Admin', ikon: '⚙', tujuan: RUTE.profilAdmin },
+    { label: 'Backup & Restore', ikon: 'backup', tujuan: RUTE.backup },
+    { label: 'Reset Password Guru', ikon: 'key', tujuan: RUTE.resetPasswordGuru },
+    { label: 'Edit Profil Sekolah', ikon: 'school', tujuan: RUTE.profilSekolah },
+    { label: 'Ganti Profil Admin', ikon: 'profile', tujuan: RUTE.profilAdmin },
+    { label: 'Konfigurasi AI', ikon: 'ai', tujuan: RUTE.konfigurasiAi },
   ] },
 ];
 
@@ -111,8 +113,7 @@ export function KerangkaGuru() {
     <aside className={`guru-sidebar${drawerTerbuka ? ' guru-sidebar--terbuka' : ''}`} aria-label="Navigasi utama">
       <Link className="guru-sidebar__merek" to={RUTE.dasbor} aria-label="Papan Interaktif SD"><span className="guru-sidebar__logo" aria-hidden="true">PI</span><span className="guru-sidebar__merek-teks"><strong>Papan Interaktif SD</strong><small>{namaSekolah}</small></span></Link>
       <nav className="guru-sidebar__navigasi">
-        {kelompokNavigasi.map((kelompok) => <section className="guru-sidebar__kelompok" key={kelompok.judul}><h2>{kelompok.judul}</h2>{kelompok.item.map((item) => <NavLink className={({ isActive }) => `guru-sidebar__tautan${isActive ? ' guru-sidebar__tautan--aktif' : ''}`} key={item.label} to={item.tujuan} onClick={() => setDrawerTerbuka(false)}><span className="guru-sidebar__ikon" aria-hidden="true">{item.ikon}</span><span className="guru-sidebar__label">{item.label}</span></NavLink>)}</section>)}
-        <button aria-label="Logout dari sidebar" className="guru-sidebar__tautan guru-sidebar__logout" type="button" onClick={() => void tanganiKeluar()} disabled={sedangKeluar}><span className="guru-sidebar__ikon" aria-hidden="true">⇥</span><span className="guru-sidebar__label">Logout</span></button>
+        {kelompokNavigasi.map((kelompok) => <section className="guru-sidebar__kelompok" key={kelompok.judul}><h2>{kelompok.judul}</h2>{kelompok.item.map((item) => <NavLink className={({ isActive }) => `guru-sidebar__tautan${isActive ? ' guru-sidebar__tautan--aktif' : ''}`} key={item.label} to={item.tujuan} onClick={() => setDrawerTerbuka(false)}><span className="guru-sidebar__ikon"><AppIcon name={item.ikon}/></span><span className="guru-sidebar__label">{item.label}</span></NavLink>)}</section>)}
       </nav>
       <div className="guru-sidebar__bawah"><p className="guru-sidebar__offline"><span aria-hidden="true" /> Offline siap</p><div className="guru-sidebar__akun"><span className="guru-sidebar__avatar" aria-hidden="true">{inisial(namaAkun) || 'PI'}</span><span className="guru-sidebar__akun-teks"><strong>{namaAkun}</strong><small>{labelPeran}</small></span><button type="button" className="guru-sidebar__keluar" onClick={() => setMenuAkun((nilai) => !nilai)} aria-label="Buka menu akun">⇥</button></div></div>
     </aside>
@@ -124,6 +125,6 @@ export function KerangkaGuru() {
       <div className="kerangka-guru__isi" onInputCapture={(e) => { const target = e.target; if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement) setFormKotor(true); }}><Outlet /></div>
     </div>
 
-    {menuAkun ? <aside className="guru-menu-akun" aria-label="Menu akun"><header><span className="guru-sidebar__avatar">{inisial(namaAkun) || 'PI'}</span><div><strong>{namaAkun}</strong><small>{labelPeran}</small></div><button type="button" onClick={() => setMenuAkun(false)} aria-label="Tutup menu akun">×</button></header>{peran === 'admin' ? <Link to={RUTE.dataGuru} onClick={() => setMenuAkun(false)}>Data Guru</Link> : <Link to={RUTE.profilGuru} onClick={() => setMenuAkun(false)}>Ganti Profil</Link>}<button type="button" onClick={() => void tanganiKeluar()} disabled={sedangKeluar}>Ganti Akun</button><button className="guru-menu-akun__logout" type="button" onClick={() => void tanganiKeluar()} disabled={sedangKeluar}>Logout</button><p>Logout hanya menutup sesi. Data lokal tetap tersimpan di perangkat.</p></aside> : null}
+    {menuAkun ? <aside className="guru-menu-akun" aria-label="Menu akun"><header><span className="guru-sidebar__avatar">{inisial(namaAkun) || 'PI'}</span><div><strong>{namaAkun}</strong><small>{labelPeran}</small></div><button type="button" onClick={() => setMenuAkun(false)} aria-label="Tutup menu akun">×</button></header>{peran === 'admin' ? <Link to={RUTE.dataGuru} onClick={() => setMenuAkun(false)}>Data Guru</Link> : <Link to={RUTE.profilGuru} onClick={() => setMenuAkun(false)}>Ganti Profil</Link>}<button className="guru-menu-akun__logout" type="button" onClick={() => void tanganiKeluar()} disabled={sedangKeluar}>Logout</button><p>Logout hanya menutup sesi. Data lokal tetap tersimpan di perangkat.</p></aside> : null}
   </div>;
 }

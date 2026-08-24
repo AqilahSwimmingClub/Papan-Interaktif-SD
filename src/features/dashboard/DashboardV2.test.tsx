@@ -37,6 +37,9 @@ describe('dashboard V2 dan alat kelas', () => {
     render(<MemoryRouter initialEntries={[RUTE.dasbor]}><AuthProvider><AppRoutes /></AuthProvider></MemoryRouter>);
     const navigasi = await screen.findByRole('complementary', { name: 'Navigasi utama' });
     expect(within(navigasi).getByText('Data Guru')).toBeVisible();
+    expect(within(navigasi).getByText('Konfigurasi AI')).toBeVisible();
+    expect(within(navigasi).queryByText('Logout')).toBeNull();
+    expect(within(navigasi).getByRole('link', { name: 'Dashboard' }).querySelector('svg')).toBeTruthy();
     expect(within(navigasi).queryByText('Game Edukasi')).toBeNull();
     expect(screen.getByTestId('beranda-terlindungi')).toHaveAttribute('data-dashboard-role', 'admin');
   });

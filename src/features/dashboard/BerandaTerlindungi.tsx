@@ -6,6 +6,7 @@ import { bacaRingkasanKurikulum, daftarKelas, type RingkasanKelas, type Ringkasa
 import { bacaGuru } from '../../lib/storage/pelengkapRepo';
 import { log } from '../../lib/errors/logger';
 import { RUTE, ruteMapel } from '../../routes/paths';
+import { AppIcon } from '../../components/AppIcon';
 import './beranda-terlindungi.css';
 
 function sapaanSekarang(): string {
@@ -64,10 +65,11 @@ export function BerandaTerlindungi() {
       <article className="kartu-statistik"><p>Status perangkat</p><strong>Offline</strong><small>penyimpanan lokal siap</small></article>
     </section>
     <section className="kisi-dashboard-v2" aria-label="Menu Admin">
-      <Link to={RUTE.dataGuru}><span>👥</span><strong>Data Guru</strong><small>Tambah, edit, penugasan kelas, dan status akun.</small></Link>
-      <Link to={RUTE.resetPasswordGuru}><span>🔑</span><strong>Reset Password Guru</strong><small>Pemulihan sandi oleh Admin perangkat.</small></Link>
-      <Link to={RUTE.profilSekolah}><span>🏫</span><strong>Edit Profil Sekolah</strong><small>Identitas sekolah untuk kop dan tampilan.</small></Link>
-      <Link to={RUTE.backup}><span>⇩</span><strong>Backup & Restore</strong><small>Cadangkan data lokal dengan aman.</small></Link>
+      <Link to={RUTE.dataGuru}><span><AppIcon name="teachers"/></span><strong>Data Guru</strong><small>Tambah, edit, penugasan kelas, dan status akun.</small></Link>
+      <Link to={RUTE.resetPasswordGuru}><span><AppIcon name="key"/></span><strong>Reset Password Guru</strong><small>Pemulihan sandi oleh Admin perangkat.</small></Link>
+      <Link to={RUTE.profilSekolah}><span><AppIcon name="school"/></span><strong>Edit Profil Sekolah</strong><small>Identitas sekolah untuk kop dan tampilan.</small></Link>
+      <Link to={RUTE.backup}><span><AppIcon name="backup"/></span><strong>Backup & Restore</strong><small>Cadangkan data lokal dengan aman.</small></Link>
+      <Link to={RUTE.konfigurasiAi}><span><AppIcon name="ai"/></span><strong>Konfigurasi AI</strong><small>Pilih OpenAI atau Gemini dan periksa status backend.</small></Link>
     </section>
   </main>;
 

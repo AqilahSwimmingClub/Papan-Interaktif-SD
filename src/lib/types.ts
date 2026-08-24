@@ -188,6 +188,10 @@ export interface Guru {
   peran: 'kepala_sekolah' | 'operator' | 'guru';
   kelas_diampu: number[];
   mapel_diampu: string[];
+  /** Rombel menjadi bagian scope data bersama guru, kelas, dan tahun ajaran. */
+  rombel?: string;
+  /** Cabang Seni mengikuti konfigurasi konten/buku sekolah, bukan penugasan mapel manual. */
+  cabang_seni?: Array<'RUPA' | 'SMUS' | 'TARI' | 'TEATER'>;
   /** Foto profil lokal; tidak pernah dikirim ke layanan AI. */
   foto_data_url?: string | null;
 }

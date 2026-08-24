@@ -99,16 +99,16 @@ describe('layar Tahap 2', () => {
     expect(screen.getByText(/^TP-MAT-/)).toBeVisible();
   });
 
-  it('menampilkan aksi akun yang jelas dan ganti akun hanya menutup sesi', async () => {
+  it('menampilkan satu aksi Logout dan hanya menutup sesi', async () => {
     const pengguna = userEvent.setup();
     await pasangTahap2(RUTE.dasbor);
     const tombol = await screen.findAllByRole('button', { name: 'Buka menu akun' });
     await pengguna.click(tombol[0]!);
     expect(screen.getAllByRole('link', { name: 'Data Guru' }).at(-1)).toBeVisible();
-    expect(screen.getByRole('button', { name: 'Ganti Akun' })).toBeVisible();
     expect(screen.getByRole('button', { name: 'Logout' })).toBeVisible();
+    expect(screen.queryByRole('button', { name: 'Ganti Akun' })).toBeNull();
     expect(screen.getByText(/Logout hanya menutup sesi/)).toBeVisible();
-    await pengguna.click(screen.getByRole('button', { name: 'Ganti Akun' }));
+    await pengguna.click(screen.getByRole('button', { name: 'Logout' }));
     expect(await screen.findByTestId('layar-login')).toBeVisible();
     expect(await perangkatSudahPunyaAdmin()).toBe(true);
   });

@@ -30,7 +30,7 @@ export interface PermintaanGenerasiAi {
     tpId: string;
     cp: string;
     tp: string;
-    referensi: Array<{ judul: string; bab: string; lingkupIzin: string }>;
+    referensi: Array<{ judul: string; bab: string; topik: string; materiSumber: string; lingkupIzin: string }>;
     terverifikasi: true;
   };
   provider?: ProviderAi;
@@ -48,6 +48,7 @@ export function simpanProviderAi(provider: ProviderAi): void {
 }
 
 export type KodeGalatAi = 'AI_OFFLINE' | 'AI_NOT_CONFIGURED' | 'AI_TIMEOUT' | 'AI_RATE_LIMIT' | 'AI_INVALID_RESPONSE' | 'AI_SERVICE_ERROR';
+export type StatusOperasionalAi = 'SIAP' | 'API KEY BELUM TERSEDIA' | 'SERVER TIDAK DAPAT DIJANGKAU' | 'RATE LIMIT' | 'TIMEOUT' | 'OFFLINE' | 'ERROR PROVIDER';
 
 export class GalatAi extends Error {
   readonly kode: KodeGalatAi;
@@ -69,6 +70,16 @@ export function endpointAi(): string {
     : '/api/ai/generate';
 }
 
+export function statusOperasionalAi(galat: unknown): StatusOperasionalAi {
+  if (!(galat instanceof GalatAi)) return 'ERROR PROVIDER';
+  if (galat.kode === 'AI_NOT_CONFIGURED') return 'API KEY BELUM TERSEDIA';
+  if (galat.kode === 'AI_TIMEOUT') return 'TIMEOUT';
+  if (galat.kode === 'AI_RATE_LIMIT') return 'RATE LIMIT';
+  if (galat.kode === 'AI_OFFLINE') return 'OFFLINE';
+  if (galat.kode === 'AI_SERVICE_ERROR') return 'SERVER TIDAK DAPAT DIJANGKAU';
+  return 'ERROR PROVIDER';
+}
+
 export interface StatusKonfigurasiAi {
   providerAktif: ProviderAi;
   provider: Record<ProviderAi, { tersedia: boolean; model: string }>;
@@ -84,7 +95,11 @@ export async function bacaStatusKonfigurasiAi(provider: ProviderAi = bacaProvide
   try {
     const respons = await fetch(`${endpointAi()}?provider=${provider}`, { method: 'GET', signal: pengendali.signal });
     const data = await respons.json().catch(() => null) as { ok?: boolean; status?: StatusKonfigurasiAi } | null;
-    if (!respons.ok || !data?.ok || !data.status) throw new GalatAi('AI_SERVICE_ERROR', 'Status konfigurasi AI tidak dapat dibaca dari server.');
+    if (!respons.ok || !data?.ok || !data.status) {
+      if (respons.status === 429) throw new GalatAi('AI_RATE_LIMIT', 'Status AI terkena rate limit.');
+      if (respons.status === 504) throw new GalatAi('AI_TIMEOUT', 'Pemeriksaan status AI melewati batas waktu.');
+      throw new GalatAi('AI_SERVICE_ERROR', 'Status konfigurasi AI tidak dapat dibaca dari server.');
+    }
     return data.status;
   } catch (galat) {
     if (galat instanceof GalatAi) throw galat;
@@ -132,7 +147,11 @@ async function sekali(permintaan: PermintaanGenerasiAi, batasMs: number): Promis
         : 'Layanan AI sedang tidak dapat digunakan.';
       throw new GalatAi(kode, data?.pesan ?? pesanBawaan);
     }
-    return validasiHasil(data.hasil);
+    const hasil = validasiHasil(data.hasil);
+    if (permintaan.kendali.paket_bank_soal && hasil.butir.length !== 25) {
+      throw new GalatAi('AI_INVALID_RESPONSE', 'Bank Soal harus berisi tepat 25 soal. Silakan regenerate.');
+    }
+    return hasil;
   } catch (galat) {
     if (galat instanceof GalatAi) throw galat;
     if (galat instanceof DOMException && galat.name === 'AbortError') throw new GalatAi('AI_TIMEOUT', 'Layanan AI melewati batas waktu. Coba lagi.');

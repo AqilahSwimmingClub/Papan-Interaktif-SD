@@ -8,6 +8,7 @@ import type {
   TujuanPembelajaran,
 } from '../types';
 import { DATA_KURIKULUM_FINAL, VERSI_SEED_KURIKULUM } from '../kurikulum/kurikulumSeed';
+import { getFaseByKelas, getKodeKurikulumAktifByKelas, getMapelAktifByKelas } from '../kelasMapel';
 import { TOKO, jalankanTransaksi, kueri, type NamaToko } from './db';
 import { bacaPenanda, KUNCI_PERANGKAT, tulisPenanda } from './perangkatRepo';
 
@@ -140,12 +141,11 @@ export async function bacaRingkasanKurikulum(): Promise<RingkasanKurikulum> {
 export async function daftarKelas(): Promise<RingkasanKelas[]> {
   await pastikanKurikulumTersedia();
   return jalankanTransaksi(
-    [TOKO.jenjangKelas, TOKO.mataPelajaran, TOKO.tp],
+    [TOKO.jenjangKelas, TOKO.tp],
     'readonly',
     async (toko) => {
-      const [kelas, mapel, tp] = await Promise.all([
+      const [kelas, tp] = await Promise.all([
         kueri.semua<JenjangKelas>(toko(TOKO.jenjangKelas)),
-        kueri.semua<MataPelajaran>(toko(TOKO.mataPelajaran)),
         kueri.semua<TujuanPembelajaran>(toko(TOKO.tp)),
       ]);
       return kelas
@@ -154,9 +154,7 @@ export async function daftarKelas(): Promise<RingkasanKelas[]> {
           tingkat: baris.tingkat,
           fase_kode: baris.fase_kode,
           jumlahTp: tp.filter((tujuan) => tujuan.tingkat_kelas === baris.tingkat).length,
-          jumlahPilihanMapel: mapel.filter((item) =>
-            item.kelas_tersedia.includes(baris.tingkat),
-          ).length,
+          jumlahPilihanMapel: getMapelAktifByKelas(baris.tingkat).length,
         }));
     },
   );
@@ -164,7 +162,7 @@ export async function daftarKelas(): Promise<RingkasanKelas[]> {
 
 export async function daftarMapelUntukKelas(tingkat: number): Promise<RingkasanMapel[]> {
   await pastikanKurikulumTersedia();
-  const faseKode = tingkat <= 2 ? 'A' : tingkat <= 4 ? 'B' : 'C';
+  const faseKode = getFaseByKelas(tingkat);
   return jalankanTransaksi(
     [TOKO.mataPelajaran, TOKO.cp, TOKO.elemen, TOKO.tp],
     'readonly',
@@ -176,8 +174,18 @@ export async function daftarMapelUntukKelas(tingkat: number): Promise<RingkasanM
         kueri.semua<TujuanPembelajaran>(toko(TOKO.tp)),
       ]);
 
-      return mapel
-        .filter((item) => item.kelas_tersedia.includes(tingkat))
+      const aktif = getKodeKurikulumAktifByKelas(tingkat);
+      const sumber: MataPelajaran[] = [...mapel];
+      if (!sumber.some((item) => item.kode === 'BSUN')) sumber.push({
+        kode: 'BSUN', nama: 'Bahasa Sunda', fase_tersedia: ['A', 'B', 'C'],
+        kelas_tersedia: [1, 2, 3, 4, 5, 6], status: 'sesuai_konfigurasi_sekolah',
+        punya_cabang: false, agama_kode: null, dasar_hukum: 'Mapel aktif SDN Satria Jaya 01',
+      });
+      return sumber
+        .filter((item) => aktif.has(item.kode) && (item.kelas_tersedia.includes(tingkat) || item.kode === 'BING'))
+        .map((item) => item.kode === 'BING'
+          ? { ...item, kelas_tersedia: [1, 2, 3, 4, 5, 6], status: 'sesuai_konfigurasi_sekolah' as const }
+          : item)
         .map((item) => {
           const cpMapel = cp.filter(
             (capaian) => capaian.mapel_kode === item.kode && capaian.fase_kode === faseKode,
@@ -207,7 +215,7 @@ export async function bacaDetailMapelKelas(
   mapelKode: string,
 ): Promise<DetailMapelKelas | null> {
   await pastikanKurikulumTersedia();
-  const faseKode = tingkat <= 2 ? 'A' : tingkat <= 4 ? 'B' : 'C';
+  const faseKode = getFaseByKelas(tingkat);
   return jalankanTransaksi(
     [TOKO.jenjangKelas, TOKO.mataPelajaran, TOKO.cp, TOKO.elemen, TOKO.tp, TOKO.dokumenKurikulum],
     'readonly',

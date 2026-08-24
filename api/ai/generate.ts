@@ -55,6 +55,8 @@ async function panggilOpenAi(url: string, kunci: string, model: string, body: Re
 function instruksiSistem(jenis: unknown): string {
   const dasar = 'Anda membantu guru SD Indonesia. Gunakan CP dan TP hanya sebagai acuan kompetensi. Jangan mengarang atau mengutip ulang teks kurikulum sebagai pertanyaan. Gunakan materi dan metadata referensi yang diberikan.';
   if (jenis === 'game') return `${dasar} Buat misi game visual dan interaktif sesuai engine: objek yang dapat diseret, dipasangkan, disusun, ditangkap, atau dimanipulasi. Jangan membuat kuis A-E dan jangan menanyakan CP/TP. Kembalikan JSON terstruktur seperti keluaran lain; setiap pertanyaan adalah instruksi aksi singkat dan pilihan adalah objek atau kartu permainan.`;
+  if (jenis === 'lkpd') return `${dasar} Buat LKPD SD yang tidak berupa tembok teks. Wajib mencakup identitas, judul, tujuan, petunjuk, pengantar singkat, aktivitas individu/kelompok, ruang jawaban atau tabel pengamatan, kesimpulan, dan refleksi. Setiap butir adalah satu kartu aktivitas yang dapat diedit.`;
+  if (jenis === 'soal') return `${dasar} Bila paket bank soal diminta, hasilkan tepat 25 butir: 10 pilihan ganda dengan satu kunci dan distraktor masuk akal, 10 menjodohkan dengan pasangan jelas, dan 5 esai dengan kunci/rubrik. Jangan duplikat dan sesuaikan tingkat kesulitan.`;
   return dasar;
 }
 
@@ -110,12 +112,15 @@ export default async function handler(permintaan: PermintaanVercel, respons: Res
   if (aktif.length >= 10) return kirim(respons, 429, { ok: false, kode: 'AI_RATE_LIMIT', pesan: 'Batas permintaan AI tercapai. Tunggu satu menit lalu coba lagi.' });
   riwayat.set(ip, [...aktif, sekarang]);
 
-  const body = permintaan.body as { prompt?: unknown; jenis?: unknown; jumlah?: unknown; provider?: unknown; konteks?: { cp?: unknown; tp?: unknown; terverifikasi?: unknown } } | null;
+  const body = permintaan.body as { prompt?: unknown; jenis?: unknown; jumlah?: unknown; provider?: unknown; kendali?: { reference_gated?: unknown }; konteks?: { cp?: unknown; tp?: unknown; terverifikasi?: unknown; referensi?: unknown[] } } | null;
   if (!body || typeof body.prompt !== 'string' || !body.prompt.trim() || body.prompt.length > 12_000 || typeof body.jenis !== 'string') {
     return kirim(respons, 400, { ok: false, kode: 'AI_SERVICE_ERROR', pesan: 'Permintaan AI tidak valid.' });
   }
   if (!body.konteks || body.konteks.terverifikasi !== true || typeof body.konteks.cp !== 'string' || typeof body.konteks.tp !== 'string') {
     return kirim(respons, 400, { ok: false, kode: 'AI_SERVICE_ERROR', pesan: 'CP/TP terverifikasi wajib tersedia.' });
+  }
+  if (body.kendali?.reference_gated === true && (!Array.isArray(body.konteks.referensi) || body.konteks.referensi.length === 0)) {
+    return kirim(respons, 400, { ok: false, kode: 'AI_SERVICE_ERROR', pesan: 'Referensi pembelajaran belum tersedia.' });
   }
 
   const provider = body.provider === 'gemini' ? 'gemini' : body.provider === 'openai' ? 'openai' : providerDiminta;

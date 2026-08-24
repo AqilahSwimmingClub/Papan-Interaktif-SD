@@ -95,11 +95,16 @@ export function CpTpScreen() {
   }
 
   if (!detail || !validTingkat) {
+    const namaTanpaData = mapelKode === 'BSUN'
+      ? 'Bahasa Sunda'
+      : mapelKode === 'BING' && validTingkat && tingkat < 3
+        ? 'Bahasa Inggris'
+        : null;
     return (
       <main className="halaman-kurikulum">
         <div className="keadaan-kosong keadaan-kosong--galat">
-          <h1>Data mata pelajaran tidak ditemukan</h1>
-          <p>Pilih kembali kelas dan mata pelajaran yang tersedia.</p>
+          <h1>{namaTanpaData ?? 'Data mata pelajaran tidak ditemukan'}</h1>
+          <p>{namaTanpaData ? `Mapel ${namaTanpaData} aktif untuk sekolah, tetapi CP/TP final kelas ini belum tersedia di dataset project. Aplikasi tidak mengarang data pengganti.` : 'Pilih kembali kelas dan mata pelajaran yang tersedia.'}</p>
           <Link className="tombol-guru tombol-guru--utama" to={RUTE.kelas}>
             Pilih Kelas
           </Link>

@@ -4,17 +4,11 @@ import {
   daftarMapelUntukKelas,
   type RingkasanMapel,
 } from '../../lib/storage/kurikulumRepo';
-import type { KodeFase } from '../../lib/types';
 import { log } from '../../lib/errors/logger';
+import { getFaseByKelas } from '../../lib/kelasMapel';
 import { useKurikulum } from '../../state/useKurikulum';
 import { RUTE, ruteCpTp } from '../../routes/paths';
 import './kurikulum.css';
-
-function faseKelas(tingkat: number): KodeFase {
-  if (tingkat <= 2) return 'A';
-  if (tingkat <= 4) return 'B';
-  return 'C';
-}
 
 function labelStatus(mapel: RingkasanMapel): string {
   if (mapel.status === 'wajib') return 'Wajib';
@@ -28,7 +22,7 @@ export function PilihMapelScreen() {
   const { tingkat: tingkatParam } = useParams();
   const tingkat = Number(tingkatParam);
   const valid = Number.isInteger(tingkat) && tingkat >= 1 && tingkat <= 6;
-  const faseKode = valid ? faseKelas(tingkat) : 'A';
+  const faseKode = valid ? getFaseByKelas(tingkat) : 'A';
   const { pilihKelas } = useKurikulum();
   const [mapel, setMapel] = useState<RingkasanMapel[]>([]);
   const [gagal, setGagal] = useState(false);
@@ -116,9 +110,7 @@ export function PilihMapelScreen() {
           <h1>Mata pelajaran Kelas {tingkat}</h1>
           <p>CP, elemen, dan TP di bawah dihitung langsung dari database lokal final.</p>
         </div>
-        <Link className="tombol-guru tombol-guru--sekunder" to="/fitur/pengaturan-kurikulum">
-          Atur mapel pilihan
-        </Link>
+        <span className="badge-mapel">Mapel sekolah aktif otomatis</span>
       </header>
 
       {gagal ? (

@@ -53,10 +53,10 @@ describe('restruktur data Guru, siswa, kelompok, dan penilaian', () => {
     expect((await daftarKelompokKelas(kelas.id))[0]?.poin_total).toBe(80);
   });
 
-  it('membaca template Guru minimal dengan pratinjau kelas dan mapel', async () => {
-    const lembar = XLSX.utils.json_to_sheet([{ Nama: 'Guru A', Username: 'guru.a', Kelas: '1,2', Peran: 'guru', Mapel: 'MAT,BI' }]);
+  it('membaca template Guru minimal tanpa pemilihan mapel manual', async () => {
+    const lembar = XLSX.utils.json_to_sheet([{ Nama: 'Guru A', Username: 'guru.a', Kelas: '1,2', Rombel: 'B', Status: 'Aktif' }]);
     const buku = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(buku, lembar, 'Guru');
     const data = XLSX.write(buku, { type: 'array', bookType: 'xlsx' }) as ArrayBuffer;
-    expect((await bacaExcelGuru(data))[0]).toMatchObject({ valid: true, nama: 'Guru A', username: 'guru.a', kelas: [1,2], mapel: ['MAT','BI'] });
+    expect((await bacaExcelGuru(data))[0]).toMatchObject({ valid: true, nama: 'Guru A', username: 'guru.a', kelas: [1,2], rombel: 'B', aktif: true });
   });
 });

@@ -2,6 +2,7 @@ import { AppError } from '../errors/AppError';
 import type {
   HalamanPapan,
   HasilBelajar,
+  Guru,
   Kelas,
   Kelompok,
   SesiPembelajaran,
@@ -10,12 +11,7 @@ import type {
   TujuanPembelajaran,
 } from '../types';
 import { TOKO, jalankanTransaksi, kueri } from './db';
-
-function faseUntukTingkat(tingkat: number): 'A' | 'B' | 'C' {
-  if (tingkat <= 2) return 'A';
-  if (tingkat <= 4) return 'B';
-  return 'C';
-}
+import { getFaseByKelas } from '../kelasMapel';
 
 function tahunAjaranSekarang(): TahunAjaran {
   const sekarang = new Date();
@@ -30,13 +26,18 @@ function tahunAjaranSekarang(): TahunAjaran {
   };
 }
 
-export async function pastikanKelasKerja(tingkat: number, guruId: string): Promise<Kelas> {
+export async function pastikanKelasKerja(tingkat: number, guruId: string, rombelMentah?: string): Promise<Kelas> {
   if (!Number.isInteger(tingkat) || tingkat < 1 || tingkat > 6) {
     throw new AppError('VALIDASI', 'Tingkat kelas harus berada pada rentang 1–6.');
   }
+  const profil = rombelMentah === undefined
+    ? await jalankanTransaksi(TOKO.guru, 'readonly', (toko) => kueri.ambil<Guru>(toko(TOKO.guru), guruId))
+    : undefined;
+  const rombel = (rombelMentah ?? profil?.rombel ?? 'A').trim().toLocaleUpperCase('id') || 'A';
+  if (!/^[A-Z0-9 -]{1,20}$/.test(rombel)) throw new AppError('VALIDASI', 'Rombel hanya boleh berisi huruf, angka, spasi, atau tanda hubung.');
   const tahun = tahunAjaranSekarang();
   const idLama = `KELAS-${tingkat}-A-${tahun.id}`;
-  const id = `KELAS-${guruId}-${tingkat}-A-${tahun.id}`;
+  const id = `KELAS-${guruId}-${tingkat}-${rombel.replace(/\s+/g, '-')}-${tahun.id}`;
   return jalankanTransaksi([TOKO.tahunAjaran, TOKO.kelas], 'readwrite', async (toko) => {
     const kelasLama = await kueri.ambil<Kelas>(toko(TOKO.kelas), idLama);
     // Pertahankan kelas Tahap 1-11 bila memang milik guru yang sedang masuk.
@@ -48,9 +49,9 @@ export async function pastikanKelasKerja(tingkat: number, guruId: string): Promi
     const kelas: Kelas = {
       id,
       tingkat,
-      fase_kode: faseUntukTingkat(tingkat),
+      fase_kode: getFaseByKelas(tingkat),
       tahun_ajaran_id: tahun.id,
-      rombel: 'A',
+      rombel,
       wali_guru_id: guruId,
       jumlah_siswa: 0,
     };

@@ -56,6 +56,8 @@ export interface KonteksAiTerpercaya {
     id: string;
     judul: string;
     bab: string;
+    topik: string;
+    materi_sumber: string;
     lingkup_izin: ReferensiPembelajaran['lingkup_izin'];
   }>;
 }
@@ -95,6 +97,8 @@ export async function bacaKonteksAiTerpercaya(
           id: sumber.id,
           judul: sumber.judul,
           bab: `${bab.nomor_tampil} ${bab.judul_bab}`.trim(),
+          topik: bab.judul_bab,
+          materi_sumber: bab.ruang_lingkup,
           lingkup_izin: sumber.lingkup_izin,
         });
       }

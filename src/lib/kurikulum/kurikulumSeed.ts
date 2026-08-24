@@ -15,6 +15,7 @@ import type {
   StatusMataPelajaran,
   TujuanPembelajaran,
 } from '../types';
+import { getFaseByKelas } from '../kelasMapel';
 
 interface MasterMapel {
   kode: string;
@@ -130,15 +131,9 @@ const FASE: Fase[] = [
   },
 ];
 
-function faseUntukKelas(tingkat: number): KodeFase {
-  if (tingkat <= 2) return 'A';
-  if (tingkat <= 4) return 'B';
-  return 'C';
-}
-
 const JENJANG: JenjangKelas[] = Array.from({ length: 6 }, (_, indeks) => {
   const tingkat = indeks + 1;
-  return { tingkat, fase_kode: faseUntukKelas(tingkat), nama: `Kelas ${tingkat}` };
+  return { tingkat, fase_kode: getFaseByKelas(tingkat), nama: `Kelas ${tingkat}` };
 });
 
 const MAPEL: MataPelajaran[] = master.mata_pelajaran.map((baris) => ({

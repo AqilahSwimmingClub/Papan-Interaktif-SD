@@ -14,6 +14,8 @@ describe('halaman konfigurasi AI Admin', () => {
     const pengguna = userEvent.setup();
     render(<MemoryRouter><KonfigurasiAiScreen/></MemoryRouter>);
     expect((await screen.findAllByText('✓ API key terdeteksi')).length).toBe(2);
+    expect(screen.getByText('SIAP')).toBeVisible();
+    expect(screen.queryByText('Password minimal 8 karakter.')).toBeNull();
     await pengguna.selectOptions(screen.getByLabelText('Provider AI'), 'gemini');
     await pengguna.click(screen.getByRole('button', { name: 'Simpan konfigurasi provider' }));
     expect(localStorage.getItem(KUNCI_PROVIDER_AI)).toBe('gemini');

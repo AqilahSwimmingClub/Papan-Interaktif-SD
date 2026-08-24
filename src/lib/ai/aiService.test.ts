@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { GalatAi, mintaGenerasiAi, type PermintaanGenerasiAi } from './aiService';
+import { bacaStatusKonfigurasiAi, GalatAi, mintaGenerasiAi, statusOperasionalAi, type PermintaanGenerasiAi } from './aiService';
 
 const permintaan: PermintaanGenerasiAi = {
   jenis: 'soal', prompt: 'Buat soal.', jumlah: 1, kendali: {},
@@ -70,5 +70,20 @@ describe('layanan AI client', () => {
     await vi.advanceTimersByTimeAsync(700);
     await penolakan;
     vi.useRealTimers();
+  });
+
+  it('membedakan backend unavailable dari API key yang belum tersedia', async () => {
+    jaringan(true);
+    vi.spyOn(globalThis, 'fetch').mockRejectedValue(new TypeError('Failed to fetch'));
+    let tertangkap: unknown;
+    try { await bacaStatusKonfigurasiAi('openai'); } catch (galat) { tertangkap = galat; }
+    expect(statusOperasionalAi(tertangkap)).toBe('SERVER TIDAK DAPAT DIJANGKAU');
+    expect(statusOperasionalAi(new GalatAi('AI_NOT_CONFIGURED', 'Belum ada key'))).toBe('API KEY BELUM TERSEDIA');
+  });
+
+  it('menolak paket Bank Soal yang tidak berisi tepat 25 soal', async () => {
+    jaringan(true);
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue({ ok: true, status: 200, json: async () => ({ ok: true, hasil: { judul: 'Bank Soal', ringkasan: 'Draf', butir: [{ pertanyaan: 'Satu soal', jawaban: 'Kunci', pilihan: [], pembahasan: '', rubrik: '' }] } }) } as Response);
+    await expect(mintaGenerasiAi({ ...permintaan, jumlah: 25, kendali: { paket_bank_soal: '10 pilihan ganda + 10 menjodohkan + 5 esai' } })).rejects.toMatchObject({ kode: 'AI_INVALID_RESPONSE' });
   });
 });
