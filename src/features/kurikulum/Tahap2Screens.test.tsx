@@ -104,14 +104,13 @@ describe('layar kelas dan mata pelajaran', () => {
     expect(await screen.findByText('Matematika Kelas 1 Sekolah Kami')).toBeVisible();
   }, 15_000);
 
-  it('menampilkan menu Game Edukasi dengan pesan menunggu buku, tanpa katalog lama', async () => {
+  it('menampilkan katalog Game Edukasi IPAS Kelas 5 yang playable', async () => {
     await bukaSebagaiAdmin(RUTE.game);
 
     expect(await screen.findByTestId('katalog-game')).toBeInTheDocument();
-    expect(
-      screen.getByText('Konten Game Edukasi akan tersedia setelah Buku Referensi dimasukkan.'),
-    ).toBeVisible();
-    expect(screen.queryByRole('link', { name: /Mainkan/ })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Game Edukasi' })).toBeVisible();
+    expect(screen.getByText('40', { selector: '.game-katalog__angka strong' })).toBeVisible();
+    expect(screen.getAllByRole('link', { name: /Mainkan/ })).toHaveLength(40);
     expect(screen.queryByText(/engine reusable/)).not.toBeInTheDocument();
   });
 
