@@ -7,6 +7,7 @@ const BAB = [
   { nomor:1, ikon:'🔦', judul:'Melihat karena Cahaya, Mendengar karena Bunyi', ringkas:'Cahaya dan sifatnya · melihat karena cahaya · bunyi dan sifatnya · mendengar karena bunyi.' },
   { nomor:2, ikon:'🌿', judul:'Harmoni dalam Ekosistem', ringkas:'Memakan dan dimakan · transfer energi antarmakhluk hidup · ekosistem yang harmonis.' },
   { nomor:3, ikon:'🧲', judul:'Magnet, Listrik, dan Teknologi untuk Kehidupan', ringkas:'Magnet · energi listrik · rangkaian sederhana · pemanfaatan teknologi.' },
+  { nomor:4, ikon:'🌍', judul:'Ayo Berkenalan dengan Bumi Kita', ringkas:'Bentuk permukaan Bumi · perubahan bentang alam · erosi · sedimentasi.' },
 ] as const;
 
 export function Kelas5IpasHubScreen(){
