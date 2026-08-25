@@ -71,13 +71,13 @@ describe('struktur kurikulum tanpa CP/TP lama', () => {
     expect(referensi).toHaveLength(0);
   });
 
-  it('menyemai kelas dan mata pelajaran, dengan buku referensi masih kosong', async () => {
+  it('menyemai kelas, mata pelajaran, dan buku master Kelas 5', async () => {
     expect(await bacaRingkasanKurikulum()).toEqual({
       jumlahKelas: 6,
       jumlahMapel: 17,
-      jumlahBuku: 0,
-      jumlahBab: 0,
-      jumlahTopik: 0,
+      jumlahBuku: 7,
+      jumlahBab: 33,
+      jumlahTopik: 70,
     });
   });
 
@@ -87,13 +87,14 @@ describe('struktur kurikulum tanpa CP/TP lama', () => {
 
     const sebelum = await daftarKelas();
     expect(sebelum).toHaveLength(6);
-    expect(sebelum.map((kelas) => kelas.jumlahBuku)).toEqual([0, 0, 0, 0, 0, 0]);
+    expect(sebelum.map((kelas) => kelas.jumlahBuku)).toEqual([0, 0, 0, 0, 7, 0]);
     expect(sebelum.every((kelas) => kelas.jumlahPilihanMapel > 0)).toBe(true);
 
     await daftarkanBukuUji();
     const sesudah = await daftarKelas();
     expect(sesudah[0]?.jumlahBuku).toBe(1);
     expect(sesudah[1]?.jumlahBuku).toBe(0);
+    expect(sesudah[4]?.jumlahBuku).toBe(7);
   });
 
   it('menghitung buku, bab, dan topik per mata pelajaran', async () => {
@@ -109,9 +110,9 @@ describe('struktur kurikulum tanpa CP/TP lama', () => {
   it('mencerminkan buku terdaftar pada ringkasan kurikulum', async () => {
     await daftarkanBukuUji();
     expect(await bacaRingkasanKurikulum()).toMatchObject({
-      jumlahBuku: 1,
-      jumlahBab: 1,
-      jumlahTopik: 1,
+      jumlahBuku: 8,
+      jumlahBab: 34,
+      jumlahTopik: 71,
     });
   });
 });
