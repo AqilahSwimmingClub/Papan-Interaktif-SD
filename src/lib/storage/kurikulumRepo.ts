@@ -7,6 +7,7 @@ import type {
   MataPelajaran,
 } from '../types';
 import { DATA_KURIKULUM_FINAL, VERSI_SEED_KURIKULUM } from '../kurikulum/kurikulumSeed';
+import { semaiReferensiMasterKelas1 } from '../referensi/kelas1MasterSeed';
 import { semaiReferensiMasterKelas5 } from '../referensi/kelas5MasterSeed';
 import { TOKO, jalankanTransaksi, kueri, type NamaToko } from './db';
 import { bacaPenanda, KUNCI_PERANGKAT, tulisPenanda } from './perangkatRepo';
@@ -65,12 +66,13 @@ export function lepaskanPenandaSeedKurikulum(): void {
   prosesSeed = null;
 }
 
-/** Seed idempoten struktur kurikulum dan referensi master Kelas 5. */
+/** Seed idempoten struktur kurikulum dan referensi master yang sudah terverifikasi. */
 export async function pastikanKurikulumTersedia(): Promise<void> {
   if (prosesSeed) return prosesSeed;
 
   const operasi = (async () => {
     await semaiBilaPerlu();
+    await semaiReferensiMasterKelas1();
     await semaiReferensiMasterKelas5();
   })();
   prosesSeed = operasi;
