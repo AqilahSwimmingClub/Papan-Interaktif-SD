@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
+import { RUTE } from '../../routes/paths';
 import { aksiPembelajaranKelas5 } from './kelas5LearningRoutes';
 
 describe('aksiPembelajaranKelas5', () => {
-  it('memberi IPAS akses ke game, vlab, kuis, LKPD, dan bank soal', () => {
+  it('memberi IPAS akses ke game, vlab, kuis, LKPD, dan bank soal lewat rute aplikasi', () => {
     expect(aksiPembelajaranKelas5('IPAS')).toEqual([
-      ['Game Edukasi', '/game'],
-      ['VLAB', '/vlab'],
+      ['Game Edukasi', RUTE.game],
+      ['VLAB', RUTE.vlab],
       ['Kuis', '/pembelajaran/kuis'],
       ['LKPD', '/pembelajaran/lkpd'],
       ['Bank Soal', '/pembelajaran/bank-soal'],
