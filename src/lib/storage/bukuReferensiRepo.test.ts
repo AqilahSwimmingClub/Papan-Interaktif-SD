@@ -143,7 +143,7 @@ describe('rantai Buku Referensi', () => {
     const laporan = await auditIntegritasKurikulum();
 
     expect(laporan.masalah).toEqual([]);
-    expect(laporan.jumlah).toMatchObject({ kelas: 6, buku: 8, bab: 33, topik: 70 });
+    expect(laporan.jumlah).toMatchObject({ kelas: 6, buku: 8, bab: 33, topik: 115 });
     expect(laporan.jumlah.mapel).toBeGreaterThan(0);
   });
 });
