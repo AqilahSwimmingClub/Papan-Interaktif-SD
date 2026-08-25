@@ -138,12 +138,12 @@ describe('rantai Buku Referensi', () => {
     expect(cari('vlab')?.keadaan).toBe('mandiri');
   });
 
-  it('mengaudit master Kelas 5 dan buku tambahan tanpa relasi putus', async () => {
+  it('mengaudit master Kelas 1 dan Kelas 5 serta buku tambahan tanpa relasi putus', async () => {
     await simpanBukuReferensi(BUKU);
     const laporan = await auditIntegritasKurikulum();
 
     expect(laporan.masalah).toEqual([]);
-    expect(laporan.jumlah).toMatchObject({ kelas: 6, buku: 8, bab: 33, topik: 115 });
+    expect(laporan.jumlah).toMatchObject({ kelas: 6, buku: 19, bab: 33, topik: 115 });
     expect(laporan.jumlah.mapel).toBeGreaterThan(0);
   });
 });
