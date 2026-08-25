@@ -35,7 +35,7 @@ describe('rantai Buku Referensi', () => {
     await resetPenyimpanan();
   });
 
-  it('mulai kosong tanpa buku, bab, maupun topik bawaan', async () => {
+  it('mulai kosong sebelum proses seed kurikulum dijalankan', async () => {
     expect(await daftarBukuReferensi()).toHaveLength(0);
     expect(await bacaRingkasanBukuReferensi()).toEqual({
       jumlahBuku: 0,
@@ -120,7 +120,7 @@ describe('rantai Buku Referensi', () => {
     });
   });
 
-  it('menandai simpul CP ke bawah masih menunggu buku', async () => {
+  it('menandai simpul CP ke bawah masih menunggu buku sebelum seed dijalankan', async () => {
     const rantai = await bacaRantaiReferensiTerisi();
     expect(rantai.map((simpul) => simpul.kode)).toEqual(
       RANTAI_REFERENSI.map((simpul) => simpul.kode),
@@ -134,17 +134,16 @@ describe('rantai Buku Referensi', () => {
       expect(cari(kode)?.jumlah).toBe(0);
       expect(cari(kode)?.keadaan).toBe('menunggu_buku');
     }
-    // VLAB tidak menunggu buku dan tidak dihitung sebagai baris data.
     expect(cari('vlab')?.jumlah).toBeNull();
     expect(cari('vlab')?.keadaan).toBe('mandiri');
   });
 
-  it('mengaudit struktur baru tanpa relasi putus', async () => {
+  it('mengaudit master Kelas 5 dan buku tambahan tanpa relasi putus', async () => {
     await simpanBukuReferensi(BUKU);
     const laporan = await auditIntegritasKurikulum();
 
     expect(laporan.masalah).toEqual([]);
-    expect(laporan.jumlah).toMatchObject({ kelas: 6, buku: 1, bab: 0, topik: 0 });
+    expect(laporan.jumlah).toMatchObject({ kelas: 6, buku: 8, bab: 33, topik: 70 });
     expect(laporan.jumlah.mapel).toBeGreaterThan(0);
   });
 });
