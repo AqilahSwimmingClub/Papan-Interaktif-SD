@@ -4,6 +4,9 @@ import { GAME_KELAS5_IPAS_BAB2 } from './GameKelas5RunnerScreen';
 import { GAME_KELAS5_IPAS_BAB3 } from './GameKelas5Bab3Screen';
 import { GAME_KELAS5_IPAS_BAB4 } from './GameKelas5Bab4Screen';
 import { GAME_KELAS5_IPAS_BAB5 } from './GameKelas5Bab5Screen';
+import { GAME_KELAS5_IPAS_BAB6 } from './GameKelas5Bab6Screen';
+import { GAME_KELAS5_IPAS_BAB7 } from './GameKelas5Bab7Screen';
+import { GAME_KELAS5_IPAS_BAB8 } from './GameKelas5Bab8Screen';
 import { RUTE } from '../../routes/paths';
 import './game.css';
 
@@ -13,12 +16,15 @@ const BAGIAN = [
   { bab:3, judul:'Magnet, Listrik, dan Teknologi untuk Kehidupan', ringkas:'magnet, rangkaian listrik, sumber energi, dan pemanfaatan teknologi', games:GAME_KELAS5_IPAS_BAB3, rute:(kode:string)=>`${RUTE.game}/kelas5-bab3/${kode}` },
   { bab:4, judul:'Ayo Berkenalan dengan Bumi Kita', ringkas:'bentang alam, erosi, sedimentasi, dan perubahan permukaan Bumi', games:GAME_KELAS5_IPAS_BAB4, rute:(kode:string)=>`${RUTE.game}/kelas5-bab4/${kode}` },
   { bab:5, judul:'Bagaimana Kita Hidup dan Bertumbuh', ringkas:'pernapasan, pencernaan, zat gizi, dan pertumbuhan manusia', games:GAME_KELAS5_IPAS_BAB5, rute:(kode:string)=>`${RUTE.game}/kelas5-bab5/${kode}` },
+  { bab:6, judul:'Indonesiaku Kaya Raya', ringkas:'kepulauan, keanekaragaman hayati, habitat, sumber daya alam, dan pemanfaatan bijak', games:GAME_KELAS5_IPAS_BAB6, rute:(kode:string)=>`${RUTE.game}/kelas5-bab6/${kode}` },
+  { bab:7, judul:'Daerahku Kebanggaanku', ringkas:'budaya daerah, pelestarian, alur ekonomi, potensi dan kebanggaan daerah', games:GAME_KELAS5_IPAS_BAB7, rute:(kode:string)=>`${RUTE.game}/kelas5-bab7/${kode}` },
+  { bab:8, judul:'Bumiku Sayang, Bumiku Malang', ringkas:'perubahan lingkungan, pencemaran, sampah, kota berkelanjutan, dan sebab-akibat', games:GAME_KELAS5_IPAS_BAB8, rute:(kode:string)=>`${RUTE.game}/kelas5-bab8/${kode}` },
 ] as const;
 
 export function KatalogGameScreen() {
   const total = BAGIAN.reduce((jumlah,b)=>jumlah+b.games.length,0);
   return <main className="halaman-kurikulum game-katalog" data-testid="katalog-game">
-    <header className="kop-kurikulum game-katalog__kop"><div><p className="label-data">Kelas V · master/percontohan</p><h1>Game Edukasi</h1><p>Konten playable mengikuti Buku IPAS Kelas V. Bab 1–5 sudah aktif.</p></div><div className="game-katalog__angka"><strong>{total}</strong><span>game playable</span><strong>{BAGIAN.length}</strong><span>bab aktif</span></div></header>
+    <header className="kop-kurikulum game-katalog__kop"><div><p className="label-data">Kelas V · master/percontohan</p><h1>Game Edukasi</h1><p>Konten playable mengikuti Buku IPAS Kelas V. Bab 1–8 sudah aktif.</p></div><div className="game-katalog__angka"><strong>{total}</strong><span>game playable</span><strong>{BAGIAN.length}</strong><span>bab aktif</span></div></header>
     <div className="game-rantai"><span>Kelas V</span><b>›</b><span>IPAS</span><b>›</b><span>Buku Referensi</span></div>
     {BAGIAN.map((bagian)=><section key={bagian.bab}><div className="game-catatan"><h2>Bab {bagian.bab} · {bagian.judul}</h2><p>5 game: {bagian.ringkas}.</p></div><div className="game-grid" aria-label={`Game IPAS Kelas V Bab ${bagian.bab}`}>{bagian.games.map((game,indeks)=><article className="game-card" key={game.kode}><div className={`game-card__ikon game-card__ikon--${(indeks%5)+1}`}>{game.ikon}</div><div className="game-card__isi"><p>{game.topik}</p><h2>{game.judul}</h2><small>{game.tujuan}</small><div><span>{game.mekanik}</span><span>Playable</span><span>Bab {bagian.bab}</span></div></div><Link to={bagian.rute(game.kode)}>Mainkan <span>→</span></Link></article>)}</div></section>)}
   </main>;
