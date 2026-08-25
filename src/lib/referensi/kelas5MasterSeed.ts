@@ -47,6 +47,20 @@ const TOPIK_DATA: Array<[string,string,string,string,number|null]> = [
   ['TOPIK-K5-IPAS-6-A','BAB-K5-IPAS-6','A','Bagaimana Bentuk Indonesiaku?',162], ['TOPIK-K5-IPAS-6-B','BAB-K5-IPAS-6','B','Indonesiaku Kaya Hayatinya',170], ['TOPIK-K5-IPAS-6-C','BAB-K5-IPAS-6','C','Indonesiaku Kaya Alamnya',178],
   ['TOPIK-K5-IPAS-7-A','BAB-K5-IPAS-7','A','Seperti Apakah Budaya Daerahku?',192], ['TOPIK-K5-IPAS-7-B','BAB-K5-IPAS-7','B','Kondisi Perekonomian di Daerahku',199], ['TOPIK-K5-IPAS-7-C','BAB-K5-IPAS-7','C','Wah, Ternyata Daerahku Luar Biasa!',205],
   ['TOPIK-K5-IPAS-8-A','BAB-K5-IPAS-8','A','Bumi Berubah',216], ['TOPIK-K5-IPAS-8-B','BAB-K5-IPAS-8','B','Oh, Lingkungan Jadi Rusak',222], ['TOPIK-K5-IPAS-8-C','BAB-K5-IPAS-8','C','Permasalahan Lingkungan Mengancam Kehidupan',228],
+
+  ['TOPIK-K5-BI-1-A','BAB-K5-BI-1','A','Kata sifat',null], ['TOPIK-K5-BI-1-B','BAB-K5-BI-1','B','Sinonim dan antonim',null], ['TOPIK-K5-BI-1-C','BAB-K5-BI-1','C','Makna awalan pe-',null], ['TOPIK-K5-BI-1-D','BAB-K5-BI-1','D','Kalimat majemuk setara',null], ['TOPIK-K5-BI-1-E','BAB-K5-BI-1','E','Penulisan teks deskripsi',null],
+  ['TOPIK-K5-BI-2-A','BAB-K5-BI-2','A','Unsur intrinsik cerita',null], ['TOPIK-K5-BI-2-B','BAB-K5-BI-2','B','Majas: metafora, personifikasi, dan hiperbola',null], ['TOPIK-K5-BI-2-C','BAB-K5-BI-2','C','Kalimat langsung dan tidak langsung',null], ['TOPIK-K5-BI-2-D','BAB-K5-BI-2','D','Teks naratif dan deskriptif',null],
+  ['TOPIK-K5-BI-3-A','BAB-K5-BI-3','A','Teks prosedur',null], ['TOPIK-K5-BI-3-B','BAB-K5-BI-3','B','Menulis surat',null], ['TOPIK-K5-BI-3-C','BAB-K5-BI-3','C','Awalan me-',null], ['TOPIK-K5-BI-3-D','BAB-K5-BI-3','D','Akhiran -lah dan -kan',null],
+  ['TOPIK-K5-BI-4-A','BAB-K5-BI-4','A','Ide pokok',null], ['TOPIK-K5-BI-4-B','BAB-K5-BI-4','B','Wawancara',null], ['TOPIK-K5-BI-4-C','BAB-K5-BI-4','C','Kata tanya',null], ['TOPIK-K5-BI-4-D','BAB-K5-BI-4','D','Idiom',null],
+  ['TOPIK-K5-BI-5-A','BAB-K5-BI-5','A','Singkatan dan akronim',null], ['TOPIK-K5-BI-5-B','BAB-K5-BI-5','B','Fakta dan opini',null], ['TOPIK-K5-BI-5-C','BAB-K5-BI-5','C','Iklan',null], ['TOPIK-K5-BI-5-D','BAB-K5-BI-5','D','Menulis surel',null], ['TOPIK-K5-BI-5-E','BAB-K5-BI-5','E','Menulis teks eksplanasi',null], ['TOPIK-K5-BI-5-F','BAB-K5-BI-5','F','Melakukan presentasi',null],
+  ['TOPIK-K5-BI-6-A','BAB-K5-BI-6','A','Huruf kapital',null], ['TOPIK-K5-BI-6-B','BAB-K5-BI-6','B','Kalimat perintah',null], ['TOPIK-K5-BI-6-C','BAB-K5-BI-6','C','Menulis angka dan bilangan',null], ['TOPIK-K5-BI-6-D','BAB-K5-BI-6','D','Membaca tatap atau memindai (scanning)',null], ['TOPIK-K5-BI-6-E','BAB-K5-BI-6','E','Menulis pengumuman',null],
+  ['TOPIK-K5-BI-7-A','BAB-K5-BI-7','A','Membaca sekilas (skimming)',null], ['TOPIK-K5-BI-7-B','BAB-K5-BI-7','B','Membuat ringkasan',null], ['TOPIK-K5-BI-7-C','BAB-K5-BI-7','C','Ide pokok',null], ['TOPIK-K5-BI-7-D','BAB-K5-BI-7','D','Kalimat utama dan kalimat penjelas',null], ['TOPIK-K5-BI-7-E','BAB-K5-BI-7','E','Kata penghubung',null], ['TOPIK-K5-BI-7-F','BAB-K5-BI-7','F','Imbuhan pe-an',null], ['TOPIK-K5-BI-7-G','BAB-K5-BI-7','G','Menulis teks eksposisi',null],
+  ['TOPIK-K5-BI-8-A','BAB-K5-BI-8','A','Awalan ter-',null], ['TOPIK-K5-BI-8-B','BAB-K5-BI-8','B','Kata hubung',null], ['TOPIK-K5-BI-8-C','BAB-K5-BI-8','C','Kalimat saran atau tanggapan',null], ['TOPIK-K5-BI-8-D','BAB-K5-BI-8','D','Pantun nasihat',null], ['TOPIK-K5-BI-8-E','BAB-K5-BI-8','E','Menulis naskah pidato',null], ['TOPIK-K5-BI-8-F','BAB-K5-BI-8','F','Membaca pidato',null],
+
+  ['TOPIK-K5-BING-1-A','BAB-K5-BING-1','A','Holiday Memories',null],
+  ['TOPIK-K5-BING-2-A','BAB-K5-BING-2','A','How is the Weather?',null],
+  ['TOPIK-K5-BING-3-A','BAB-K5-BING-3','A','Delicious Indonesian Food',null],
+  ['TOPIK-K5-BING-4-A','BAB-K5-BING-4','A','Where is the Post Office?',null],
 ];
 
 export const TOPIK_MASTER_KELAS5: BukuTopik[] = TOPIK_DATA.map(([id,bab_id,nomor_tampil,judul_topik,halaman_awal],urutan)=>({ id,bab_id,nomor_tampil,judul_topik,lingkup_materi:judul_topik,halaman_awal,urutan:urutan+1 }));
