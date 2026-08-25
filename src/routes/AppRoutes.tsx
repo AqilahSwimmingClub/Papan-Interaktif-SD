@@ -15,6 +15,7 @@ import { PilihKelasScreen } from '../features/kurikulum/PilihKelasScreen';
 import { PilihMapelScreen } from '../features/kurikulum/PilihMapelScreen';
 import { StrukturMapelScreen } from '../features/kurikulum/StrukturMapelScreen';
 import { FiturPembelajaranScreen } from '../features/pembelajaran/FiturPembelajaranScreen';
+import { Kelas5IpasHubScreen } from '../features/pembelajaran/Kelas5IpasHubScreen';
 import { Kelas5Bab1ContentScreen } from '../features/pembelajaran/Kelas5Bab1ContentScreen';
 import { Kelas5Bab2ContentScreen } from '../features/pembelajaran/Kelas5Bab2ContentScreen';
 import { FiturMenyusulScreen } from '../features/guru/FiturMenyusulScreen';
@@ -75,12 +76,15 @@ export function AppRoutes() {
         <Route path={`${RUTE.game}/:gameKode`} element={<GameKelas5RunnerScreen />} />
         <Route path={RUTE.vlab} element={<KatalogVlabScreen />} />
         <Route path={`${RUTE.vlab}/kelas5-bab2/:labKode`} element={<VlabKelas5Bab2Screen />} />
+        <Route path="/pembelajaran/kuis" element={<Kelas5IpasHubScreen />} />
+        <Route path="/pembelajaran/lkpd" element={<Kelas5IpasHubScreen />} />
+        <Route path="/pembelajaran/bank-soal" element={<Kelas5IpasHubScreen />} />
         <Route path="/pembelajaran/kuis/kelas5-ipas-bab1" element={<Kelas5Bab1ContentScreen />} />
         <Route path="/pembelajaran/lkpd/kelas5-ipas-bab1" element={<Kelas5Bab1ContentScreen />} />
         <Route path="/pembelajaran/bank-soal/kelas5-ipas-bab1" element={<Kelas5Bab1ContentScreen />} />
-        <Route path="/pembelajaran/kuis" element={<Kelas5Bab2ContentScreen />} />
-        <Route path="/pembelajaran/lkpd" element={<Kelas5Bab2ContentScreen />} />
-        <Route path="/pembelajaran/bank-soal" element={<Kelas5Bab2ContentScreen />} />
+        <Route path="/pembelajaran/kuis/kelas5-ipas-bab2" element={<Kelas5Bab2ContentScreen />} />
+        <Route path="/pembelajaran/lkpd/kelas5-ipas-bab2" element={<Kelas5Bab2ContentScreen />} />
+        <Route path="/pembelajaran/bank-soal/kelas5-ipas-bab2" element={<Kelas5Bab2ContentScreen />} />
         <Route path="/pembelajaran/:jenis" element={<FiturPembelajaranScreen />} />
         <Route path="/fitur/pembuat-lkpd" element={<AiStudioScreen />} />
         <Route path="/fitur/pembuat-soal" element={<AiStudioScreen />} />
