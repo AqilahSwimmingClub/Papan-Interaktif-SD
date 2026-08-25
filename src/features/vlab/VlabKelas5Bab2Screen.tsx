@@ -1,7 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactElement } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { RUTE } from '../../routes/paths';
 import './vlab.css';
+import './vlab-kelas5.css';
 
 export const VLAB_KELAS5_IPAS_BAB2 = [
   { kode:'energy-flow', nama:'Laboratorium Aliran Energi', ikon:'⚡', topik:'Transfer Energi Antarmakhluk Hidup', tujuan:'Mengamati energi yang tersedia pada setiap tingkat trofik.' },
@@ -43,6 +44,6 @@ function EnergyPyramid(){
 export function VlabKelas5Bab2Screen(){
   const { labKode }=useParams(); const profil=VLAB_KELAS5_IPAS_BAB2.find(x=>x.kode===labKode);
   if(!profil)return <main className="halaman-vlab"><Link to={RUTE.vlab}>← Kembali</Link><h1>VLAB tidak ditemukan</h1></main>;
-  const isi:Record<LabKode,JSX.Element>={ 'energy-flow':<EnergyFlow/>, 'ecosystem-builder':<EcosystemBuilder/>, 'population-shock':<PopulationShock/>, 'decomposer-lab':<DecomposerLab/>, 'energy-pyramid':<EnergyPyramid/> };
+  const isi:Record<LabKode,ReactElement>={ 'energy-flow':<EnergyFlow/>, 'ecosystem-builder':<EcosystemBuilder/>, 'population-shock':<PopulationShock/>, 'decomposer-lab':<DecomposerLab/>, 'energy-pyramid':<EnergyPyramid/> };
   return <main className="vlab5-runner"><header><Link to={RUTE.vlab}>←</Link><div><small>IPAS Kelas V · Bab 2 · {profil.topik}</small><h1>{profil.ikon} {profil.nama}</h1><p>{profil.tujuan}</p></div></header>{isi[profil.kode]}</main>;
 }
