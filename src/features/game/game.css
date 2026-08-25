@@ -29,34 +29,10 @@
 @media (max-width: 650px) { .game-katalog__kop { display: grid; }.game-grid { grid-template-columns: 1fr; }.game-filter { align-items: stretch; flex-direction: column; }.game-filter a { margin-left: 0; }.game-pertanyaan { flex-direction: column; }.game-pertanyaan h1 { font-size: 1.35rem; }.game-pilihan { grid-template-columns: 1fr; }.game-pilihan button { min-height: 76px; font-size: .9rem; }.game-main__kepala { grid-template-columns: 42px 1fr auto; padding-inline: 10px; }.game-main__kepala > a { width: 40px; height: 40px; }.game-main__kepala div strong { max-width: 45vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }.game-panggung { justify-content: flex-start; overflow: auto; }.game-lanjut { position: sticky; bottom: 8px; }.game-main__kepala p { font-size: .8rem; }.game-main__kepala p b { font-size: 1rem; } }
 @media (orientation: landscape) and (max-height: 650px) { .game-main { height:100dvh;min-height:0; }.game-main__kepala { height:60px;min-height:60px;padding-block:4px; }.game-main__kepala>a { width:42px;height:42px; }.game-panggung { min-height:0;padding-block: 10px; justify-content:flex-start;overflow:auto; }.game-panggung > p { margin: 2px; }.game-pertanyaan { margin: 4px auto 8px; }.game-pertanyaan button { width: 44px; height: 44px; }.game-pilihan button { min-height: 68px; }.game-lanjut { min-height: 46px; margin-top: 8px; } }
 @media (min-width: 1900px) { .game-main__kepala { min-height: 96px; }.game-pilihan button { min-height: 180px; font-size: 1.8rem; }.game-pertanyaan h1 { font-size: 3.5rem; }.game-lanjut { min-height: 72px; font-size: 1.3rem; } }
+.game-katalog__aksi { display: flex; flex-wrap: wrap; gap: var(--spasi-2); justify-content: center; margin-top: var(--spasi-4); }
+.game-catatan { padding: var(--spasi-4); margin-top: var(--spasi-5); border: var(--tepi); border-radius: var(--radius-panel); background: #fff; }
+.game-catatan h2 { margin: 0 0 var(--spasi-3); font-size: 1.05rem; color: var(--navy-panel); }
+.game-catatan ul { margin: 0; padding-left: 20px; color: #4a5c6b; line-height: 1.6; }
 
-/* ---------- Keadaan menunggu Buku Referensi ---------- */
-
-.game-katalog__aksi {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spasi-2);
-  justify-content: center;
-  margin-top: var(--spasi-4);
-}
-
-.game-catatan {
-  padding: var(--spasi-4);
-  margin-top: var(--spasi-5);
-  border: var(--tepi);
-  border-radius: var(--radius-panel);
-  background: #fff;
-}
-
-.game-catatan h2 {
-  margin: 0 0 var(--spasi-3);
-  font-size: 1.05rem;
-  color: var(--navy-panel);
-}
-
-.game-catatan ul {
-  margin: 0;
-  padding-left: 20px;
-  color: #4a5c6b;
-  line-height: 1.6;
-}
+/* Game Kelas V master */
+.game5-runner{min-height:100dvh;background:linear-gradient(180deg,#dff7ef,#eef9ff);color:#173b38;padding-bottom:32px}.game5-header{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:center;padding:18px clamp(16px,3vw,44px);background:#155a51;color:#fff}.game5-header>a{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#ffffff1c;color:#fff;text-decoration:none;font-size:1.7rem}.game5-header h1{margin:4px 0;font-size:clamp(1.35rem,2.8vw,2.5rem)}.game5-header p,.game5-header small{margin:0;opacity:.85}.game5-arena{width:min(1180px,calc(100% - 28px));margin:24px auto;padding:clamp(18px,3vw,34px);border-radius:26px;background:#fff;box-shadow:0 18px 50px #174d4520}.game5-arena h2{text-align:center;font-size:clamp(1.35rem,2.3vw,2.2rem)}.game5-chain,.game5-choice,.game5-links,.game5-hud{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center}.game5-chain span{min-width:110px;padding:16px;border-radius:18px;background:#eef3f2;text-align:center;font-weight:800}.game5-chain span.aktif{background:#d9f5df}.game5-choice button{min-height:64px;padding:12px 18px;border:0;border-radius:18px;background:#e8f4f1;color:#173b38;font-size:1.1rem;font-weight:800;box-shadow:0 8px 20px #174d4512}.game5-choice button:hover,.game5-choice button.dipilih{transform:translateY(-2px);background:#cfeee6}.game5-choice button:disabled{opacity:.35}.game5-choice--text{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:900px;margin:auto}.game5-feedback{text-align:center;font-weight:800;font-size:1.05rem;min-height:28px}.game5-links{margin:18px 0}.game5-links span{padding:9px 12px;border-radius:12px;background:#eef8e7}.game5-maze{display:grid;grid-template-columns:repeat(5,56px);gap:6px;justify-content:center;margin:20px auto}.game5-maze span{display:grid;place-items:center;width:56px;height:56px;border-radius:14px;background:#edf7ea;font-size:1.75rem}.game5-pad{text-align:center}.game5-pad button{width:58px;height:58px;margin:3px;border:0;border-radius:16px;background:#155a51;color:#fff;font-size:1.35rem}.game5-target,.game5-world{text-align:center;font-size:clamp(2.4rem,7vw,5.5rem);margin:18px}.game5-hud strong{padding:10px 16px;border-radius:16px;background:#155a51;color:#fff}.game5-meter{height:22px;max-width:850px;margin:20px auto;border-radius:999px;background:#e2e8e6;overflow:hidden}.game5-meter span{display:block;height:100%;background:linear-gradient(90deg,#f3b54a,#58c982);transition:width .35s ease}@media(max-width:650px){.game5-choice--text{grid-template-columns:1fr}.game5-maze{grid-template-columns:repeat(5,46px)}.game5-maze span{width:46px;height:46px}.game5-header{grid-template-columns:44px 1fr}.game5-header>a{width:42px;height:42px}.game5-arena{width:min(100% - 16px,1180px)}}
