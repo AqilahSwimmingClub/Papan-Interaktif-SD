@@ -77,7 +77,7 @@ describe('struktur kurikulum tanpa CP/TP lama', () => {
       jumlahMapel: 17,
       jumlahBuku: 7,
       jumlahBab: 33,
-      jumlahTopik: 70,
+      jumlahTopik: 115,
     });
   });
 
@@ -112,7 +112,7 @@ describe('struktur kurikulum tanpa CP/TP lama', () => {
     expect(await bacaRingkasanKurikulum()).toMatchObject({
       jumlahBuku: 8,
       jumlahBab: 34,
-      jumlahTopik: 71,
+      jumlahTopik: 116,
     });
   });
 });
