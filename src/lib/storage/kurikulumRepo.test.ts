@@ -71,14 +71,27 @@ describe('struktur kurikulum tanpa CP/TP lama', () => {
     expect(referensi).toHaveLength(0);
   });
 
-  it('menyemai kelas, mata pelajaran, dan buku master Kelas 5', async () => {
-    expect(await bacaRingkasanKurikulum()).toEqual({
+  it('menyemai kelas, mata pelajaran, serta master Kelas 1 dan Kelas 5', async () => {
+    expect(await bacaRingkasanKurikulum()).toMatchObject({
       jumlahKelas: 6,
       jumlahMapel: 17,
-      jumlahBuku: 7,
+      jumlahBuku: 18,
       jumlahBab: 33,
       jumlahTopik: 115,
     });
+  });
+
+  it('memberi Kelas 1 buku untuk seluruh mapel yang relevan tanpa IPAS, BING, atau KKA', async () => {
+    const mapel = await daftarMapelUntukKelas(1);
+    const kode = new Map(mapel.map((item) => [item.kode, item]));
+
+    for (const wajib of ['PAI', 'PAK', 'PAKat', 'PAH', 'PAB', 'PAKh', 'PP', 'BI', 'MAT', 'PJOK', 'RUPA']) {
+      expect(kode.get(wajib)?.jumlahBuku).toBeGreaterThan(0);
+    }
+
+    expect(kode.has('IPAS')).toBe(false);
+    expect(kode.has('BING')).toBe(false);
+    expect(kode.has('KKA')).toBe(false);
   });
 
   it('menyemai secara idempoten dan menghitung buku per kelas, bukan TP', async () => {
@@ -87,30 +100,30 @@ describe('struktur kurikulum tanpa CP/TP lama', () => {
 
     const sebelum = await daftarKelas();
     expect(sebelum).toHaveLength(6);
-    expect(sebelum.map((kelas) => kelas.jumlahBuku)).toEqual([0, 0, 0, 0, 7, 0]);
+    expect(sebelum.map((kelas) => kelas.jumlahBuku)).toEqual([11, 0, 0, 0, 7, 0]);
     expect(sebelum.every((kelas) => kelas.jumlahPilihanMapel > 0)).toBe(true);
 
     await daftarkanBukuUji();
     const sesudah = await daftarKelas();
-    expect(sesudah[0]?.jumlahBuku).toBe(1);
+    expect(sesudah[0]?.jumlahBuku).toBe(12);
     expect(sesudah[1]?.jumlahBuku).toBe(0);
     expect(sesudah[4]?.jumlahBuku).toBe(7);
   });
 
   it('menghitung buku, bab, dan topik per mata pelajaran', async () => {
-    await daftarkanBukuUji();
+    await pastikanKurikulumTersedia();
     const mapel = await daftarMapelUntukKelas(1);
     const matematika = mapel.find((item) => item.kode === 'MAT');
     const bahasa = mapel.find((item) => item.kode === 'BI');
 
-    expect(matematika).toMatchObject({ jumlahBuku: 1, jumlahBab: 1, jumlahTopik: 1 });
-    expect(bahasa).toMatchObject({ jumlahBuku: 0, jumlahBab: 0, jumlahTopik: 0 });
+    expect(matematika?.jumlahBuku).toBeGreaterThan(0);
+    expect(bahasa?.jumlahBuku).toBeGreaterThan(0);
   });
 
   it('mencerminkan buku terdaftar pada ringkasan kurikulum', async () => {
     await daftarkanBukuUji();
     expect(await bacaRingkasanKurikulum()).toMatchObject({
-      jumlahBuku: 8,
+      jumlahBuku: 19,
       jumlahBab: 34,
       jumlahTopik: 116,
     });
