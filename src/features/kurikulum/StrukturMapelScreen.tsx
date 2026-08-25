@@ -14,11 +14,13 @@ import { useKurikulum } from '../../state/useKurikulum';
 import { RUTE, ruteMapel } from '../../routes/paths';
 import './kurikulum.css';
 
+const MAPEL_MASTER_KELAS5 = new Set(['MAT', 'PP', 'BI', 'BING', 'KKA', 'RUPA']);
+
 /**
  * Layar rantai isi satu mata pelajaran.
  *
  * Menggantikan layar CP & TP lama. Isi CP, TP, kuis, game, LKPD, dan bank soal
- * sengaja kosong; seluruhnya akan dibentuk dari Buku Referensi resmi sekolah.
+ * dibentuk dari Buku Referensi resmi sekolah.
  */
 export function StrukturMapelScreen() {
   const { tingkat: tingkatParam, mapelKode: mapelParam } = useParams();
@@ -87,6 +89,7 @@ export function StrukturMapelScreen() {
 
   const faseKode = tingkat <= 2 ? 'A' : tingkat <= 4 ? 'B' : 'C';
   const adaBuku = (struktur?.buku.length ?? 0) > 0;
+  const punyaKontenMaster = tingkat === 5 && MAPEL_MASTER_KELAS5.has(mapelKode);
 
   return (
     <main className="halaman-kurikulum halaman-struktur-mapel" data-testid="layar-struktur-mapel">
@@ -106,9 +109,16 @@ export function StrukturMapelScreen() {
             {mapel.nama} · Kelas {tingkat} · Fase {faseKode}
           </p>
         </div>
-        <Link className="tombol-guru tombol-guru--utama" to={RUTE.bukuReferensi}>
-          Kelola Buku Referensi
-        </Link>
+        <div className="aksi-kop-kurikulum">
+          {punyaKontenMaster ? (
+            <Link className="tombol-guru tombol-guru--utama" to={`/kelas5/${encodeURIComponent(mapelKode)}`}>
+              Buka Pembelajaran Kelas 5
+            </Link>
+          ) : null}
+          <Link className="tombol-guru tombol-guru--sekunder" to={RUTE.bukuReferensi}>
+            Kelola Buku Referensi
+          </Link>
+        </div>
       </header>
 
       <section className="panel-menunggu-buku" aria-label="Status buku referensi">
