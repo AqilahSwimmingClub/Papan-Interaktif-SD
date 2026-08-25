@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { RUTE } from '../../routes/paths';
 import './kelas5-bab2-content.css';
