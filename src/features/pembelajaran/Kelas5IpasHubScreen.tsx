@@ -8,6 +8,7 @@ const BAB = [
   { nomor:2, ikon:'🌿', judul:'Harmoni dalam Ekosistem', ringkas:'Memakan dan dimakan · transfer energi antarmakhluk hidup · ekosistem yang harmonis.' },
   { nomor:3, ikon:'🧲', judul:'Magnet, Listrik, dan Teknologi untuk Kehidupan', ringkas:'Magnet · energi listrik · rangkaian sederhana · pemanfaatan teknologi.' },
   { nomor:4, ikon:'🌍', judul:'Ayo Berkenalan dengan Bumi Kita', ringkas:'Bentuk permukaan Bumi · perubahan bentang alam · erosi · sedimentasi.' },
+  { nomor:5, ikon:'🫁', judul:'Bagaimana Kita Hidup dan Bertumbuh', ringkas:'Pernapasan · makanan dan minuman · pencernaan · pertumbuhan manusia.' },
 ] as const;
 
 export function Kelas5IpasHubScreen(){
