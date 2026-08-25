@@ -12,9 +12,8 @@ import {
 } from '../../lib/referensi/strukturReferensi';
 import { useKurikulum } from '../../state/useKurikulum';
 import { RUTE, ruteMapel } from '../../routes/paths';
+import { aksiPembelajaranKelas5 } from './kelas5LearningRoutes';
 import './kurikulum.css';
-
-const MAPEL_MASTER_KELAS5 = new Set(['MAT', 'PP', 'BI', 'BING', 'KKA', 'RUPA']);
 
 /**
  * Layar rantai isi satu mata pelajaran.
@@ -89,7 +88,7 @@ export function StrukturMapelScreen() {
 
   const faseKode = tingkat <= 2 ? 'A' : tingkat <= 4 ? 'B' : 'C';
   const adaBuku = (struktur?.buku.length ?? 0) > 0;
-  const punyaKontenMaster = tingkat === 5 && MAPEL_MASTER_KELAS5.has(mapelKode);
+  const aksiKelas5 = tingkat === 5 ? aksiPembelajaranKelas5(mapelKode) : [];
 
   return (
     <main className="halaman-kurikulum halaman-struktur-mapel" data-testid="layar-struktur-mapel">
@@ -110,11 +109,15 @@ export function StrukturMapelScreen() {
           </p>
         </div>
         <div className="aksi-kop-kurikulum">
-          {punyaKontenMaster ? (
-            <Link className="tombol-guru tombol-guru--utama" to={`/kelas5/${encodeURIComponent(mapelKode)}`}>
-              Buka Pembelajaran Kelas 5
+          {aksiKelas5.map(([label, rute], indeks) => (
+            <Link
+              key={`${label}-${rute}`}
+              className={`tombol-guru ${indeks === 0 ? 'tombol-guru--utama' : 'tombol-guru--sekunder'}`}
+              to={rute}
+            >
+              {label}
             </Link>
-          ) : null}
+          ))}
           <Link className="tombol-guru tombol-guru--sekunder" to={RUTE.bukuReferensi}>
             Kelola Buku Referensi
           </Link>
