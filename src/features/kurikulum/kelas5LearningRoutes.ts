@@ -1,3 +1,5 @@
+import { RUTE } from '../../routes/paths';
+
 export type AksiPembelajaranKelas5 = readonly [label: string, rute: string];
 
 const MASTER = new Set(['MAT', 'PP', 'BI', 'BING', 'KKA', 'RUPA']);
@@ -6,8 +8,8 @@ export function aksiPembelajaranKelas5(mapelKode: string): AksiPembelajaranKelas
   const kode = mapelKode.toUpperCase();
   if (kode === 'IPAS') {
     return [
-      ['Game Edukasi', '/game'],
-      ['VLAB', '/vlab'],
+      ['Game Edukasi', RUTE.game],
+      ['VLAB', RUTE.vlab],
       ['Kuis', '/pembelajaran/kuis'],
       ['LKPD', '/pembelajaran/lkpd'],
       ['Bank Soal', '/pembelajaran/bank-soal'],
