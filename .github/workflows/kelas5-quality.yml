@@ -1,8 +1,10 @@
-name: Kelas 5 Quality Gate
+name: Master Content Quality Gate
 
 on:
   push:
-    branches: [codex/kelas5-master-content]
+    branches:
+      - codex/kelas1-master-content
+      - codex/kelas5-master-content
   workflow_dispatch:
 
 jobs:
