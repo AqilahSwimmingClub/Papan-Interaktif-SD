@@ -15,6 +15,7 @@ import { PilihKelasScreen } from '../features/kurikulum/PilihKelasScreen';
 import { PilihMapelScreen } from '../features/kurikulum/PilihMapelScreen';
 import { StrukturMapelScreen } from '../features/kurikulum/StrukturMapelScreen';
 import { FiturPembelajaranScreen } from '../features/pembelajaran/FiturPembelajaranScreen';
+import { Kelas5Bab2ContentScreen } from '../features/pembelajaran/Kelas5Bab2ContentScreen';
 import { FiturMenyusulScreen } from '../features/guru/FiturMenyusulScreen';
 import { MateriScreen } from '../features/pembelajaran/MateriScreen';
 import { PapanInteraktifScreen } from '../features/papan/PapanInteraktifScreen';
@@ -71,6 +72,9 @@ export function AppRoutes() {
         <Route path={`${RUTE.game}/:gameKode`} element={<GameKelas5RunnerScreen />} />
         <Route path={RUTE.vlab} element={<KatalogVlabScreen />} />
         <Route path={`${RUTE.vlab}/kelas5-bab2/:labKode`} element={<VlabKelas5Bab2Screen />} />
+        <Route path="/pembelajaran/kuis" element={<Kelas5Bab2ContentScreen />} />
+        <Route path="/pembelajaran/lkpd" element={<Kelas5Bab2ContentScreen />} />
+        <Route path="/pembelajaran/bank-soal" element={<Kelas5Bab2ContentScreen />} />
         <Route path="/pembelajaran/:jenis" element={<FiturPembelajaranScreen />} />
         <Route path="/fitur/pembuat-lkpd" element={<AiStudioScreen />} />
         <Route path="/fitur/pembuat-soal" element={<AiStudioScreen />} />
