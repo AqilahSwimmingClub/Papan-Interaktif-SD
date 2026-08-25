@@ -31,66 +31,23 @@ import { StrukturKurikulumScreen } from '../features/kurikulum/StrukturKurikulum
 import { BukuReferensiScreen } from '../features/kurikulum/BukuReferensiScreen';
 import { MenuLainnyaScreen } from '../features/guru/MenuLainnyaScreen';
 import { KatalogGameScreen } from '../features/game/KatalogGameScreen';
+import { GameKelas5RunnerScreen } from '../features/game/GameKelas5RunnerScreen';
 import { KatalogVlabScreen } from '../features/vlab/KatalogVlabScreen';
 import { VlabRunnerScreen } from '../features/vlab/VlabRunnerScreen';
 import { KelolaAkunScreen } from '../features/auth/KelolaAkunScreen';
 import { TentangAplikasiScreen } from '../features/pelengkap/TentangAplikasiScreen';
 import { AiStudioScreen } from '../features/ai/AiStudioScreen';
 
-/**
- * Peta rute aplikasi.
- *
- * Rute CP/TP lama (layar CP & TP, Kelola TP Sekolah, Muat CP, Referensi lama)
- * dan rute pemutar game lama sudah dihapus. Penggantinya adalah rantai Buku
- * Referensi dan katalog VLAB yang berjalan mandiri.
- *
- * Hanya empat rute yang terbuka tanpa sesi: Opening, Setup Admin, Login, dan
- * Lupa Password. Rute kerja guru ditambahkan di dalam <RuteTerlindungi>
- * sehingga penjagaan sesi tidak perlu dipasang ulang per layar.
- */
 export function AppRoutes() {
   return (
     <Routes>
       <Route path={RUTE.akar} element={<GerbangAwal />} />
-
       <Route path={RUTE.pembuka} element={<OpeningScreen />} />
+      <Route path={RUTE.setupAdmin} element={<RuteLapisanMasuk hanyaBelumSetup><SetupAdminScreen /></RuteLapisanMasuk>} />
+      <Route path={RUTE.masuk} element={<RuteLapisanMasuk butuhAdmin><LoginScreen /></RuteLapisanMasuk>} />
+      <Route path={RUTE.lupaPassword} element={<RuteLapisanMasuk butuhAdmin><LupaPasswordScreen /></RuteLapisanMasuk>} />
 
-      <Route
-        path={RUTE.setupAdmin}
-        element={
-          <RuteLapisanMasuk hanyaBelumSetup>
-            <SetupAdminScreen />
-          </RuteLapisanMasuk>
-        }
-      />
-
-      <Route
-        path={RUTE.masuk}
-        element={
-          <RuteLapisanMasuk butuhAdmin>
-            <LoginScreen />
-          </RuteLapisanMasuk>
-        }
-      />
-
-      <Route
-        path={RUTE.lupaPassword}
-        element={
-          <RuteLapisanMasuk butuhAdmin>
-            <LupaPasswordScreen />
-          </RuteLapisanMasuk>
-        }
-      />
-
-      <Route
-        element={
-          <RuteTerlindungi>
-            <KurikulumProvider>
-              <KerangkaGuru />
-            </KurikulumProvider>
-          </RuteTerlindungi>
-        }
-      >
+      <Route element={<RuteTerlindungi><KurikulumProvider><KerangkaGuru /></KurikulumProvider></RuteTerlindungi>}>
         <Route path={RUTE.dasbor} element={<BerandaTerlindungi />} />
         <Route path={RUTE.kelas} element={<PilihKelasScreen />} />
         <Route path={RUTE.kelompok} element={<KelompokSiswaScreen />} />
@@ -102,14 +59,7 @@ export function AppRoutes() {
         <Route path={RUTE.media} element={<MediaScreen />} />
         <Route path={RUTE.pencarian} element={<PencarianScreen />} />
         <Route path={RUTE.profil} element={<ProfilScreen />} />
-        <Route
-          path={RUTE.kelolaAkun}
-          element={
-            <RuteTerlindungi peranDiizinkan={['admin']}>
-              <KelolaAkunScreen />
-            </RuteTerlindungi>
-          }
-        />
+        <Route path={RUTE.kelolaAkun} element={<RuteTerlindungi peranDiizinkan={['admin']}><KelolaAkunScreen /></RuteTerlindungi>} />
         <Route path={RUTE.backup} element={<BackupScreen />} />
         <Route path={RUTE.offline} element={<OfflineScreen />} />
         <Route path={RUTE.tentang} element={<TentangAplikasiScreen />} />
@@ -117,6 +67,7 @@ export function AppRoutes() {
         <Route path={RUTE.bukuReferensi} element={<BukuReferensiScreen />} />
         <Route path={RUTE.lainnya} element={<MenuLainnyaScreen />} />
         <Route path={RUTE.game} element={<KatalogGameScreen />} />
+        <Route path={`${RUTE.game}/:gameKode`} element={<GameKelas5RunnerScreen />} />
         <Route path={RUTE.vlab} element={<KatalogVlabScreen />} />
         <Route path="/pembelajaran/:jenis" element={<FiturPembelajaranScreen />} />
         <Route path="/fitur/pembuat-lkpd" element={<AiStudioScreen />} />
@@ -126,32 +77,9 @@ export function AppRoutes() {
         <Route path="/fitur/:fitur" element={<FiturMenyusulScreen />} />
       </Route>
 
-      <Route
-        path={`${RUTE.vlab}/:vlabKode`}
-        element={
-          <RuteTerlindungi>
-            <VlabRunnerScreen />
-          </RuteTerlindungi>
-        }
-      />
-
-      <Route
-        path={RUTE.modeSiswa}
-        element={
-          <RuteTerlindungi>
-            <KurikulumProvider><ModeSiswaScreen /></KurikulumProvider>
-          </RuteTerlindungi>
-        }
-      />
-      <Route
-        path={RUTE.modeKelas}
-        element={
-          <RuteTerlindungi>
-            <KurikulumProvider><ModeKelasScreen /></KurikulumProvider>
-          </RuteTerlindungi>
-        }
-      />
-
+      <Route path={`${RUTE.vlab}/:vlabKode`} element={<RuteTerlindungi><VlabRunnerScreen /></RuteTerlindungi>} />
+      <Route path={RUTE.modeSiswa} element={<RuteTerlindungi><KurikulumProvider><ModeSiswaScreen /></KurikulumProvider></RuteTerlindungi>} />
+      <Route path={RUTE.modeKelas} element={<RuteTerlindungi><KurikulumProvider><ModeKelasScreen /></KurikulumProvider></RuteTerlindungi>} />
       <Route path="*" element={<LayarTidakDitemukan />} />
     </Routes>
   );
