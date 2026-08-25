@@ -1,81 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
-import { GerbangAwal } from './GerbangAwal';
-import { RuteLapisanMasuk } from './RuteLapisanMasuk';
-import { RuteTerlindungi } from './RuteTerlindungi';
-import { RUTE } from './paths';
-import { OpeningScreen } from '../features/opening/OpeningScreen';
-import { LoginScreen } from '../features/auth/LoginScreen';
-import { SetupAdminScreen } from '../features/auth/SetupAdminScreen';
-import { LupaPasswordScreen } from '../features/auth/LupaPasswordScreen';
-import { BerandaTerlindungi } from '../features/dashboard/BerandaTerlindungi';
-import { LayarTidakDitemukan } from './LayarTidakDitemukan';
-import { KurikulumProvider } from '../state/KurikulumProvider';
-import { KerangkaGuru } from '../features/guru/KerangkaGuru';
-import { PilihKelasScreen } from '../features/kurikulum/PilihKelasScreen';
-import { PilihMapelScreen } from '../features/kurikulum/PilihMapelScreen';
-import { StrukturMapelScreen } from '../features/kurikulum/StrukturMapelScreen';
-import { FiturPembelajaranScreen } from '../features/pembelajaran/FiturPembelajaranScreen';
-import { Kelas5IpasHubScreen } from '../features/pembelajaran/Kelas5IpasHubScreen';
-import { Kelas5Bab1ContentScreen } from '../features/pembelajaran/Kelas5Bab1ContentScreen';
-import { Kelas5Bab2ContentScreen } from '../features/pembelajaran/Kelas5Bab2ContentScreen';
-import { Kelas5Bab3ContentScreen } from '../features/pembelajaran/Kelas5Bab3ContentScreen';
-import { Kelas5Bab4ContentScreen } from '../features/pembelajaran/Kelas5Bab4ContentScreen';
-import { Kelas5Bab5ContentScreen } from '../features/pembelajaran/Kelas5Bab5ContentScreen';
-import { Kelas5Bab6ContentScreen } from '../features/pembelajaran/Kelas5Bab6ContentScreen';
-import { Kelas5Bab7ContentScreen } from '../features/pembelajaran/Kelas5Bab7ContentScreen';
-import { Kelas5Bab8ContentScreen } from '../features/pembelajaran/Kelas5Bab8ContentScreen';
-import { FiturMenyusulScreen } from '../features/guru/FiturMenyusulScreen';
-import { MateriScreen } from '../features/pembelajaran/MateriScreen';
-import { PapanInteraktifScreen } from '../features/papan/PapanInteraktifScreen';
-import { KelompokSiswaScreen } from '../features/pelengkap/KelompokSiswaScreen';
-import { RekapCpTpScreen } from '../features/pelengkap/RekapCpTpScreen';
-import { MediaScreen } from '../features/pelengkap/MediaScreen';
-import { PencarianScreen } from '../features/pelengkap/PencarianScreen';
-import { ProfilScreen } from '../features/pelengkap/ProfilScreen';
-import { BackupScreen } from '../features/pelengkap/BackupScreen';
-import { OfflineScreen } from '../features/pelengkap/OfflineScreen';
-import { ModeSiswaScreen } from '../features/pelengkap/ModeSiswaScreen';
-import { ModeKelasScreen } from '../features/pelengkap/ModeKelasScreen';
-import { StrukturKurikulumScreen } from '../features/kurikulum/StrukturKurikulumScreen';
-import { BukuReferensiScreen } from '../features/kurikulum/BukuReferensiScreen';
-import { MenuLainnyaScreen } from '../features/guru/MenuLainnyaScreen';
-import { KatalogGameScreen } from '../features/game/KatalogGameScreen';
-import { GameKelas5Bab1Screen } from '../features/game/GameKelas5Bab1Screen';
-import { GameKelas5Bab3Screen } from '../features/game/GameKelas5Bab3Screen';
-import { GameKelas5Bab4Screen } from '../features/game/GameKelas5Bab4Screen';
-import { GameKelas5Bab5Screen } from '../features/game/GameKelas5Bab5Screen';
-import { GameKelas5Bab6Screen } from '../features/game/GameKelas5Bab6Screen';
-import { GameKelas5Bab7Screen } from '../features/game/GameKelas5Bab7Screen';
-import { GameKelas5Bab8Screen } from '../features/game/GameKelas5Bab8Screen';
-import { GameKelas5RunnerScreen } from '../features/game/GameKelas5RunnerScreen';
-import { KatalogVlabScreen } from '../features/vlab/KatalogVlabScreen';
-import { VlabRunnerScreen } from '../features/vlab/VlabRunnerScreen';
-import { VlabKelas5Bab2Screen } from '../features/vlab/VlabKelas5Bab2Screen';
-import { VlabKelas5Bab3Screen } from '../features/vlab/VlabKelas5Bab3Screen';
-import { VlabKelas5Bab4Screen } from '../features/vlab/VlabKelas5Bab4Screen';
-import { VlabKelas5Bab5Screen } from '../features/vlab/VlabKelas5Bab5Screen';
-import { VlabKelas5Bab6Screen } from '../features/vlab/VlabKelas5Bab6Screen';
-import { VlabKelas5Bab7Screen } from '../features/vlab/VlabKelas5Bab7Screen';
-import { VlabKelas5Bab8Screen } from '../features/vlab/VlabKelas5Bab8Screen';
-import { KelolaAkunScreen } from '../features/auth/KelolaAkunScreen';
-import { TentangAplikasiScreen } from '../features/pelengkap/TentangAplikasiScreen';
-import { AiStudioScreen } from '../features/ai/AiStudioScreen';
-
-const KONTEN_BAB = [Kelas5Bab1ContentScreen,Kelas5Bab2ContentScreen,Kelas5Bab3ContentScreen,Kelas5Bab4ContentScreen,Kelas5Bab5ContentScreen,Kelas5Bab6ContentScreen,Kelas5Bab7ContentScreen,Kelas5Bab8ContentScreen] as const;
-
-export function AppRoutes() {
-  return <Routes>
-    <Route path={RUTE.akar} element={<GerbangAwal />} /><Route path={RUTE.pembuka} element={<OpeningScreen />} />
-    <Route path={RUTE.setupAdmin} element={<RuteLapisanMasuk hanyaBelumSetup><SetupAdminScreen /></RuteLapisanMasuk>} /><Route path={RUTE.masuk} element={<RuteLapisanMasuk butuhAdmin><LoginScreen /></RuteLapisanMasuk>} /><Route path={RUTE.lupaPassword} element={<RuteLapisanMasuk butuhAdmin><LupaPasswordScreen /></RuteLapisanMasuk>} />
-    <Route element={<RuteTerlindungi><KurikulumProvider><KerangkaGuru /></KurikulumProvider></RuteTerlindungi>}>
-      <Route path={RUTE.dasbor} element={<BerandaTerlindungi />} /><Route path={RUTE.kelas} element={<PilihKelasScreen />} /><Route path={RUTE.kelompok} element={<KelompokSiswaScreen />} /><Route path={RUTE.rekap} element={<RekapCpTpScreen />} />
-      <Route path={`${RUTE.kelas}/:tingkat/mapel`} element={<PilihMapelScreen />} /><Route path={`${RUTE.kelas}/:tingkat/mapel/:mapelKode`} element={<StrukturMapelScreen />} /><Route path={RUTE.materi} element={<MateriScreen />} /><Route path={RUTE.papan} element={<PapanInteraktifScreen />} /><Route path={RUTE.media} element={<MediaScreen />} /><Route path={RUTE.pencarian} element={<PencarianScreen />} /><Route path={RUTE.profil} element={<ProfilScreen />} /><Route path={RUTE.kelolaAkun} element={<RuteTerlindungi peranDiizinkan={['admin']}><KelolaAkunScreen /></RuteTerlindungi>} /><Route path={RUTE.backup} element={<BackupScreen />} /><Route path={RUTE.offline} element={<OfflineScreen />} /><Route path={RUTE.tentang} element={<TentangAplikasiScreen />} /><Route path={RUTE.strukturKurikulum} element={<StrukturKurikulumScreen />} /><Route path={RUTE.bukuReferensi} element={<BukuReferensiScreen />} /><Route path={RUTE.lainnya} element={<MenuLainnyaScreen />} />
-      <Route path={RUTE.game} element={<KatalogGameScreen />} /><Route path={`${RUTE.game}/kelas5-bab1/:gameKode`} element={<GameKelas5Bab1Screen />} /><Route path={`${RUTE.game}/kelas5-bab3/:gameKode`} element={<GameKelas5Bab3Screen />} /><Route path={`${RUTE.game}/kelas5-bab4/:gameKode`} element={<GameKelas5Bab4Screen />} /><Route path={`${RUTE.game}/kelas5-bab5/:gameKode`} element={<GameKelas5Bab5Screen />} /><Route path={`${RUTE.game}/kelas5-bab6/:gameKode`} element={<GameKelas5Bab6Screen />} /><Route path={`${RUTE.game}/kelas5-bab7/:gameKode`} element={<GameKelas5Bab7Screen />} /><Route path={`${RUTE.game}/kelas5-bab8/:gameKode`} element={<GameKelas5Bab8Screen />} /><Route path={`${RUTE.game}/:gameKode`} element={<GameKelas5RunnerScreen />} />
-      <Route path={RUTE.vlab} element={<KatalogVlabScreen />} /><Route path={`${RUTE.vlab}/kelas5-bab2/:labKode`} element={<VlabKelas5Bab2Screen />} /><Route path={`${RUTE.vlab}/kelas5-bab3/:labKode`} element={<VlabKelas5Bab3Screen />} /><Route path={`${RUTE.vlab}/kelas5-bab4/:labKode`} element={<VlabKelas5Bab4Screen />} /><Route path={`${RUTE.vlab}/kelas5-bab5/:labKode`} element={<VlabKelas5Bab5Screen />} /><Route path={`${RUTE.vlab}/kelas5-bab6/:labKode`} element={<VlabKelas5Bab6Screen />} /><Route path={`${RUTE.vlab}/kelas5-bab7/:labKode`} element={<VlabKelas5Bab7Screen />} /><Route path={`${RUTE.vlab}/kelas5-bab8/:labKode`} element={<VlabKelas5Bab8Screen />} />
-      <Route path="/pembelajaran/kuis" element={<Kelas5IpasHubScreen />} /><Route path="/pembelajaran/lkpd" element={<Kelas5IpasHubScreen />} /><Route path="/pembelajaran/bank-soal" element={<Kelas5IpasHubScreen />} />
-      {KONTEN_BAB.map((Komponen,i)=>{const bab=i+1;return ['kuis','lkpd','bank-soal'].map(jenis=><Route key={`${jenis}-${bab}`} path={`/pembelajaran/${jenis}/kelas5-ipas-bab${bab}`} element={<Komponen />} />)})}
-      <Route path="/pembelajaran/:jenis" element={<FiturPembelajaranScreen />} /><Route path="/fitur/pembuat-lkpd" element={<AiStudioScreen />} /><Route path="/fitur/pembuat-soal" element={<AiStudioScreen />} /><Route path="/fitur/pembuat-materi" element={<AiStudioScreen />} /><Route path="/fitur/studio-ai" element={<AiStudioScreen />} /><Route path="/fitur/:fitur" element={<FiturMenyusulScreen />} />
-    </Route>
-    <Route path={`${RUTE.vlab}/:vlabKode`} element={<RuteTerlindungi><VlabRunnerScreen /></RuteTerlindungi>} /><Route path={RUTE.modeSiswa} element={<RuteTerlindungi><KurikulumProvider><ModeSiswaScreen /></KurikulumProvider></RuteTerlindungi>} /><Route path={RUTE.modeKelas} element={<RuteTerlindungi><KurikulumProvider><ModeKelasScreen /></KurikulumProvider></RuteTerlindungi>} /><Route path="*" element={<LayarTidakDitemukan />} />
-  </Routes>;
-}
+import { GerbangAwal } from './GerbangAwal'; import { RuteLapisanMasuk } from './RuteLapisanMasuk'; import { RuteTerlindungi } from './RuteTerlindungi'; import { RUTE } from './paths';
+import { OpeningScreen } from '../features/opening/OpeningScreen'; import { LoginScreen } from '../features/auth/LoginScreen'; import { SetupAdminScreen } from '../features/auth/SetupAdminScreen'; import { LupaPasswordScreen } from '../features/auth/LupaPasswordScreen'; import { BerandaTerlindungi } from '../features/dashboard/BerandaTerlindungi'; import { LayarTidakDitemukan } from './LayarTidakDitemukan'; import { KurikulumProvider } from '../state/KurikulumProvider'; import { KerangkaGuru } from '../features/guru/KerangkaGuru'; import { PilihKelasScreen } from '../features/kurikulum/PilihKelasScreen'; import { PilihMapelScreen } from '../features/kurikulum/PilihMapelScreen'; import { StrukturMapelScreen } from '../features/kurikulum/StrukturMapelScreen'; import { FiturPembelajaranScreen } from '../features/pembelajaran/FiturPembelajaranScreen';
+import { Kelas5IpasHubScreen } from '../features/pembelajaran/Kelas5IpasHubScreen'; import { Kelas5MapelMasterScreen } from '../features/pembelajaran/Kelas5MapelMasterScreen';
+import { Kelas5Bab1ContentScreen } from '../features/pembelajaran/Kelas5Bab1ContentScreen'; import { Kelas5Bab2ContentScreen } from '../features/pembelajaran/Kelas5Bab2ContentScreen'; import { Kelas5Bab3ContentScreen } from '../features/pembelajaran/Kelas5Bab3ContentScreen'; import { Kelas5Bab4ContentScreen } from '../features/pembelajaran/Kelas5Bab4ContentScreen'; import { Kelas5Bab5ContentScreen } from '../features/pembelajaran/Kelas5Bab5ContentScreen'; import { Kelas5Bab6ContentScreen } from '../features/pembelajaran/Kelas5Bab6ContentScreen'; import { Kelas5Bab7ContentScreen } from '../features/pembelajaran/Kelas5Bab7ContentScreen'; import { Kelas5Bab8ContentScreen } from '../features/pembelajaran/Kelas5Bab8ContentScreen';
+import { FiturMenyusulScreen } from '../features/guru/FiturMenyusulScreen'; import { MateriScreen } from '../features/pembelajaran/MateriScreen'; import { PapanInteraktifScreen } from '../features/papan/PapanInteraktifScreen'; import { KelompokSiswaScreen } from '../features/pelengkap/KelompokSiswaScreen'; import { RekapCpTpScreen } from '../features/pelengkap/RekapCpTpScreen'; import { MediaScreen } from '../features/pelengkap/MediaScreen'; import { PencarianScreen } from '../features/pelengkap/PencarianScreen'; import { ProfilScreen } from '../features/pelengkap/ProfilScreen'; import { BackupScreen } from '../features/pelengkap/BackupScreen'; import { OfflineScreen } from '../features/pelengkap/OfflineScreen'; import { ModeSiswaScreen } from '../features/pelengkap/ModeSiswaScreen'; import { ModeKelasScreen } from '../features/pelengkap/ModeKelasScreen'; import { StrukturKurikulumScreen } from '../features/kurikulum/StrukturKurikulumScreen'; import { BukuReferensiScreen } from '../features/kurikulum/BukuReferensiScreen'; import { MenuLainnyaScreen } from '../features/guru/MenuLainnyaScreen';
+import { KatalogGameScreen } from '../features/game/KatalogGameScreen'; import { GameKelas5Bab1Screen } from '../features/game/GameKelas5Bab1Screen'; import { GameKelas5Bab3Screen } from '../features/game/GameKelas5Bab3Screen'; import { GameKelas5Bab4Screen } from '../features/game/GameKelas5Bab4Screen'; import { GameKelas5Bab5Screen } from '../features/game/GameKelas5Bab5Screen'; import { GameKelas5Bab6Screen } from '../features/game/GameKelas5Bab6Screen'; import { GameKelas5Bab7Screen } from '../features/game/GameKelas5Bab7Screen'; import { GameKelas5Bab8Screen } from '../features/game/GameKelas5Bab8Screen'; import { GameKelas5RunnerScreen } from '../features/game/GameKelas5RunnerScreen';
+import { KatalogVlabScreen } from '../features/vlab/KatalogVlabScreen'; import { VlabRunnerScreen } from '../features/vlab/VlabRunnerScreen'; import { VlabKelas5Bab2Screen } from '../features/vlab/VlabKelas5Bab2Screen'; import { VlabKelas5Bab3Screen } from '../features/vlab/VlabKelas5Bab3Screen'; import { VlabKelas5Bab4Screen } from '../features/vlab/VlabKelas5Bab4Screen'; import { VlabKelas5Bab5Screen } from '../features/vlab/VlabKelas5Bab5Screen'; import { VlabKelas5Bab6Screen } from '../features/vlab/VlabKelas5Bab6Screen'; import { VlabKelas5Bab7Screen } from '../features/vlab/VlabKelas5Bab7Screen'; import { VlabKelas5Bab8Screen } from '../features/vlab/VlabKelas5Bab8Screen';
+import { KelolaAkunScreen } from '../features/auth/KelolaAkunScreen'; import { TentangAplikasiScreen } from '../features/pelengkap/TentangAplikasiScreen'; import { AiStudioScreen } from '../features/ai/AiStudioScreen';
+const KONTEN_BAB=[Kelas5Bab1ContentScreen,Kelas5Bab2ContentScreen,Kelas5Bab3ContentScreen,Kelas5Bab4ContentScreen,Kelas5Bab5ContentScreen,Kelas5Bab6ContentScreen,Kelas5Bab7ContentScreen,Kelas5Bab8ContentScreen] as const;
+export function AppRoutes(){return <Routes><Route path={RUTE.akar} element={<GerbangAwal/>}/><Route path={RUTE.pembuka} element={<OpeningScreen/>}/><Route path={RUTE.setupAdmin} element={<RuteLapisanMasuk hanyaBelumSetup><SetupAdminScreen/></RuteLapisanMasuk>}/><Route path={RUTE.masuk} element={<RuteLapisanMasuk butuhAdmin><LoginScreen/></RuteLapisanMasuk>}/><Route path={RUTE.lupaPassword} element={<RuteLapisanMasuk butuhAdmin><LupaPasswordScreen/></RuteLapisanMasuk>}/><Route element={<RuteTerlindungi><KurikulumProvider><KerangkaGuru/></KurikulumProvider></RuteTerlindungi>}><Route path={RUTE.dasbor} element={<BerandaTerlindungi/>}/><Route path={RUTE.kelas} element={<PilihKelasScreen/>}/><Route path={RUTE.kelompok} element={<KelompokSiswaScreen/>}/><Route path={RUTE.rekap} element={<RekapCpTpScreen/>}/><Route path={`${RUTE.kelas}/:tingkat/mapel`} element={<PilihMapelScreen/>}/><Route path={`${RUTE.kelas}/:tingkat/mapel/:mapelKode`} element={<StrukturMapelScreen/>}/><Route path={RUTE.materi} element={<MateriScreen/>}/><Route path={RUTE.papan} element={<PapanInteraktifScreen/>}/><Route path={RUTE.media} element={<MediaScreen/>}/><Route path={RUTE.pencarian} element={<PencarianScreen/>}/><Route path={RUTE.profil} element={<ProfilScreen/>}/><Route path={RUTE.kelolaAkun} element={<RuteTerlindungi peranDiizinkan={['admin']}><KelolaAkunScreen/></RuteTerlindungi>}/><Route path={RUTE.backup} element={<BackupScreen/>}/><Route path={RUTE.offline} element={<OfflineScreen/>}/><Route path={RUTE.tentang} element={<TentangAplikasiScreen/>}/><Route path={RUTE.strukturKurikulum} element={<StrukturKurikulumScreen/>}/><Route path={RUTE.bukuReferensi} element={<BukuReferensiScreen/>}/><Route path={RUTE.lainnya} element={<MenuLainnyaScreen/>}/><Route path={RUTE.game} element={<KatalogGameScreen/>}/><Route path={`${RUTE.game}/kelas5-bab1/:gameKode`} element={<GameKelas5Bab1Screen/>}/>{[3,4,5,6,7,8].map(n=><Route key={`g${n}`} path={`${RUTE.game}/kelas5-bab${n}/:gameKode`} element={n===3?<GameKelas5Bab3Screen/>:n===4?<GameKelas5Bab4Screen/>:n===5?<GameKelas5Bab5Screen/>:n===6?<GameKelas5Bab6Screen/>:n===7?<GameKelas5Bab7Screen/>:<GameKelas5Bab8Screen/>}/>)}<Route path={`${RUTE.game}/:gameKode`} element={<GameKelas5RunnerScreen/>}/><Route path={RUTE.vlab} element={<KatalogVlabScreen/>}/>{[2,3,4,5,6,7,8].map(n=><Route key={`v${n}`} path={`${RUTE.vlab}/kelas5-bab${n}/:labKode`} element={n===2?<VlabKelas5Bab2Screen/>:n===3?<VlabKelas5Bab3Screen/>:n===4?<VlabKelas5Bab4Screen/>:n===5?<VlabKelas5Bab5Screen/>:n===6?<VlabKelas5Bab6Screen/>:n===7?<VlabKelas5Bab7Screen/>:<VlabKelas5Bab8Screen/>}/>)}<Route path="/pembelajaran/kuis" element={<Kelas5IpasHubScreen/>}/><Route path="/pembelajaran/lkpd" element={<Kelas5IpasHubScreen/>}/><Route path="/pembelajaran/bank-soal" element={<Kelas5IpasHubScreen/>}/>{KONTEN_BAB.map((C,i)=>['kuis','lkpd','bank-soal'].map(j=><Route key={`${j}-${i}`} path={`/pembelajaran/${j}/kelas5-ipas-bab${i+1}`} element={<C/>}/>))}<Route path="/kelas5/:mapelKode" element={<Kelas5MapelMasterScreen/>}/><Route path="/kelas5/:mapelKode/:babNo/:mode" element={<Kelas5MapelMasterScreen/>}/><Route path="/pembelajaran/:jenis" element={<FiturPembelajaranScreen/>}/><Route path="/fitur/pembuat-lkpd" element={<AiStudioScreen/>}/><Route path="/fitur/pembuat-soal" element={<AiStudioScreen/>}/><Route path="/fitur/pembuat-materi" element={<AiStudioScreen/>}/><Route path="/fitur/studio-ai" element={<AiStudioScreen/>}/><Route path="/fitur/:fitur" element={<FiturMenyusulScreen/>}/></Route><Route path={`${RUTE.vlab}/:vlabKode`} element={<RuteTerlindungi><VlabRunnerScreen/></RuteTerlindungi>}/><Route path={RUTE.modeSiswa} element={<RuteTerlindungi><KurikulumProvider><ModeSiswaScreen/></KurikulumProvider></RuteTerlindungi>}/><Route path={RUTE.modeKelas} element={<RuteTerlindungi><KurikulumProvider><ModeKelasScreen/></KurikulumProvider></RuteTerlindungi>}/><Route path="*" element={<LayarTidakDitemukan/>}/></Routes>}
