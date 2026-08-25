@@ -23,6 +23,7 @@ const KELOMPOK_NAVIGASI: Array<{ judul: string; item: ItemNavigasi[] }> = [
       { label: 'Dasbor', ikon: '⌂', tujuan: RUTE.dasbor },
       { label: 'Kelas & Mapel', ikon: '▦', tujuan: RUTE.kelas },
       { label: 'Papan Interaktif', ikon: '□', tujuan: RUTE.papan },
+      { label: 'VLAB / Simulasi', ikon: '⚗', tujuan: RUTE.vlab },
       { label: 'Game Edukasi', ikon: '◆', tujuan: RUTE.game },
     ],
   },
@@ -48,9 +49,9 @@ const KELOMPOK_NAVIGASI: Array<{ judul: string; item: ItemNavigasi[] }> = [
     item: [
       { label: 'Perpustakaan', ikon: '▤', tujuan: '/fitur/perpustakaan' },
       { label: 'Media', ikon: '▧', tujuan: RUTE.media },
-      { label: 'Referensi Pembelajaran', ikon: '↗', tujuan: RUTE.referensi },
+      { label: 'Buku Referensi', ikon: '▣', tujuan: RUTE.bukuReferensi },
       { label: 'Pencarian', ikon: '⌕', tujuan: RUTE.pencarian },
-      { label: 'Basis Data CP & TP', ikon: '⌘', tujuan: RUTE.basisData },
+      { label: 'Struktur Kurikulum', ikon: '⌘', tujuan: RUTE.strukturKurikulum },
       { label: 'Profil Sekolah/Guru', ikon: '⚙', tujuan: RUTE.profil },
       { label: 'Kelola Akun', ikon: '♙', tujuan: RUTE.kelolaAkun, hanyaAdmin: true },
       { label: 'Backup & Restore', ikon: '⇩', tujuan: RUTE.backup },
@@ -214,7 +215,7 @@ export function KerangkaGuru() {
           { label: 'Dasbor', ikon: '⌂', tujuan: RUTE.dasbor },
           { label: 'Kelas', ikon: '▦', tujuan: RUTE.kelas },
           { label: 'Papan', ikon: '□', tujuan: RUTE.papan },
-          { label: 'AI', ikon: '✦', tujuan: '/fitur/studio-ai' },
+          { label: 'VLAB', ikon: '⚗', tujuan: RUTE.vlab },
           { label: 'Lainnya', ikon: '•••', tujuan: RUTE.lainnya },
         ].map((item) => (
           <NavLink

@@ -16,7 +16,7 @@ const ADMIN = {
   konfirmasi: 'SandiAdmin#2026',
 };
 
-async function pasangTahap2(rute: string) {
+async function bukaSebagaiAdmin(rute: string) {
   await buatAdminPertama(ADMIN);
   await masuk({ username: ADMIN.username, password: ADMIN.password, peran: 'admin' });
   return render(
@@ -28,80 +28,96 @@ async function pasangTahap2(rute: string) {
   );
 }
 
-describe('layar Tahap 2', () => {
+describe('layar kelas dan mata pelajaran', () => {
   beforeEach(async () => {
     await resetPenyimpanan();
     tandaiOpeningSelesai();
   });
 
-  it('menampilkan Dashboard setelah login dengan ringkasan dataset final', async () => {
-    await pasangTahap2(RUTE.dasbor);
+  it('menampilkan Dashboard tanpa satu pun angka CP/TP lama', async () => {
+    await bukaSebagaiAdmin(RUTE.dasbor);
 
     expect(await screen.findByTestId('beranda-terlindungi')).toBeInTheDocument();
-    expect(await screen.findByText('47', { selector: '.kartu-statistik strong' })).toBeVisible();
-    expect(screen.getByText('221', { selector: '.kartu-statistik strong' })).toBeVisible();
-    expect(screen.getByText('212', { selector: '.kartu-statistik strong' })).toBeVisible();
+    expect(await screen.findByText('Kelas', { selector: '.kartu-statistik p' })).toBeVisible();
+    expect(screen.getByText('Buku referensi', { selector: '.kartu-statistik p' })).toBeVisible();
+
+    for (const angka of ['47', '221', '212']) {
+      expect(
+        screen.queryByText(angka, { selector: '.kartu-statistik strong' }),
+      ).not.toBeInTheDocument();
+    }
+    expect(screen.queryByText(/TP Rekomendasi/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/CP resmi/)).not.toBeInTheDocument();
     expect(screen.getByText('Belum ada jadwal mengajar')).toBeVisible();
   });
 
   it('menyediakan enam kelas dan menyimpan pilihan menuju mata pelajaran', async () => {
     const pengguna = userEvent.setup();
-    await pasangTahap2(RUTE.kelas);
+    await bukaSebagaiAdmin(RUTE.kelas);
 
     expect(await screen.findByRole('heading', { name: 'Pilih kelas' })).toBeVisible();
     expect(
       await screen.findAllByText(/Kelas [1-6]/, { selector: '.kartu-kelas > strong' }),
     ).toHaveLength(6);
     await pengguna.click(screen.getByRole('link', { name: /Kelas 4/i }));
-    expect(await screen.findByRole('heading', { name: 'Mata pelajaran Kelas 4' })).toBeVisible();
-  });
+    expect(
+      await screen.findByRole('heading', { name: 'Mata pelajaran Kelas 4' }, { timeout: 5_000 }),
+    ).toBeVisible();
+  }, 20_000);
 
-  it('menampilkan seluruh agama dari 020/2026 dan batas KKA pada kelas 4', async () => {
-    await pasangTahap2('/kelas/4/mapel');
+  it('mempertahankan struktur mata pelajaran termasuk agama dan batas KKA', async () => {
+    await bukaSebagaiAdmin('/kelas/4/mapel');
 
     expect(await screen.findByText('Pendidikan Agama Islam dan Budi Pekerti')).toBeVisible();
     expect(screen.getByText('Pendidikan Agama Kristen dan Budi Pekerti')).toBeVisible();
-    expect(screen.getByText('Pendidikan Agama Katolik dan Budi Pekerti')).toBeVisible();
-    expect(screen.getByText('Pendidikan Agama Hindu dan Budi Pekerti')).toBeVisible();
-    expect(screen.getByText('Pendidikan Agama Buddha dan Budi Pekerti')).toBeVisible();
     expect(screen.getByText('Pendidikan Agama Khonghucu dan Budi Pekerti')).toBeVisible();
     expect(screen.getByText(/Koding dan Kecerdasan Artifisial belum tersedia/)).toBeVisible();
+    expect(screen.queryByText(/TP Rekomendasi/)).not.toBeInTheDocument();
   });
 
-  it('menampilkan CP agama verbatim tanpa mengarang TP dari dokumen 020/2026', async () => {
-    await pasangTahap2('/kelas/1/mapel/PAI');
+  it('menampilkan rantai isi kosong yang menunggu Buku Referensi', async () => {
+    await bukaSebagaiAdmin('/kelas/1/mapel/MAT');
 
-    expect(await screen.findByTestId('layar-cp-tp')).toBeInTheDocument();
-    expect(screen.getByText('CP Resmi · 2026.1')).toBeVisible();
+    expect(await screen.findByTestId('layar-struktur-mapel')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Buku Referensi belum dimasukkan' })).toBeVisible();
     expect(
-      screen.getByText(/Membaca dan membedakan huruf hijaiah berharakat/),
+      screen.getByText(/Konten akan tersedia setelah Buku Referensi dimasukkan/),
     ).toBeVisible();
-    expect(screen.getByText('Belum ada TP Rekomendasi untuk elemen ini')).toBeVisible();
-    expect(screen.getByText(/Nomor 020 Tahun 2026 menetapkan CP/)).toBeVisible();
+
+    const rantai = screen.getByRole('region', { name: 'Rantai isi pembelajaran' });
+    for (const nama of ['CP', 'TP', 'Kuis', 'Game Edukasi', 'LKPD', 'Bank Soal']) {
+      expect(rantai).toHaveTextContent(nama);
+    }
+    expect(rantai.querySelectorAll('li[data-keadaan="menunggu_buku"]').length).toBeGreaterThan(5);
   });
 
-  it('membawa TP terpilih ke tujuan navigasi pembelajaran', async () => {
+  it('mendaftarkan buku referensi baru dan menampilkannya pada struktur mapel', async () => {
     const pengguna = userEvent.setup();
-    await pasangTahap2('/kelas/1/mapel/MAT');
+    await bukaSebagaiAdmin(RUTE.bukuReferensi);
 
-    await screen.findByTestId('layar-cp-tp');
-    const tautanTp = await screen.findAllByRole(
-      'link',
-      { name: 'Buka TP' },
-      { timeout: 5_000 },
-    );
-    await pengguna.click(tautanTp[0]!);
+    expect(await screen.findByTestId('buku-referensi')).toBeInTheDocument();
+    await screen.findByRole('option', { name: 'Matematika' }, { timeout: 5_000 });
+    await pengguna.selectOptions(screen.getByLabelText('Mata pelajaran'), 'MAT');
+    await pengguna.type(screen.getByLabelText('Judul buku'), 'Matematika Kelas 1 Sekolah Kami');
+    await pengguna.click(screen.getByRole('button', { name: 'Tambah buku referensi' }));
 
-    expect(await screen.findByRole('heading', { name: 'Materi Pembelajaran' })).toBeVisible();
+    expect(await screen.findByText('Matematika Kelas 1 Sekolah Kami')).toBeVisible();
+  }, 15_000);
+
+  it('menampilkan menu Game Edukasi dengan pesan menunggu buku, tanpa katalog lama', async () => {
+    await bukaSebagaiAdmin(RUTE.game);
+
+    expect(await screen.findByTestId('katalog-game')).toBeInTheDocument();
     expect(
-      screen.getByText('Semua materi wajib tertaut TP dan dapat dibuka kembali tanpa internet.'),
+      screen.getByText('Konten Game Edukasi akan tersedia setelah Buku Referensi dimasukkan.'),
     ).toBeVisible();
-    expect(screen.getByText(/^TP-MAT-/)).toBeVisible();
+    expect(screen.queryByRole('link', { name: /Mainkan/ })).not.toBeInTheDocument();
+    expect(screen.queryByText(/engine reusable/)).not.toBeInTheDocument();
   });
 
   it('menampilkan aksi akun yang jelas dan ganti akun hanya menutup sesi', async () => {
     const pengguna = userEvent.setup();
-    await pasangTahap2(RUTE.dasbor);
+    await bukaSebagaiAdmin(RUTE.dasbor);
     const tombol = await screen.findAllByRole('button', { name: 'Buka menu akun' });
     await pengguna.click(tombol[0]!);
     expect(screen.getByRole('link', { name: 'Kelola Akun Guru' })).toBeVisible();

@@ -13,7 +13,7 @@ import { KurikulumProvider } from '../state/KurikulumProvider';
 import { KerangkaGuru } from '../features/guru/KerangkaGuru';
 import { PilihKelasScreen } from '../features/kurikulum/PilihKelasScreen';
 import { PilihMapelScreen } from '../features/kurikulum/PilihMapelScreen';
-import { CpTpScreen } from '../features/kurikulum/CpTpScreen';
+import { StrukturMapelScreen } from '../features/kurikulum/StrukturMapelScreen';
 import { FiturPembelajaranScreen } from '../features/pembelajaran/FiturPembelajaranScreen';
 import { FiturMenyusulScreen } from '../features/guru/FiturMenyusulScreen';
 import { MateriScreen } from '../features/pembelajaran/MateriScreen';
@@ -27,20 +27,22 @@ import { BackupScreen } from '../features/pelengkap/BackupScreen';
 import { OfflineScreen } from '../features/pelengkap/OfflineScreen';
 import { ModeSiswaScreen } from '../features/pelengkap/ModeSiswaScreen';
 import { ModeKelasScreen } from '../features/pelengkap/ModeKelasScreen';
-import { BasisDataScreen } from '../features/kurikulum/BasisDataScreen';
-import { KelolaTpSekolahScreen } from '../features/kurikulum/KelolaTpSekolahScreen';
-import { MuatCpScreen } from '../features/kurikulum/MuatCpScreen';
+import { StrukturKurikulumScreen } from '../features/kurikulum/StrukturKurikulumScreen';
+import { BukuReferensiScreen } from '../features/kurikulum/BukuReferensiScreen';
 import { MenuLainnyaScreen } from '../features/guru/MenuLainnyaScreen';
 import { KatalogGameScreen } from '../features/game/KatalogGameScreen';
-import { GameRunnerScreen } from '../features/game/GameRunnerScreen';
-import { ReferensiScreen } from '../features/referensi/ReferensiScreen';
-import { PemetaanReferensiScreen } from '../features/referensi/PemetaanReferensiScreen';
+import { KatalogVlabScreen } from '../features/vlab/KatalogVlabScreen';
+import { VlabRunnerScreen } from '../features/vlab/VlabRunnerScreen';
 import { KelolaAkunScreen } from '../features/auth/KelolaAkunScreen';
 import { TentangAplikasiScreen } from '../features/pelengkap/TentangAplikasiScreen';
 import { AiStudioScreen } from '../features/ai/AiStudioScreen';
 
 /**
- * Peta rute aplikasi sampai Tahap 11.
+ * Peta rute aplikasi.
+ *
+ * Rute CP/TP lama (layar CP & TP, Kelola TP Sekolah, Muat CP, Referensi lama)
+ * dan rute pemutar game lama sudah dihapus. Penggantinya adalah rantai Buku
+ * Referensi dan katalog VLAB yang berjalan mandiri.
  *
  * Hanya empat rute yang terbuka tanpa sesi: Opening, Setup Admin, Login, dan
  * Lupa Password. Rute kerja guru ditambahkan di dalam <RuteTerlindungi>
@@ -94,7 +96,7 @@ export function AppRoutes() {
         <Route path={RUTE.kelompok} element={<KelompokSiswaScreen />} />
         <Route path={RUTE.rekap} element={<RekapCpTpScreen />} />
         <Route path={`${RUTE.kelas}/:tingkat/mapel`} element={<PilihMapelScreen />} />
-        <Route path={`${RUTE.kelas}/:tingkat/mapel/:mapelKode`} element={<CpTpScreen />} />
+        <Route path={`${RUTE.kelas}/:tingkat/mapel/:mapelKode`} element={<StrukturMapelScreen />} />
         <Route path={RUTE.materi} element={<MateriScreen />} />
         <Route path={RUTE.papan} element={<PapanInteraktifScreen />} />
         <Route path={RUTE.media} element={<MediaScreen />} />
@@ -111,27 +113,24 @@ export function AppRoutes() {
         <Route path={RUTE.backup} element={<BackupScreen />} />
         <Route path={RUTE.offline} element={<OfflineScreen />} />
         <Route path={RUTE.tentang} element={<TentangAplikasiScreen />} />
-        <Route path={RUTE.basisData} element={<BasisDataScreen />} />
-        <Route path={RUTE.kelolaTp} element={<KelolaTpSekolahScreen />} />
-        <Route path={RUTE.muatCp} element={<MuatCpScreen />} />
-        <Route path={RUTE.referensi} element={<ReferensiScreen />} />
-        <Route path={RUTE.pemetaanReferensi} element={<PemetaanReferensiScreen />} />
+        <Route path={RUTE.strukturKurikulum} element={<StrukturKurikulumScreen />} />
+        <Route path={RUTE.bukuReferensi} element={<BukuReferensiScreen />} />
         <Route path={RUTE.lainnya} element={<MenuLainnyaScreen />} />
         <Route path={RUTE.game} element={<KatalogGameScreen />} />
+        <Route path={RUTE.vlab} element={<KatalogVlabScreen />} />
         <Route path="/pembelajaran/:jenis" element={<FiturPembelajaranScreen />} />
         <Route path="/fitur/pembuat-lkpd" element={<AiStudioScreen />} />
         <Route path="/fitur/pembuat-soal" element={<AiStudioScreen />} />
         <Route path="/fitur/pembuat-materi" element={<AiStudioScreen />} />
-        <Route path="/fitur/game-generator" element={<AiStudioScreen />} />
         <Route path="/fitur/studio-ai" element={<AiStudioScreen />} />
         <Route path="/fitur/:fitur" element={<FiturMenyusulScreen />} />
       </Route>
 
       <Route
-        path={`${RUTE.game}/:gameId/main`}
+        path={`${RUTE.vlab}/:vlabKode`}
         element={
           <RuteTerlindungi>
-            <KurikulumProvider><GameRunnerScreen /></KurikulumProvider>
+            <VlabRunnerScreen />
           </RuteTerlindungi>
         }
       />

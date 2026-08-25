@@ -1,5 +1,9 @@
 .halaman-kurikulum {
   display: grid;
+  /* Kolom tunggal yang boleh menyusut: tanpa minmax(0, …) isi selebar
+     max-content (misalnya nama mapel panjang di dalam select) memaksa halaman
+     melebar dan terpotong di layar HP. */
+  grid-template-columns: minmax(0, 1fr);
   gap: 22px;
   padding: 26px;
 }
@@ -877,4 +881,191 @@
   .keadaan-kosong--fitur {
     min-height: calc(560px * var(--skala));
   }
+}
+
+/* ---------- Rantai Buku Referensi (pengganti layar CP & TP lama) ---------- */
+
+.panel-menunggu-buku {
+  display: flex;
+  gap: var(--spasi-4);
+  align-items: flex-start;
+  padding: var(--spasi-4);
+  margin-bottom: var(--spasi-5);
+  border: var(--tepi);
+  border-left: 5px solid var(--amber);
+  border-radius: var(--radius-panel);
+  background: #fff8e8;
+}
+
+.panel-menunggu-buku > span {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.panel-menunggu-buku h2 {
+  margin: 0 0 4px;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  color: #5a4715;
+}
+
+.panel-menunggu-buku p {
+  margin: 0;
+  max-width: 70ch;
+  color: #6b5a2a;
+}
+
+.rantai-referensi {
+  padding: var(--spasi-4);
+  margin-bottom: var(--spasi-5);
+  border: var(--tepi);
+  border-radius: var(--radius-panel);
+  background: #fff;
+}
+
+.rantai-referensi__kop h2 {
+  margin: 0 0 2px;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  color: var(--navy-panel);
+}
+
+.rantai-referensi__kop p {
+  margin: 0 0 var(--spasi-4);
+  color: #55697a;
+}
+
+.rantai-referensi ol {
+  display: grid;
+  gap: var(--spasi-2);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.rantai-referensi li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spasi-3);
+  align-items: center;
+  padding: var(--spasi-3);
+  border: var(--tepi);
+  border-radius: var(--radius-kartu);
+  background: #f8fbfd;
+}
+
+.rantai-referensi li > b {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--biru-muda);
+  font-family: var(--font-data);
+  color: var(--biru);
+}
+
+.rantai-referensi li > div {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.rantai-referensi li strong {
+  display: block;
+  color: var(--navy-panel);
+}
+
+.rantai-referensi li small {
+  color: #55697a;
+}
+
+.rantai-referensi li > span {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: #fdf3e0;
+  color: #7a5c15;
+}
+
+.rantai-referensi li[data-keadaan='tersedia'] > span {
+  background: #e8f6f0;
+  color: var(--hijau-tua);
+}
+
+.rantai-referensi li[data-keadaan='mandiri'] > span {
+  background: var(--biru-muda);
+  color: var(--biru);
+}
+
+.rantai-referensi__catatan {
+  margin: var(--spasi-4) 0 0;
+  color: #55697a;
+}
+
+.daftar-buku-mapel {
+  display: grid;
+  gap: var(--spasi-3);
+  margin-bottom: var(--spasi-5);
+}
+
+.daftar-buku-mapel article {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spasi-3);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spasi-4);
+  border: var(--tepi);
+  border-radius: var(--radius-kartu);
+  background: #fff;
+}
+
+.daftar-buku-mapel h3 {
+  margin: 0 0 2px;
+  font-size: 1.02rem;
+  color: var(--navy-panel);
+}
+
+.daftar-buku-mapel p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #55697a;
+}
+
+.form-buku {
+  display: grid;
+  gap: var(--spasi-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  align-items: end;
+  padding: var(--spasi-4);
+}
+
+.form-buku label {
+  display: grid;
+  min-width: 0;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #35485a;
+}
+
+.form-buku input,
+.form-buku select {
+  min-width: 0;
+  width: 100%;
+  min-height: var(--target-sentuh);
+  padding: 0 var(--spasi-3);
+  border: var(--tepi);
+  border-radius: var(--radius-tombol);
+  background: #fff;
+}
+
+.form-buku button {
+  min-height: var(--target-sentuh);
+}
+
+.pesan-kurikulum {
+  margin: 0;
+  padding: var(--spasi-3) var(--spasi-4);
+  color: var(--hijau-tua);
 }

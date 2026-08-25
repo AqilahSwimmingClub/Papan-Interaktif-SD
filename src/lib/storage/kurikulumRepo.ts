@@ -1,16 +1,19 @@
 import type {
-  CapaianPembelajaran,
-  DokumenKurikulum,
-  ElemenKurikulum,
+  BukuBab,
+  BukuReferensi,
+  BukuTopik,
   JenjangKelas,
   KonteksKurikulum,
   MataPelajaran,
-  TujuanPembelajaran,
 } from '../types';
 import { DATA_KURIKULUM_FINAL, VERSI_SEED_KURIKULUM } from '../kurikulum/kurikulumSeed';
 import { TOKO, jalankanTransaksi, kueri, type NamaToko } from './db';
 import { bacaPenanda, KUNCI_PERANGKAT, tulisPenanda } from './perangkatRepo';
 
+/**
+ * Toko struktur yang disemai bawaan. Tabel `cp`, `elemen`, `tp`, dan
+ * `referensi` sengaja tidak lagi ikut disemai — isinya menunggu Buku Referensi.
+ */
 const TOKO_KURIKULUM: NamaToko[] = [
   TOKO.fase,
   TOKO.jenjangKelas,
@@ -18,45 +21,27 @@ const TOKO_KURIKULUM: NamaToko[] = [
   TOKO.agama,
   TOKO.cabangSeni,
   TOKO.dokumenKurikulum,
-  TOKO.cp,
-  TOKO.elemen,
-  TOKO.tp,
-  TOKO.referensi,
 ];
 
 export interface RingkasanKurikulum {
-  jumlahCp: number;
-  jumlahElemen: number;
-  jumlahTp: number;
+  jumlahKelas: number;
   jumlahMapel: number;
-  cpAgama020: number;
+  jumlahBuku: number;
+  jumlahBab: number;
+  jumlahTopik: number;
 }
 
 export interface RingkasanKelas {
   tingkat: number;
   fase_kode: 'A' | 'B' | 'C';
-  jumlahTp: number;
   jumlahPilihanMapel: number;
+  jumlahBuku: number;
 }
 
 export interface RingkasanMapel extends MataPelajaran {
-  jumlahCp: number;
-  jumlahElemen: number;
-  jumlahTp: number;
-  dokumen_kode: string | null;
-}
-
-export interface DetailMapelKelas {
-  kelas: JenjangKelas;
-  mapel: MataPelajaran;
-  cp: CapaianPembelajaran;
-  dokumen: DokumenKurikulum | null;
-  elemen: Array<
-    ElemenKurikulum & {
-      tpRekomendasi: TujuanPembelajaran[];
-      tpSekolah: TujuanPembelajaran[];
-    }
-  >;
+  jumlahBuku: number;
+  jumlahBab: number;
+  jumlahTopik: number;
 }
 
 export const KONTEKS_KURIKULUM_KOSONG: KonteksKurikulum = {
@@ -74,6 +59,17 @@ export const KONTEKS_KURIKULUM_KOSONG: KonteksKurikulum = {
 };
 
 let prosesSeed: Promise<void> | null = null;
+
+/**
+ * Melepas penanda seed yang sedang berjalan.
+ *
+ * Dipakai saat basis data dihapus dan dibuat ulang (restore dan pengujian):
+ * tanpa ini, pemanggil berikutnya dapat menempel pada janji seed milik basis
+ * data lama sehingga basis data baru tidak pernah disemai.
+ */
+export function lepaskanPenandaSeedKurikulum(): void {
+  prosesSeed = null;
+}
 
 /** Seed idempoten dari dua dataset final repository. Tidak ada pemanggilan jaringan. */
 export async function pastikanKurikulumTersedia(): Promise<void> {
@@ -100,10 +96,6 @@ async function semaiBilaPerlu(): Promise<void> {
       [TOKO.agama, DATA_KURIKULUM_FINAL.agama],
       [TOKO.cabangSeni, DATA_KURIKULUM_FINAL.cabangSeni],
       [TOKO.dokumenKurikulum, DATA_KURIKULUM_FINAL.dokumenKurikulum],
-      [TOKO.cp, DATA_KURIKULUM_FINAL.cp],
-      [TOKO.elemen, DATA_KURIKULUM_FINAL.elemen],
-      [TOKO.tp, DATA_KURIKULUM_FINAL.tp],
-      [TOKO.referensi, DATA_KURIKULUM_FINAL.referensi],
     ];
 
     for (const [namaToko, baris] of pasangan) {
@@ -117,21 +109,28 @@ async function semaiBilaPerlu(): Promise<void> {
 export async function bacaRingkasanKurikulum(): Promise<RingkasanKurikulum> {
   await pastikanKurikulumTersedia();
   return jalankanTransaksi(
-    [TOKO.cp, TOKO.elemen, TOKO.tp, TOKO.mataPelajaran],
+    [
+      TOKO.jenjangKelas,
+      TOKO.mataPelajaran,
+      TOKO.bukuReferensi,
+      TOKO.bukuBab,
+      TOKO.bukuTopik,
+    ],
     'readonly',
     async (toko) => {
-      const [cp, jumlahElemen, jumlahTp, jumlahMapel] = await Promise.all([
-        kueri.semua<CapaianPembelajaran>(toko(TOKO.cp)),
-        kueri.jumlah(toko(TOKO.elemen)),
-        kueri.jumlah(toko(TOKO.tp)),
+      const [jumlahKelas, jumlahMapel, buku, jumlahBab, jumlahTopik] = await Promise.all([
+        kueri.jumlah(toko(TOKO.jenjangKelas)),
         kueri.jumlah(toko(TOKO.mataPelajaran)),
+        kueri.semua<BukuReferensi>(toko(TOKO.bukuReferensi)),
+        kueri.jumlah(toko(TOKO.bukuBab)),
+        kueri.jumlah(toko(TOKO.bukuTopik)),
       ]);
       return {
-        jumlahCp: cp.length,
-        jumlahElemen,
-        jumlahTp,
+        jumlahKelas,
         jumlahMapel,
-        cpAgama020: cp.filter((baris) => baris.dokumen_kode === '020/2026').length,
+        jumlahBuku: buku.filter((baris) => baris.status === 'aktif').length,
+        jumlahBab,
+        jumlahTopik,
       };
     },
   );
@@ -140,22 +139,24 @@ export async function bacaRingkasanKurikulum(): Promise<RingkasanKurikulum> {
 export async function daftarKelas(): Promise<RingkasanKelas[]> {
   await pastikanKurikulumTersedia();
   return jalankanTransaksi(
-    [TOKO.jenjangKelas, TOKO.mataPelajaran, TOKO.tp],
+    [TOKO.jenjangKelas, TOKO.mataPelajaran, TOKO.bukuReferensi],
     'readonly',
     async (toko) => {
-      const [kelas, mapel, tp] = await Promise.all([
+      const [kelas, mapel, buku] = await Promise.all([
         kueri.semua<JenjangKelas>(toko(TOKO.jenjangKelas)),
         kueri.semua<MataPelajaran>(toko(TOKO.mataPelajaran)),
-        kueri.semua<TujuanPembelajaran>(toko(TOKO.tp)),
+        kueri.semua<BukuReferensi>(toko(TOKO.bukuReferensi)),
       ]);
       return kelas
         .sort((a, b) => a.tingkat - b.tingkat)
         .map((baris) => ({
           tingkat: baris.tingkat,
           fase_kode: baris.fase_kode,
-          jumlahTp: tp.filter((tujuan) => tujuan.tingkat_kelas === baris.tingkat).length,
           jumlahPilihanMapel: mapel.filter((item) =>
             item.kelas_tersedia.includes(baris.tingkat),
+          ).length,
+          jumlahBuku: buku.filter(
+            (item) => item.status === 'aktif' && item.tingkat_kelas === baris.tingkat,
           ).length,
         }));
     },
@@ -164,101 +165,36 @@ export async function daftarKelas(): Promise<RingkasanKelas[]> {
 
 export async function daftarMapelUntukKelas(tingkat: number): Promise<RingkasanMapel[]> {
   await pastikanKurikulumTersedia();
-  const faseKode = tingkat <= 2 ? 'A' : tingkat <= 4 ? 'B' : 'C';
   return jalankanTransaksi(
-    [TOKO.mataPelajaran, TOKO.cp, TOKO.elemen, TOKO.tp],
+    [TOKO.mataPelajaran, TOKO.bukuReferensi, TOKO.bukuBab, TOKO.bukuTopik],
     'readonly',
     async (toko) => {
-      const [mapel, cp, elemen, tp] = await Promise.all([
+      const [mapel, buku, bab, topik] = await Promise.all([
         kueri.semua<MataPelajaran>(toko(TOKO.mataPelajaran)),
-        kueri.semua<CapaianPembelajaran>(toko(TOKO.cp)),
-        kueri.semua<ElemenKurikulum>(toko(TOKO.elemen)),
-        kueri.semua<TujuanPembelajaran>(toko(TOKO.tp)),
+        kueri.semua<BukuReferensi>(toko(TOKO.bukuReferensi)),
+        kueri.semua<BukuBab>(toko(TOKO.bukuBab)),
+        kueri.semua<BukuTopik>(toko(TOKO.bukuTopik)),
       ]);
 
       return mapel
         .filter((item) => item.kelas_tersedia.includes(tingkat))
         .map((item) => {
-          const cpMapel = cp.filter(
-            (capaian) => capaian.mapel_kode === item.kode && capaian.fase_kode === faseKode,
+          const bukuMapel = buku.filter(
+            (baris) =>
+              baris.status === 'aktif' &&
+              baris.tingkat_kelas === tingkat &&
+              baris.mapel_kode === item.kode,
           );
-          const idCp = new Set(cpMapel.map((capaian) => capaian.id));
-          const elemenMapel = elemen.filter((baris) => idCp.has(baris.cp_id));
-          const idElemen = new Set(elemenMapel.map((baris) => baris.id));
+          const idBuku = new Set(bukuMapel.map((baris) => baris.id));
+          const babMapel = bab.filter((baris) => idBuku.has(baris.buku_id));
+          const idBab = new Set(babMapel.map((baris) => baris.id));
           return {
             ...item,
-            jumlahCp: cpMapel.length,
-            jumlahElemen: elemenMapel.length,
-            jumlahTp: tp.filter(
-              (tujuan) =>
-                tujuan.tingkat_kelas === tingkat &&
-                tujuan.status === 'aktif' &&
-                idElemen.has(tujuan.elemen_id),
-            ).length,
-            dokumen_kode: cpMapel[0]?.dokumen_kode ?? null,
+            jumlahBuku: bukuMapel.length,
+            jumlahBab: babMapel.length,
+            jumlahTopik: topik.filter((baris) => idBab.has(baris.bab_id)).length,
           };
         });
-    },
-  );
-}
-
-export async function bacaDetailMapelKelas(
-  tingkat: number,
-  mapelKode: string,
-): Promise<DetailMapelKelas | null> {
-  await pastikanKurikulumTersedia();
-  const faseKode = tingkat <= 2 ? 'A' : tingkat <= 4 ? 'B' : 'C';
-  return jalankanTransaksi(
-    [TOKO.jenjangKelas, TOKO.mataPelajaran, TOKO.cp, TOKO.elemen, TOKO.tp, TOKO.dokumenKurikulum],
-    'readonly',
-    async (toko) => {
-      const [kelas, mapel, daftarCp] = await Promise.all([
-        kueri.ambil<JenjangKelas>(toko(TOKO.jenjangKelas), tingkat),
-        kueri.ambil<MataPelajaran>(toko(TOKO.mataPelajaran), mapelKode),
-        kueri.semuaLewatIndeks<CapaianPembelajaran>(
-          toko(TOKO.cp),
-          'mapel_fase',
-          [mapelKode, faseKode],
-        ),
-      ]);
-      const cp = daftarCp[0];
-      if (!kelas || !mapel || !cp || !mapel.kelas_tersedia.includes(tingkat)) return null;
-
-      const [dokumen, elemen, semuaTp] = await Promise.all([
-        kueri.ambil<DokumenKurikulum>(toko(TOKO.dokumenKurikulum), cp.dokumen_kode),
-        kueri.semuaLewatIndeks<ElemenKurikulum>(toko(TOKO.elemen), 'cp_id', cp.id),
-        kueri.semua<TujuanPembelajaran>(toko(TOKO.tp)),
-      ]);
-
-      return {
-        kelas,
-        mapel,
-        cp,
-        dokumen: dokumen ?? null,
-        elemen: elemen
-          .sort((a, b) => a.urutan - b.urutan)
-          .map((baris) => ({
-            ...baris,
-            tpRekomendasi: semuaTp
-              .filter(
-                (tujuan) =>
-                  tujuan.elemen_id === baris.id &&
-                  tujuan.tingkat_kelas === tingkat &&
-                  tujuan.sumber === 'rekomendasi' &&
-                  tujuan.status === 'aktif',
-              )
-              .sort((a, b) => a.kode_tampil.localeCompare(b.kode_tampil, 'id', { numeric: true })),
-            tpSekolah: semuaTp
-              .filter(
-                (tujuan) =>
-                  tujuan.elemen_id === baris.id &&
-                  tujuan.tingkat_kelas === tingkat &&
-                  tujuan.sumber === 'sekolah' &&
-                  tujuan.status === 'aktif',
-              )
-              .sort((a, b) => a.kode_tampil.localeCompare(b.kode_tampil, 'id', { numeric: true })),
-          })),
-      };
     },
   );
 }

@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { buatKatalogGameUntukTp } from '../../lib/storage/gameRepo';
 import { daftarKelompokKelas, daftarSiswaKelas, sesiLewatKode } from '../../lib/storage/kelasRepo';
-import type { GamePembelajaran, Kelompok, SesiPembelajaran, Siswa } from '../../lib/types';
-import { ruteMainGame } from '../../routes/paths';
+import { PESAN_MENUNGGU_BUKU_GAME } from '../../lib/referensi/strukturReferensi';
+import { KATALOG_VLAB } from '../../lib/vlab/katalogVlab';
+import type { Kelompok, SesiPembelajaran, Siswa } from '../../lib/types';
+import { ruteVlab } from '../../routes/paths';
 import './mode-kelas.css';
 import './mode-siswa-game.css';
 
@@ -13,14 +14,8 @@ export function ModeSiswaScreen() {
   const [siswa, setSiswa] = useState<Siswa[]>([]);
   const [kelompok, setKelompok] = useState<Array<Kelompok & { anggota: Siswa[] }>>([]);
   const [aktif, setAktif] = useState<Siswa | null>(null);
-  const [game, setGame] = useState<GamePembelajaran[]>([]);
   const [pesan, setPesan] = useState('');
   const tahanRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (!aktif || !sesi) return;
-    void buatKatalogGameUntukTp(sesi.tp_id).then(setGame).catch(() => setGame([]));
-  }, [aktif, sesi]);
 
   async function cariSesi() {
     const ditemukan = await sesiLewatKode(kode);
@@ -32,7 +27,7 @@ export function ModeSiswaScreen() {
   }
 
   function mulaiTahan() {
-    tahanRef.current = window.setTimeout(() => { setAktif(null); setSesi(null); setKode(''); setGame([]); }, 3000);
+    tahanRef.current = window.setTimeout(() => { setAktif(null); setSesi(null); setKode(''); }, 3000);
   }
   function batalTahan() {
     if (tahanRef.current) window.clearTimeout(tahanRef.current);
@@ -43,9 +38,9 @@ export function ModeSiswaScreen() {
     const grup = kelompok.find((item) => item.id === aktif.kelompok_id);
     return <main className="mode-siswa mode-siswa--aktif" data-testid="mode-siswa">
       <header><span className="avatar-siswa">{aktif.nama.split(/\s+/).map((x) => x[0]).slice(0, 2).join('')}</span><div><h1>{aktif.nama.split(' ')[0]}</h1><p>{grup ? `Kelompok ${grup.nama}` : 'Belum masuk kelompok'}</p></div><button type="button" onPointerDown={mulaiTahan} onPointerUp={batalTahan} onPointerLeave={batalTahan}>Tahan 3 detik untuk keluar</button></header>
-      <section className="siswa-sekarang"><span>Sekarang</span><h2>Sesi pembelajaran aktif</h2><p>{sesi.tp_id}</p>{game[0] ? <Link to={`${ruteMainGame(game[0].id)}?siswa=${encodeURIComponent(aktif.id)}&sesi=${encodeURIComponent(sesi.id)}`}>Mulai game</Link> : <button type="button" disabled>Menyiapkan game…</button>}</section>
+      <section className="siswa-sekarang"><span>Sekarang</span><h2>Sesi pembelajaran aktif</h2><p>Ikuti arahan guru di papan kelas.</p><Link to={ruteVlab(KATALOG_VLAB[0]!.kode)}>Buka laboratorium virtual</Link></section>
       <section className="ringkasan-siswa"><article><span>Tujuan tuntas</span><strong>—</strong><small>Menunggu hasil pertamamu</small></article><article><span>Lencanaku</span><strong>0</strong><small>Belum ada badge</small></article><article><span>Kelompokku</span><strong>{grup?.nama ?? '—'}</strong><small>{grup ? `${grup.anggota.length} anggota` : 'Guru akan mengatur kelompok'}</small></article></section>
-      <section className="latihan-siswa"><h2>Latihan untukku</h2>{game.length ? <div className="pilih-nama-siswa">{game.slice(0, 6).map((item) => <Link key={item.id} to={`${ruteMainGame(item.id)}?siswa=${encodeURIComponent(aktif.id)}&sesi=${encodeURIComponent(sesi.id)}`}>{item.judul}<small>{item.jumlah_butir} butir · {item.durasi_menit} menit</small></Link>)}</div> : <div className="kosong-siswa">Game sedang disiapkan dari TP aktif.</div>}</section>
+      <section className="latihan-siswa"><h2>Latihan untukku</h2><div className="pilih-nama-siswa">{KATALOG_VLAB.slice(0, 6).map((profil) => <Link key={profil.kode} to={ruteVlab(profil.kode)}>{profil.ikon} {profil.nama}<small>{profil.tujuan}</small></Link>)}</div><p className="kosong-siswa">{PESAN_MENUNGGU_BUKU_GAME}</p></section>
     </main>;
   }
 

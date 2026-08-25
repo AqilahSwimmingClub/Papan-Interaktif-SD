@@ -7,7 +7,7 @@ import {
 import type { KodeFase } from '../../lib/types';
 import { log } from '../../lib/errors/logger';
 import { useKurikulum } from '../../state/useKurikulum';
-import { RUTE, ruteCpTp } from '../../routes/paths';
+import { RUTE, ruteStrukturMapel } from '../../routes/paths';
 import './kurikulum.css';
 
 function faseKelas(tingkat: number): KodeFase {
@@ -83,17 +83,17 @@ export function PilihMapelScreen() {
     },
     {
       judul: 'Agama dan Budi Pekerti',
-      keterangan: 'Pilih sesuai agama yang diajarkan; seluruh CP memakai Nomor 020 Tahun 2026.',
+      keterangan: 'Pilih sesuai agama yang diajarkan di sekolah.',
       daftar: kelompok.agama,
     },
     {
       judul: 'Seni dan Budaya',
-      keterangan: 'Seni Rupa adalah bawaan; cabang lain tetap tersedia dalam dataset final.',
+      keterangan: 'Seni Rupa adalah bawaan; cabang lain tetap tersedia.',
       daftar: kelompok.seni,
     },
     {
       judul: 'Mata pelajaran pilihan',
-      keterangan: 'Ketersediaan mengikuti kelas pada dataset dan pengaturan kurikulum sekolah.',
+      keterangan: 'Ketersediaan mengikuti kelas dan pengaturan kurikulum sekolah.',
       daftar: kelompok.pilihan,
     },
   ];
@@ -114,7 +114,7 @@ export function PilihMapelScreen() {
         <div>
           <p className="label-data">Langkah 2 dari 3 · Fase {faseKode}</p>
           <h1>Mata pelajaran Kelas {tingkat}</h1>
-          <p>CP, elemen, dan TP di bawah dihitung langsung dari database lokal final.</p>
+          <p>Pilih mata pelajaran untuk membuka rantai buku referensi, bab, dan topiknya.</p>
         </div>
         <Link className="tombol-guru tombol-guru--sekunder" to="/fitur/pengaturan-kurikulum">
           Atur mapel pilihan
@@ -140,16 +140,18 @@ export function PilihMapelScreen() {
                 <Link
                   className="kartu-mapel"
                   key={item.kode}
-                  to={ruteCpTp(tingkat, item.kode)}
+                  to={ruteStrukturMapel(tingkat, item.kode)}
                 >
                   <div className="kartu-mapel__kode">{item.kode}</div>
                   <div className="kartu-mapel__isi">
                     <span className="badge-mapel">{labelStatus(item)}</span>
                     <h3>{item.nama}</h3>
                     <p>
-                      {item.jumlahElemen} elemen · {item.jumlahTp} TP Rekomendasi
+                      {item.jumlahBuku
+                        ? `${item.jumlahBuku} buku · ${item.jumlahBab} bab · ${item.jumlahTopik} topik`
+                        : 'Buku referensi belum dimasukkan'}
                     </p>
-                    <small>{item.dokumen_kode}</small>
+                    <small>{item.dasar_hukum}</small>
                   </div>
                   <span className="kartu-mapel__panah" aria-hidden="true">
                     →

@@ -212,6 +212,9 @@ const TOKO_CADANGAN: NamaToko[] = [
   TOKO.antreanAi,
   TOKO.indeksPencarian,
   TOKO.referensiSekolah,
+  TOKO.bukuReferensi,
+  TOKO.bukuBab,
+  TOKO.bukuTopik,
 ];
 
 export interface PaketCadangan {

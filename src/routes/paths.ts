@@ -9,8 +9,8 @@ export const RUTE = {
   kelas: '/kelas',
   papan: '/pembelajaran/papan',
   game: '/pembelajaran/game',
-  referensi: '/perpustakaan/referensi',
-  pemetaanReferensi: '/perpustakaan/referensi/pemetaan',
+  vlab: '/pembelajaran/vlab',
+  bukuReferensi: '/kurikulum/buku-referensi',
   materi: '/pembelajaran/materi',
   kelompok: '/kelas/kelompok',
   rekap: '/kelas/rekap',
@@ -21,9 +21,7 @@ export const RUTE = {
   backup: '/pengaturan/backup',
   offline: '/pengaturan/offline',
   tentang: '/tentang-aplikasi',
-  basisData: '/kurikulum/basis-data',
-  kelolaTp: '/kurikulum/kelola-tp',
-  muatCp: '/kurikulum/muat-cp',
+  strukturKurikulum: '/kurikulum/struktur',
   modeSiswa: '/mode-siswa',
   modeKelas: '/mode-kelas',
   lainnya: '/lainnya',
@@ -33,15 +31,27 @@ export function ruteMapel(tingkat: number): string {
   return `/kelas/${tingkat}/mapel`;
 }
 
-export function ruteCpTp(tingkat: number, mapelKode: string): string {
+/**
+ * Rantai baru: Kelas → Mata Pelajaran → Buku Referensi → Bab → Topik → CP → TP.
+ * Layar ini menampilkan kerangka rantai tersebut; isinya menunggu buku
+ * referensi resmi sekolah dimasukkan.
+ */
+export function ruteStrukturMapel(tingkat: number, mapelKode: string): string {
   return `/kelas/${tingkat}/mapel/${encodeURIComponent(mapelKode)}`;
 }
 
-export function ruteMainGame(gameId: string): string {
-  return `/pembelajaran/game/${encodeURIComponent(gameId)}/main`;
+export function ruteVlab(vlabKode: string): string {
+  return `${RUTE.vlab}/${encodeURIComponent(vlabKode)}`;
 }
 
-export type JenisPembelajaran = 'materi' | 'game' | 'lkpd' | 'asesmen' | 'papan';
+export type JenisPembelajaran =
+  | 'materi'
+  | 'game'
+  | 'vlab'
+  | 'kuis'
+  | 'lkpd'
+  | 'bank-soal'
+  | 'papan';
 
 export function rutePembelajaran(jenis: JenisPembelajaran): string {
   return `/pembelajaran/${jenis}`;

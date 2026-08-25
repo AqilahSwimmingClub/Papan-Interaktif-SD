@@ -8,7 +8,7 @@ import { AppError } from '../errors/AppError';
  * kurikulum sebagai migrasi baru tanpa membongkar penyimpanan autentikasi.
  */
 export const NAMA_BASIS_DATA = 'papan-interaktif-sd';
-export const VERSI_BASIS_DATA = 4;
+export const VERSI_BASIS_DATA = 5;
 
 export const TOKO = {
   akun: 'akun',
@@ -50,6 +50,9 @@ export const TOKO = {
   referensiBab: 'referensi_bab',
   pemetaanBabTp: 'pemetaan_bab_tp',
   referensiSekolah: 'referensi_sekolah',
+  bukuReferensi: 'buku_referensi',
+  bukuBab: 'buku_bab',
+  bukuTopik: 'buku_topik',
 } as const;
 
 export type NamaToko = (typeof TOKO)[keyof typeof TOKO];
@@ -74,6 +77,7 @@ export const TOKO_PER_ZONA = {
   referensiPembelajaran: [
     TOKO.referensi, TOKO.referensiBab, TOKO.pemetaanBabTp, TOKO.referensiSekolah,
   ],
+  bukuReferensiSekolah: [TOKO.bukuReferensi, TOKO.bukuBab, TOKO.bukuTopik],
   akunDanSesi: [TOKO.akun, TOKO.sesiLogin],
 } as const satisfies Record<string, readonly NamaToko[]>;
 
@@ -242,6 +246,21 @@ const MIGRASI: Record<number, Migrasi> = {
     if (!game.indexNames.contains('status_persetujuan')) {
       game.createIndex('status_persetujuan', 'status_persetujuan', { unique: false });
     }
+  },
+  // Rantai baru Kelas → Mapel → Buku Referensi → Bab → Topik. Toko dibuat
+  // kosong dan baru diisi setelah buku pelajaran resmi sekolah dimasukkan.
+  5: (db) => {
+    const buku = db.createObjectStore(TOKO.bukuReferensi, { keyPath: 'id' });
+    buku.createIndex('tingkat_kelas', 'tingkat_kelas', { unique: false });
+    buku.createIndex('mapel_kode', 'mapel_kode', { unique: false });
+    buku.createIndex('kelas_mapel', ['tingkat_kelas', 'mapel_kode'], { unique: false });
+    buku.createIndex('status', 'status', { unique: false });
+
+    const bab = db.createObjectStore(TOKO.bukuBab, { keyPath: 'id' });
+    bab.createIndex('buku_id', 'buku_id', { unique: false });
+
+    const topik = db.createObjectStore(TOKO.bukuTopik, { keyPath: 'id' });
+    topik.createIndex('bab_id', 'bab_id', { unique: false });
   },
 };
 

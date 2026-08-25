@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { keAppError } from '../../lib/errors/AppError';
-import {
-  daftarMateriUntukTp,
-  daftarReferensiUntukKonteks,
-  simpanMateri,
-} from '../../lib/storage/kurikulumAdminRepo';
-import type { BlokMateri, JenisBlokMateri, Materi, ReferensiPembelajaran } from '../../lib/types';
-import { RUTE, ruteCpTp, rutePembelajaran } from '../../routes/paths';
+import { daftarMateriUntukTp, simpanMateri } from '../../lib/storage/kurikulumAdminRepo';
+import { daftarBukuReferensi } from '../../lib/storage/bukuReferensiRepo';
+import type { BlokMateri, BukuReferensi, JenisBlokMateri, Materi } from '../../lib/types';
+import { RUTE, ruteStrukturMapel, rutePembelajaran } from '../../routes/paths';
 import { useKurikulum } from '../../state/useKurikulum';
 import './materi.css';
 
@@ -28,7 +25,7 @@ function blokBaru(jenis: JenisBlokMateri): BlokMateri {
 export function MateriScreen() {
   const { konteks } = useKurikulum();
   const [materi, setMateri] = useState<Materi[]>([]);
-  const [referensi, setReferensi] = useState<ReferensiPembelajaran[]>([]);
+  const [buku, setBuku] = useState<BukuReferensi[]>([]);
   const [judul, setJudul] = useState('');
   const [blok, setBlok] = useState<BlokMateri[]>([blokBaru('teks')]);
   const [pesan, setPesan] = useState('');
@@ -38,10 +35,10 @@ export function MateriScreen() {
     if (!konteks.tp_id || !konteks.mapel_kode || !konteks.tingkat_kelas) return;
     void Promise.all([
       daftarMateriUntukTp(konteks.tp_id),
-      daftarReferensiUntukKonteks(konteks.mapel_kode, konteks.tingkat_kelas),
-    ]).then(([daftarMateri, daftarReferensi]) => {
+      daftarBukuReferensi(konteks.tingkat_kelas, konteks.mapel_kode),
+    ]).then(([daftarMateri, daftarBuku]) => {
       setMateri(daftarMateri);
-      setReferensi(daftarReferensi);
+      setBuku(daftarBuku);
     });
   }, [konteks.mapel_kode, konteks.tingkat_kelas, konteks.tp_id]);
 
@@ -90,7 +87,7 @@ export function MateriScreen() {
   return (
     <main className="halaman-kurikulum halaman-materi" data-testid="layar-materi">
       <nav className="remah-kurikulum" aria-label="Konteks kurikulum">
-        <Link to={ruteCpTp(konteks.tingkat_kelas, konteks.mapel_kode)}>Kelas {konteks.tingkat_kelas}</Link>
+        <Link to={ruteStrukturMapel(konteks.tingkat_kelas, konteks.mapel_kode)}>Kelas {konteks.tingkat_kelas}</Link>
         <span>/</span><strong>{konteks.mapel_kode}</strong><span>/</span><span>{konteks.tp_id}</span>
       </nav>
       <header className="kop-kurikulum kop-materi">
@@ -122,10 +119,10 @@ export function MateriScreen() {
           )}
 
           <div className="referensi-materi">
-            <h2>Referensi tersedia</h2>
-            {referensi.length ? referensi.map((item) => (
-              <article key={item.id}><strong>{item.judul}</strong><small>{item.lingkup_izin === 'metadata_saja' ? 'Metadata dan tautan saja' : 'Isi boleh disimpan'}</small></article>
-            )) : <p>Belum ada referensi yang cocok; materi tetap menggunakan CP dan TP.</p>}
+            <h2>Buku referensi</h2>
+            {buku.length ? buku.map((item) => (
+              <article key={item.id}><strong>{item.judul}</strong><small>{item.penerbit || 'Penerbit belum dicatat'}</small></article>
+            )) : <p>Belum ada buku referensi untuk kelas dan mata pelajaran ini.</p>}
           </div>
         </section>
 

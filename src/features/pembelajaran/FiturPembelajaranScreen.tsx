@@ -1,13 +1,15 @@
 import { Link, useParams } from 'react-router-dom';
 import { useKurikulum } from '../../state/useKurikulum';
-import { RUTE, ruteCpTp } from '../../routes/paths';
+import { RUTE, ruteStrukturMapel } from '../../routes/paths';
 import '../kurikulum/kurikulum.css';
 
 const LABEL_FITUR: Record<string, string> = {
   materi: 'Materi Pembelajaran',
-  game: 'Aktivitas / Game',
+  game: 'Game Edukasi',
+  vlab: 'VLAB / Simulasi',
+  kuis: 'Kuis',
   lkpd: 'LKPD',
-  asesmen: 'Asesmen',
+  'bank-soal': 'Bank Soal',
   papan: 'Papan Interaktif',
 };
 
@@ -37,15 +39,15 @@ export function FiturPembelajaranScreen() {
         <h2>{konteksLengkap ? 'Konteks kurikulum siap' : 'Pilih konteks kurikulum lebih dulu'}</h2>
         <p>
           {konteksLengkap
-            ? 'Rute dan konteks lokal sudah tersambung. Isi fitur ini sengaja belum dibangun karena berada di tahap implementasi berikutnya.'
-            : 'Pilih kelas, mata pelajaran, elemen, dan TP agar fitur pembelajaran menerima konteks yang tepat.'}
+            ? 'Rute dan konteks lokal sudah tersambung. Isi fitur ini akan dibentuk dari Buku Referensi resmi sekolah.'
+            : 'Pilih kelas dan mata pelajaran agar fitur pembelajaran menerima konteks yang tepat.'}
         </p>
         {konteks.tingkat_kelas && konteks.mapel_kode ? (
           <Link
             className="tombol-guru tombol-guru--utama"
-            to={ruteCpTp(konteks.tingkat_kelas, konteks.mapel_kode)}
+            to={ruteStrukturMapel(konteks.tingkat_kelas, konteks.mapel_kode)}
           >
-            Kembali ke CP & TP
+            Kembali ke struktur mapel
           </Link>
         ) : (
           <Link className="tombol-guru tombol-guru--utama" to={RUTE.kelas}>

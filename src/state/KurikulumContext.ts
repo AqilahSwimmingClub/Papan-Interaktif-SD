@@ -4,7 +4,8 @@ import type { AppError } from '../lib/errors/AppError';
 
 export interface PilihanMapel {
   mapelKode: string;
-  cpId: string;
+  /** null selama CP belum dipetakan dari Buku Referensi. */
+  cpId: string | null;
   cabangKode: string | null;
   agamaKode: string | null;
 }

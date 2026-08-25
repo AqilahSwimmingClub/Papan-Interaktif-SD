@@ -9,8 +9,12 @@ import {
   type RingkasanKurikulum,
 } from '../../lib/storage/kurikulumRepo';
 import { log } from '../../lib/errors/logger';
+import { PESAN_MENUNGGU_BUKU } from '../../lib/referensi/strukturReferensi';
+import { KATALOG_VLAB } from '../../lib/vlab/katalogVlab';
 import { RUTE, ruteMapel } from '../../routes/paths';
 import './beranda-terlindungi.css';
+
+const JUMLAH_VLAB = KATALOG_VLAB.length;
 
 function sapaanSekarang(): string {
   const jam = new Date().getHours();
@@ -64,7 +68,7 @@ export function BerandaTerlindungi() {
           <h1>
             {sapaanSekarang()}, {namaDepan}
           </h1>
-          <p>Siapkan kelas, buka CP/TP, lalu lanjutkan ke fitur pembelajaran.</p>
+          <p>Siapkan kelas, buka mata pelajaran, lalu lanjutkan ke fitur pembelajaran.</p>
         </div>
         <Link className="tombol-guru tombol-guru--sekunder" to="/fitur/rencana-mingguan">
           Rencana mingguan
@@ -89,7 +93,7 @@ export function BerandaTerlindungi() {
           <h2 id="jadwal-hari-ini">Belum ada jadwal mengajar</h2>
           <p>
             Jadwal belum diisi pada perangkat ini. Anda tetap dapat memilih kelas dan mata
-            pelajaran langsung dari kurikulum.
+            pelajaran, serta membuka VLAB yang sudah berjalan penuh.
           </p>
           <div className="dasbor-guru__aksi">
             <Link className="tombol-guru tombol-guru--utama" to={RUTE.kelas}>
@@ -105,18 +109,18 @@ export function BerandaTerlindungi() {
             ✓
           </span>
           <div>
-            <strong>Kurikulum tersedia offline</strong>
-            <p>29 CP non-agama 2025/2026 + 18 CP agama 020/2026.</p>
+            <strong>Struktur siap, menunggu Buku Referensi</strong>
+            <p>CP, TP, kuis, game, LKPD, dan bank soal dibuat setelah buku dimasukkan.</p>
           </div>
         </div>
       </section>
 
-      <section className="dasbor-guru__statistik" aria-label="Ringkasan database kurikulum">
+      <section className="dasbor-guru__statistik" aria-label="Ringkasan struktur kurikulum">
         {[
-          { label: 'CP resmi', nilai: ringkasan?.jumlahCp, catatan: '47 dari 47 baris' },
-          { label: 'Elemen', nilai: ringkasan?.jumlahElemen, catatan: 'tertaut ke CP' },
-          { label: 'TP Rekomendasi', nilai: ringkasan?.jumlahTp, catatan: 'kelas 1–6' },
-          { label: 'CP Agama 020/2026', nilai: ringkasan?.cpAgama020, catatan: '6 agama × 3 fase' },
+          { label: 'Kelas', nilai: ringkasan?.jumlahKelas, catatan: 'Fase A, B, dan C' },
+          { label: 'Mata pelajaran', nilai: ringkasan?.jumlahMapel, catatan: 'struktur resmi' },
+          { label: 'Buku referensi', nilai: ringkasan?.jumlahBuku, catatan: 'terdaftar sekolah' },
+          { label: 'Laboratorium VLAB', nilai: JUMLAH_VLAB, catatan: 'siap dipakai sekarang' },
         ].map((statistik) => (
           <article className="kartu-statistik" key={statistik.label}>
             <p>{statistik.label}</p>
@@ -145,7 +149,9 @@ export function BerandaTerlindungi() {
               >
                 <span>Fase {item.fase_kode}</span>
                 <strong>{item.tingkat}</strong>
-                <small>{item.jumlahTp} TP Rekomendasi</small>
+                <small>
+                  {item.jumlahBuku ? `${item.jumlahBuku} buku` : 'Belum ada buku'}
+                </small>
               </Link>
             ))}
           </div>
@@ -154,30 +160,31 @@ export function BerandaTerlindungi() {
         <aside className="panel-guru panel-guru--status" aria-labelledby="status-data-final">
           <div className="panel-guru__kop">
             <div>
-              <p className="label-data">Database final repository</p>
-              <h2 id="status-data-final">Status kurikulum</h2>
+              <p className="label-data">Rantai isi pembelajaran</p>
+              <h2 id="status-data-final">Status struktur</h2>
             </div>
+            <Link to={RUTE.strukturKurikulum}>Lihat detail</Link>
           </div>
           <ul className="daftar-status-kurikulum">
             <li>
               <span className="status-titik status-titik--hijau" aria-hidden="true" />
               <div>
-                <strong>CP lengkap 47/47</strong>
-                <small>Seluruh teks tersedia dari dataset final.</small>
-              </div>
-            </li>
-            <li>
-              <span className="status-titik status-titik--biru" aria-hidden="true" />
-              <div>
-                <strong>TP Rekomendasi terpisah</strong>
-                <small>212 baris, hanya-baca, bukan TP resmi pemerintah.</small>
+                <strong>Kelas dan mata pelajaran siap</strong>
+                <small>Rantai Kelas → Mapel → Buku Referensi sudah terpasang.</small>
               </div>
             </li>
             <li>
               <span className="status-titik status-titik--amber" aria-hidden="true" />
               <div>
-                <strong>Sumber final terverifikasi</strong>
-                <small>Dataset bawaan resmi siap menjadi konteks CP/TP read-only.</small>
+                <strong>CP, TP, kuis, game, LKPD, bank soal menunggu buku</strong>
+                <small>{PESAN_MENUNGGU_BUKU}</small>
+              </div>
+            </li>
+            <li>
+              <span className="status-titik status-titik--biru" aria-hidden="true" />
+              <div>
+                <strong>VLAB sudah berjalan penuh</strong>
+                <small>{JUMLAH_VLAB} laboratorium virtual siap dipakai di kelas.</small>
               </div>
             </li>
           </ul>
@@ -187,20 +194,20 @@ export function BerandaTerlindungi() {
       <section className="panel-guru panel-guru--ai" aria-labelledby="buat-dengan-ai">
         <div className="panel-guru__kop">
           <div>
-            <p className="label-data">Selalu terikat CP dan TP</p>
-            <h2 id="buat-dengan-ai">Buat dengan AI</h2>
+            <p className="label-data">Pintasan cepat</p>
+            <h2 id="buat-dengan-ai">Yang siap dipakai</h2>
           </div>
         </div>
         <div className="kisi-ai-ringkas">
           {[
-            ['Pembuat LKPD', '/fitur/pembuat-lkpd'],
-            ['Pembuat Soal', '/fitur/pembuat-soal'],
-            ['Game Generator', '/fitur/game-generator'],
-          ].map(([label, tujuan]) => (
+            ['VLAB / Simulasi', RUTE.vlab, 'Siap dipakai sekarang'],
+            ['Buku Referensi', RUTE.bukuReferensi, 'Masukkan buku sekolah'],
+            ['Pembuat LKPD', '/fitur/pembuat-lkpd', 'Menunggu Buku Referensi'],
+          ].map(([label, tujuan, catatan]) => (
             <Link key={label} to={tujuan}>
               <span aria-hidden="true">✦</span>
               <strong>{label}</strong>
-              <small>Pilih TP lebih dulu</small>
+              <small>{catatan}</small>
               <b aria-hidden="true">→</b>
             </Link>
           ))}

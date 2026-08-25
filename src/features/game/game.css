@@ -29,3 +29,34 @@
 @media (max-width: 650px) { .game-katalog__kop { display: grid; }.game-grid { grid-template-columns: 1fr; }.game-filter { align-items: stretch; flex-direction: column; }.game-filter a { margin-left: 0; }.game-pertanyaan { flex-direction: column; }.game-pertanyaan h1 { font-size: 1.35rem; }.game-pilihan { grid-template-columns: 1fr; }.game-pilihan button { min-height: 76px; font-size: .9rem; }.game-main__kepala { grid-template-columns: 42px 1fr auto; padding-inline: 10px; }.game-main__kepala > a { width: 40px; height: 40px; }.game-main__kepala div strong { max-width: 45vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }.game-panggung { justify-content: flex-start; overflow: auto; }.game-lanjut { position: sticky; bottom: 8px; }.game-main__kepala p { font-size: .8rem; }.game-main__kepala p b { font-size: 1rem; } }
 @media (orientation: landscape) and (max-height: 650px) { .game-main { height:100dvh;min-height:0; }.game-main__kepala { height:60px;min-height:60px;padding-block:4px; }.game-main__kepala>a { width:42px;height:42px; }.game-panggung { min-height:0;padding-block: 10px; justify-content:flex-start;overflow:auto; }.game-panggung > p { margin: 2px; }.game-pertanyaan { margin: 4px auto 8px; }.game-pertanyaan button { width: 44px; height: 44px; }.game-pilihan button { min-height: 68px; }.game-lanjut { min-height: 46px; margin-top: 8px; } }
 @media (min-width: 1900px) { .game-main__kepala { min-height: 96px; }.game-pilihan button { min-height: 180px; font-size: 1.8rem; }.game-pertanyaan h1 { font-size: 3.5rem; }.game-lanjut { min-height: 72px; font-size: 1.3rem; } }
+
+/* ---------- Keadaan menunggu Buku Referensi ---------- */
+
+.game-katalog__aksi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spasi-2);
+  justify-content: center;
+  margin-top: var(--spasi-4);
+}
+
+.game-catatan {
+  padding: var(--spasi-4);
+  margin-top: var(--spasi-5);
+  border: var(--tepi);
+  border-radius: var(--radius-panel);
+  background: #fff;
+}
+
+.game-catatan h2 {
+  margin: 0 0 var(--spasi-3);
+  font-size: 1.05rem;
+  color: var(--navy-panel);
+}
+
+.game-catatan ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #4a5c6b;
+  line-height: 1.6;
+}

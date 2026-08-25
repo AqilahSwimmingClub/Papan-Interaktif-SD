@@ -1,0 +1,537 @@
+/*
+ * Tata letak VLAB — dipakai katalog dan seluruh layar lab.
+ *
+ * Kerangka ini hanya mengurus tata letak, ukuran target sentuh, dan
+ * keterbacaan pada HP 6" sampai IFP 75" (1920×1080 dan 3840×2160). Isi
+ * panggung, kontrol, dan hasil dibuat sendiri oleh masing-masing lab.
+ */
+
+.halaman-vlab {
+  min-height: 100%;
+  padding: clamp(14px, 2.2vw, 32px);
+  background: var(--kertas);
+  color: #1a2733;
+}
+
+/* ---------- Katalog ---------- */
+
+.vlab-katalog__kop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spasi-4);
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--spasi-5);
+}
+
+.vlab-katalog__kop h1 {
+  margin: 4px 0 6px;
+  font-size: clamp(1.5rem, 2.4vw, 2.4rem);
+  color: var(--navy-panel);
+}
+
+.vlab-katalog__kop p {
+  margin: 0;
+  max-width: 62ch;
+  color: #4a5c6b;
+}
+
+.vlab-katalog__angka {
+  display: flex;
+  gap: var(--spasi-4);
+}
+
+.vlab-katalog__angka div {
+  padding: var(--spasi-3) var(--spasi-4);
+  border-radius: var(--radius-kartu);
+  background: var(--biru-muda);
+  text-align: center;
+}
+
+.vlab-katalog__angka strong {
+  display: block;
+  font-size: clamp(1.3rem, 2vw, 1.9rem);
+  color: var(--biru);
+}
+
+.vlab-katalog__angka span {
+  font-size: 0.8rem;
+  color: #55697a;
+}
+
+.vlab-saring {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spasi-2);
+  margin-bottom: var(--spasi-5);
+}
+
+.vlab-saring button {
+  min-height: var(--target-sentuh);
+  padding: 0 var(--spasi-4);
+  border: var(--tepi);
+  border-radius: 999px;
+  background: #fff;
+  font-weight: 600;
+  color: #35485a;
+}
+
+.vlab-saring button[aria-pressed='true'] {
+  border-color: var(--biru);
+  background: var(--biru);
+  color: #fff;
+}
+
+.vlab-grid {
+  display: grid;
+  gap: clamp(12px, 1.6vw, 22px);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr));
+}
+
+.vlab-kartu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spasi-3);
+  padding: var(--spasi-4);
+  border: var(--tepi);
+  border-top: 5px solid var(--vlab-warna, var(--biru));
+  border-radius: var(--radius-panel);
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+}
+
+.vlab-kartu:hover,
+.vlab-kartu:focus-visible {
+  border-color: var(--biru-aksen);
+  box-shadow: 0 6px 18px rgb(16 58 86 / 12%);
+}
+
+.vlab-kartu__ikon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-kartu);
+  background: color-mix(in srgb, var(--vlab-warna, #1b5e8c) 22%, #fff);
+  font-size: 1.7rem;
+}
+
+.vlab-kartu h2 {
+  margin: 0;
+  font-size: 1.12rem;
+  color: var(--navy-panel);
+}
+
+.vlab-kartu p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: #4a5c6b;
+}
+
+.vlab-kartu dl {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  font-size: 0.82rem;
+  color: #5b6d7c;
+}
+
+.vlab-kartu dt {
+  font-weight: 700;
+  color: #35485a;
+}
+
+.vlab-kartu dd {
+  margin: 0 0 4px;
+}
+
+.vlab-kartu__buka {
+  margin-top: auto;
+  padding-top: var(--spasi-2);
+  font-weight: 700;
+  color: var(--biru);
+}
+
+.vlab-rumpun {
+  align-self: flex-start;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--biru-muda);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--biru);
+}
+
+/* ---------- Kerangka satu lab ---------- */
+
+.vlab-layar {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.5vw, 20px);
+  min-height: 100%;
+}
+
+.vlab-layar__kop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spasi-3);
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.vlab-layar__judul {
+  display: flex;
+  gap: var(--spasi-3);
+  align-items: center;
+  min-width: min(100%, 320px);
+}
+
+.vlab-layar__judul span {
+  display: grid;
+  place-items: center;
+  width: clamp(44px, 4vw, 64px);
+  height: clamp(44px, 4vw, 64px);
+  border-radius: var(--radius-kartu);
+  background: color-mix(in srgb, var(--vlab-warna, #1b5e8c) 22%, #fff);
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+}
+
+.vlab-layar__judul h1 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2.2vw, 2.1rem);
+  color: var(--navy-panel);
+}
+
+.vlab-layar__judul p {
+  margin: 2px 0 0;
+  font-size: clamp(0.88rem, 1.1vw, 1.05rem);
+  color: #4a5c6b;
+}
+
+.vlab-layar__aksi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spasi-2);
+}
+
+.vlab-tombol {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--target-sentuh);
+  padding: 0 clamp(14px, 1.4vw, 24px);
+  border: 2px solid var(--biru);
+  border-radius: var(--radius-tombol);
+  background: #fff;
+  font-size: clamp(0.9rem, 1vw, 1.05rem);
+  font-weight: 700;
+  color: var(--biru);
+  text-decoration: none;
+}
+
+.vlab-tombol--utama {
+  background: var(--biru);
+  color: #fff;
+}
+
+.vlab-tombol--sunyi {
+  border-color: #cfd9e2;
+  color: #35485a;
+}
+
+.vlab-petunjuk {
+  display: flex;
+  gap: var(--spasi-3);
+  align-items: flex-start;
+  padding: var(--spasi-3) var(--spasi-4);
+  border-left: 5px solid var(--amber);
+  border-radius: var(--radius-kartu);
+  background: #fff8e8;
+  font-size: clamp(0.92rem, 1.1vw, 1.08rem);
+  color: #5a4715;
+}
+
+.vlab-badan {
+  display: grid;
+  gap: clamp(12px, 1.5vw, 20px);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .vlab-badan {
+    grid-template-columns: minmax(0, 1.85fr) minmax(280px, 0.9fr);
+  }
+}
+
+@media (min-width: 1920px) {
+  .vlab-badan {
+    grid-template-columns: minmax(0, 2.3fr) minmax(360px, 0.85fr);
+  }
+}
+
+.vlab-panggung {
+  padding: clamp(10px, 1.2vw, 18px);
+  border: var(--tepi);
+  border-radius: var(--radius-panel);
+  background: #fff;
+}
+
+.vlab-panggung svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(58vh, 620px);
+  touch-action: manipulation;
+}
+
+.vlab-panggung--gelap {
+  background: var(--navy-malam);
+  border-color: #0d2c46;
+}
+
+.vlab-samping {
+  display: grid;
+  gap: clamp(10px, 1.2vw, 16px);
+}
+
+.vlab-panel {
+  padding: clamp(12px, 1.2vw, 18px);
+  border: var(--tepi);
+  border-radius: var(--radius-panel);
+  background: #fff;
+}
+
+.vlab-panel > h2 {
+  margin: 0 0 var(--spasi-3);
+  font-size: clamp(0.98rem, 1.1vw, 1.15rem);
+  color: var(--navy-panel);
+}
+
+/* ---------- Kontrol besar, ramah sentuh ---------- */
+
+.vlab-kontrol {
+  display: grid;
+  gap: var(--spasi-3);
+}
+
+.vlab-geser {
+  display: grid;
+  gap: 6px;
+}
+
+.vlab-geser__label {
+  display: flex;
+  gap: var(--spasi-2);
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  font-weight: 600;
+  color: #35485a;
+}
+
+.vlab-geser__nilai {
+  font-family: var(--font-data);
+  font-size: clamp(0.9rem, 1.05vw, 1.08rem);
+  color: var(--biru);
+}
+
+.vlab-geser input[type='range'] {
+  width: 100%;
+  height: var(--target-sentuh);
+  accent-color: var(--biru);
+  background: transparent;
+}
+
+.vlab-pilihan {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spasi-2);
+}
+
+.vlab-pilihan button {
+  min-height: var(--target-sentuh);
+  padding: 0 var(--spasi-3);
+  border: 2px solid #d5dee6;
+  border-radius: var(--radius-tombol);
+  background: #fff;
+  font-size: clamp(0.85rem, 0.95vw, 1rem);
+  font-weight: 600;
+  color: #35485a;
+}
+
+.vlab-pilihan button[aria-pressed='true'] {
+  border-color: var(--biru);
+  background: var(--biru-muda);
+  color: var(--biru);
+}
+
+.vlab-saklar {
+  display: flex;
+  gap: var(--spasi-2);
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--target-sentuh);
+  padding: 0 var(--spasi-3);
+  border: 2px solid #d5dee6;
+  border-radius: var(--radius-tombol);
+  background: #fff;
+  width: 100%;
+  font-weight: 600;
+  color: #35485a;
+}
+
+.vlab-saklar[aria-pressed='true'] {
+  border-color: var(--hijau);
+  background: #e8f6f0;
+  color: var(--hijau-tua);
+}
+
+.vlab-saklar b {
+  font-family: var(--font-data);
+}
+
+.vlab-pilih-lengkap {
+  display: grid;
+  gap: 6px;
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  font-weight: 600;
+  color: #35485a;
+}
+
+.vlab-pilih-lengkap select {
+  min-height: var(--target-sentuh);
+  padding: 0 var(--spasi-3);
+  border: 2px solid #d5dee6;
+  border-radius: var(--radius-tombol);
+  background: #fff;
+  font-weight: 600;
+}
+
+/* ---------- Bacaan alat ukur ---------- */
+
+.vlab-bacaan {
+  display: grid;
+  gap: var(--spasi-2);
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.vlab-bacaan div {
+  padding: var(--spasi-2) var(--spasi-3);
+  border-radius: var(--radius-kartu);
+  background: #f2f6f9;
+}
+
+.vlab-bacaan dt,
+.vlab-bacaan span {
+  display: block;
+  font-size: 0.78rem;
+  color: #55697a;
+}
+
+.vlab-bacaan dd,
+.vlab-bacaan strong {
+  display: block;
+  margin: 2px 0 0;
+  font-family: var(--font-data);
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+  color: var(--navy-panel);
+}
+
+.vlab-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: clamp(0.85rem, 1vw, 1rem);
+}
+
+.vlab-status--berhasil {
+  background: #e8f6f0;
+  color: var(--hijau-tua);
+}
+
+.vlab-status--gagal {
+  background: #fdeee9;
+  color: var(--merah-bata);
+}
+
+.vlab-status--netral {
+  background: var(--biru-muda);
+  color: var(--biru);
+}
+
+.vlab-observasi p,
+.vlab-kesimpulan p {
+  margin: 0;
+  font-size: clamp(0.92rem, 1.05vw, 1.1rem);
+  line-height: 1.5;
+  color: #35485a;
+}
+
+.vlab-kesimpulan {
+  border-left: 5px solid var(--hijau);
+  background: #f2faf6;
+}
+
+.vlab-daftar-ringkas {
+  margin: var(--spasi-2) 0 0;
+  padding-left: 18px;
+  font-size: 0.9rem;
+  color: #4a5c6b;
+}
+
+.vlab-daftar-ringkas li {
+  margin-bottom: 3px;
+}
+
+/* ---------- Layar penuh untuk papan IFP ---------- */
+
+.halaman-vlab--penuh {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  overflow: auto;
+}
+
+@media (min-width: 1920px) {
+  .halaman-vlab {
+    padding: 34px clamp(34px, 4vw, 90px);
+  }
+
+  .vlab-panggung svg {
+    max-height: min(64vh, 900px);
+  }
+}
+
+@media (max-width: 599px) {
+  .vlab-layar__aksi {
+    width: 100%;
+  }
+
+  .vlab-layar__aksi .vlab-tombol {
+    flex: 1 1 auto;
+  }
+
+  .vlab-panggung svg {
+    max-height: 46vh;
+  }
+}
+
+/* Landscape HP pendek: panggung dan kontrol berdampingan agar tidak terpotong. */
+@media (max-height: 520px) and (orientation: landscape) {
+  .vlab-badan {
+    grid-template-columns: minmax(0, 1.4fr) minmax(230px, 1fr);
+  }
+
+  .vlab-panggung svg {
+    max-height: 62vh;
+  }
+}

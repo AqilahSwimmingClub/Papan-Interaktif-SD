@@ -34,7 +34,7 @@ export function PilihKelasScreen() {
         <div>
           <p className="label-data">Langkah 1 dari 3</p>
           <h1>Kelas & Mata Pelajaran</h1>
-          <p>Fase menentukan struktur mata pelajaran dan konteks pembelajaran.</p>
+          <p>Fase menentukan struktur mata pelajaran dan buku referensi yang dipakai.</p>
         </div>
         <Link className="tombol-guru tombol-guru--utama" to="/pembelajaran/papan">
           Buka Papan
@@ -80,7 +80,11 @@ export function PilihKelasScreen() {
                   <small>{item.jumlahPilihanMapel} pilihan mapel/cabang</small>
                 </div>
                 <strong>Kelas {item.tingkat}</strong>
-                <p>{item.jumlahTp} TP Rekomendasi pada dataset final</p>
+                <p>
+                  {item.jumlahBuku
+                    ? `${item.jumlahBuku} buku referensi terdaftar`
+                    : 'Buku referensi belum dimasukkan'}
+                </p>
                 <span className="kartu-kelas__aksi">Buka mata pelajaran →</span>
               </Link>
             ))}

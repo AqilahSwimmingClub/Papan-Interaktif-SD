@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../../routes/AppRoutes';
@@ -7,7 +7,8 @@ import { AuthProvider } from '../../state/AuthProvider';
 import { buatAdminPertama, masuk } from '../../lib/auth/authService';
 import { tandaiOpeningSelesai } from '../../lib/opening/pemutaranOpening';
 import { simpanKonteksKurikulum } from '../../lib/storage/kurikulumRepo';
-import { resetPenyimpanan } from '../../test/bantuan';
+import { resetPenyimpanan, semaiRantaiTpUji } from '../../test/bantuan';
+import { RUTE } from '../../routes/paths';
 
 const ADMIN = { nama: 'Admin AI', username: 'admin.ai', password: 'SandiAI#2026', konfirmasi: 'SandiAI#2026' };
 
@@ -21,29 +22,27 @@ describe('Studio AI fungsional', () => {
     vi.restoreAllMocks();
   });
 
-  it('mengganti placeholder, merekomendasikan engine, menguji, lalu menyimpan game', async () => {
-    const pengguna = userEvent.setup();
-    const akun = await buatAdminPertama(ADMIN);
+  it('tidak lagi menyediakan Game Generator lama pada Studio AI', async () => {
+    await buatAdminPertama(ADMIN);
     await masuk({ username: ADMIN.username, password: ADMIN.password, peran: 'admin' });
-    await simpanKonteksKurikulum(akun.id, { tingkat_kelas: 1, fase_kode: 'A', mapel_kode: 'MAT', cabang_kode: null, agama_kode: null, cp_id: 'CP-MAT-A', elemen_id: 'ELM-MAT-A-01', tp_id: 'TP-MAT-1-1.1', materi_id: null, referensi_id: null, referensi_bab_id: null });
-    vi.spyOn(globalThis, 'fetch').mockResolvedValue({ ok: true, status: 200, json: async () => ({ ok: true, hasil: { judul: 'Game Bilangan Ceria', ringkasan: 'Draf sesuai TP.', butir: [{ pertanyaan: 'Pilih bilangan yang sesuai.', jawaban: 'Dua', pilihan: ['Dua', 'Lima'], pembahasan: 'Sesuai tujuan aktif.', rubrik: '' }] } }) } as Response);
-    render(<MemoryRouter initialEntries={['/fitur/game-generator']}><AuthProvider><AppRoutes/></AuthProvider></MemoryRouter>);
-    expect(await screen.findByRole('heading', { name: 'Game Generator' })).toBeVisible();
-    expect(screen.queryByText(/fitur belum diimplementasikan/i)).not.toBeInTheDocument();
-    expect((await screen.findAllByText(/Cocok untuk|Cocok karena/, {}, { timeout: 5_000 })).length).toBeGreaterThan(0);
-    const tombolBuat = screen.getByRole('button', { name: 'Buat Game Generator' });
-    await waitFor(() => expect(tombolBuat).toBeEnabled());
-    await pengguna.click(tombolBuat);
-    expect(await screen.findByRole('heading', { name: 'Game Bilangan Ceria' })).toBeVisible();
-    await pengguna.click(screen.getByRole('button', { name: /Uji butir pertama/ }));
-    await pengguna.click(screen.getByRole('button', { name: 'Setujui & simpan lokal' }));
-    expect(await screen.findByRole('link', { name: 'Mainkan game tersimpan' })).toBeVisible();
+    const tampilan = render(<MemoryRouter initialEntries={['/fitur/studio-ai']}><AuthProvider><AppRoutes/></AuthProvider></MemoryRouter>);
+
+    expect(await screen.findByRole('heading', { name: 'Menunggu Buku Referensi' })).toBeVisible();
+    expect(screen.queryByRole('option', { name: 'Game' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /Uji butir pertama/ })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Masukkan Buku Referensi' })).toHaveAttribute(
+      'href',
+      RUTE.bukuReferensi,
+    );
+    tampilan.unmount();
+    cleanup();
   }, 15_000);
 
   it('menghasilkan, meninjau, dan menyimpan LKPD, soal, serta materi', async () => {
     const akun = await buatAdminPertama(ADMIN);
     await masuk({ username: ADMIN.username, password: ADMIN.password, peran: 'admin' });
-    await simpanKonteksKurikulum(akun.id, { tingkat_kelas: 1, fase_kode: 'A', mapel_kode: 'MAT', cabang_kode: null, agama_kode: null, cp_id: 'CP-MAT-A', elemen_id: 'ELM-MAT-A-01', tp_id: 'TP-MAT-1-1.1', materi_id: null, referensi_id: null, referensi_bab_id: null });
+    const rantai = await semaiRantaiTpUji();
+    await simpanKonteksKurikulum(akun.id, { tingkat_kelas: 1, fase_kode: 'A', mapel_kode: 'MAT', cabang_kode: null, agama_kode: null, cp_id: rantai.cpId, elemen_id: rantai.elemenId, tp_id: rantai.tpId, materi_id: null, referensi_id: null, referensi_bab_id: null });
     vi.spyOn(globalThis, 'fetch').mockResolvedValue({ ok: true, status: 200, json: async () => ({ ok: true, hasil: { judul: 'Draf AI Lengkap', ringkasan: 'Ringkasan sesuai konteks.', butir: [{ pertanyaan: 'Jelaskan bilangan dua.', jawaban: 'Bilangan setelah satu.', pilihan: ['Bilangan setelah satu.', 'Bilangan setelah lima.'], pembahasan: 'Sesuai TP aktif.', rubrik: 'Jawaban tepat.' }] } }) } as Response);
 
     for (const [rute, label] of [
@@ -53,7 +52,8 @@ describe('Studio AI fungsional', () => {
     ] as const) {
       const pengguna = userEvent.setup();
       const tampilan = render(<MemoryRouter initialEntries={[rute]}><AuthProvider><AppRoutes/></AuthProvider></MemoryRouter>);
-      expect(await screen.findByRole('heading', { name: label })).toBeVisible();
+      const layar = await screen.findByTestId('studio-ai', {}, { timeout: 10_000 });
+      expect(within(layar).getByRole('heading', { name: label })).toBeVisible();
       const tombolBuat = await screen.findByRole('button', { name: `Buat ${label}` }, { timeout: 10_000 });
       await waitFor(() => expect(tombolBuat).toBeEnabled(), { timeout: 10_000 });
       await pengguna.click(tombolBuat);

@@ -546,3 +546,49 @@ export interface ReferensiSekolah {
   aktif: boolean;
   dipilih_oleh: string;
 }
+
+/**
+ * Zona 5 baru — Buku Referensi sekolah.
+ *
+ * Rantai: Kelas → Mata Pelajaran → Buku Referensi → Bab → Topik/Lingkup Materi.
+ * Seluruh tabel di bawah sengaja dibiarkan kosong sampai buku pelajaran resmi
+ * yang dipakai sekolah dimasukkan. CP, TP, kuis, game, LKPD, dan bank soal
+ * baru dibuat setelah pemetaan buku tersedia.
+ */
+export interface BukuReferensi {
+  id: string;
+  tingkat_kelas: number;
+  mapel_kode: string;
+  judul: string;
+  penulis: string;
+  penerbit: string;
+  tahun: string;
+  edisi: string;
+  isbn: string;
+  /** Buku utama yang dipakai guru untuk kelas + mapel ini. */
+  utama: boolean;
+  status: 'aktif' | 'arsip';
+  ditambahkan_oleh: string | null;
+  ditambahkan_pada: string;
+}
+
+export interface BukuBab {
+  id: string;
+  buku_id: string;
+  nomor_tampil: string;
+  judul_bab: string;
+  halaman_awal: number | null;
+  halaman_akhir: number | null;
+  urutan: number;
+}
+
+export interface BukuTopik {
+  id: string;
+  bab_id: string;
+  nomor_tampil: string;
+  judul_topik: string;
+  /** Lingkup materi ringkas sebagaimana tertulis pada buku. */
+  lingkup_materi: string;
+  halaman_awal: number | null;
+  urutan: number;
+}
