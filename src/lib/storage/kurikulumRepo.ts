@@ -7,6 +7,7 @@ import type {
   MataPelajaran,
 } from '../types';
 import { DATA_KURIKULUM_FINAL, VERSI_SEED_KURIKULUM } from '../kurikulum/kurikulumSeed';
+import { semaiReferensiMasterKelas5 } from '../referensi/kelas5MasterSeed';
 import { TOKO, jalankanTransaksi, kueri, type NamaToko } from './db';
 import { bacaPenanda, KUNCI_PERANGKAT, tulisPenanda } from './perangkatRepo';
 
@@ -60,22 +61,18 @@ export const KONTEKS_KURIKULUM_KOSONG: KonteksKurikulum = {
 
 let prosesSeed: Promise<void> | null = null;
 
-/**
- * Melepas penanda seed yang sedang berjalan.
- *
- * Dipakai saat basis data dihapus dan dibuat ulang (restore dan pengujian):
- * tanpa ini, pemanggil berikutnya dapat menempel pada janji seed milik basis
- * data lama sehingga basis data baru tidak pernah disemai.
- */
 export function lepaskanPenandaSeedKurikulum(): void {
   prosesSeed = null;
 }
 
-/** Seed idempoten dari dua dataset final repository. Tidak ada pemanggilan jaringan. */
+/** Seed idempoten struktur kurikulum dan referensi master Kelas 5. */
 export async function pastikanKurikulumTersedia(): Promise<void> {
   if (prosesSeed) return prosesSeed;
 
-  const operasi = semaiBilaPerlu();
+  const operasi = (async () => {
+    await semaiBilaPerlu();
+    await semaiReferensiMasterKelas5();
+  })();
   prosesSeed = operasi;
   try {
     await operasi;
@@ -109,13 +106,7 @@ async function semaiBilaPerlu(): Promise<void> {
 export async function bacaRingkasanKurikulum(): Promise<RingkasanKurikulum> {
   await pastikanKurikulumTersedia();
   return jalankanTransaksi(
-    [
-      TOKO.jenjangKelas,
-      TOKO.mataPelajaran,
-      TOKO.bukuReferensi,
-      TOKO.bukuBab,
-      TOKO.bukuTopik,
-    ],
+    [TOKO.jenjangKelas, TOKO.mataPelajaran, TOKO.bukuReferensi, TOKO.bukuBab, TOKO.bukuTopik],
     'readonly',
     async (toko) => {
       const [jumlahKelas, jumlahMapel, buku, jumlahBab, jumlahTopik] = await Promise.all([
@@ -152,12 +143,8 @@ export async function daftarKelas(): Promise<RingkasanKelas[]> {
         .map((baris) => ({
           tingkat: baris.tingkat,
           fase_kode: baris.fase_kode,
-          jumlahPilihanMapel: mapel.filter((item) =>
-            item.kelas_tersedia.includes(baris.tingkat),
-          ).length,
-          jumlahBuku: buku.filter(
-            (item) => item.status === 'aktif' && item.tingkat_kelas === baris.tingkat,
-          ).length,
+          jumlahPilihanMapel: mapel.filter((item) => item.kelas_tersedia.includes(baris.tingkat)).length,
+          jumlahBuku: buku.filter((item) => item.status === 'aktif' && item.tingkat_kelas === baris.tingkat).length,
         }));
     },
   );
@@ -179,12 +166,7 @@ export async function daftarMapelUntukKelas(tingkat: number): Promise<RingkasanM
       return mapel
         .filter((item) => item.kelas_tersedia.includes(tingkat))
         .map((item) => {
-          const bukuMapel = buku.filter(
-            (baris) =>
-              baris.status === 'aktif' &&
-              baris.tingkat_kelas === tingkat &&
-              baris.mapel_kode === item.kode,
-          );
+          const bukuMapel = buku.filter((baris) => baris.status === 'aktif' && baris.tingkat_kelas === tingkat && baris.mapel_kode === item.kode);
           const idBuku = new Set(bukuMapel.map((baris) => baris.id));
           const babMapel = bab.filter((baris) => idBuku.has(baris.buku_id));
           const idBab = new Set(babMapel.map((baris) => baris.id));
@@ -204,16 +186,9 @@ function kunciKonteks(akunId: string): string {
 }
 
 export async function bacaKonteksKurikulum(akunId: string): Promise<KonteksKurikulum> {
-  return (
-    (await bacaPenanda<KonteksKurikulum>(kunciKonteks(akunId))) ?? {
-      ...KONTEKS_KURIKULUM_KOSONG,
-    }
-  );
+  return ((await bacaPenanda<KonteksKurikulum>(kunciKonteks(akunId))) ?? { ...KONTEKS_KURIKULUM_KOSONG });
 }
 
-export async function simpanKonteksKurikulum(
-  akunId: string,
-  konteks: KonteksKurikulum,
-): Promise<void> {
+export async function simpanKonteksKurikulum(akunId: string, konteks: KonteksKurikulum): Promise<void> {
   await tulisPenanda(kunciKonteks(akunId), konteks);
 }
