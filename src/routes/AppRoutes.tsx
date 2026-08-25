@@ -19,6 +19,7 @@ import { Kelas5IpasHubScreen } from '../features/pembelajaran/Kelas5IpasHubScree
 import { Kelas5Bab1ContentScreen } from '../features/pembelajaran/Kelas5Bab1ContentScreen';
 import { Kelas5Bab2ContentScreen } from '../features/pembelajaran/Kelas5Bab2ContentScreen';
 import { Kelas5Bab3ContentScreen } from '../features/pembelajaran/Kelas5Bab3ContentScreen';
+import { Kelas5Bab4ContentScreen } from '../features/pembelajaran/Kelas5Bab4ContentScreen';
 import { FiturMenyusulScreen } from '../features/guru/FiturMenyusulScreen';
 import { MateriScreen } from '../features/pembelajaran/MateriScreen';
 import { PapanInteraktifScreen } from '../features/papan/PapanInteraktifScreen';
@@ -37,11 +38,13 @@ import { MenuLainnyaScreen } from '../features/guru/MenuLainnyaScreen';
 import { KatalogGameScreen } from '../features/game/KatalogGameScreen';
 import { GameKelas5Bab1Screen } from '../features/game/GameKelas5Bab1Screen';
 import { GameKelas5Bab3Screen } from '../features/game/GameKelas5Bab3Screen';
+import { GameKelas5Bab4Screen } from '../features/game/GameKelas5Bab4Screen';
 import { GameKelas5RunnerScreen } from '../features/game/GameKelas5RunnerScreen';
 import { KatalogVlabScreen } from '../features/vlab/KatalogVlabScreen';
 import { VlabRunnerScreen } from '../features/vlab/VlabRunnerScreen';
 import { VlabKelas5Bab2Screen } from '../features/vlab/VlabKelas5Bab2Screen';
 import { VlabKelas5Bab3Screen } from '../features/vlab/VlabKelas5Bab3Screen';
+import { VlabKelas5Bab4Screen } from '../features/vlab/VlabKelas5Bab4Screen';
 import { KelolaAkunScreen } from '../features/auth/KelolaAkunScreen';
 import { TentangAplikasiScreen } from '../features/pelengkap/TentangAplikasiScreen';
 import { AiStudioScreen } from '../features/ai/AiStudioScreen';
@@ -77,10 +80,12 @@ export function AppRoutes() {
         <Route path={RUTE.game} element={<KatalogGameScreen />} />
         <Route path={`${RUTE.game}/kelas5-bab1/:gameKode`} element={<GameKelas5Bab1Screen />} />
         <Route path={`${RUTE.game}/kelas5-bab3/:gameKode`} element={<GameKelas5Bab3Screen />} />
+        <Route path={`${RUTE.game}/kelas5-bab4/:gameKode`} element={<GameKelas5Bab4Screen />} />
         <Route path={`${RUTE.game}/:gameKode`} element={<GameKelas5RunnerScreen />} />
         <Route path={RUTE.vlab} element={<KatalogVlabScreen />} />
         <Route path={`${RUTE.vlab}/kelas5-bab2/:labKode`} element={<VlabKelas5Bab2Screen />} />
         <Route path={`${RUTE.vlab}/kelas5-bab3/:labKode`} element={<VlabKelas5Bab3Screen />} />
+        <Route path={`${RUTE.vlab}/kelas5-bab4/:labKode`} element={<VlabKelas5Bab4Screen />} />
         <Route path="/pembelajaran/kuis" element={<Kelas5IpasHubScreen />} />
         <Route path="/pembelajaran/lkpd" element={<Kelas5IpasHubScreen />} />
         <Route path="/pembelajaran/bank-soal" element={<Kelas5IpasHubScreen />} />
@@ -93,6 +98,9 @@ export function AppRoutes() {
         <Route path="/pembelajaran/kuis/kelas5-ipas-bab3" element={<Kelas5Bab3ContentScreen />} />
         <Route path="/pembelajaran/lkpd/kelas5-ipas-bab3" element={<Kelas5Bab3ContentScreen />} />
         <Route path="/pembelajaran/bank-soal/kelas5-ipas-bab3" element={<Kelas5Bab3ContentScreen />} />
+        <Route path="/pembelajaran/kuis/kelas5-ipas-bab4" element={<Kelas5Bab4ContentScreen />} />
+        <Route path="/pembelajaran/lkpd/kelas5-ipas-bab4" element={<Kelas5Bab4ContentScreen />} />
+        <Route path="/pembelajaran/bank-soal/kelas5-ipas-bab4" element={<Kelas5Bab4ContentScreen />} />
         <Route path="/pembelajaran/:jenis" element={<FiturPembelajaranScreen />} />
         <Route path="/fitur/pembuat-lkpd" element={<AiStudioScreen />} />
         <Route path="/fitur/pembuat-soal" element={<AiStudioScreen />} />
