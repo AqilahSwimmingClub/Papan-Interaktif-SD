@@ -34,6 +34,7 @@ import { KatalogGameScreen } from '../features/game/KatalogGameScreen';
 import { GameKelas5RunnerScreen } from '../features/game/GameKelas5RunnerScreen';
 import { KatalogVlabScreen } from '../features/vlab/KatalogVlabScreen';
 import { VlabRunnerScreen } from '../features/vlab/VlabRunnerScreen';
+import { VlabKelas5Bab2Screen } from '../features/vlab/VlabKelas5Bab2Screen';
 import { KelolaAkunScreen } from '../features/auth/KelolaAkunScreen';
 import { TentangAplikasiScreen } from '../features/pelengkap/TentangAplikasiScreen';
 import { AiStudioScreen } from '../features/ai/AiStudioScreen';
@@ -69,6 +70,7 @@ export function AppRoutes() {
         <Route path={RUTE.game} element={<KatalogGameScreen />} />
         <Route path={`${RUTE.game}/:gameKode`} element={<GameKelas5RunnerScreen />} />
         <Route path={RUTE.vlab} element={<KatalogVlabScreen />} />
+        <Route path={`${RUTE.vlab}/kelas5-bab2/:labKode`} element={<VlabKelas5Bab2Screen />} />
         <Route path="/pembelajaran/:jenis" element={<FiturPembelajaranScreen />} />
         <Route path="/fitur/pembuat-lkpd" element={<AiStudioScreen />} />
         <Route path="/fitur/pembuat-soal" element={<AiStudioScreen />} />
