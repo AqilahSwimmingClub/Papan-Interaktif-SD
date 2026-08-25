@@ -1,0 +1,53 @@
+import { useMemo, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { RUTE } from '../../routes/paths';
+import './game.css';
+
+export const GAME_KELAS5_IPAS_BAB1 = [
+  { kode:'ray-path', judul:'Ray Path Challenge', ikon:'🔦', topik:'Cahaya dan Sifatnya', tujuan:'Menentukan lintasan cahaya berdasarkan sifat cahaya merambat lurus.', mekanik:'Susun lintasan' },
+  { kode:'mirror-aim', judul:'Mirror Aim', ikon:'🪞', topik:'Cahaya dan Sifatnya', tujuan:'Mengarahkan cahaya pantul ke target dengan memilih posisi cermin yang tepat.', mekanik:'Target pantulan' },
+  { kode:'eye-lab-game', judul:'Eye Detective', ikon:'👁️', topik:'Melihat karena Cahaya', tujuan:'Menyusun urutan sederhana bagaimana cahaya membantu kita melihat benda.', mekanik:'Urutan proses' },
+  { kode:'sound-hunt', judul:'Sound Hunt', ikon:'🔊', topik:'Bunyi dan Sifatnya', tujuan:'Mencocokkan sumber getaran dengan bunyi dan medium perambatannya.', mekanik:'Matching cepat' },
+  { kode:'ear-rescue', judul:'Ear Rescue', ikon:'👂', topik:'Mendengar karena Bunyi', tujuan:'Menyusun perjalanan bunyi dari sumber hingga diterima sistem pendengaran.', mekanik:'Misi berantai' },
+] as const;
+
+type Bab1Kode = typeof GAME_KELAS5_IPAS_BAB1[number]['kode'];
+
+function RayPathChallenge(){
+  const target=['Senter','Lubang A','Lubang B','Layar'];
+  const opsi=['Layar','Lubang B','Senter','Lubang A'];
+  const [isi,setIsi]=useState<string[]>([]); const [pesan,setPesan]=useState('Sentuh bagian lintasan secara berurutan.');
+  function pilih(x:string){ if(x===target[isi.length]){const baru=[...isi,x];setIsi(baru);setPesan(baru.length===target.length?'🏆 Berkas cahaya sampai ke layar karena jalurnya lurus.':'✅ Lanjutkan lintasan cahaya.');}else setPesan('❌ Jalur belum tepat. Cahaya dari senter harus melewati lubang yang segaris.'); }
+  return <section className="game5-arena"><h2>Bangun lintasan cahaya</h2><div className="game5-chain">{target.map((x,i)=><span key={x} className={i<isi.length?'aktif':''}>{i<isi.length?x:'❔'}</span>)}</div><div className="game5-choice">{opsi.map(x=><button key={x} disabled={isi.includes(x)} onClick={()=>pilih(x)}>{x}</button>)}</div><p className="game5-feedback">{pesan}</p><strong>Progres {isi.length}/4</strong></section>;
+}
+
+function MirrorAim(){
+  const [sudut,setSudut]=useState(0); const tepat=sudut===45;
+  return <section className="game5-arena"><h2>Arahkan sinar pantul ke target</h2><div className="game5-world">🔦 ➜ {sudut===45?'🪞 ↗ 🎯':'🪞  ·  🎯'}</div><label className="game5-slider">Sudut cermin <input type="range" min="0" max="90" step="15" value={sudut} onChange={e=>setSudut(Number(e.target.value))}/><b>{sudut}°</b></label><p className="game5-feedback">{tepat?'🏆 Target terkena! Arah pantulan berubah ketika posisi cermin berubah.':'Putar cermin sampai sinar pantul mengenai target.'}</p></section>;
+}
+
+function EyeDetective(){
+  const urutan=['💡 Sumber cahaya','📘 Benda terkena cahaya','↩️ Cahaya dipantulkan benda','👁️ Cahaya masuk ke mata','🧠 Informasi diproses']; const acak=['🧠 Informasi diproses','👁️ Cahaya masuk ke mata','📘 Benda terkena cahaya','💡 Sumber cahaya','↩️ Cahaya dipantulkan benda']; const [n,setN]=useState(0); const [pesan,setPesan]=useState('Mulai dari sumber cahaya.');
+  return <section className="game5-arena"><h2>Bagaimana kita dapat melihat?</h2><div className="game5-chain">{urutan.map((x,i)=><span key={x} className={i<n?'aktif':''}>{i<n?x:'❔'}</span>)}</div><div className="game5-choice game5-choice--text">{acak.map(x=><button key={x} disabled={urutan.indexOf(x)<n} onClick={()=>{if(x===urutan[n]){setN(n+1);setPesan(n+1===urutan.length?'🏆 Urutan proses melihat lengkap!':'✅ Benar, lanjutkan.');}else setPesan('❌ Belum tepat. Perhatikan aliran cahaya sebelum informasi diproses.');}}>{x}</button>)}</div><p className="game5-feedback">{pesan}</p></section>;
+}
+
+function SoundHunt(){
+  const ronde=[
+    {q:'Senar gitar dipetik. Apa yang menjadi sumber bunyi?',opsi:['Getaran senar','Udara diam','Cahaya'],a:'Getaran senar'},
+    {q:'Bunyi percakapan sampai ke telinga melalui...',opsi:['Udara','Cahaya','Bayangan'],a:'Udara'},
+    {q:'Di ruang hampa, bunyi dari alarm akan...',opsi:['Tidak merambat seperti melalui medium','Makin keras','Berubah menjadi cahaya'],a:'Tidak merambat seperti melalui medium'},
+  ]; const [i,setI]=useState(0); const [skor,setSkor]=useState(0); const r=ronde[Math.min(i,ronde.length-1)];
+  return <section className="game5-arena"><h2>Sound Hunt</h2>{i<ronde.length?<><div className="game5-target">{r.q}</div><div className="game5-choice game5-choice--text">{r.opsi.map(x=><button key={x} onClick={()=>{if(x===r.a)setSkor(skor+100);setI(i+1)}}>{x}</button>)}</div></>:<div className="game5-feedback">🏆 Misi selesai. Skor {skor}/{ronde.length*100}</div>}<p className="game5-feedback">Bunyi berasal dari getaran dan memerlukan medium untuk merambat.</p></section>;
+}
+
+function EarRescue(){
+  const langkah=['🔔 Sumber bergetar','〰️ Bunyi merambat','👂 Daun telinga menangkap bunyi','🥁 Gendang telinga bergetar','🧠 Informasi diterima']; const [n,setN]=useState(0); const opsi=useMemo(()=>[...langkah].reverse(),[]);
+  return <section className="game5-arena"><h2>Selamatkan pesan bunyi</h2><div className="game5-chain">{langkah.map((x,i)=><span key={x} className={i<n?'aktif':''}>{i<n?x:'❔'}</span>)}</div><div className="game5-choice game5-choice--text">{opsi.map(x=><button key={x} disabled={langkah.indexOf(x)<n} onClick={()=>{if(x===langkah[n])setN(n+1)}}>{x}</button>)}</div><p className="game5-feedback">{n===langkah.length?'🏆 Pesan bunyi berhasil diteruskan sampai dipahami.':'Pilih tahap berikutnya dari perjalanan bunyi.'}</p></section>;
+}
+
+export function GameKelas5Bab1Screen(){
+ const { gameKode }=useParams(); const p=GAME_KELAS5_IPAS_BAB1.find(x=>x.kode===gameKode) as typeof GAME_KELAS5_IPAS_BAB1[number] | undefined;
+ if(!p)return <main className="game5-runner"><Link to={RUTE.game}>← Kembali</Link><h1>Game tidak ditemukan</h1></main>;
+ const isi:Record<Bab1Kode,JSX.Element>={'ray-path':<RayPathChallenge/>,'mirror-aim':<MirrorAim/>,'eye-lab-game':<EyeDetective/>,'sound-hunt':<SoundHunt/>,'ear-rescue':<EarRescue/>};
+ return <main className="game5-runner"><header className="game5-header"><Link to={RUTE.game}>←</Link><div><small>IPAS Kelas V · Bab 1 · {p.topik}</small><h1>{p.ikon} {p.judul}</h1><p>{p.tujuan}</p></div></header>{isi[p.kode]}</main>;
+}
