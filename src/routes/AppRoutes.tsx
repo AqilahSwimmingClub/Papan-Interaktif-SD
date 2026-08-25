@@ -15,6 +15,7 @@ import { PilihKelasScreen } from '../features/kurikulum/PilihKelasScreen';
 import { PilihMapelScreen } from '../features/kurikulum/PilihMapelScreen';
 import { StrukturMapelScreen } from '../features/kurikulum/StrukturMapelScreen';
 import { FiturPembelajaranScreen } from '../features/pembelajaran/FiturPembelajaranScreen';
+import { Kelas5Bab1ContentScreen } from '../features/pembelajaran/Kelas5Bab1ContentScreen';
 import { Kelas5Bab2ContentScreen } from '../features/pembelajaran/Kelas5Bab2ContentScreen';
 import { FiturMenyusulScreen } from '../features/guru/FiturMenyusulScreen';
 import { MateriScreen } from '../features/pembelajaran/MateriScreen';
@@ -32,6 +33,7 @@ import { StrukturKurikulumScreen } from '../features/kurikulum/StrukturKurikulum
 import { BukuReferensiScreen } from '../features/kurikulum/BukuReferensiScreen';
 import { MenuLainnyaScreen } from '../features/guru/MenuLainnyaScreen';
 import { KatalogGameScreen } from '../features/game/KatalogGameScreen';
+import { GameKelas5Bab1Screen } from '../features/game/GameKelas5Bab1Screen';
 import { GameKelas5RunnerScreen } from '../features/game/GameKelas5RunnerScreen';
 import { KatalogVlabScreen } from '../features/vlab/KatalogVlabScreen';
 import { VlabRunnerScreen } from '../features/vlab/VlabRunnerScreen';
@@ -69,9 +71,13 @@ export function AppRoutes() {
         <Route path={RUTE.bukuReferensi} element={<BukuReferensiScreen />} />
         <Route path={RUTE.lainnya} element={<MenuLainnyaScreen />} />
         <Route path={RUTE.game} element={<KatalogGameScreen />} />
+        <Route path={`${RUTE.game}/kelas5-bab1/:gameKode`} element={<GameKelas5Bab1Screen />} />
         <Route path={`${RUTE.game}/:gameKode`} element={<GameKelas5RunnerScreen />} />
         <Route path={RUTE.vlab} element={<KatalogVlabScreen />} />
         <Route path={`${RUTE.vlab}/kelas5-bab2/:labKode`} element={<VlabKelas5Bab2Screen />} />
+        <Route path="/pembelajaran/kuis/kelas5-ipas-bab1" element={<Kelas5Bab1ContentScreen />} />
+        <Route path="/pembelajaran/lkpd/kelas5-ipas-bab1" element={<Kelas5Bab1ContentScreen />} />
+        <Route path="/pembelajaran/bank-soal/kelas5-ipas-bab1" element={<Kelas5Bab1ContentScreen />} />
         <Route path="/pembelajaran/kuis" element={<Kelas5Bab2ContentScreen />} />
         <Route path="/pembelajaran/lkpd" element={<Kelas5Bab2ContentScreen />} />
         <Route path="/pembelajaran/bank-soal" element={<Kelas5Bab2ContentScreen />} />
