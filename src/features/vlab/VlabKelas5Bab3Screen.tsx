@@ -1,0 +1,26 @@
+import { useMemo, useState, type ReactNode } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { RUTE } from '../../routes/paths';
+import './vlab.css';
+
+export const VLAB_KELAS5_IPAS_BAB3 = [
+  { kode:'magnet-force', nama:'Magnet Force Lab', ikon:'🧲', topik:'Apa dan Untuk Apa Magnet Diciptakan?', tujuan:'Mengamati perubahan gaya magnet saat jarak dan kutub diubah.' },
+  { kode:'electromagnet', nama:'Electromagnet Lab', ikon:'🌀', topik:'Apa dan Untuk Apa Magnet Diciptakan?', tujuan:'Mengamati pengaruh jumlah lilitan dan baterai pada kekuatan elektromagnet.' },
+  { kode:'circuit-test', nama:'Circuit Test Lab', ikon:'💡', topik:'Bagaimana Cara Mendapatkan Energi Listrik?', tujuan:'Menguji rangkaian tertutup dan terbuka.' },
+  { kode:'conductor-test', nama:'Conductor Tester', ikon:'🔌', topik:'Bagaimana Cara Mendapatkan Energi Listrik?', tujuan:'Membandingkan bahan yang dapat dan tidak dapat menghantarkan listrik pada model.' },
+  { kode:'energy-transform', nama:'Energy Transformation Lab', ikon:'⚡', topik:'Teknologi untuk Kehidupan', tujuan:'Mengamati perubahan energi listrik menjadi cahaya, gerak, atau bunyi.' },
+] as const;
+
+type Kode = typeof VLAB_KELAS5_IPAS_BAB3[number]['kode'];
+
+function MagnetForce(){ const [jarak,setJarak]=useState(4); const [kutub,setKutub]=useState<'sama'|'beda'>('beda'); const gaya=Math.max(5,Math.round(100/(jarak*jarak))); return <div className="vlab5-stage"><div className="vlab5-scene">🧲 {kutub==='beda'?'N   S':'N   N'} 🧲</div><label>Jarak magnet <input type="range" min="1" max="10" value={jarak} onChange={e=>setJarak(Number(e.target.value))}/><b>{jarak} cm</b></label><div className="vlab5-controls"><button onClick={()=>setKutub('beda')}>Kutub berbeda</button><button onClick={()=>setKutub('sama')}>Kutub sama</button></div><p className="vlab5-observe">Arah gaya: <b>{kutub==='beda'?'tarik':'tolak'}</b> · kekuatan relatif: <b>{gaya}</b>. Pada model ini, gaya melemah ketika jarak diperbesar.</p></div>; }
+
+function Electromagnet(){ const [lilit,setLilit]=useState(20); const [baterai,setBaterai]=useState(1); const kuat=lilit*baterai; const klip=Math.min(12,Math.round(kuat/20)); return <div className="vlab5-stage"><div className="vlab5-scene">🔋〰️🌀🔩 → {'📎'.repeat(klip)}</div><label>Jumlah lilitan <input type="range" min="10" max="80" step="10" value={lilit} onChange={e=>setLilit(Number(e.target.value))}/><b>{lilit}</b></label><label>Jumlah baterai <input type="range" min="1" max="3" value={baterai} onChange={e=>setBaterai(Number(e.target.value))}/><b>{baterai}</b></label><p className="vlab5-observe">Indikator kekuatan elektromagnet: {kuat}. Model mengangkat sekitar {klip} klip. Bandingkan hasil saat lilitan atau jumlah baterai diubah.</p></div>; }
+
+function CircuitTest(){ const [saklar,setSaklar]=useState(false); const [lengkap,setLengkap]=useState(true); const nyala=saklar&&lengkap; return <div className="vlab5-stage"><div className="vlab5-scene">🔋 〰️ {saklar?'🔘':'⭕'} 〰️ {nyala?'💡':'⚫'} 〰️</div><div className="vlab5-controls"><button onClick={()=>setSaklar(!saklar)}>{saklar?'Buka':'Tutup'} saklar</button><button onClick={()=>setLengkap(!lengkap)}>{lengkap?'Putus':'Sambung'} kabel</button></div><p className="vlab5-observe">{nyala?'💡 Lampu menyala karena jalur rangkaian tertutup.':'Lampu tidak menyala. Periksa apakah saklar tertutup dan jalur kabel lengkap.'}</p></div>; }
+
+function ConductorTest(){ const bahan=useMemo(()=>[{n:'Besi',ok:true},{n:'Aluminium',ok:true},{n:'Kayu',ok:false},{n:'Plastik',ok:false},{n:'Karet',ok:false}],[]); const [pilih,setPilih]=useState(0); const x=bahan[pilih]; return <div className="vlab5-stage"><div className="vlab5-scene">🔋 〰️ [{x.n}] 〰️ {x.ok?'💡':'⚫'}</div><div className="vlab5-components">{bahan.map((b,i)=><button key={b.n} className={i===pilih?'aktif':''} onClick={()=>setPilih(i)}>{b.n}</button>)}</div><p className="vlab5-observe">Pada model rangkaian ini, {x.n} {x.ok?'menghantarkan listrik sehingga lampu menyala':'tidak menghantarkan listrik sehingga lampu tidak menyala'}.</p></div>; }
+
+function EnergyTransform(){ const alat=useMemo(()=>[{n:'Lampu',ikon:'💡',hasil:'cahaya'},{n:'Kipas',ikon:'🌀',hasil:'gerak'},{n:'Buzzer',ikon:'🔔',hasil:'bunyi'}],[]); const [i,setI]=useState(0); const x=alat[i]; return <div className="vlab5-stage"><div className="vlab5-scene">🔋 ⚡ → {x.ikon}</div><div className="vlab5-components">{alat.map((a,n)=><button key={a.n} className={n===i?'aktif':''} onClick={()=>setI(n)}>{a.ikon} {a.n}</button>)}</div><p className="vlab5-observe">Energi listrik pada model diubah menjadi energi {x.hasil}. Ganti alat untuk membandingkan hasil transformasi energi.</p></div>; }
+
+export function VlabKelas5Bab3Screen(){ const { labKode }=useParams(); const p=VLAB_KELAS5_IPAS_BAB3.find(x=>x.kode===labKode); if(!p)return <main className="halaman-vlab"><Link to={RUTE.vlab}>← Kembali</Link><h1>VLAB tidak ditemukan</h1></main>; const isi:Record<Kode,ReactNode>={'magnet-force':<MagnetForce/>,'electromagnet':<Electromagnet/>,'circuit-test':<CircuitTest/>,'conductor-test':<ConductorTest/>,'energy-transform':<EnergyTransform/>}; return <main className="vlab5-runner"><header><Link to={RUTE.vlab}>←</Link><div><small>IPAS Kelas V · Bab 3 · {p.topik}</small><h1>{p.ikon} {p.nama}</h1><p>{p.tujuan}</p></div></header>{isi[p.kode]}</main>; }
